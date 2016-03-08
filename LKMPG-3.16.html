@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-03-08 Tue 11:30 -->
+<!-- 2016-03-08 Tue 12:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -180,7 +180,7 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline10">Introduction</a>
+<li><a href="#orgheadline11">Introduction</a>
 <ul>
 <li><a href="#orgheadline1">Obtaining the Debian kernel</a></li>
 <li><a href="#orgheadline2">What Is A Kernel Module?</a></li>
@@ -188,25 +188,20 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline4">What Modules are in my Kernel?</a></li>
 <li><a href="#orgheadline5">How Do I Install Modules Into The Kernel?</a>
 <ul>
-<li><a href="#orgheadline6">Before We Begin</a></li>
+<li><a href="#orgheadline6">Header files</a></li>
+<li><a href="#orgheadline7">Before We Begin</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a href="#orgheadline30">Hello World</a>
 <ul>
-<li><a href="#orgheadline11">Hello, World (part 1): The Simplest Module</a>
+<li><a href="#orgheadline12">Hello, World (part 1): The Simplest Module</a>
 <ul>
-<li><a href="#orgheadline12">Example: hello-1.c</a></li>
+<li><a href="#orgheadline13">Example: hello-1.c</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline13">Introducing printk()</a></li>
-<li><a href="#orgheadline14">Compiling Kernel Modules</a>
-<ul>
-<li><a href="#orgheadline15">Example: Makefile for a basic kernel module</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline16">Hello World (part 2)</a>
+<li><a href="#orgheadline16">Hello World (part 2): Hello and Goodbye</a>
 <ul>
 <li><a href="#orgheadline17">Example: hello-2.c</a></li>
 <li><a href="#orgheadline18">Example: Makefile for both our modules</a></li>
@@ -405,9 +400,9 @@ The source code and discussions should apply to most architectures, but I can't 
 The following people have contributed corrections or good suggestions: Ignacio Martin, David Porter, Daniele Paolo Scarpazza, Dimo Velev, Francois Audeon, Horst Schirmeier and Bob Mottram.
 </p>
 
-<div id="outline-container-orgheadline10" class="outline-2">
-<h2 id="orgheadline10">Introduction</h2>
-<div class="outline-text-2" id="text-orgheadline10">
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11">Introduction</h2>
+<div class="outline-text-2" id="text-orgheadline11">
 </div><div id="outline-container-orgheadline1" class="outline-3">
 <h3 id="orgheadline1">Obtaining the Debian kernel</h3>
 <div class="outline-text-3" id="text-orgheadline1">
@@ -564,8 +559,34 @@ Now you know how modules get into the kernel. There's a bit more to the story if
 </div>
 
 <div id="outline-container-orgheadline6" class="outline-4">
-<h4 id="orgheadline6">Before We Begin</h4>
+<h4 id="orgheadline6">Header files</h4>
 <div class="outline-text-4" id="text-orgheadline6">
+<p>
+Before you can compile anything you'll need the header files for your current kernel.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo apt-get update
+apt-cache search linux-headers-$(<span class="org-sh-quoted-exec">uname</span> -r)
+</pre>
+</div>
+
+<p>
+This will tell you what kernel header files are available. Then for example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo apt-get install linux-headers-3.16.0-4-amd64
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-4">
+<h4 id="orgheadline7">Before We Begin</h4>
+<div class="outline-text-4" id="text-orgheadline7">
 <p>
 Before we delve into code, there are a few issues we need to cover.
 Everyone's system is different and everyone has their own groove. Getting
@@ -575,7 +596,7 @@ for the first time, it will be smooth sailing thereafter.
 </p>
 </div>
 
-<ul class="org-ul"><li><a id="orgheadline7"></a>Modversioning<br  /><div class="outline-text-5" id="text-orgheadline7">
+<ul class="org-ul"><li><a id="orgheadline8"></a>Modversioning<br  /><div class="outline-text-5" id="text-orgheadline8">
 <p>
 A module compiled for one kernel won't load if you boot a different kernel
 unless you enable CONFIG_MODVERSIONS in the kernel. We won't go into module
@@ -587,7 +608,7 @@ versioning errors, compile a kernel with modversioning turned off.
 </p>
 </div></li>
 
-<li><a id="orgheadline8"></a>Using X<br  /><div class="outline-text-5" id="text-orgheadline8">
+<li><a id="orgheadline9"></a>Using X<br  /><div class="outline-text-5" id="text-orgheadline9">
 <p>
 It is highly recommended that you type in, compile and load all the examples
 this guide discusses. It's also highly recommended you do this from a
@@ -604,7 +625,7 @@ information, do all your work from the console.
 </p>
 </div></li>
 
-<li><a id="orgheadline9"></a>Compiling Issues and Kernel Version<br  /><div class="outline-text-5" id="text-orgheadline9">
+<li><a id="orgheadline10"></a>Compiling Issues and Kernel Version<br  /><div class="outline-text-5" id="text-orgheadline10">
 <p>
 Very often, Linux distros will distribute kernel source that has been patched
 in various non-standard ways, which may cause trouble.
@@ -637,9 +658,9 @@ by using gcc's -I switch.
 <div id="outline-container-orgheadline30" class="outline-2">
 <h2 id="orgheadline30">Hello World</h2>
 <div class="outline-text-2" id="text-orgheadline30">
-</div><div id="outline-container-orgheadline11" class="outline-3">
-<h3 id="orgheadline11">Hello, World (part 1): The Simplest Module</h3>
-<div class="outline-text-3" id="text-orgheadline11">
+</div><div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12">Hello, World (part 1): The Simplest Module</h3>
+<div class="outline-text-3" id="text-orgheadline12">
 <p>
 When the first caveman programmer chiseled the first program on the walls of the first cave computer, it was a program to paint the string `Hello, world' in Antelope pictures. Roman programming textbooks began with the `Salut, Mundi' program. I don't know what happens to people who break with this tradition, but I think it's safer not to find out. We'll start with a series of hello world programs that demonstrate the different aspects of the basics of writing a kernel module.
 </p>
@@ -649,9 +670,24 @@ Here's the simplest module possible. Don't compile it yet; we'll cover module co
 </p>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-4">
-<h4 id="orgheadline12">Example: hello-1.c</h4>
-<div class="outline-text-4" id="text-orgheadline12">
+<div id="outline-container-orgheadline13" class="outline-4">
+<h4 id="orgheadline13">Example: hello-1.c</h4>
+<div class="outline-text-4" id="text-orgheadline13">
+<p>
+Make a test directory:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">mkdir -p ~/develop/kernel/hello-1
+<span class="org-builtin">cd</span> ~/develop/kernel/hello-1
+</pre>
+</div>
+
+<p>
+Paste this into you favourite editor and save it as <b>hello-1.c</b>:
+</p>
+
 <div class="org-src-container">
 
 <pre class="src src-c"><span class="org-comment-delimiter">/*</span>
@@ -678,54 +714,9 @@ Here's the simplest module possible. Don't compile it yet; we'll cover module co
 </div>
 
 <p>
-Kernel modules must have at least two functions: a "start" (initialization) function called init_module() which is called when the module is insmoded into the kernel, and an "end" (cleanup) function called cleanup_module() which is called just before it is rmmoded. Actually, things have changed starting with kernel 2.3.13. You can now use whatever name you like for the
-start and end functions of a module, and you'll learn how to do this in Section 2.3. In fact, the new method is the preferred method. However, many people still use init_module() and cleanup_module() for their start and end functions.
+Now you'll need a Makefile. If you copy and paste this change the indentation to use tabs, not spaces.
 </p>
 
-<p>
-Typically, init_module() either registers a handler for something with the kernel, or it replaces one of the kernel functions with its own code (usually code to do something and then call the original function). The cleanup_module() function is supposed to undo whatever init_module() did, so the module can be unloaded safely.
-</p>
-
-<p>
-Lastly, every kernel module needs to include linux/module.h. We needed to include linux/kernel.h only for the macro expansion for the printk() log level, KERN_ALERT, which you'll learn about in Section 2.1.1.
-</p>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgheadline13" class="outline-3">
-<h3 id="orgheadline13">Introducing printk()</h3>
-<div class="outline-text-3" id="text-orgheadline13">
-<p>
-Despite what you might think, printk() was not meant to communicate
-information to the user, even though we used it for exactly this purpose in hello-1! It happens to be a logging mechanism for the kernel, and is used to log information or give warnings. Therefore, each printk() statement comes with a priority, which is the &lt;1&gt; and KERN_ALERT you see. There are 8 priorities and the kernel has macros for them, so you don't have to use cryptic numbers, and you can view them (and their meanings) in linux/kernel.h. If you don't specify a priority level, the default priority, DEFAULT_MESSAGE_LOGLEVEL, will be used.
-</p>
-
-<p>
-Take time to read through the priority macros. The header file also describes what each priority means. In practise, don't use number, like &lt;4&gt;. Always use the macro, like KERN_WARNING.
-</p>
-
-<p>
-If the priority is less than int console_loglevel, the message is printed on your current terminal. If both syslogd and klogd are running, then the message will also get appended to <b>/var/log/messages</b>, whether it got printed to the console or not. We use a high priority, like KERN_ALERT, to make sure the printk() messages get printed to your console rather than just logged to your logfile. When you write real modules, you'll want to use priorities that are meaningful for the situation at hand.
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgheadline14" class="outline-3">
-<h3 id="orgheadline14">Compiling Kernel Modules</h3>
-<div class="outline-text-3" id="text-orgheadline14">
-<p>
-Kernel modules need to be compiled a bit differently from regular userspace apps. Former kernel versions required us to care much about these settings, which are usually stored in Makefiles. Although hierarchically organized, many redundant settings accumulated in sublevel Makefiles and made them large and rather difficult to maintain. Fortunately, there is a new way of doing these things, called kbuild, and the build process for external loadable modules is now fully integrated into the standard kernel build mechanism. To learn more on how to compile modules which are not part of the official kernel (such as all the examples you'll find in this guide), see file linux/ Documentation/kbuild/modules.txt.
-</p>
-
-<p>
-So, let's look at a simple Makefile for compiling a module named hello-1.c:
-</p>
-</div>
-
-<div id="outline-container-orgheadline15" class="outline-4">
-<h4 id="orgheadline15">Example: Makefile for a basic kernel module</h4>
-<div class="outline-text-4" id="text-orgheadline15">
 <div class="org-src-container">
 
 <pre class="src src-makefile"><span class="org-variable-name">obj-m</span> += hello-1.o
@@ -739,95 +730,130 @@ So, let's look at a simple Makefile for compiling a module named hello-1.c:
 </div>
 
 <p>
-From a technical point of view just the first line is really necessary, the "all" and "clean" targets were added for pure convenience.
-</p>
-
-<p>
-Now you can compile the module by issuing the command make . You should obtain an output which resembles the following:
-</p>
-
-
-<div class="org-src-container">
-
-<pre class="src src-sh">hostname:~/lkmpg-examples/02-HelloWorld# make
-make -C /lib/modules/2.6.11/build <span class="org-variable-name">M</span>=/root/lkmpg-examples/02-HelloWorld modules
-make[1]: Entering directory <span class="org-sh-quoted-exec">`/usr/src/linux-2.6.11'</span>
-<span class="org-sh-quoted-exec">  CC [M]  /root/lkmpg-examples/02-HelloWorld/hello-1.o</span>
-<span class="org-sh-quoted-exec"> Building modules, stage 2.</span>
-<span class="org-sh-quoted-exec">  MODPOST</span>
-<span class="org-sh-quoted-exec">  CC      /root/lkmpg-examples/02-HelloWorld/hello-1.mod.o</span>
-<span class="org-sh-quoted-exec">  LD [M]  /root/lkmpg-examples/02-HelloWorld/hello-1.ko</span>
-<span class="org-sh-quoted-exec">make[1]: Leaving directory `</span>/usr/src/linux-2.6.11<span class="org-string">'</span>
-<span class="org-string">hostname:~/lkmpg-examples/02-HelloWorld#</span>
-</pre>
-</div>
-
-<p>
-Note that kernel 2.6 introduces a new file naming convention: kernel modules now have a .ko extension (in place of the old .o extension) which easily distinguishes them from conventional object files. The reason for this is that they contain an additional .modinfo section that where additional information about the module is kept. We'll soon see what this information is good for.
-</p>
-
-<p>
-Use modinfo hello-*.ko to see what kind of information it is.
+And finally just:
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-sh">hostname:~/lkmpg-examples/02-HelloWorld# modinfo hello-1.ko
-filename:       hello-1.ko
-vermagic:       2.6.11 preempt PENTIUMII 4KSTACKS gcc-3.3
-depends:
+<pre class="src src-sh">make
 </pre>
 </div>
 
 <p>
-Nothing spectacular, so far. That changes once we're using modinfo on one of our the later examples, hello-5.ko .
+If all goes smoothly you should then find that you have a compiled <b>hello-1.ko</b> module. You can find info on it with the command:
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-sh">hostname:~/lkmpg-examples/02-HelloWorld# modinfo hello-5.ko
-filename:       hello-5.ko
-license:        GPL
-author:         Peter Jay Salzman
-vermagic:       2.6.11 preempt PENTIUMII 4KSTACKS gcc-3.3
-depends:
-parm:           myintArray:An array of integers (array of int)
-parm:           mystring:A character string (charp)
-parm:           mylong:A long integer (long)
-parm:           myint:An integer (int)
-parm:           myshort:A short integer (short)
-hostname:~/lkmpg-examples/02-HelloWorld#
+<pre class="src src-sh">sudo modinfo hello-1.ko
 </pre>
 </div>
 
 <p>
-Lot's of useful information to see here. An author string for bugreports, license information, even a short description of the parameters it accepts.
+At this point the command:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo lsmod | grep hello
+</pre>
+</div>
+
+<p>
+should return nothing. You can try loading your shiny new module with:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo insmod hello-1.ko
+</pre>
+</div>
+
+<p>
+The dash character will get converted to an underscore, so when you again try:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo lsmod | grep hello
+</pre>
+</div>
+
+<p>
+you should now see your loaded module. It can be removed again with:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo rmmod hello_1
+</pre>
+</div>
+
+<p>
+To see what just happened in the logs:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo tail /var/log/messages | grep kernel
+</pre>
+</div>
+
+<p>
+You now know the basics of creating, compiling, installing and removing modules. Now for more of a description of how this module works.
 </p>
 
 <p>
-Additional details about Makefiles for kernel modules are available in linux/Documentation/kbuild/makefiles.txt. Be sure to read this and the related files before starting to hack Makefiles. It'll probably save you lots of work.
+Kernel modules must have at least two functions: a "start" (initialization) function called <b>init_module()</b> which is called when the module is insmoded into the kernel, and an "end" (cleanup) function called <b>cleanup_module()</b> which is called just before it is rmmoded. Actually, things have changed starting with kernel 2.3.13. You can now use whatever name you like for the
+start and end functions of a module, and you'll learn how to do this in Section 2.3. In fact, the new method is the preferred method. However, many people still use init_module() and cleanup_module() for their start and end functions.
 </p>
 
 <p>
-Now it is time to insert your freshly-compiled module it into the kernel with insmod ./hello-1.ko (ignore anything you see about tainted kernels; we'll cover that shortly).
+Typically, init_module() either registers a handler for something with the kernel, or it replaces one of the kernel functions with its own code (usually code to do something and then call the original function). The cleanup_module() function is supposed to undo whatever init_module() did, so the module can be unloaded safely.
 </p>
 
 <p>
-All modules loaded into the kernel are listed in /proc/modules. Go ahead and cat that file to see that your module is really a part of the kernel. Congratulations, you are now the author of Linux kernel code! When the novelty wears off, remove your module from the kernel by using rmmod hello-1. Take a look at /var/log/messages just to see that it got logged to your system logfile.
+Lastly, every kernel module needs to include linux/module.h. We needed to include <b>linux/kernel.h</b> only for the macro expansion for the printk() log level, KERN_ALERT, which you'll learn about in Section 2.1.1.
+</p>
+</div>
+
+<ul class="org-ul"><li><a id="orgheadline14"></a>Introducing printk()<br  /><div class="outline-text-5" id="text-orgheadline14">
+<p>
+Despite what you might think, <b>printk()</b> was not meant to communicate information to the user, even though we used it for exactly this purpose in hello-1! It happens to be a logging mechanism for the kernel, and is used to log information or give warnings. Therefore, each printk() statement comes with a priority, which is the &lt;1&gt; and KERN_ALERT you see. There are 8 priorities and the kernel has macros for them, so you don't have to use cryptic numbers, and you can view them (and their meanings) in <b>linux/kernel.h</b>. If you don't specify a priority level, the default priority, DEFAULT_MESSAGE_LOGLEVEL, will be used.
 </p>
 
+<p>
+Take time to read through the priority macros. The header file also describes what each priority means. In practise, don't use number, like &lt;4&gt;. Always use the macro, like KERN_WARNING.
+</p>
+
+<p>
+If the priority is less than int console_loglevel, the message is printed on your current terminal. If both syslogd and klogd are running, then the message will also get appended to <b>/var/log/messages</b>, whether it got printed to the console or not. We use a high priority, like KERN_ALERT, to make sure the printk() messages get printed to your console rather than just logged to your logfile. When you write real modules, you'll want to use priorities that are meaningful for the situation at hand.
+</p>
+</div></li>
+
+<li><a id="orgheadline15"></a>About Compiling<br  /><div class="outline-text-5" id="text-orgheadline15">
+<p>
+Kernel modules need to be compiled a bit differently from regular userspace apps. Former kernel versions required us to care much about these settings, which are usually stored in Makefiles. Although hierarchically organized, many redundant settings accumulated in sublevel Makefiles and made them large and rather difficult to maintain. Fortunately, there is a new way of doing these things, called kbuild, and the build process for external loadable modules is now fully integrated into the standard kernel build mechanism. To learn more on how to compile modules which are not part of the official kernel (such as all the examples you'll find in this guide), see file <b>linux/Documentation/kbuild/modules.txt</b>.
+</p>
+
+<p>
+Additional details about Makefiles for kernel modules are available in <b>linux/Documentation/kbuild/makefiles.txt</b>. Be sure to read this and the related files before starting to hack Makefiles. It'll probably save you lots of work.
+</p>
+
+<blockquote>
 <p>
 Here's another exercise for the reader. See that comment above the return statement in init_module()? Change the return value to something negative, recompile and load the module again. What happens?
 </p>
-</div>
+</blockquote>
+</div></li></ul>
 </div>
 </div>
 
 <div id="outline-container-orgheadline16" class="outline-3">
-<h3 id="orgheadline16">Hello World (part 2)</h3>
+<h3 id="orgheadline16">Hello World (part 2): Hello and Goodbye</h3>
 <div class="outline-text-3" id="text-orgheadline16">
 <p>
-As of Linux 2.4, you can rename the init and cleanup functions of your modules; they no longer have to be called init_module() and cleanup_module() respectively. This is done with the module_init() and module_exit() macros. These macros are defined in linux/init.h. The only caveat is that your init and cleanup functions must be defined before calling the macros, otherwise you'll get compilation errors. Here's an example of this technique:
+As of Linux 2.4, you can rename the init and cleanup functions of your modules; they no longer have to be called init_module() and cleanup_module() respectively. This is done with the module_init() and module_exit() macros. These macros are defined in <b>linux/init.h</b>. The only caveat is that your init and cleanup functions must be defined before calling the macros, otherwise you'll get compilation errors. Here's an example of this technique:
 </p>
 </div>
 
@@ -894,19 +920,19 @@ you can see, some things get hardwired into the kernel (obj-y) but where are all
 <h3 id="orgheadline19">Hello World (part 3): The __init and __exit Macros</h3>
 <div class="outline-text-3" id="text-orgheadline19">
 <p>
-This demonstrates a feature of kernel 2.2 and later. Notice the change in the definitions of the init and cleanup functions. The __init macro causes the init function to be discarded and its memory freed once the init function finishes for built-in drivers, but not loadable modules. If you think about when the init function is invoked, this makes perfect sense.
+This demonstrates a feature of kernel 2.2 and later. Notice the change in the definitions of the init and cleanup functions. The <b>__init</b> macro causes the init function to be discarded and its memory freed once the init function finishes for built-in drivers, but not loadable modules. If you think about when the init function is invoked, this makes perfect sense.
 </p>
 
 <p>
-There is also an __initdata which works similarly to __init but for init variables rather than functions.
+There is also an <b>__initdata</b> which works similarly to __init but for init variables rather than functions.
 </p>
 
 <p>
-The __exit macro causes the omission of the function when the module is built into the kernel, and like __exit, has no effect for loadable modules. Again, if you consider when the cleanup function runs, this makes complete sense; built-in drivers don't need a cleanup function, while loadable modules do.
+The <b>__exit</b> macro causes the omission of the function when the module is built into the kernel, and like __exit, has no effect for loadable modules. Again, if you consider when the cleanup function runs, this makes complete sense; built-in drivers don't need a cleanup function, while loadable modules do.
 </p>
 
 <p>
-These macros are defined in linux/init.h and serve to free up kernel memory. When you boot your kernel and see something like Freeing unused kernel memory: 236k freed, this is precisely what the kernel is freeing.
+These macros are defined in <b>linux/init.h</b> and serve to free up kernel memory. When you boot your kernel and see something like Freeing unused kernel memory: 236k freed, this is precisely what the kernel is freeing.
 </p>
 </div>
 
