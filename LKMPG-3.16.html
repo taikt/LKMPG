@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-03-08 Tue 15:25 -->
+<!-- 2016-03-08 Tue 15:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -2065,6 +2065,7 @@ HelloWorld!
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/proc_fs.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;asm/uaccess.h&gt;</span>
+
 <span class="org-preprocessor">#define</span> <span class="org-variable-name">procfs_name</span> <span class="org-string">"helloworld"</span>
 
 <span class="org-keyword">struct</span> <span class="org-type">proc_dir_entry</span> *<span class="org-variable-name">Our_Proc_File</span>;
@@ -2076,9 +2077,9 @@ HelloWorld!
     <span class="org-type">int</span> <span class="org-variable-name">ret</span>=0;
     <span class="org-keyword">if</span>(strlen(buffer) ==0)
     {
-            printk(KERN_INFO <span class="org-string">"procfile read %s\n"</span>,filePointer-&gt;f_path.dentry-&gt;d_name.name);
-            ret=copy_to_user(buffer,<span class="org-string">"HelloWorld!\n"</span>,<span class="org-keyword">sizeof</span>(<span class="org-string">"HelloWorld!\n"</span>));
-            ret=<span class="org-keyword">sizeof</span>(<span class="org-string">"HelloWorld!\n"</span>);
+        printk(KERN_INFO <span class="org-string">"procfile read %s\n"</span>,filePointer-&gt;f_path.dentry-&gt;d_name.name);
+        ret=copy_to_user(buffer,<span class="org-string">"HelloWorld!\n"</span>,<span class="org-keyword">sizeof</span>(<span class="org-string">"HelloWorld!\n"</span>));
+        ret=<span class="org-keyword">sizeof</span>(<span class="org-string">"HelloWorld!\n"</span>);
     }
     <span class="org-keyword">return</span> ret;
 
@@ -2169,47 +2170,43 @@ The only memory segment accessible to a process is its own, so when writing regu
 <span class="org-doc"> * This function is called then the /proc file is read</span>
 <span class="org-doc"> *</span>
 <span class="org-doc"> */</span>
-<span class="org-type">int</span>
-<span class="org-function-name">procfile_read</span>(<span class="org-type">char</span> *<span class="org-variable-name">buffer</span>,
-              <span class="org-type">char</span> **<span class="org-variable-name">buffer_location</span>,
-              <span class="org-type">off_t</span> <span class="org-variable-name">offset</span>, <span class="org-type">int</span> <span class="org-variable-name">buffer_length</span>, <span class="org-type">int</span> *<span class="org-variable-name">eof</span>, <span class="org-type">void</span> *<span class="org-variable-name">data</span>)
+<span class="org-type">ssize_t</span> <span class="org-function-name">procfile_read</span>(<span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">filePointer</span>,<span class="org-type">char</span> *<span class="org-variable-name">buffer</span>,
+                      <span class="org-type">size_t</span> <span class="org-variable-name">buffer_length</span>, <span class="org-type">loff_t</span> * <span class="org-variable-name">offset</span>)
 {
-    <span class="org-type">int</span> <span class="org-variable-name">ret</span>;
-
-    printk(KERN_INFO <span class="org-string">"procfile_read (/proc/%s) called\n"</span>, PROCFS_NAME);
-
-    <span class="org-keyword">if</span> (offset &gt; 0) {
-        <span class="org-comment-delimiter">/* </span><span class="org-comment">we have finished to read, return 0 </span><span class="org-comment-delimiter">*/</span>
-        ret  = 0;
-    } <span class="org-keyword">else</span> {
-        <span class="org-comment-delimiter">/* </span><span class="org-comment">fill the buffer, return the buffer size </span><span class="org-comment-delimiter">*/</span>
-        memcpy(buffer, procfs_buffer, procfs_buffer_size);
-        ret = procfs_buffer_size;
+    <span class="org-type">int</span> <span class="org-variable-name">ret</span>=0;
+    <span class="org-keyword">if</span>(strlen(buffer) ==0)
+    {
+        printk(KERN_INFO <span class="org-string">"procfile read %s\n"</span>,filePointer-&gt;f_path.dentry-&gt;d_name.name);
+        ret=copy_to_user(buffer,<span class="org-string">"HelloWorld!\n"</span>,<span class="org-keyword">sizeof</span>(<span class="org-string">"HelloWorld!\n"</span>));
+        ret=<span class="org-keyword">sizeof</span>(<span class="org-string">"HelloWorld!\n"</span>);
     }
-
     <span class="org-keyword">return</span> ret;
 }
+
 
 <span class="org-doc">/**</span>
 <span class="org-doc"> * This function is called with the /proc file is written</span>
 <span class="org-doc"> *</span>
 <span class="org-doc"> */</span>
-<span class="org-type">int</span> <span class="org-function-name">procfile_write</span>(<span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">file</span>, <span class="org-keyword">const</span> <span class="org-type">char</span> *<span class="org-variable-name">buffer</span>, <span class="org-type">unsigned</span> <span class="org-type">long</span> <span class="org-variable-name">count</span>,
-                   <span class="org-type">void</span> *<span class="org-variable-name">data</span>)
+<span class="org-keyword">static</span> <span class="org-type">ssize_t</span> <span class="org-function-name">procfile_write</span>(<span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">file</span>, <span class="org-keyword">const</span> <span class="org-type">char</span> *<span class="org-variable-name">buff</span>,
+                              <span class="org-type">size_t</span> <span class="org-variable-name">len</span>, <span class="org-type">loff_t</span> *<span class="org-variable-name">off</span>)
 {
-    <span class="org-comment-delimiter">/* </span><span class="org-comment">get buffer size </span><span class="org-comment-delimiter">*/</span>
-    procfs_buffer_size = count;
-    <span class="org-keyword">if</span> (procfs_buffer_size &gt; PROCFS_MAX_SIZE ) {
+    procfs_buffer_size = len;
+    <span class="org-keyword">if</span> (procfs_buffer_size &gt; PROCFS_MAX_SIZE)
         procfs_buffer_size = PROCFS_MAX_SIZE;
-    }
 
-    <span class="org-comment-delimiter">/* </span><span class="org-comment">write data to the buffer </span><span class="org-comment-delimiter">*/</span>
-    <span class="org-keyword">if</span> ( copy_from_user(procfs_buffer, buffer, procfs_buffer_size) ) {
+    <span class="org-keyword">if</span> (copy_from_user(procfs_buffer, buff, procfs_buffer_size))
         <span class="org-keyword">return</span> -EFAULT;
-    }
 
+    procfs_buffer[procfs_buffer_size] = <span class="org-string">'\0'</span>;
     <span class="org-keyword">return</span> procfs_buffer_size;
 }
+
+<span class="org-keyword">static</span> <span class="org-keyword">const</span> <span class="org-keyword">struct</span> <span class="org-type">file_operations</span> <span class="org-variable-name">proc_file_fops</span> = {
+    .owner = THIS_MODULE,
+    .read  = procfile_read,
+    .write  = procfile_write,
+};
 
 <span class="org-doc">/**</span>
 <span class="org-doc"> *This function is called when the module is loaded</span>
@@ -2217,25 +2214,16 @@ The only memory segment accessible to a process is its own, so when writing regu
 <span class="org-doc"> */</span>
 <span class="org-type">int</span> <span class="org-function-name">init_module</span>()
 {
-    <span class="org-comment-delimiter">/* </span><span class="org-comment">create the /proc file </span><span class="org-comment-delimiter">*/</span>
-    Our_Proc_File = proc_create(PROCFS_NAME, 0, <span class="org-constant">NULL</span>, <span class="org-constant">NULL</span>);
-
-    <span class="org-keyword">if</span> (Our_Proc_File == <span class="org-constant">NULL</span>) {
-        remove_proc_entry(PROCFS_NAME, <span class="org-constant">NULL</span>);
-        printk(KERN_ALERT <span class="org-string">"Error: Could not initialize /proc/%s\n"</span>,
-               PROCFS_NAME);
+    Our_Proc_File = proc_create(PROCFS_NAME,0644,<span class="org-constant">NULL</span>,&amp;proc_file_fops);
+    <span class="org-keyword">if</span>(<span class="org-constant">NULL</span>==Our_Proc_File)
+    {
+        proc_remove(Our_Proc_File);
+        printk(KERN_ALERT <span class="org-string">"Error:Could not initialize /proc/%s\n"</span>,PROCFS_NAME);
         <span class="org-keyword">return</span> -ENOMEM;
     }
 
-    Our_Proc_File-&gt;read_proc  = procfile_read;
-    Our_Proc_File-&gt;write_proc = procfile_write;
-    Our_Proc_File-&gt;mode       = S_IFREG | S_IRUGO;
-    Our_Proc_File-&gt;uid        = 0;
-    Our_Proc_File-&gt;gid        = 0;
-    Our_Proc_File-&gt;size       = 37;
-
     printk(KERN_INFO <span class="org-string">"/proc/%s created\n"</span>, PROCFS_NAME);
-    <span class="org-keyword">return</span> 0;       <span class="org-comment-delimiter">/* </span><span class="org-comment">everything is ok </span><span class="org-comment-delimiter">*/</span>
+    <span class="org-keyword">return</span> 0;
 }
 
 <span class="org-doc">/**</span>
@@ -2244,7 +2232,7 @@ The only memory segment accessible to a process is its own, so when writing regu
 <span class="org-doc"> */</span>
 <span class="org-type">void</span> <span class="org-function-name">cleanup_module</span>()
 {
-    remove_proc_entry(PROCFS_NAME, <span class="org-constant">NULL</span>);
+    proc_remove(Our_Proc_File);
     printk(KERN_INFO <span class="org-string">"/proc/%s removed\n"</span>, PROCFS_NAME);
 }
 </pre>
