@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-03-08 Tue 12:22 -->
+<!-- 2016-03-08 Tue 15:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -853,7 +853,7 @@ Here's another exercise for the reader. See that comment above the return statem
 <h3 id="orgheadline16">Hello World (part 2): Hello and Goodbye</h3>
 <div class="outline-text-3" id="text-orgheadline16">
 <p>
-As of Linux 2.4, you can rename the init and cleanup functions of your modules; they no longer have to be called init_module() and cleanup_module() respectively. This is done with the module_init() and module_exit() macros. These macros are defined in <b>linux/init.h</b>. The only caveat is that your init and cleanup functions must be defined before calling the macros, otherwise you'll get compilation errors. Here's an example of this technique:
+As of Linux 2.4, you can rename the init and cleanup functions of your modules; they no longer have to be called init_module() and cleanup_module() respectively. This is done with the <b>module_init()</b> and <b>module_exit()</b> macros. These macros are defined in <b>linux/init.h</b>. The only caveat is that your init and cleanup functions must be defined before calling the macros, otherwise you'll get compilation errors. Here's an example of this technique:
 </p>
 </div>
 
@@ -973,12 +973,12 @@ module_exit(hello_3_exit);
 <h3 id="orgheadline21">Hello World (part 4): Licensing and Module Documentation</h3>
 <div class="outline-text-3" id="text-orgheadline21">
 <p>
-If you're running kernel 2.4 or later, you might have noticed something like this when you loaded proprietary modules:
+Honestly, who loads or even cares about proprietary modules? If you do then you might have seen something like this:
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">insmod xxxxxx.o</span>
+<pre class="src src-txt"># insmod xxxxxx.o
 Warning: loading xxxxxx.ko will taint the kernel: no license
   See http://www.tux.org/lkml/#export-tainted for information about tainted modules
 Module xxxxxx loaded, with warnings
@@ -986,7 +986,7 @@ Module xxxxxx loaded, with warnings
 </div>
 
 <p>
-In kernel 2.4 and later, a mechanism was devised to identify code licensed under the GPL (and friends) so people can be warned that the code is non open-source. This is accomplished by the MODULE_LICENSE() macro which is demonstrated in the next piece of code. By setting the license to GPL, you can keep the warning from being printed. This license mechanism is defined and documented in linux/module.h:
+There is a mechanism to identify code licensed under the GPL (and friends) so that people can be warned about closed source proprietary stuff, which is likely to be a security problem. This is accomplished by the <b>MODULE_LICENSE()</b> macro which is demonstrated in the next piece of code. By setting the license to GPL, you can keep the warning from being printed. This license mechanism is defined and documented in <b>linux/module.h</b>:
 </p>
 
 <div class="org-src-container">
@@ -1023,22 +1023,21 @@ In kernel 2.4 and later, a mechanism was devised to identify code licensed under
 </div>
 
 <p>
-Similarly, MODULE_DESCRIPTION() is used to describe what the module does, MODULE_AUTHOR() declares the module's author, and MODULE_SUPPORTED_DEVICE() declares what types of devices the module supports.
+Similarly, <b>MODULE_DESCRIPTION()</b> is used to describe what the module does, <b>MODULE_AUTHOR()</b> declares the module's author, and <b>MODULE_SUPPORTED_DEVICE()</b> declares what types of devices the module supports.
 </p>
 
 <p>
-These macros are all defined in linux/module.h and aren't used by the kernel itself. They're simply for documentation and can be viewed by a tool like objdump. As an exercise to the reader, try and search fo these macros in linux/drivers to see how module authors use these macros to document their modules.
+These macros are all defined in <b>linux/module.h</b> and aren't used by the kernel itself. They're simply for documentation and can be viewed by a tool like objdump. As an exercise to the reader, try and search fo these macros in <b>linux/drivers</b> to see how module authors use these macros to document their modules.
 </p>
 
 <p>
-I'd recommend to use something like grep -inr MODULE_AUTHOR * in <i>usr/src/linux-2.6.x</i> . People unfamiliar with command line tools will probably like some web base solution, search for sites that offer kernel trees that got indexed with LXR. (or setup it up on your local machine).
+I'd recommend to use something like <b>grep -inr MODULE_AUTHOR</b> in <b><i>usr/src/linux-3.16.x</i></b>. People unfamiliar with command line tools will probably like some web base solution, search for sites that offer kernel trees that got indexed with LXR. (or setup it up on your local machine).
 </p>
 
 <p>
-Users of traditional Unix editors, like emacs or vi will also find tag files useful. They can be generated by make tags or make TAGS in <i>usr/src/linux-2.6.x</i> . Once you've got such a tagfile in your kerneltree you can put the cursor on some function call and use some key combination to directly jump to the definition function.
+Users of traditional Unix editors, like emacs or vi will also find tag files useful. They can be generated by make tags or make TAGS in <b><i>usr/src/linux-3.16.x</i></b>. Once you've got such a tagfile in your kernel tree you can put the cursor on some function call and use some key combination to directly jump to the definition function.
 </p>
 </div>
-
 
 <div id="outline-container-orgheadline22" class="outline-4">
 <h4 id="orgheadline22">Example: hello-4.c</h4>
@@ -1226,7 +1225,7 @@ I would recommend playing around with this code:
 
 <div class="org-src-container">
 
-<pre class="src src-sh">satan# insmod hello-5.ko <span class="org-variable-name">mystring</span>=<span class="org-string">"bebop"</span> <span class="org-variable-name">mybyte</span>=255 <span class="org-variable-name">myintArray</span>=-1
+<pre class="src src-txt"># sudo insmod hello-5.ko mystring="bebop" mybyte=255 myintArray=-1
 mybyte is an 8 bit integer: 255
 myshort is a short integer: 1
 myint is an integer: 20
@@ -1234,11 +1233,11 @@ mylong is a long integer: 9999
 mystring is a string: bebop
 myintArray is -1 and 420
 
-satan# rmmod hello-5
+# rmmod hello-5
 Goodbye, world 5
 
-satan# insmod hello-5.ko <span class="org-variable-name">mystring</span>=<span class="org-string">"supercalifragilisticexpialidocious"</span> <span class="org-sh-escaped-newline">\</span>
-&gt; <span class="org-variable-name">mybyte</span>=256 <span class="org-variable-name">myintArray</span>=-1,-1
+# sudo insmod hello-5.ko mystring="supercalifragilisticexpialidocious" \
+&gt; mybyte=256 myintArray=-1,-1
 mybyte is an 8 bit integer: 0
 myshort is a short integer: 1
 myint is an integer: 20
@@ -1246,11 +1245,11 @@ mylong is a long integer: 9999
 mystring is a string: supercalifragilisticexpialidocious
 myintArray is -1 and -1
 
-satan# rmmod hello-5
+# rmmod hello-5
 Goodbye, world 5
 
-satan# insmod hello-5.ko <span class="org-variable-name">mylong</span>=hello
-hello-5.o: invalid argument syntax for mylong: <span class="org-string">'h'</span>
+# sudo insmod hello-5.ko mylong=hello
+hello-5.o: invalid argument syntax for mylong: 'h'
 </pre>
 </div>
 </div>
@@ -1370,38 +1369,38 @@ Now, if you just install a kernel source tree, use it to compile your kernel mod
 
 <div class="org-src-container">
 
-<pre class="src src-sh">insmod: error inserting <span class="org-string">'poet_atkm.ko'</span>: -1 Invalid module format
+<pre class="src src-txt">insmod: error inserting 'poet_atkm.ko': -1 Invalid module format
 </pre>
 </div>
 
 <p>
-Less cryptical information are logged to /var/log/messages:
+Less cryptical information are logged to <b>/var/log/messages</b>:
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-sh">Jun  4 22:07:54 localhost kernel: poet_atkm: version magic <span class="org-string">'2.6.5-1.358custom 686</span>
-<span class="org-string">REGPARM 4KSTACKS gcc-3.3'</span> should be <span class="org-string">'2.6.5-1.358 686 REGPARM 4KSTACKS gcc-3.3'</span>
+<pre class="src src-txt">Jun  4 22:07:54 localhost kernel: poet_atkm: version magic '2.6.5-1.358custom 686
+REGPARM 4KSTACKS gcc-3.3' should be '2.6.5-1.358 686 REGPARM 4KSTACKS gcc-3.3'
 </pre>
 </div>
 
 <p>
-In other words, your kernel refuses to accept your module because version strings (more precisely, version magics) do not match. Incidentally, version magics are stored in the module object in the form of a static string, starting with vermagic:. Version data are inserted in your module when it is linked against the init/vermagic.o file. To inspect version magics and other strings stored in a given module, issue the modinfo module.ko command:
+In other words, your kernel refuses to accept your module because version strings (more precisely, version magics) do not match. Incidentally, version magics are stored in the module object in the form of a static string, starting with vermagic:. Version data are inserted in your module when it is linked against the <b>init/vermagic.o</b> file. To inspect version magics and other strings stored in a given module, issue the modinfo module.ko command:
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-sh">[root@pcsenonsrv 02-HelloWorld]# modinfo hello-4.ko
+<pre class="src src-txt"># sudo modinfo hello-4.ko
 license:        GPL
-author:         Peter Jay Salzman <a href="mailto:p%40dirac.org">&lt;p@dirac.org&gt;</a>
+author:         Bob Mottram &lt;bob.mottram@codethink.co.uk&gt;
 description:    A sample driver
-vermagic:       2.6.5-1.358 686 REGPARM 4KSTACKS gcc-3.3
+vermagic:       3.16.7-1.358 amd64 REGPARM 4KSTACKS gcc-4.9.2
 depends:
 </pre>
 </div>
 
 <p>
-To overcome this problem we could resort to the &#x2013;force-vermagic option, but this solution is potentially unsafe, and unquestionably inacceptable in production modules. Consequently, we want to compile our module in an environment which was identical to the one in which our precompiled kernel was built. How to do this, is the subject of the remainder of this chapter.
+To overcome this problem we could resort to the <b>&#x2013;force-vermagic</b> option, but this solution is potentially unsafe, and unquestionably inacceptable in production modules. Consequently, we want to compile our module in an environment which was identical to the one in which our precompiled kernel was built. How to do this, is the subject of the remainder of this chapter.
 </p>
 
 <p>
@@ -1422,7 +1421,7 @@ Let's focus again on the previous error message: a closer look at the version ma
 </div>
 
 <p>
-In this case, you need to restore the value of symbol EXTRAVERSION to -1.358. We suggest to keep a backup copy of the makefile used to compile your kernel available in /lib/modules/2.6.5-1.358/build. A simple cp /lib/modules/`uname-r`/build/Makefile /usr/src/linux-`uname -r` should suffice. Additionally, if you already started a kernel build with the previous (wrong) Makefile, you should also rerun make, or directly modify symbol UTS_RELEASE in file /usr/src/linux-2.6.x/include/linux/version.h according to contents of file /lib/modules/2.6.x/build/include/linux/version.h, or overwrite the latter with the first.
+In this case, you need to restore the value of symbol EXTRAVERSION to -1.358. We suggest to keep a backup copy of the makefile used to compile your kernel available in <b>/lib/modules/3.16.7-1.358/build</b>. A simple <b>cp /lib/modules/`uname-r`/build/Makefile /usr/src/linux-`uname -r`</b> should suffice. Additionally, if you already started a kernel build with the previous (wrong) Makefile, you should also rerun make, or directly modify symbol UTS_RELEASE in file <b>/usr/src/linux-3.16.x/include/linux/version.h</b> according to contents of file <b>/lib/modules/3.16.x/build/include/linux/version.h</b>, or overwrite the latter with the first.
 </p>
 
 <p>
@@ -1431,7 +1430,7 @@ Now, please run make to update configuration and version headers and objects:
 
 <div class="org-src-container">
 
-<pre class="src src-sh">[root@pcsenonsrv linux-2.6.x]# make
+<pre class="src src-txt"># make
 CHK     include/linux/version.h
 UPD     include/linux/version.h
 SYMLINK include/asm -&gt; include/asm-i386
@@ -1480,7 +1479,7 @@ Programmers use functions they don't define all the time. A prime example of thi
 </p>
 
 <p>
-Kernel modules are different here, too. In the hello world example, you might have noticed that we used a function, printk() but didn't include a standard I/O library. That's because modules are object files whose symbols get resolved upon insmod'ing. The definition for the symbols comes from the kernel itself; the only external functions you can use are the ones provided by the kernel. If you're curious about what symbols have been exported by your kernel, take a look at /proc/kallsyms.
+Kernel modules are different here, too. In the hello world example, you might have noticed that we used a function, printk() but didn't include a standard I/O library. That's because modules are object files whose symbols get resolved upon insmod'ing. The definition for the symbols comes from the kernel itself; the only external functions you can use are the ones provided by the kernel. If you're curious about what symbols have been exported by your kernel, take a look at <b>/proc/kallsyms</b>.
 </p>
 
 <p>
@@ -1500,7 +1499,7 @@ Would you like to see what system calls are made by printf()? It's easy! Compile
 </div>
 
 <p>
-with gcc -Wall -o hello hello.c. Run the exectable with strace ./hello. Are you impressed? Every line you see corresponds to a system call. strace[4] is a handy program that gives you details about what system calls a program is making, including which call is made, what its arguments are what it returns. It's an invaluable tool for figuring out things like what files a program is trying to access. Towards the end, you'll see a line which looks like write (1, "hello", 5hello). There it is. The face behind the printf() mask. You may not be familiar with write, since most people use library functions for file I/O (like fopen, fputs, fclose). If that's the case, try looking at man 2 write. The 2nd man section is devoted to system calls (like kill() and read (). The 3rd man section is devoted to library calls, which you would probably be more familiar with (like cosh() and random()).
+with <b>gcc -Wall -o hello hello.c</b>. Run the exectable with strace <b>./hello</b>. Are you impressed? Every line you see corresponds to a system call. strace[4] is a handy program that gives you details about what system calls a program is making, including which call is made, what its arguments are what it returns. It's an invaluable tool for figuring out things like what files a program is trying to access. Towards the end, you'll see a line which looks like write (1, "hello", 5hello). There it is. The face behind the printf() mask. You may not be familiar with write, since most people use library functions for file I/O (like fopen, fputs, fclose). If that's the case, try looking at man 2 write. The 2nd man section is devoted to system calls (like kill() and read (). The 3rd man section is devoted to library calls, which you would probably be more familiar with (like cosh() and random()).
 </p>
 
 <p>
@@ -1513,7 +1512,7 @@ You can even write modules to replace the kernel's system calls, which we'll do 
 <h3 id="orgheadline33">User Space vs Kernel Space</h3>
 <div class="outline-text-3" id="text-orgheadline33">
 <p>
-A kernel is all about access to resources, whether the resource in question happens to be a video card, a hard drive or even memory. Programs often compete for the same resource. As I just saved this document, updatedb started updating the locate database. My vim session and updatedb are both using the hard drive concurrently. The kernel needs to keep things orderly, and not give users access to resources whenever they feel like it. To this end, a CPU can run in different modes. Each mode gives a different level of freedom to do what you want on the system. The Intel 80386 architecture has 4 of these modes, which are called rings. Unix uses only two rings; the highest ring (ring 0, also known as `supervisor mode' where everything is allowed to happen) and the lowest ring, which is called `user mode'.
+A kernel is all about access to resources, whether the resource in question happens to be a video card, a hard drive or even memory. Programs often compete for the same resource. As I just saved this document, updatedb started updating the locate database. My vim session and updatedb are both using the hard drive concurrently. The kernel needs to keep things orderly, and not give users access to resources whenever they feel like it. To this end, a CPU can run in different modes. Each mode gives a different level of freedom to do what you want on the system. The Intel 80386 architecture had 4 of these modes, which were called rings. Unix uses only two rings; the highest ring (ring 0, also known as `supervisor mode' where everything is allowed to happen) and the lowest ring, which is called `user mode'.
 </p>
 
 <p>
@@ -1543,7 +1542,7 @@ The file <b>/proc/kallsyms</b> holds all the symbols that the kernel knows about
 <h3 id="orgheadline35">Code space</h3>
 <div class="outline-text-3" id="text-orgheadline35">
 <p>
-Memory management is a very complicated subject&#x2014;the majority of O'Reilly's `Understanding The Linux Kernel' is just on memory management! We're not setting out to be experts on memory managements, but we do need to know a couple of facts to even begin worrying about writing real modules.
+Memory management is a very complicated subject&#x2014;the majority of O'Reilly's "<i>Understanding The Linux Kernel</i>" is just on memory management! We're not setting out to be experts on memory managements, but we do need to know a couple of facts to even begin worrying about writing real modules.
 </p>
 
 <p>
@@ -1641,7 +1640,7 @@ By now you can look at these two device files and know instantly that they are b
 <h3 id="orgheadline39">The file_operations Structure</h3>
 <div class="outline-text-3" id="text-orgheadline39">
 <p>
-The file_operations structure is defined in linux/fs.h, and holds pointers to functions defined by the driver that perform various operations on the device. Each field of the structure corresponds to the address of some function defined by the driver to handle a requested operation.
+The file_operations structure is defined in <b>linux/fs.h</b>, and holds pointers to functions defined by the driver that perform various operations on the device. Each field of the structure corresponds to the address of some function defined by the driver to handle a requested operation.
 </p>
 
 <p>
@@ -1731,7 +1730,7 @@ An instance of struct file_operations containing pointers to functions that are 
 <h3 id="orgheadline40">The file structure</h3>
 <div class="outline-text-3" id="text-orgheadline40">
 <p>
-Each device is represented in the kernel by a file structure, which is defined in linux/fs.h. Be aware that a file is a kernel level structure and never appears in a user space program. It's not the same thing as a FILE, which is defined by glibc and would never appear in a kernel space function. Also, its name is a bit misleading; it represents an abstract open `file', not a file on a disk, which is represented by a structure named inode.
+Each device is represented in the kernel by a file structure, which is defined in <b>linux/fs.h</b>. Be aware that a file is a kernel level structure and never appears in a user space program. It's not the same thing as a FILE, which is defined by glibc and would never appear in a kernel space function. Also, its name is a bit misleading; it represents an abstract open `file', not a file on a disk, which is represented by a structure named inode.
 </p>
 
 <p>
@@ -1783,12 +1782,11 @@ We can't allow the kernel module to be rmmod'ed whenever root feels like it. If 
 </p>
 
 <p>
-Normally, when you don't want to allow something, you return an error code (a negative number) from the function which is supposed to do it. With cleanup_module that's impossible because it's a void function. However, there's a counter which keeps track of how many processes are using your module. You can see what it's value is by looking at the 3rd field of <b>/proc/modules</b>. If this number isn't zero, rmmod will fail. Note that you don't have to check the counter from within cleanup_module because the check will be performed for you by the system call sys_delete_module, defined in linux/module.c. You shouldn't use this counter directly, but there are functions defined in linux/module.h which let you increase, decrease and display this counter:
+Normally, when you don't want to allow something, you return an error code (a negative number) from the function which is supposed to do it. With cleanup_module that's impossible because it's a void function. However, there's a counter which keeps track of how many processes are using your module. You can see what it's value is by looking at the 3rd field of <b>/proc/modules</b>. If this number isn't zero, rmmod will fail. Note that you don't have to check the counter from within cleanup_module because the check will be performed for you by the system call sys_delete_module, defined in <b>linux/module.c</b>. You shouldn't use this counter directly, but there are functions defined in <b>linux/module.h</b> which let you increase, decrease and display this counter:
 </p>
 
 <ul class="org-ul">
 <li>try_module_get(THIS_MODULE): Increment the use count.</li>
-
 <li>module_put(THIS_MODULE): Decrement the use count.</li>
 </ul>
 
@@ -1812,7 +1810,7 @@ The next code sample creates a char driver named chardev. You can cat its device
 </div>
 
 <p>
-(or open the file with a program) and the driver will put the number of times the device file has been read from into the file. We don't support writing to the file (like echo "hi" &gt; /dev/hello), but catch these attempts and tell the user that the operation isn't supported. Don't worry if you don't see what we do with the data we read into the buffer; we don't do much with it. We simply read in the data and print a message acknowledging that we received it.
+(or open the file with a program) and the driver will put the number of times the device file has been read from into the file. We don't support writing to the file (like <b>echo "hi" &gt; /dev/hello</b>), but catch these attempts and tell the user that the operation isn't supported. Don't worry if you don't see what we do with the data we read into the buffer; we don't do much with it. We simply read in the data and print a message acknowledging that we received it.
 </p>
 </div>
 
@@ -2013,7 +2011,7 @@ While previous versions of this guide showed how you can write backward compatib
 </p>
 
 <p>
-Update: What we've said above was true for kernels up to and including 2.6.10. You might already have noticed that recent kernels look different. In case you haven't they look like 2.6.x.y now. The meaning of the first three items basically stays the same, but a subpatchlevel has been added and will indicate security fixes till the next stable patchlevel is out. So people can choose between a stable tree with security updates and use the latest kernel as developer tree. Search the kernel mailing list archives if you're interested in the full story.
+You might already have noticed that recent kernels look different. In case you haven't they look like 2.6.x.y now. The meaning of the first three items basically stays the same, but a subpatchlevel has been added and will indicate security fixes till the next stable patchlevel is out. So people can choose between a stable tree with security updates and use the latest kernel as developer tree. Search the kernel mailing list archives if you're interested in the full story.
 </p>
 </div>
 </div>
@@ -2052,7 +2050,7 @@ Each time, everytime the file <b>/proc/helloworld</b> is read, the function proc
 
 <div class="org-src-container">
 
-<pre class="src src-sh">% cat /proc/helloworld
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">cat /proc/helloworld</span>
 HelloWorld!
 </pre>
 </div>
@@ -2063,115 +2061,51 @@ HelloWorld!
 <div class="outline-text-4" id="text-orgheadline48">
 <div class="org-src-container">
 
-<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
-<span class="org-comment"> *  procfs1.c -  create a "file" in /proc</span>
-<span class="org-comment"> *</span>
-<span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
-
-<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>       <span class="org-comment-delimiter">/* </span><span class="org-comment">Specifically, a module </span><span class="org-comment-delimiter">*/</span>
-<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>       <span class="org-comment-delimiter">/* </span><span class="org-comment">We're doing kernel work </span><span class="org-comment-delimiter">*/</span>
-<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/proc_fs.h&gt;</span>      <span class="org-comment-delimiter">/* </span><span class="org-comment">Necessary because we use the proc fs </span><span class="org-comment-delimiter">*/</span>
-
+<pre class="src src-c"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/proc_fs.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;asm/uaccess.h&gt;</span>
 <span class="org-preprocessor">#define</span> <span class="org-variable-name">procfs_name</span> <span class="org-string">"helloworld"</span>
 
-<span class="org-doc">/**</span>
-<span class="org-doc"> * This structure hold information about the /proc file</span>
-<span class="org-doc"> *</span>
-<span class="org-doc"> */</span>
 <span class="org-keyword">struct</span> <span class="org-type">proc_dir_entry</span> *<span class="org-variable-name">Our_Proc_File</span>;
 
-<span class="org-comment-delimiter">/* </span><span class="org-comment">Put data into the proc fs file.</span>
-<span class="org-comment"> *</span>
-<span class="org-comment"> * Arguments</span>
-<span class="org-comment"> * =========</span>
-<span class="org-comment"> * 1. The buffer where the data is to be inserted, if</span>
-<span class="org-comment"> *    you decide to use it.</span>
-<span class="org-comment"> * 2. A pointer to a pointer to characters. This is</span>
-<span class="org-comment"> *    useful if you don't want to use the buffer</span>
-<span class="org-comment"> *    allocated by the kernel.</span>
-<span class="org-comment"> * 3. The current position in the file</span>
-<span class="org-comment"> * 4. The size of the buffer in the first argument.</span>
-<span class="org-comment"> * 5. Write a "1" here to indicate EOF.</span>
-<span class="org-comment"> * 6. A pointer to data (useful in case one common</span>
-<span class="org-comment"> *    read for multiple /proc/... entries)</span>
-<span class="org-comment"> *</span>
-<span class="org-comment"> * Usage and Return Value</span>
-<span class="org-comment"> * ======================</span>
-<span class="org-comment"> * A return value of zero means you have no further</span>
-<span class="org-comment"> * information at this time (end of file). A negative</span>
-<span class="org-comment"> * return value is an error condition.</span>
-<span class="org-comment"> *</span>
-<span class="org-comment"> * For More Information</span>
-<span class="org-comment"> * ====================</span>
-<span class="org-comment"> * The way I discovered what to do with this function</span>
-<span class="org-comment"> * wasn't by reading documentation, but by reading the</span>
-<span class="org-comment"> * code which used it. I just looked to see what uses</span>
-<span class="org-comment"> * the get_info field of proc_dir_entry struct (I used a</span>
-<span class="org-comment"> * combination of find and grep, if you're interested),</span>
-<span class="org-comment"> * and I saw that  it is used in &lt;kernel source</span>
-<span class="org-comment"> * directory&gt;/fs/proc/array.c.</span>
-<span class="org-comment"> *</span>
-<span class="org-comment"> * If something is unknown about the kernel, this is</span>
-<span class="org-comment"> * usually the way to go. In Linux we have the great</span>
-<span class="org-comment"> * advantage of having the kernel source code for</span>
-<span class="org-comment"> * free - use it.</span>
-<span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
-<span class="org-type">int</span>
-<span class="org-function-name">procfile_read</span>(<span class="org-type">char</span> *<span class="org-variable-name">buffer</span>,
-              <span class="org-type">char</span> **<span class="org-variable-name">buffer_location</span>,
-              <span class="org-type">off_t</span> <span class="org-variable-name">offset</span>, <span class="org-type">int</span> <span class="org-variable-name">buffer_length</span>, <span class="org-type">int</span> *<span class="org-variable-name">eof</span>, <span class="org-type">void</span> *<span class="org-variable-name">data</span>)
+
+<span class="org-type">ssize_t</span> <span class="org-function-name">procfile_read</span>(<span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">filePointer</span>,<span class="org-type">char</span> *<span class="org-variable-name">buffer</span>,
+                      <span class="org-type">size_t</span> <span class="org-variable-name">buffer_length</span>, <span class="org-type">loff_t</span> * <span class="org-variable-name">offset</span>)
 {
-    <span class="org-type">int</span> <span class="org-variable-name">ret</span>;
-
-    printk(KERN_INFO <span class="org-string">"procfile_read (/proc/%s) called\n"</span>, procfs_name);
-
-    <span class="org-comment-delimiter">/*</span>
-<span class="org-comment">     * We give all of our information in one go, so if the</span>
-<span class="org-comment">     * user asks us if we have more information the</span>
-<span class="org-comment">     * answer should always be no.</span>
-<span class="org-comment">     *</span>
-<span class="org-comment">     * This is important because the standard read</span>
-<span class="org-comment">     * function from the library would continue to issue</span>
-<span class="org-comment">     * the read system call until the kernel replies</span>
-<span class="org-comment">     * that it has no more information, or until its</span>
-<span class="org-comment">     * buffer is filled.</span>
-<span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
-    <span class="org-keyword">if</span> (offset &gt; 0) {
-        <span class="org-comment-delimiter">/* </span><span class="org-comment">we have finished to read, return 0 </span><span class="org-comment-delimiter">*/</span>
-        ret  = 0;
-    } <span class="org-keyword">else</span> {
-        <span class="org-comment-delimiter">/* </span><span class="org-comment">fill the buffer, return the buffer size </span><span class="org-comment-delimiter">*/</span>
-        ret = sprintf(buffer, <span class="org-string">"HelloWorld!\n"</span>);
+    <span class="org-type">int</span> <span class="org-variable-name">ret</span>=0;
+    <span class="org-keyword">if</span>(strlen(buffer) ==0)
+    {
+            printk(KERN_INFO <span class="org-string">"procfile read %s\n"</span>,filePointer-&gt;f_path.dentry-&gt;d_name.name);
+            ret=copy_to_user(buffer,<span class="org-string">"HelloWorld!\n"</span>,<span class="org-keyword">sizeof</span>(<span class="org-string">"HelloWorld!\n"</span>));
+            ret=<span class="org-keyword">sizeof</span>(<span class="org-string">"HelloWorld!\n"</span>);
     }
-
     <span class="org-keyword">return</span> ret;
+
 }
+
+<span class="org-keyword">static</span> <span class="org-keyword">const</span> <span class="org-keyword">struct</span> <span class="org-type">file_operations</span> <span class="org-variable-name">proc_file_fops</span> = {
+    .owner = THIS_MODULE,
+    .read  = procfile_read,
+};
 
 <span class="org-type">int</span> <span class="org-function-name">init_module</span>()
 {
-    Our_Proc_File = create_proc_entry(procfs_name, 0644, <span class="org-constant">NULL</span>);
-
-    <span class="org-keyword">if</span> (Our_Proc_File == <span class="org-constant">NULL</span>) {
-        remove_proc_entry(procfs_name, &amp;proc_root);
-        printk(KERN_ALERT <span class="org-string">"Error: Could not initialize /proc/%s\n"</span>,
-               procfs_name);
+    Our_Proc_File = proc_create(procfs_name,0644,<span class="org-constant">NULL</span>,&amp;proc_file_fops);
+    <span class="org-keyword">if</span>(<span class="org-constant">NULL</span>==Our_Proc_File)
+    {
+        proc_remove(Our_Proc_File);
+        printk(KERN_ALERT <span class="org-string">"Error:Could not initialize /proc/%s\n"</span>,procfs_name);
         <span class="org-keyword">return</span> -ENOMEM;
     }
 
-    Our_Proc_File-&gt;read_proc = procfile_read;
-    Our_Proc_File-&gt;owner     = THIS_MODULE;
-    Our_Proc_File-&gt;mode      = S_IFREG | S_IRUGO;
-    Our_Proc_File-&gt;uid       = 0;
-    Our_Proc_File-&gt;gid       = 0;
-    Our_Proc_File-&gt;size      = 37;
-
     printk(KERN_INFO <span class="org-string">"/proc/%s created\n"</span>, procfs_name);
-    <span class="org-keyword">return</span> 0;       <span class="org-comment-delimiter">/* </span><span class="org-comment">everything is ok </span><span class="org-comment-delimiter">*/</span>
+    <span class="org-keyword">return</span> 0;
 }
 
 <span class="org-type">void</span> <span class="org-function-name">cleanup_module</span>()
 {
-    remove_proc_entry(procfs_name, &amp;proc_root);
+    proc_remove(Our_Proc_File);
     printk(KERN_INFO <span class="org-string">"/proc/%s removed\n"</span>, procfs_name);
 }
 </pre>
