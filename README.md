@@ -1,5 +1,7 @@
-This is a copy of the Lunix Kernel Module Programming guide, with examples updated for kernel version 3.8.
+# The Linux Kernel Module Programming Guide
 
-The text is in Emacs org-mode format with embedded C code.
+This is a project to keep the kernel module programmer's guide reasonably up to date, with working examples for recent kernel versions. The guide has been around since 2001 and most copies of it on the web only describe old 2.6.x kernels.
 
-Also see http://www.tldp.org/LDP/lkmpg/
+The text is in Emacs org-mode format with embedded C code examples.
+
+The original guide may be found at http://www.tldp.org/LDP/lkmpg/
