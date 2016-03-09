@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-03-09 Wed 16:38 -->
+<!-- 2016-03-09 Wed 17:30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -878,7 +878,7 @@ This demonstrates a feature of kernel 2.2 and later. Notice the change in the de
 </p>
 
 <p>
-There is also an <b>__initdata</b> which works similarly to __init but for init variables rather than functions.
+There is also an <b>__initdata</b> which works similarly to <b>__init</b> but for init variables rather than functions.
 </p>
 
 <p>
@@ -1007,7 +1007,7 @@ module_param(myint, <span class="org-type">int</span>, 0);
 </div>
 
 <p>
-Arrays are supported too, but things are a bit different now than they were in the 2.4. days. To keep track of the number of parameters you need to pass a pointer to a count variable as third parameter. At your option, you could also ignore the count and pass NULL instead. We show both possibilities here:
+Arrays are supported too, but things are a bit different now than they were in the olden days. To keep track of the number of parameters you need to pass a pointer to a count variable as third parameter. At your option, you could also ignore the count and pass NULL instead. We show both possibilities here:
 </p>
 
 <div class="org-src-container">
@@ -1026,7 +1026,7 @@ A good use for this is to have the module variable's default values set, like an
 </p>
 
 <p>
-Lastly, there's a macro function, MODULE_PARM_DESC(), that is used to document arguments that the module can take. It takes two parameters: a variable name and a free form string describing that variable.
+Lastly, there's a macro function, <b>MODULE_PARM_DESC()</b>, that is used to document arguments that the module can take. It takes two parameters: a variable name and a free form string describing that variable.
 </p>
 </div>
 
@@ -1243,11 +1243,11 @@ This is the complete makefile for all the examples we've seen so far. The first 
 <h3 id="orgheadline29">Building modules for a precompiled kernel</h3>
 <div class="outline-text-3" id="text-orgheadline29">
 <p>
-Obviously, we strongly suggest you to recompile your kernel, so that you can enable a number of useful debugging features, such as forced module unloading (MODULE_FORCE_UNLOAD): when this option is enabled, you can force the kernel to unload a module even when it believes it is unsafe, via a rmmod -f module command. This option can save you a lot of time and a number of reboots during the development of a module.
+Obviously, we strongly suggest you to recompile your kernel, so that you can enable a number of useful debugging features, such as forced module unloading (<b>MODULE_FORCE_UNLOAD</b>): when this option is enabled, you can force the kernel to unload a module even when it believes it is unsafe, via a <b>sudo rmmod -f module</b> command. This option can save you a lot of time and a number of reboots during the development of a module. If you don't want to recompile your kernel then you should consider running the examples within a test distro on a virtual machine. If you mess anything up then you can easily reboot or restore the VM.
 </p>
 
 <p>
-Nevertheless, there is a number of cases in which you may want to load your module into a precompiled running kernel, such as the ones shipped with common Linux distributions, or a kernel you have compiled in the past. In certain circumstances you could require to compile and insert a module into a running kernel which you are not allowed to recompile, or on a machine that you prefer not to reboot. If you can't think of a case that will force you to use modules for a precompiled kernel you might want to skip this and treat the rest of this chapter as a big footnote.
+There are a number of cases in which you may want to load your module into a precompiled running kernel, such as the ones shipped with common Linux distributions, or a kernel you have compiled in the past. In certain circumstances you could require to compile and insert a module into a running kernel which you are not allowed to recompile, or on a machine that you prefer not to reboot. If you can't think of a case that will force you to use modules for a precompiled kernel you might want to skip this and treat the rest of this chapter as a big footnote.
 </p>
 
 <p>
@@ -1291,24 +1291,24 @@ To overcome this problem we could resort to the <b>&#x2013;force-vermagic</b> op
 </p>
 
 <p>
-First of all, make sure that a kernel source tree is available, having exactly the same version as your current kernel. Then, find the configuration file which was used to compile your precompiled kernel. Usually, this is available in your current <i>boot directory, under a name like config-2.6.x. You may just want to copy it to your kernel source tree: cp /boot/config-`uname -r` /usr/src/linux-`uname -r`</i>.config.
+First of all, make sure that a kernel source tree is available, having exactly the same version as your current kernel. Then, find the configuration file which was used to compile your precompiled kernel. Usually, this is available in your current <i>boot directory, under a name like config-2.6.x. You may just want to copy it to your kernel source tree: *cp /boot/config-`uname -r` /usr/src/linux-`uname -r`</i>.config*.
 </p>
 
 <p>
-Let's focus again on the previous error message: a closer look at the version magic strings suggests that, even with two configuration files which are exactly the same, a slight difference in the version magic could be possible, and it is sufficient to prevent insertion of the module into the kernel. That slight difference, namely the custom string which appears in the module's version magic and not in the kernel's one, is due to a modification with respect to the original, in the makefile that some distribution include. Then, examine your /usr/src/linux/Makefile, and make sure that the specified version information matches exactly the one used for your current kernel. For example, you makefile could start as follows:
+Let's focus again on the previous error message: a closer look at the version magic strings suggests that, even with two configuration files which are exactly the same, a slight difference in the version magic could be possible, and it is sufficient to prevent insertion of the module into the kernel. That slight difference, namely the custom string which appears in the module's version magic and not in the kernel's one, is due to a modification with respect to the original, in the makefile that some distribution include. Then, examine your <b>/usr/src/linux/Makefile</b>, and make sure that the specified version information matches exactly the one used for your current kernel. For example, you makefile could start as follows:
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-makefile"><span class="org-variable-name">VERSION</span> = 2
-<span class="org-variable-name">PATCHLEVEL</span> = 6
-<span class="org-variable-name">SUBLEVEL</span> = 5
+<pre class="src src-makefile"><span class="org-variable-name">VERSION</span> = 3
+<span class="org-variable-name">PATCHLEVEL</span> = 16
+<span class="org-variable-name">SUBLEVEL</span> = 7
 <span class="org-variable-name">EXTRAVERSION</span> = -1.358custom
 </pre>
 </div>
 
 <p>
-In this case, you need to restore the value of symbol EXTRAVERSION to -1.358. We suggest to keep a backup copy of the makefile used to compile your kernel available in <b>/lib/modules/3.16.7-1.358/build</b>. A simple <b>cp /lib/modules/`uname-r`/build/Makefile /usr/src/linux-`uname -r`</b> should suffice. Additionally, if you already started a kernel build with the previous (wrong) Makefile, you should also rerun make, or directly modify symbol UTS_RELEASE in file <b>/usr/src/linux-3.16.x/include/linux/version.h</b> according to contents of file <b>/lib/modules/3.16.x/build/include/linux/version.h</b>, or overwrite the latter with the first.
+In this case, you need to restore the value of symbol <b>EXTRAVERSION</b> to -1.358. We suggest to keep a backup copy of the makefile used to compile your kernel available in <b>/lib/modules/3.16.7-1.358/build</b>. A simple <b>cp /lib/modules/`uname-r`/build/Makefile /usr/src/linux-`uname -r`</b> should suffice. Additionally, if you already started a kernel build with the previous (wrong) Makefile, you should also rerun make, or directly modify symbol UTS_RELEASE in file <b>/usr/src/linux-3.16.x/include/linux/version.h</b> according to contents of file <b>/lib/modules/3.16.x/build/include/linux/version.h</b>, or overwrite the latter with the first.
 </p>
 
 <p>
@@ -1345,11 +1345,11 @@ If you do not desire to actually compile the kernel, you can interrupt the build
 <h3 id="orgheadline31">How modules begin and end</h3>
 <div class="outline-text-3" id="text-orgheadline31">
 <p>
-A program usually begins with a main() function, executes a bunch of instructions and terminates upon completion of those instructions. Kernel modules work a bit differently. A module always begin with either the init_module or the function you specify with module_init call. This is the entry function for modules; it tells the kernel what functionality the module provides and sets up the kernel to run the module's functions when they're needed. Once it does this, entry function returns and the module does nothing until the kernel wants to do something with the code that the module provides.
+A program usually begins with a <b>main()</b> function, executes a bunch of instructions and terminates upon completion of those instructions. Kernel modules work a bit differently. A module always begin with either the init_module or the function you specify with module_init call. This is the entry function for modules; it tells the kernel what functionality the module provides and sets up the kernel to run the module's functions when they're needed. Once it does this, entry function returns and the module does nothing until the kernel wants to do something with the code that the module provides.
 </p>
 
 <p>
-All modules end by calling either cleanup_module or the function you specify with the module_exit call. This is the exit function for modules; it undoes whatever entry function did. It unregisters the functionality that the entry function registered.
+All modules end by calling either <b>cleanup_module</b> or the function you specify with the <b>module_exit</b> call. This is the exit function for modules; it undoes whatever entry function did. It unregisters the functionality that the entry function registered.
 </p>
 
 <p>
@@ -1362,11 +1362,11 @@ Every module must have an entry function and an exit function. Since there's mor
 <h3 id="orgheadline32">Functions available to modules</h3>
 <div class="outline-text-3" id="text-orgheadline32">
 <p>
-Programmers use functions they don't define all the time. A prime example of this is printf(). You use these library functions which are provided by the standard C library, libc. The definitions for these functions don't actually enter your program until the linking stage, which insures that the code (for printf() for example) is available, and fixes the call instruction to point to that code.
+Programmers use functions they don't define all the time. A prime example of this is <b>printf()</b>. You use these library functions which are provided by the standard C library, libc. The definitions for these functions don't actually enter your program until the linking stage, which insures that the code (for printf() for example) is available, and fixes the call instruction to point to that code.
 </p>
 
 <p>
-Kernel modules are different here, too. In the hello world example, you might have noticed that we used a function, printk() but didn't include a standard I/O library. That's because modules are object files whose symbols get resolved upon insmod'ing. The definition for the symbols comes from the kernel itself; the only external functions you can use are the ones provided by the kernel. If you're curious about what symbols have been exported by your kernel, take a look at <b>/proc/kallsyms</b>.
+Kernel modules are different here, too. In the hello world example, you might have noticed that we used a function, <b>printk()</b> but didn't include a standard I/O library. That's because modules are object files whose symbols get resolved upon insmod'ing. The definition for the symbols comes from the kernel itself; the only external functions you can use are the ones provided by the kernel. If you're curious about what symbols have been exported by your kernel, take a look at <b>/proc/kallsyms</b>.
 </p>
 
 <p>
@@ -2709,7 +2709,7 @@ This is not always enough. Imagine you had a serial port connected to a modem (e
 </p>
 
 <p>
-The answer in Unix is to use a special function called ioctl (short for Input Output ConTroL). Every device can have its own ioctl commands, which can be read ioctl's (to send information from a process to the kernel), write ioctl's (to return information to a process), [10] both or neither. The ioctl function is called with three parameters: the file descriptor of the appropriate device file, the ioctl number, and a parameter, which is of type long so you can use a cast to use it to pass anything. [11]
+The answer in Unix is to use a special function called <b>ioctl</b> (short for Input Output ConTroL). Every device can have its own ioctl commands, which can be read ioctl's (to send information from a process to the kernel), write ioctl's (to return information to a process), [10] both or neither. The ioctl function is called with three parameters: the file descriptor of the appropriate device file, the ioctl number, and a parameter, which is of type long so you can use a cast to use it to pass anything. [11]
 </p>
 
 <p>
@@ -3197,15 +3197,15 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
 <h2 id="orgheadline62">System Calls</h2>
 <div class="outline-text-2" id="text-orgheadline62">
 <p>
-So far, the only thing we've done was to use well defined kernel mechanisms to register /proc files and device handlers. This is fine if you want to do something the kernel programmers thought you'd want, such as write a device driver. But what if you want to do something unusual, to change the behavior of the system in some way? Then, you're mostly on your own.
+So far, the only thing we've done was to use well defined kernel mechanisms to register <b>/proc</b> files and device handlers. This is fine if you want to do something the kernel programmers thought you'd want, such as write a device driver. But what if you want to do something unusual, to change the behavior of the system in some way? Then, you're mostly on your own.
 </p>
 
 <p>
-This is where kernel programming gets dangerous. While writing the example below, I killed the open() system call. This meant I couldn't open any files, I couldn't run any programs, and I couldn't shutdown the computer. I had to pull the power switch. Luckily, no files died. To ensure you won't lose any files either, please run sync right before you do the insmod and the rmmod.
+If you're not being sensible and using a virtual machine then this is where kernel programming can become hazardous. While writing the example below, I killed the <b>open()</b> system call. This meant I couldn't open any files, I couldn't run any programs, and I couldn't shutdown the system. I had to restart the virtual machine. No important files got anihilated, but if I was doing this on some live mission critical system then that could have been a possible outcome. To ensure you don't lose any files, even within a test environment, please run <b>sync</b> right before you do the <b>insmod</b> and the <b>rmmod</b>.
 </p>
 
 <p>
-Forget about /proc files, forget about device files. They're just minor details. The real process to kernel communication mechanism, the one used by all processes, is system calls. When a process requests a service from the kernel (such as opening a file, forking to a new process, or requesting more memory), this is the mechanism used. If you want to change the behaviour of the kernel in interesting ways, this is the place to do it. By the way, if you want to see which system calls a program uses, run strace &lt;arguments&gt;.
+Forget about <b>/proc</b> files, forget about device files. They're just minor details. Minutiae in the vast expanse of the universe. The real process to kernel communication mechanism, the one used by all processes, is <i>system calls</i>. When a process requests a service from the kernel (such as opening a file, forking to a new process, or requesting more memory), this is the mechanism used. If you want to change the behaviour of the kernel in interesting ways, this is the place to do it. By the way, if you want to see which system calls a program uses, run <b>strace &lt;arguments&gt;</b>.
 </p>
 
 <p>
@@ -3225,19 +3225,19 @@ So, if we want to change the way a certain system call works, what we need to do
 </p>
 
 <p>
-The source code here is an example of such a kernel module. We want to `spy' on a certain user, and to printk() a message whenever that user opens a file. Towards this end, we replace the system call to open a file with our own function, called our_sys_open. This function checks the uid (user's id) of the current process, and if it's equal to the uid we spy on, it calls printk() to display the name of the file to be opened. Then, either way, it calls the original open() function with the same parameters, to actually open the file.
+The source code here is an example of such a kernel module. We want to "spy" on a certain user, and to printk() a message whenever that user opens a file. Towards this end, we replace the system call to open a file with our own function, called <b>our_sys_open</b>. This function checks the uid (user's id) of the current process, and if it's equal to the uid we spy on, it calls printk() to display the name of the file to be opened. Then, either way, it calls the original open() function with the same parameters, to actually open the file.
 </p>
 
 <p>
-The init_module function replaces the appropriate location in sys_call_table and keeps the original pointer in a variable. The cleanup_module function uses that variable to restore everything back to normal. This approach is dangerous, because of the possibility of two kernel modules changing the same system call. Imagine we have two kernel modules, A and B. A's open system call will be A_open and B's will be B_open. Now, when A is inserted into the kernel, the system call is replaced with A_open, which will call the original sys_open when it's done. Next, B is inserted into the kernel, which replaces the system call with B_open, which will call what it thinks is the original system call, A_open, when it's done.
+The <b>init_module</b> function replaces the appropriate location in <b>sys_call_table</b> and keeps the original pointer in a variable. The cleanup_module function uses that variable to restore everything back to normal. This approach is dangerous, because of the possibility of two kernel modules changing the same system call. Imagine we have two kernel modules, A and B. A's open system call will be A_open and B's will be B_open. Now, when A is inserted into the kernel, the system call is replaced with A_open, which will call the original sys_open when it's done. Next, B is inserted into the kernel, which replaces the system call with B_open, which will call what it thinks is the original system call, A_open, when it's done.
 </p>
 
 <p>
-Now, if B is removed first, everything will be well&#x2014;it will simply restore the system call to A_open, which calls the original. However, if A is removed and then B is removed, the system will crash. A's removal will restore the system call to the original, sys_open, cutting B out of the loop. Then, when B is removed, it will restore the system call to what it thinks is the original, A_open, which is no longer in memory. At first glance, it appears we could solve this particular problem by checking if the system call is equal to our open function and if so not changing it at all (so that B won't change the system call when it's removed), but that will cause an even worse problem. When A is removed, it sees that the system call was changed to B_open so that it is no longer pointing to A_open, so it won't restore it to sys_open before it is removed from memory. Unfortunately, B_open will still try to call A_open which is no longer there, so that even without removing B the system would crash.
+Now, if B is removed first, everything will be well&#x2014;it will simply restore the system call to A_open, which calls the original. However, if A is removed and then B is removed, the system will crash. A's removal will restore the system call to the original, sys_open, cutting B out of the loop. Then, when B is removed, it will restore the system call to what it thinks is the original, <b>A_open</b>, which is no longer in memory. At first glance, it appears we could solve this particular problem by checking if the system call is equal to our open function and if so not changing it at all (so that B won't change the system call when it's removed), but that will cause an even worse problem. When A is removed, it sees that the system call was changed to <b>B_open</b> so that it is no longer pointing to <b>A_open</b>, so it won't restore it to <b>sys_open</b> before it is removed from memory. Unfortunately, <b>B_open</b> will still try to call <b>A_open</b> which is no longer there, so that even without removing B the system would crash.
 </p>
 
 <p>
-Note that all the related problems make syscall stealing unfeasiable for production use. In order to keep people from doing potential harmful things sys_call_table is no longer exported. This means, if you want to do something more than a mere dry run of this example, you will have to patch your current kernel in order to have sys_call_table exported. In the example directory you will find a README and the patch. As you can imagine, such modifications are not to be taken lightly. Do not try this on valueable systems (ie systems that you do not own - or cannot restore easily). You'll need to get the complete sourcecode of this guide as a tarball in order to get the patch and the README. Depending on your kernel version, you might even need to hand apply the patch. Still here? Well, so is this chapter. If Wyle E. Coyote was a kernel hacker, this would be the first thing he'd try. ;)
+Note that all the related problems make syscall stealing unfeasiable for production use. In order to keep people from doing potential harmful things <b>sys_call_table</b> is no longer exported. This means, if you want to do something more than a mere dry run of this example, you will have to patch your current kernel in order to have sys_call_table exported. In the example directory you will find a README and the patch. As you can imagine, such modifications are not to be taken lightly. Do not try this on valueable systems (ie systems that you do not own - or cannot restore easily). You'll need to get the complete sourcecode of this guide as a tarball in order to get the patch and the README. Depending on your kernel version, you might even need to hand apply the patch. Still here? Well, so is this chapter. If Wyle E. Coyote was a kernel hacker, this would be the first thing he'd try. ;)
 </p>
 </div>
 
@@ -3413,12 +3413,12 @@ asmlinkage <span class="org-type">int</span> <span class="org-function-name">our
 <h2 id="orgheadline64">Blocking Processes</h2>
 <div class="outline-text-2" id="text-orgheadline64">
 <p>
-What do you do when somebody asks you for something you can't do right away? If you're a human being and you're bothered by a human being, the only thing you can say is: "Not right now, I'm busy. Go away!". But if you're a kernel module and you're bothered by a process, you have another possibility. You can put the process to sleep until you can service it. After all, processes are being put to sleep by the kernel and woken up all the time (that's the way multiple processes appear to run on the same time on a single CPU).
+What do you do when somebody asks you for something you can't do right away? If you're a human being and you're bothered by a human being, the only thing you can say is: <i>"Not right now, I'm busy. Go away!"</i>. But if you're a kernel module and you're bothered by a process, you have another possibility. You can put the process to sleep until you can service it. After all, processes are being put to sleep by the kernel and woken up all the time (that's the way multiple processes appear to run on the same time on a single CPU).
 </p>
 
 <p>
-This kernel module is an example of this. The file (called /proc/sleep) can only be opened by a single process at a time. If the file is already open, the kernel module calls wait_event_interruptible[12]. This function changes
-the status of the task (a task is the kernel data structure which holds information about a process and the system call it's in, if any) to TASK_INTERRUPTIBLE, which means that the task will not run until it is woken up somehow, and adds it to WaitQ, the queue of tasks waiting to access the file. Then, the function calls the scheduler to context switch to a different process, one which has some use for the CPU.
+This kernel module is an example of this. The file (called <b>/proc/sleep</b>) can only be opened by a single process at a time. If the file is already open, the kernel module calls wait_event_interruptible[12]. This function changes
+the status of the task (a task is the kernel data structure which holds information about a process and the system call it's in, if any) to <b>TASK_INTERRUPTIBLE</b>, which means that the task will not run until it is woken up somehow, and adds it to WaitQ, the queue of tasks waiting to access the file. Then, the function calls the scheduler to context switch to a different process, one which has some use for the CPU.
 </p>
 
 <p>
@@ -3430,11 +3430,11 @@ So we'll use tail -f to keep the file open in the background, while trying to ac
 </p>
 
 <p>
-To make our life more interesting, module_close doesn't have a monopoly on waking up the processes which wait to access the file. A signal, such as Ctrl +c (SIGINT) can also wake up a process. [14] In that case, we want to return with -EINTR immediately. This is important so users can, for example, kill the process before it receives the file.
+To make our life more interesting, module_close doesn't have a monopoly on waking up the processes which wait to access the file. A signal, such as <i>Ctrl +c</i> (<b>SIGINT</b>) can also wake up a process. [14] In that case, we want to return with <b>-EINTR</b> immediately. This is important so users can, for example, kill the process before it receives the file.
 </p>
 
 <p>
-There is one more point to remember. Some times processes don't want to sleep, they want either to get what they want immediately, or to be told it cannot be done. Such processes use the O_NONBLOCK flag when opening the file. The kernel is supposed to respond by returning with the error code -EAGAIN from operations which would otherwise block, such as opening the file in this example. The program cat_noblock, available in the source directory for this chapter, can be used to open a file with O_NONBLOCK.
+There is one more point to remember. Some times processes don't want to sleep, they want either to get what they want immediately, or to be told it cannot be done. Such processes use the <b>O_NONBLOCK</b> flag when opening the file. The kernel is supposed to respond by returning with the error code <b>-EAGAIN</b> from operations which would otherwise block, such as opening the file in this example. The program cat_noblock, available in the source directory for this chapter, can be used to open a file with <b>O_NONBLOCK</b>.
 </p>
 
 <div class="org-src-container">
@@ -3466,6 +3466,10 @@ hostname:~/lkmpg-examples/09-BlockingProcesses#
 <div id="outline-container-orgheadline65" class="outline-3">
 <h3 id="orgheadline65">Example: sleep.c</h3>
 <div class="outline-text-3" id="text-orgheadline65">
+<p>
+TODO: this will be out of date
+</p>
+
 <div class="org-src-container">
 
 <pre class="src src-c"><span class="org-comment-delimiter">/*</span>
@@ -3537,8 +3541,8 @@ hostname:~/lkmpg-examples/09-BlockingProcesses#
 <span class="org-keyword">static</span> <span class="org-type">ssize_t</span> <span class="org-function-name">module_input</span>(<span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">file</span>,  <span class="org-comment-delimiter">/* </span><span class="org-comment">The file itself </span><span class="org-comment-delimiter">*/</span>
                             <span class="org-keyword">const</span> <span class="org-type">char</span> *<span class="org-variable-name">buf</span>,    <span class="org-comment-delimiter">/* </span><span class="org-comment">The buffer with input </span><span class="org-comment-delimiter">*/</span>
                             <span class="org-type">size_t</span> <span class="org-variable-name">length</span>,      <span class="org-comment-delimiter">/* </span><span class="org-comment">The buffer's length </span><span class="org-comment-delimiter">*/</span>
-                            <span class="org-type">loff_t</span> * <span class="org-variable-name">offset</span>)
-{                               <span class="org-comment-delimiter">/* </span><span class="org-comment">offset to file - ignore </span><span class="org-comment-delimiter">*/</span>
+                            <span class="org-type">loff_t</span> * <span class="org-variable-name">offset</span>)    <span class="org-comment-delimiter">/* </span><span class="org-comment">offset to file - ignore </span><span class="org-comment-delimiter">*/</span>
+{
     <span class="org-type">int</span> <span class="org-variable-name">i</span>;
 
     <span class="org-comment-delimiter">/*</span>
