@@ -1682,13 +1682,14 @@ static ssize_t myvariable_store(struct kobject *kobj,
 
 
 static struct kobj_attribute myvariable_attribute =
-	__ATTR(myvariable, 0660, myvariable_show, myvariable_store);
+	__ATTR(myvariable, 0660, myvariable_show,
+		   myvariable_store);
 
 static int __init mymodule_init (void)
 {
 	int error = 0;
 
-	pr_debug("mymodule: initialised\n");
+	printk(KERN_INFO "mymodule: initialised\n");
 
 	mymodule =
 		kobject_create_and_add("mymodule", kernel_kobj);
@@ -1697,8 +1698,8 @@ static int __init mymodule_init (void)
 
 	error = sysfs_create_file(mymodule, &myvariable_attribute.attr);
 	if (error) {
-		pr_debug("failed to create the myvariable file " \
-				 "in /sys/kernel/mymodule\n");
+		printk(KERN_INFO "failed to create the myvariable file " \
+			   "in /sys/kernel/mymodule\n");
 	}
 
 	return error;
@@ -1706,7 +1707,7 @@ static int __init mymodule_init (void)
 
 static void __exit mymodule_exit (void)
 {
-	pr_debug ("mymodule: Exit success\n");
+	printk(KERN_INFO "mymodule: Exit success\n");
 	kobject_put(mymodule);
 }
 
