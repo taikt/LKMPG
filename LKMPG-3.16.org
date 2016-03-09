@@ -32,25 +32,6 @@ The source code and discussions should apply to most architectures, but I can't 
 The following people have contributed corrections or good suggestions: Ignacio Martin, David Porter, Daniele Paolo Scarpazza, Dimo Velev, Francois Audeon, Horst Schirmeier and Bob Mottram.
 
 * Introduction
-** Obtaining the Debian kernel
-
-#+BEGIN_SRC sh
-mkdir -p ~/develop/kernel
-cd ~/develop/kernel
-sudo apt-get -y install fakeroot build-essential devscripts
-sudo apt-get -y build-dep linux
-apt-get -y source linux
-cd linux-*
-make -f debian/rules clean
-make menuconfig
-#+END_SRC
-
-Select *save*, enter the name *.config* then exit. The to build the kernel.
-
-#+BEGIN_SRC sh
-fakeroot make
-#+END_SRC
-
 ** What Is A Kernel Module?
 
 So, you want to write a kernel module. You know C, you've written a few normal programs to run as processes, and now you want to get to where the real action is, to where a single wild pointer can wipe out your file system and a core dump means a reboot.
@@ -64,7 +45,7 @@ Linux distros provide the commands /modprobe/, /insmod/ and /depmod/ within a pa
 On Debian:
 
 #+BEGIN_SRC sh
-sudo apt-get install kmod
+sudo apt-get install build-essential kmod
 #+END_SRC
 
 ** What Modules are in my Kernel?
@@ -87,6 +68,8 @@ This can be a long list, and you might prefer to search for something particular
 sudo lsmod | grep fat
 #+END_SRC
 
+** Do I need to download and compile the kernel?
+For the purposes of following this guide you don't necessarily need to do that. However, it would be wise to run the examples within a test distro running on a virtual machine in order to avoid any possibility of messing up your system.
 ** How Do I Install Modules Into The Kernel?
 
 When the kernel needs a feature that is not currently resident in the kernel, the kernel module daemon kmod[1] runs the *modprobe* command to load it. modprobe is passed a string in one of two forms:
@@ -284,7 +267,7 @@ Here's another exercise for the reader. See that comment above the return statem
 
 ** Hello World (part 2): Hello and Goodbye
 
-As of Linux 2.4, you can rename the init and cleanup functions of your modules; they no longer have to be called init_module() and cleanup_module() respectively. This is done with the *module_init()* and *module_exit()* macros. These macros are defined in *linux/init.h*. The only caveat is that your init and cleanup functions must be defined before calling the macros, otherwise you'll get compilation errors. Here's an example of this technique:
+In early kernel versions you had to use the *init_module* and *cleanup_module* functions, as in the first hello world example, but these days you can name those anything you want by using the *module_init* and *module_exit* macros. These macros are defined in *linux/init.h*. The only requirement is that your init and cleanup functions must be defined before calling the those macros, otherwise you'll get compilation errors. Here's an example of this technique:
 
 *** Example: hello-2.c
 #+BEGIN_SRC c
