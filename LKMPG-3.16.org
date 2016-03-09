@@ -1053,7 +1053,7 @@ Because we don't get called when the file is opened or closed, there's nowhere f
 
 Here a simple example showing how to use a */proc* file. This is the HelloWorld for the */proc* filesystem. There are three parts: create the file */proc/ helloworld* in the function init_module, return a value (and a buffer) when the file */proc/helloworld* is read in the callback function *procfs_read*, and delete the file */proc/helloworld* in the function cleanup_module.
 
-The */proc/helloworld* is created when the module is loaded with the function create_proc_entry. The return value is a 'struct proc_dir_entry *', and it will be used to configure the file */proc/helloworld* (for example, the owner of this file). A null return value means that the creation has failed.
+The */proc/helloworld* is created when the module is loaded with the function *proc_create*. The return value is a *struct proc_dir_entry* , and it will be used to configure the file */proc/helloworld* (for example, the owner of this file). A null return value means that the creation has failed.
 
 Each time, everytime the file */proc/helloworld* is read, the function procfs_read is called. Two parameters of this function are very important: the buffer (the first parameter) and the offset (the third one). The content of the buffer will be returned to the application which read it (for example the cat command). The offset is the current position in the file. If the return value of the function isn't null, then this function is called again. So be careful with this function, if it never returns zero, the read function is called endlessly.
 
@@ -1475,6 +1475,8 @@ digraph seq_file {
 Seq_file provides basic functions for file_operations, as seq_read, seq_lseek, and some others. But nothing to write in the /proc file. Of course, you can still use the same way as in the previous example.
 
 *** Example: procfs4.c
+TODO: this will be out of date because of create_proc_entry
+
 #+BEGIN_SRC c
 /**
  *  procfs4.c -  create a "file" in /proc
@@ -2416,7 +2418,7 @@ hostname:~/lkmpg-examples/09-BlockingProcesses#
 #+END_SRC
 
 ** Example: sleep.c
-TODO: this will be out of date
+TODO: this will be out of date because of create_proc_entry
 
 #+BEGIN_SRC c
 /*

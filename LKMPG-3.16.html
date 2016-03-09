@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-03-09 Wed 17:30 -->
+<!-- 2016-03-09 Wed 17:40 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -1928,7 +1928,7 @@ Here a simple example showing how to use a <b>/proc</b> file. This is the HelloW
 </p>
 
 <p>
-The <b>/proc/helloworld</b> is created when the module is loaded with the function create_proc_entry. The return value is a 'struct proc_dir_entry <b>', and it will be used to configure the file */proc/helloworld</b> (for example, the owner of this file). A null return value means that the creation has failed.
+The <b>/proc/helloworld</b> is created when the module is loaded with the function <b>proc_create</b>. The return value is a <b>struct proc_dir_entry</b> , and it will be used to configure the file <b>/proc/helloworld</b> (for example, the owner of this file). A null return value means that the creation has failed.
 </p>
 
 <p>
@@ -2400,6 +2400,10 @@ Seq_file provides basic functions for file_operations, as seq_read, seq_lseek, a
 <div id="outline-container-orgheadline55" class="outline-4">
 <h4 id="orgheadline55">Example: procfs4.c</h4>
 <div class="outline-text-4" id="text-orgheadline55">
+<p>
+TODO: this will be out of date because of create_proc_entry
+</p>
+
 <div class="org-src-container">
 
 <pre class="src src-c"><span class="org-doc">/**</span>
@@ -3467,7 +3471,7 @@ hostname:~/lkmpg-examples/09-BlockingProcesses#
 <h3 id="orgheadline65">Example: sleep.c</h3>
 <div class="outline-text-3" id="text-orgheadline65">
 <p>
-TODO: this will be out of date
+TODO: this will be out of date because of create_proc_entry
 </p>
 
 <div class="org-src-container">
