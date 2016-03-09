@@ -627,10 +627,7 @@ clean:
     make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
 #+END_SRC
 
-This is the complete makefile for all the examples we've seen so far. The
-first five lines are nothing special, but for the last example we'll need two
-lines. First we invent an object name for our combined module, second we tell
-make what object files are part of that module.
+This is the complete makefile for all the examples we've seen so far. The first five lines are nothing special, but for the last example we'll need two lines. First we invent an object name for our combined module, second we tell make what object files are part of that module.
 
 ** Building modules for a precompiled kernel
 
@@ -1091,7 +1088,7 @@ You might already have noticed that recent kernels look different. In case you h
 
 In Linux, there is an additional mechanism for the kernel and kernel modules to send information to processes --- the */proc* file system. Originally designed to allow easy access to information about processes (hence the name), it is now used by every bit of the kernel which has something interesting to report, such as */proc/modules* which provides the list of modules and */proc/meminfo* which stats memory usage statistics.
 
-The method to use the proc file system is very similar to the one used with device drivers --- a structure is created with all the information needed for the */proc* file, including pointers to any handler functions (in our case there is only one, the one called when somebody attempts to read from the / proc file). Then, init_module registers the structure with the kernel and cleanup_module unregisters it.
+The method to use the proc file system is very similar to the one used with device drivers --- a structure is created with all the information needed for the */proc* file, including pointers to any handler functions (in our case there is only one, the one called when somebody attempts to read from the */proc* file). Then, init_module registers the structure with the kernel and cleanup_module unregisters it.
 
 The reason we use proc_register_dynamic[8] is because we don't want to determine the inode number used for our file in advance, but to allow the kernel to determine it to prevent clashes. Normal file systems are located on a disk, rather than just in memory (which is where */proc* is), and in that case the inode number is a pointer to a disk location where the file's index-node (inode for short) is located. The inode contains information about the file, for example the file's permissions, together with a pointer to the disk location or locations where the file's data can be found.
 
@@ -1103,7 +1100,7 @@ The */proc/helloworld* is created when the module is loaded with the function cr
 
 Each time, everytime the file */proc/helloworld* is read, the function procfs_read is called. Two parameters of this function are very important: the buffer (the first parameter) and the offset (the third one). The content of the buffer will be returned to the application which read it (for example the cat command). The offset is the current position in the file. If the return value of the function isn't null, then this function is called again. So be careful with this function, if it never returns zero, the read function is called endlessly.
 
-#+BEGIN_SRC sh
+#+BEGIN_SRC txt
 # cat /proc/helloworld
 HelloWorld!
 #+END_SRC
@@ -1491,7 +1488,6 @@ non NULL value, the function next() is called. This function is an iterator, the
 
 BE CARREFUL: when a sequence is finished, another one starts. That means that at the end of function stop(), the function start() is called again. This loop finishes when the function start() returns NULL. You can see a scheme of this in the figure "How seq_file works".
 
-
 *** Figure: How seq_file works
 
 | [[./seq_file.jpg]]                                                                                                                                                                                                |
@@ -1641,24 +1637,112 @@ If you want more information, you can read this web page:
 
 You can also read the code of fs/seq_file.c in the linux kernel.
 
-* Using /proc For Input
-** sysfs: Interacting with your module
+* sysfs: Interacting with your module
 
-sysfs allows you to interact with the running kernel by reading or setting variables inside of modules. This can be useful for debugging purposes, or just as an interface for userland applications.
+/sysfs/ allows you to interact with the running kernel by reading or setting variables inside of modules. This can be useful for debugging purposes, or just as an interface for userland applications or scripts.
 
 An example of a hello world module which includes a variable accessible via sysfs is given below.
 
+** Example: hello-sysfs.c
 #+BEGIN_SRC c
-TODO
+/*
+ * hello-sysfs.c sysfs example
+ */
+
+#include <linux/module.h>
+#include <linux/printk.h>
+#include <linux/kobject.h>
+#include <linux/sysfs.h>
+#include <linux/init.h>
+#include <linux/fs.h>
+#include <linux/string.h>
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Bob Mottram");
+
+static struct kobject *mymodule;
+
+/* the variable you want to be able to change */
+static int myvariable = 0;
+
+static ssize_t myvariable_show(struct kobject *kobj,
+							   struct kobj_attribute *attr,
+							   char *buf)
+{
+	return sprintf(buf, "%d\n", myvariable);
+}
+
+static ssize_t myvariable_store(struct kobject *kobj,
+								struct kobj_attribute *attr,
+								char *buf, size_t count)
+{
+	sscanf(buf, "%du", &myvariable);
+	return count;
+}
+
+
+static struct kobj_attribute myvariable_attribute =
+	__ATTR(myvariable, 0660, myvariable_show, myvariable_store);
+
+static int __init mymodule_init (void)
+{
+	int error = 0;
+
+	pr_debug("mymodule: initialised\n");
+
+	mymodule =
+		kobject_create_and_add("mymodule", kernel_kobj);
+	if (!mymodule)
+		return -ENOMEM;
+
+	error = sysfs_create_file(mymodule, &myvariable_attribute.attr);
+	if (error) {
+		pr_debug("failed to create the myvariable file " \
+				 "in /sys/kernel/mymodule\n");
+	}
+
+	return error;
+}
+
+static void __exit mymodule_exit (void)
+{
+	pr_debug ("mymodule: Exit success\n");
+	kobject_put(mymodule);
+}
+
+module_init(mymodule_init);
+module_exit(mymodule_exit);
 #+END_SRC
 
-Then to test it:
+Make and install the module:
 
 #+BEGIN_SRC sh
 make
 sudo insmod hello-sysfs.ko
-sudo lsmod | grep hello_sysfs
+#+END_SRC
 
+Check that it exists:
+
+#+BEGIN_SRC sh
+sudo lsmod | grep hello_sysfs
+#+END_SRC
+
+What is the current value of /myvariable/ ?
+
+#+BEGIN_SRC sh
+cat /sys/kernel/mymodule/myvariable
+#+END_SRC
+
+Set the value of /myvariable/ and check that it changed.
+
+#+BEGIN_SRC sh
+echo "32" > /sys/kernel/mymodule/myvariable
+cat /sys/kernel/mymodule/myvariable
+#+END_SRC
+
+Finally, remove the test module:
+
+#+BEGIN_SRC sh
 sudo rmmod hello_sysfs
 #+END_SRC
 

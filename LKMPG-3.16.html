@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-03-09 Wed 12:24 -->
+<!-- 2016-03-09 Wed 14:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -281,9 +281,9 @@ for the JavaScript code in this tag.
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline57">Using /proc For Input</a>
+<li><a href="#orgheadline56">sysfs: Interacting with your module</a>
 <ul>
-<li><a href="#orgheadline56">sysfs: Interacting with your module</a></li>
+<li><a href="#orgheadline57">Example: hello-sysfs.c</a></li>
 </ul>
 </li>
 <li><a href="#orgheadline58">Talking To Device Files</a>
@@ -1279,10 +1279,7 @@ And finally, the makefile:
 </div>
 
 <p>
-This is the complete makefile for all the examples we've seen so far. The
-first five lines are nothing special, but for the last example we'll need two
-lines. First we invent an object name for our combined module, second we tell
-make what object files are part of that module.
+This is the complete makefile for all the examples we've seen so far. The first five lines are nothing special, but for the last example we'll need two lines. First we invent an object name for our combined module, second we tell make what object files are part of that module.
 </p>
 </div>
 </div>
@@ -1961,7 +1958,7 @@ In Linux, there is an additional mechanism for the kernel and kernel modules to 
 </p>
 
 <p>
-The method to use the proc file system is very similar to the one used with device drivers &#x2014; a structure is created with all the information needed for the <b>/proc</b> file, including pointers to any handler functions (in our case there is only one, the one called when somebody attempts to read from the / proc file). Then, init_module registers the structure with the kernel and cleanup_module unregisters it.
+The method to use the proc file system is very similar to the one used with device drivers &#x2014; a structure is created with all the information needed for the <b>/proc</b> file, including pointers to any handler functions (in our case there is only one, the one called when somebody attempts to read from the <b>/proc</b> file). Then, init_module registers the structure with the kernel and cleanup_module unregisters it.
 </p>
 
 <p>
@@ -1986,7 +1983,7 @@ Each time, everytime the file <b>/proc/helloworld</b> is read, the function proc
 
 <div class="org-src-container">
 
-<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">cat /proc/helloworld</span>
+<pre class="src src-txt"># cat /proc/helloworld
 HelloWorld!
 </pre>
 </div>
@@ -2423,7 +2420,6 @@ BE CARREFUL: when a sequence is finished, another one starts. That means that at
 </p>
 </div>
 
-
 <div id="outline-container-orgheadline54" class="outline-4">
 <h4 id="orgheadline54">Figure: How seq_file works</h4>
 <div class="outline-text-4" id="text-orgheadline54">
@@ -2604,37 +2600,142 @@ You can also read the code of fs/seq_file.c in the linux kernel.
 </div>
 </div>
 
-<div id="outline-container-orgheadline57" class="outline-2">
-<h2 id="orgheadline57">Using /proc For Input</h2>
-<div class="outline-text-2" id="text-orgheadline57">
-</div><div id="outline-container-orgheadline56" class="outline-3">
-<h3 id="orgheadline56">sysfs: Interacting with your module</h3>
-<div class="outline-text-3" id="text-orgheadline56">
+<div id="outline-container-orgheadline56" class="outline-2">
+<h2 id="orgheadline56">sysfs: Interacting with your module</h2>
+<div class="outline-text-2" id="text-orgheadline56">
 <p>
-sysfs allows you to interact with the running kernel by reading or setting variables inside of modules. This can be useful for debugging purposes, or just as an interface for userland applications.
+<i>sysfs</i> allows you to interact with the running kernel by reading or setting variables inside of modules. This can be useful for debugging purposes, or just as an interface for userland applications or scripts.
 </p>
 
 <p>
 An example of a hello world module which includes a variable accessible via sysfs is given below.
 </p>
+</div>
 
+<div id="outline-container-orgheadline57" class="outline-3">
+<h3 id="orgheadline57">Example: hello-sysfs.c</h3>
+<div class="outline-text-3" id="text-orgheadline57">
 <div class="org-src-container">
 
-<pre class="src src-c">TODO
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
+<span class="org-comment"> * hello-sysfs.c sysfs example</span>
+<span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
+
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/printk.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kobject.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/sysfs.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/init.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/fs.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/string.h&gt;</span>
+
+MODULE_LICENSE(<span class="org-string">"GPL"</span>);
+MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
+
+<span class="org-keyword">static</span> <span class="org-keyword">struct</span> <span class="org-type">kobject</span> *<span class="org-variable-name">mymodule</span>;
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">the variable you want to be able to change </span><span class="org-comment-delimiter">*/</span>
+<span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-variable-name">myvariable</span> = 0;
+
+<span class="org-keyword">static</span> <span class="org-type">ssize_t</span> <span class="org-function-name">myvariable_show</span>(<span class="org-keyword">struct</span> <span class="org-type">kobject</span> *<span class="org-variable-name">kobj</span>,
+                               <span class="org-keyword">struct</span> <span class="org-type">kobj_attribute</span> *<span class="org-variable-name">attr</span>,
+                               <span class="org-type">char</span> *<span class="org-variable-name">buf</span>)
+{
+    <span class="org-keyword">return</span> sprintf(buf, <span class="org-string">"%d\n"</span>, myvariable);
+}
+
+<span class="org-keyword">static</span> <span class="org-type">ssize_t</span> <span class="org-function-name">myvariable_store</span>(<span class="org-keyword">struct</span> <span class="org-type">kobject</span> *<span class="org-variable-name">kobj</span>,
+                                <span class="org-keyword">struct</span> <span class="org-type">kobj_attribute</span> *<span class="org-variable-name">attr</span>,
+                                <span class="org-type">char</span> *<span class="org-variable-name">buf</span>, <span class="org-type">size_t</span> <span class="org-variable-name">count</span>)
+{
+    sscanf(buf, <span class="org-string">"%du"</span>, &amp;myvariable);
+    <span class="org-keyword">return</span> count;
+}
+
+
+<span class="org-keyword">static</span> <span class="org-keyword">struct</span> <span class="org-type">kobj_attribute</span> <span class="org-variable-name">myvariable_attribute</span> =
+    __ATTR(myvariable, 0660, myvariable_show, myvariable_store);
+
+<span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">__init</span> mymodule_init (<span class="org-type">void</span>)
+{
+    <span class="org-type">int</span> <span class="org-variable-name">error</span> = 0;
+
+    pr_debug(<span class="org-string">"mymodule: initialised\n"</span>);
+
+    mymodule =
+        kobject_create_and_add(<span class="org-string">"mymodule"</span>, kernel_kobj);
+    <span class="org-keyword">if</span> (<span class="org-negation-char">!</span>mymodule)
+        <span class="org-keyword">return</span> -ENOMEM;
+
+    error = sysfs_create_file(mymodule, &amp;myvariable_attribute.attr);
+    <span class="org-keyword">if</span> (error) {
+        pr_debug(<span class="org-string">"failed to create the myvariable file "</span> \
+                 <span class="org-string">"in /sys/kernel/mymodule\n"</span>);
+    }
+
+    <span class="org-keyword">return</span> error;
+}
+
+<span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">__exit</span> mymodule_exit (<span class="org-type">void</span>)
+{
+    pr_debug (<span class="org-string">"mymodule: Exit success\n"</span>);
+    kobject_put(mymodule);
+}
+
+module_init(mymodule_init);
+module_exit(mymodule_exit);
 </pre>
 </div>
 
 <p>
-Then to test it:
+Make and install the module:
 </p>
 
 <div class="org-src-container">
 
 <pre class="src src-sh">make
 sudo insmod hello-sysfs.ko
-sudo lsmod | grep hello_sysfs
+</pre>
+</div>
 
-sudo rmmod hello_sysfs
+<p>
+Check that it exists:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo lsmod | grep hello_sysfs
+</pre>
+</div>
+
+<p>
+What is the current value of <i>myvariable</i> ?
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">cat /sys/kernel/mymodule/myvariable
+</pre>
+</div>
+
+<p>
+Set the value of <i>myvariable</i> and check that it changed.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span class="org-builtin">echo</span> <span class="org-string">"32"</span> &gt; /sys/kernel/mymodule/myvariable
+cat /sys/kernel/mymodule/myvariable
+</pre>
+</div>
+
+<p>
+Finally, remove the test module:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo rmmod hello_sysfs
 </pre>
 </div>
 </div>
