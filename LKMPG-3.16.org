@@ -3050,6 +3050,8 @@ Instead of doing that, we can create a function that will be called once for eve
 There's one more point we need to remember here. When a module is removed by rmmod, first its reference count is checked. If it is zero, module_cleanup is called. Then, the module is removed from memory with all its functions. Things need to be shut down properly, or bad things will happen. See the code below how this can be done in a safe way.
 
 ** Example: sched.c
+TODO: test this out. Not sure about the proc creation
+
 #+BEGIN_SRC c
 /*
  *  sched.c - scheduale a function to be called on every timer interrupt.
@@ -3238,10 +3240,9 @@ Then, from within the interrupt handler, we communicate with the hardware and th
 
 ** Keyboards on the Intel Architecture
 
-The rest of this chapter is completely Intel specific. If you're not running on an Intel platform, it will not work. Don't even try to compile the code here.
+The rest of this chapter is completely Intel specific. If you're not running on an Intel platform, it will not work. Don't even try to compile the code here. Move right along, nothing to see.
 
-I had a problem with writing the sample code for this chapter. On one hand, for an example to be useful it has to run on everybody's computer with meaningful results. On the other hand, the kernel already includes device drivers for all of the common devices, and those device drivers won't coexist with what I'm going to write. The solution I've found was to write something for the keyboard interrupt, and disable the regular keyboard interrupt handler first. Since it is defined as a static symbol in the kernel source
-files (specifically, drivers/char/keyboard.c), there is no way to restore it. Before insmod'ing this code, do on another terminal sleep 120; reboot if you value your file system.
+I had a problem with writing the sample code for this chapter. On one hand, for an example to be useful it has to run on everybody's computer with meaningful results. On the other hand, the kernel already includes device drivers for all of the common devices, and those device drivers won't coexist with what I'm going to write. The solution I've found was to write something for the keyboard interrupt, and disable the regular keyboard interrupt handler first. Since it is defined as a static symbol in the kernel source files (specifically, drivers/char/keyboard.c), there is no way to restore it. Before insmod'ing this code, do on another terminal sleep 120; reboot if you value your file system.
 
 This code binds itself to IRQ 1, which is the IRQ of the keyboard controlled under Intel architectures. Then, when it receives a keyboard interrupt, it reads the keyboard's status (that's the purpose of the inb(0x64)) and the scan code, which is the value returned by the keyboard. Then, as soon as the kernel thinks it's feasible, it runs got_char which gives the code of the key
 used (the first seven bits of the scan code) and whether it has been pressed (if the 8th bit is zero) or released (if it's one).
@@ -3365,7 +3366,7 @@ MODULE_LICENSE("GPL");
 
 * Symmetric Multi Processing
 
-TODO: This sections simply states that CPUs can contain multiple processors. That might have been novel in 2001, but it's completely ordinary now. Do some research on multiprocessing in the kernel to see if this section can be filled out, or ditched.
+TODO: This section simply states that CPUs can contain multiple processors. That might have been novel in 2001, but it's completely ordinary now. Do some research on multiprocessing in the kernel to see if this section can be filled out, or ditched.
 
 * Common Pitfalls
 

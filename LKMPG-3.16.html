@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-03-09 Wed 17:50 -->
+<!-- 2016-03-09 Wed 17:57 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -4158,6 +4158,10 @@ There's one more point we need to remember here. When a module is removed by rmm
 <div id="outline-container-orgheadline73" class="outline-3">
 <h3 id="orgheadline73">Example: sched.c</h3>
 <div class="outline-text-3" id="text-orgheadline73">
+<p>
+TODO: test this out. Not sure about the proc creation
+</p>
+
 <div class="org-src-container">
 
 <pre class="src src-c"><span class="org-comment-delimiter">/*</span>
@@ -4370,12 +4374,11 @@ Then, from within the interrupt handler, we communicate with the hardware and th
 <h3 id="orgheadline75">Keyboards on the Intel Architecture</h3>
 <div class="outline-text-3" id="text-orgheadline75">
 <p>
-The rest of this chapter is completely Intel specific. If you're not running on an Intel platform, it will not work. Don't even try to compile the code here.
+The rest of this chapter is completely Intel specific. If you're not running on an Intel platform, it will not work. Don't even try to compile the code here. Move right along, nothing to see.
 </p>
 
 <p>
-I had a problem with writing the sample code for this chapter. On one hand, for an example to be useful it has to run on everybody's computer with meaningful results. On the other hand, the kernel already includes device drivers for all of the common devices, and those device drivers won't coexist with what I'm going to write. The solution I've found was to write something for the keyboard interrupt, and disable the regular keyboard interrupt handler first. Since it is defined as a static symbol in the kernel source
-files (specifically, drivers/char/keyboard.c), there is no way to restore it. Before insmod'ing this code, do on another terminal sleep 120; reboot if you value your file system.
+I had a problem with writing the sample code for this chapter. On one hand, for an example to be useful it has to run on everybody's computer with meaningful results. On the other hand, the kernel already includes device drivers for all of the common devices, and those device drivers won't coexist with what I'm going to write. The solution I've found was to write something for the keyboard interrupt, and disable the regular keyboard interrupt handler first. Since it is defined as a static symbol in the kernel source files (specifically, drivers/char/keyboard.c), there is no way to restore it. Before insmod'ing this code, do on another terminal sleep 120; reboot if you value your file system.
 </p>
 
 <p>
@@ -4513,7 +4516,7 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 <h2 id="orgheadline78">Symmetric Multi Processing</h2>
 <div class="outline-text-2" id="text-orgheadline78">
 <p>
-TODO: This sections simply states that CPUs can contain multiple processors. That might have been novel in 2001, but it's completely ordinary now. Do some research on multiprocessing in the kernel to see if this section can be filled out, or ditched.
+TODO: This section simply states that CPUs can contain multiple processors. That might have been novel in 2001, but it's completely ordinary now. Do some research on multiprocessing in the kernel to see if this section can be filled out, or ditched.
 </p>
 </div>
 </div>
