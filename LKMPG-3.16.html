@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-03-09 Wed 14:54 -->
+<!-- 2016-03-09 Wed 15:43 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -2423,23 +2423,23 @@ BE CARREFUL: when a sequence is finished, another one starts. That means that at
 <div id="outline-container-orgheadline54" class="outline-4">
 <h4 id="orgheadline54">Figure: How seq_file works</h4>
 <div class="outline-text-4" id="text-orgheadline54">
+
+<div class="figure">
+<p><img src="img/seq_file.png" alt="seq_file.png" />
+</p>
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
-<colgroup>
-<col  class="org-left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left"><img src="./seq_file.jpg" alt="seq_file.jpg" /></th>
-</tr>
-</thead>
 <tbody>
 <tr>
-<td class="org-left">Seq_file provides basic functions for file_operations, as seq_read, seq_lseek, and some others. But nothing to write in the /proc file. Of course, you can still use the same way as in the previous example.</td>
 </tr>
 </tbody>
 </table>
+<p>
+Seq_file provides basic functions for file_operations, as seq_read, seq_lseek, and some others. But nothing to write in the /proc file. Of course, you can still use the same way as in the previous example.
+</p>
 </div>
 </div>
 
