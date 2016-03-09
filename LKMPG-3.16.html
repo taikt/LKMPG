@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-03-09 Wed 14:47 -->
+<!-- 2016-03-09 Wed 14:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -2654,13 +2654,14 @@ MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 
 
 <span class="org-keyword">static</span> <span class="org-keyword">struct</span> <span class="org-type">kobj_attribute</span> <span class="org-variable-name">myvariable_attribute</span> =
-    __ATTR(myvariable, 0660, myvariable_show, myvariable_store);
+    __ATTR(myvariable, 0660, myvariable_show,
+           myvariable_store);
 
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">__init</span> mymodule_init (<span class="org-type">void</span>)
 {
     <span class="org-type">int</span> <span class="org-variable-name">error</span> = 0;
 
-    pr_debug(<span class="org-string">"mymodule: initialised\n"</span>);
+    printk(KERN_INFO <span class="org-string">"mymodule: initialised\n"</span>);
 
     mymodule =
         kobject_create_and_add(<span class="org-string">"mymodule"</span>, kernel_kobj);
@@ -2669,8 +2670,8 @@ MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 
     error = sysfs_create_file(mymodule, &amp;myvariable_attribute.attr);
     <span class="org-keyword">if</span> (error) {
-        pr_debug(<span class="org-string">"failed to create the myvariable file "</span> \
-                 <span class="org-string">"in /sys/kernel/mymodule\n"</span>);
+        printk(KERN_INFO <span class="org-string">"failed to create the myvariable file "</span> \
+               <span class="org-string">"in /sys/kernel/mymodule\n"</span>);
     }
 
     <span class="org-keyword">return</span> error;
@@ -2678,7 +2679,7 @@ MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">__exit</span> mymodule_exit (<span class="org-type">void</span>)
 {
-    pr_debug (<span class="org-string">"mymodule: Exit success\n"</span>);
+    printk(KERN_INFO <span class="org-string">"mymodule: Exit success\n"</span>);
     kobject_put(mymodule);
 }
 
