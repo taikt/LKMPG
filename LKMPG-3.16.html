@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-03-09 Wed 17:40 -->
+<!-- 2016-03-09 Wed 17:50 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -4513,23 +4513,7 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 <h2 id="orgheadline78">Symmetric Multi Processing</h2>
 <div class="outline-text-2" id="text-orgheadline78">
 <p>
-One of the easiest and cheapest ways to improve hardware performance is to put more than one CPU on the board. This can be done either making the different CPU's take on different jobs (asymmetrical multi-processing) or by making them all run in parallel, doing the same job (symmetrical multi-processing, a.k.a. SMP). Doing asymmetrical multi-processing effectively requires specialized knowledge about the tasks the computer should do, which is unavailable in a general purpose operating system such as Linux. On the other hand, symmetrical multi-processing is relatively easy to implement.
-</p>
-
-<p>
-By relatively easy, I mean exactly that: not that it's really easy. In a symmetrical multi-processing environment, the CPU's share the same memory, and as a result code running in one CPU can affect the memory used by another. You can no longer be certain that a variable you've set to a certain value in the previous line still has that value; the other CPU might have played with it while you weren't looking. Obviously, it's impossible to program like this.
-</p>
-
-<p>
-In the case of process programming this normally isn't an issue, because a process will normally only run on one CPU at a time[18]. The kernel, on the other hand, could be called by different processes running on different CPU's.
-</p>
-
-<p>
-In version 2.0.x, this isn't a problem because the entire kernel is in one big spinlock. This means that if one CPU is in the kernel and another CPU wants to get in, for example because of a system call, it has to wait until the first CPU is done. This makes Linux SMP safe[19], but inefficient.
-</p>
-
-<p>
-In version 2.2.x, several CPU's can be in the kernel at the same time. This is something module writers need to be aware of.
+TODO: This sections simply states that CPUs can contain multiple processors. That might have been novel in 2001, but it's completely ordinary now. Do some research on multiprocessing in the kernel to see if this section can be filled out, or ditched.
 </p>
 </div>
 </div>
