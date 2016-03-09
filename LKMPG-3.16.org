@@ -1492,12 +1492,19 @@ BE CARREFUL: when a sequence is finished, another one starts. That means that at
 
 #+BEGIN_SRC dot :file img/seq_file.png
 digraph seq_file {
-    yesnull [label="Yes" border=0];
+    rankdir="LR";
+    yesnull [label="Yes" penwidth=0];
     returnnull1 [label="return is NULL?" shape=diamond];
     returnnull2 [label="return is NULL?" shape=diamond];
     start [label="start() treatment" shape=box];
     next [label="next() treatment" shape=box];
     stop [label="stop() treatment" shape=box];
+
+    { rank=source; start; returnnull1; }
+    { rank=source; returnnull1; next; }
+    { rank=source; next; returnnull2; }
+    { rank=source; returnnull2; stop; }
+
     start -> returnnull1;
     returnnull1 -> next [label="No"];
     returnnull1 -> yesnull;
