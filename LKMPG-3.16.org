@@ -19,7 +19,7 @@ If you publish or distribute this book commercially, donations, royalties, and/o
 
 *Authorship*
 
-The Linux Kernel Module Programming Guide was originally written for the 2.2 kernels by Ori Pomerantz. Eventually, Ori no longer had time to maintain the document. After all, the Linux kernel is a fast moving target. Peter Jay Salzman took over maintenance and updated it for the 2.4 kernels. Eventually, Peter no longer had time to follow developments with the 2.6 kernel, so Michael Burian became a co-maintainer to update the document for the 2.6 kernels.  Bob Mottram updated the examples for 3.16 kernels.
+The Linux Kernel Module Programming Guide was originally written for the 2.2 kernels by Ori Pomerantz. Eventually, Ori no longer had time to maintain the document. After all, the Linux kernel is a fast moving target. Peter Jay Salzman took over maintenance and updated it for the 2.4 kernels. Eventually, Peter no longer had time to follow developments with the 2.6 kernel, so Michael Burian became a co-maintainer to update the document for the 2.6 kernels.  Bob Mottram updated the examples for 3.8 and 3.16 kernels.
 
 *Versioning and Notes*
 
@@ -1180,8 +1180,7 @@ ssize_t procfile_read(struct file *filePointer,char *buffer,
                       size_t buffer_length, loff_t * offset)
 {
 	int ret=0;
-	if(strlen(buffer) ==0)
-	{
+	if(strlen(buffer) ==0) {
 		printk(KERN_INFO "procfile read %s\n",filePointer->f_path.dentry->d_name.name);
 		ret=copy_to_user(buffer,"HelloWorld!\n",sizeof("HelloWorld!\n"));
 		ret=sizeof("HelloWorld!\n");
@@ -1198,8 +1197,7 @@ static const struct file_operations proc_file_fops = {
 int init_module()
 {
 	Our_Proc_File = proc_create(procfs_name,0644,NULL,&proc_file_fops);
-	if(NULL==Our_Proc_File)
-	{
+	if(NULL==Our_Proc_File)	{
 		proc_remove(Our_Proc_File);
 		printk(KERN_ALERT "Error:Could not initialize /proc/%s\n",procfs_name);
 		return -ENOMEM;
@@ -1265,8 +1263,7 @@ ssize_t procfile_read(struct file *filePointer,char *buffer,
                       size_t buffer_length, loff_t * offset)
 {
 	int ret=0;
-	if(strlen(buffer) ==0)
-	{
+	if(strlen(buffer) ==0) {
 		printk(KERN_INFO "procfile read %s\n",filePointer->f_path.dentry->d_name.name);
 		ret=copy_to_user(buffer,"HelloWorld!\n",sizeof("HelloWorld!\n"));
 		ret=sizeof("HelloWorld!\n");
@@ -1306,8 +1303,7 @@ static const struct file_operations proc_file_fops = {
 int init_module()
 {
 	Our_Proc_File = proc_create(PROCFS_NAME,0644,NULL,&proc_file_fops);
-	if(NULL==Our_Proc_File)
-	{
+	if(NULL==Our_Proc_File) {
 		proc_remove(Our_Proc_File);
 		printk(KERN_ALERT "Error:Could not initialize /proc/%s\n",PROCFS_NAME);
 		return -ENOMEM;
@@ -1330,7 +1326,7 @@ void cleanup_module()
 
 ** Manage /proc file with standard filesystem
 
-We have seen how to read and write a /proc file with the /proc interface. But it's also possible to manage /proc file with inodes. The main interest is to use advanced function, like permissions.
+We have seen how to read and write a /proc file with the /proc interface. But it's also possible to manage /proc file with inodes. The main concern is to use advanced functions, like permissions.
 
 In Linux, there is a standard mechanism for file system registration. Since every file system has to have its own functions to handle inode and file operations[9], there is a special structure to hold pointers to all those functions, struct inode_operations, which includes a pointer to struct file_operations. In /proc, whenever we register a new file, we're allowed to specify which struct inode_operations will be used to access to it. This is the mechanism we use, a struct inode_operations which includes a pointer to a struct file_operations which includes pointers to our procfs_read and procfs_write functions.
 
@@ -1702,9 +1698,25 @@ If you want more information, you can read this web page:
 You can also read the code of fs/seq_file.c in the linux kernel.
 
 * Using /proc For Input
-** TODO: Write a chapter about sysfs
+** sysfs: Interacting with your module
 
-This is just a placeholder for now. Finally I'd like to see a (yet to be written) chapter about sysfs instead here. If you are familiar with sysfs and would like to take part in writing this chapter, feel free to contact us (the LKMPG maintainers) for further details.
+sysfs allows you to interact with the running kernel by reading or setting variables inside of modules. This can be useful for debugging purposes, or just as an interface for userland applications.
+
+An example of a hello world module which includes a variable accessible via sysfs is given below.
+
+#+BEGIN_SRC c
+TODO
+#+END_SRC
+
+Then to test it:
+
+#+BEGIN_SRC sh
+make
+sudo insmod hello-sysfs.ko
+sudo lsmod | grep hello_sysfs
+
+sudo rmmod hello_sysfs
+#+END_SRC
 
 * Talking To Device Files
 
