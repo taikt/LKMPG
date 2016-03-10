@@ -3364,10 +3364,6 @@ void cleanup_module()
 MODULE_LICENSE("GPL");
 #+END_SRC
 
-* Symmetric Multi Processing
-
-TODO: This section simply states that CPUs can contain multiple processors. That might have been novel in 2001, but it's completely ordinary now. Do some research on multiprocessing in the kernel to see if this section can be filled out, or ditched.
-
 * Common Pitfalls
 
 Before I send you on your way to go out into the world and write kernel modules, there are a few things I need to warn you about. If I fail to warn you and something bad happens, please report the problem to me for a full refund of the amount I was paid for your copy of the book.

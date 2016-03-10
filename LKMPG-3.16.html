@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-03-09 Wed 17:57 -->
+<!-- 2016-03-10 Thu 10:51 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -333,18 +333,17 @@ for the JavaScript code in this tag.
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline78">Symmetric Multi Processing</a></li>
-<li><a href="#orgheadline79">Common Pitfalls</a>
+<li><a href="#orgheadline78">Common Pitfalls</a>
 <ul>
-<li><a href="#orgheadline80">Using standard libraries</a></li>
-<li><a href="#orgheadline81">Disabling interrupts</a></li>
-<li><a href="#orgheadline82">Sticking your head inside a large carnivore</a></li>
+<li><a href="#orgheadline79">Using standard libraries</a></li>
+<li><a href="#orgheadline80">Disabling interrupts</a></li>
+<li><a href="#orgheadline81">Sticking your head inside a large carnivore</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline83">Appendix A. Changes: 2.4 To 2.6</a></li>
-<li><a href="#orgheadline84">Appendix B. Where To Go From Here?</a></li>
-<li><a href="#orgheadline85">Notes</a></li>
-<li><a href="#orgheadline86">Edits</a></li>
+<li><a href="#orgheadline82">Appendix A. Changes: 2.4 To 2.6</a></li>
+<li><a href="#orgheadline83">Appendix B. Where To Go From Here?</a></li>
+<li><a href="#orgheadline84">Notes</a></li>
+<li><a href="#orgheadline85">Edits</a></li>
 </ul>
 </div>
 </div>
@@ -4513,43 +4512,34 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 </div>
 
 <div id="outline-container-orgheadline78" class="outline-2">
-<h2 id="orgheadline78">Symmetric Multi Processing</h2>
+<h2 id="orgheadline78">Common Pitfalls</h2>
 <div class="outline-text-2" id="text-orgheadline78">
-<p>
-TODO: This section simply states that CPUs can contain multiple processors. That might have been novel in 2001, but it's completely ordinary now. Do some research on multiprocessing in the kernel to see if this section can be filled out, or ditched.
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgheadline79" class="outline-2">
-<h2 id="orgheadline79">Common Pitfalls</h2>
-<div class="outline-text-2" id="text-orgheadline79">
 <p>
 Before I send you on your way to go out into the world and write kernel modules, there are a few things I need to warn you about. If I fail to warn you and something bad happens, please report the problem to me for a full refund of the amount I was paid for your copy of the book.
 </p>
 </div>
 
-<div id="outline-container-orgheadline80" class="outline-3">
-<h3 id="orgheadline80">Using standard libraries</h3>
-<div class="outline-text-3" id="text-orgheadline80">
+<div id="outline-container-orgheadline79" class="outline-3">
+<h3 id="orgheadline79">Using standard libraries</h3>
+<div class="outline-text-3" id="text-orgheadline79">
 <p>
 You can't do that. In a kernel module you can only use kernel functions, which are the functions you can see in /proc/kallsyms.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline81" class="outline-3">
-<h3 id="orgheadline81">Disabling interrupts</h3>
-<div class="outline-text-3" id="text-orgheadline81">
+<div id="outline-container-orgheadline80" class="outline-3">
+<h3 id="orgheadline80">Disabling interrupts</h3>
+<div class="outline-text-3" id="text-orgheadline80">
 <p>
 You might need to do this for a short time and that is OK, but if you don't enable them afterwards, your system will be stuck and you'll have to power it off.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline82" class="outline-3">
-<h3 id="orgheadline82">Sticking your head inside a large carnivore</h3>
-<div class="outline-text-3" id="text-orgheadline82">
+<div id="outline-container-orgheadline81" class="outline-3">
+<h3 id="orgheadline81">Sticking your head inside a large carnivore</h3>
+<div class="outline-text-3" id="text-orgheadline81">
 <p>
 I probably don't have to warn you about this, but I figured I will anyway, just in case.
 </p>
@@ -4557,18 +4547,18 @@ I probably don't have to warn you about this, but I figured I will anyway, just 
 </div>
 </div>
 
-<div id="outline-container-orgheadline83" class="outline-2">
-<h2 id="orgheadline83">Appendix A. Changes: 2.4 To 2.6</h2>
-<div class="outline-text-2" id="text-orgheadline83">
+<div id="outline-container-orgheadline82" class="outline-2">
+<h2 id="orgheadline82">Appendix A. Changes: 2.4 To 2.6</h2>
+<div class="outline-text-2" id="text-orgheadline82">
 <p>
 I don't know the entire kernel well enough to document all of the changes. Some hints for porting can be found by comparing this version of the LKMPG with it's counterpart for kernel 2.4. Apart from that, anybody who needs to port drivers from 2.4 to 2.6 kernels might want to visit <a href="http://lwn.net/%20Articles/driver-porting">http://lwn.net/%20Articles/driver-porting</a>. If you still can't find an example that exactly meets your needs there, find a driver that's similar to your driver and present in both kernel versions. File comparison tools like xxdiff or meld can be a great help then. Also check if your driver is covered by docs in linux/Documentation/ . Before starting with porting and in case you're stuck it's a good idea to find an appropiate mailinglist and ask people there for pointers.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline84" class="outline-2">
-<h2 id="orgheadline84">Appendix B. Where To Go From Here?</h2>
-<div class="outline-text-2" id="text-orgheadline84">
+<div id="outline-container-orgheadline83" class="outline-2">
+<h2 id="orgheadline83">Appendix B. Where To Go From Here?</h2>
+<div class="outline-text-2" id="text-orgheadline83">
 <p>
 I could easily have squeezed a few more chapters into this book. I could have added a chapter about creating new file systems, or about adding new protocol stacks (as if there's a need for that &#x2013; you'd have to dig underground to find a protocol stack not supported by Linux). I could have added explanations of the kernel mechanisms we haven't touched upon, such as bootstrapping or the disk interface.
 </p>
@@ -4591,9 +4581,9 @@ If you'd like to contribute to this guide, please contact one the maintainers fo
 </div>
 </div>
 
-<div id="outline-container-orgheadline85" class="outline-2">
-<h2 id="orgheadline85">Notes</h2>
-<div class="outline-text-2" id="text-orgheadline85">
+<div id="outline-container-orgheadline84" class="outline-2">
+<h2 id="orgheadline84">Notes</h2>
+<div class="outline-text-2" id="text-orgheadline84">
 <p>
 [1]  In earlier versions of linux, this was known as kerneld.
 [2]  If such a file exists. Note that the acual behavoir might be
@@ -4662,9 +4652,9 @@ If you'd like to contribute to this guide, please contact one the maintainers fo
 </p>
 </div>
 </div>
-<div id="outline-container-orgheadline86" class="outline-2">
-<h2 id="orgheadline86">Edits</h2>
-<div class="outline-text-2" id="text-orgheadline86">
+<div id="outline-container-orgheadline85" class="outline-2">
+<h2 id="orgheadline85">Edits</h2>
+<div class="outline-text-2" id="text-orgheadline85">
 <p>
 linux/fs.h updated file_operations structure (see <a href="http://lwn.net/Articles/119652/">http://lwn.net/Articles/119652/</a>)
 unregister_chrdev returns void
