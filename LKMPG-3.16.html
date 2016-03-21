@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-03-21 Mon 15:11 -->
+<!-- 2016-03-21 Mon 15:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -3520,7 +3520,7 @@ DECLARE_WAIT_QUEUE_HEAD(WaitQ);
         <span class="org-keyword">for</span> (i = 0; i &lt; _NSIG_WORDS &amp;&amp; <span class="org-negation-char">!</span>is_sig; i++)
             is_sig =
                 current-&gt;pending.signal.sig[i] &amp; ~current-&gt;
-                    blocked.sig[i];
+                blocked.sig[i];
 
         <span class="org-keyword">if</span> (is_sig) {
             <span class="org-comment-delimiter">/*</span>
@@ -3545,8 +3545,8 @@ DECLARE_WAIT_QUEUE_HEAD(WaitQ);
     <span class="org-comment-delimiter">/*</span>
 <span class="org-comment">     * Open the file</span>
 <span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
-     Already_Open = 1;
-     <span class="org-keyword">return</span> 0;               <span class="org-comment-delimiter">/* </span><span class="org-comment">Allow the access </span><span class="org-comment-delimiter">*/</span>
+    Already_Open = 1;
+    <span class="org-keyword">return</span> 0;               <span class="org-comment-delimiter">/* </span><span class="org-comment">Allow the access </span><span class="org-comment-delimiter">*/</span>
 }
 
 <span class="org-comment-delimiter">/*</span>
@@ -3574,33 +3574,6 @@ DECLARE_WAIT_QUEUE_HEAD(WaitQ);
 }
 
 <span class="org-comment-delimiter">/*</span>
-<span class="org-comment"> * This function decides whether to allow an operation (return zero) or not</span>
-<span class="org-comment"> * allow it (return a non-zero which indicates why it is not allowed).</span>
-<span class="org-comment"> *</span>
-<span class="org-comment"> * The operation can be one of the following values:</span>
-<span class="org-comment"> * 0 - Execute (run the "file" - meaningless in our case)</span>
-<span class="org-comment"> * 2 - Write (input to the kernel module)</span>
-<span class="org-comment"> * 4 - Read (output from the kernel module)</span>
-<span class="org-comment"> *</span>
-<span class="org-comment"> * This is the real function that checks file permissions. The permissions</span>
-<span class="org-comment"> * returned by ls -l are for reference only, and can be overridden here.</span>
-<span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
-<span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">module_permission</span>(<span class="org-keyword">struct</span> <span class="org-type">inode</span> *<span class="org-variable-name">inode</span>, <span class="org-type">int</span> <span class="org-variable-name">op</span>, <span class="org-keyword">struct</span> <span class="org-type">nameidata</span> *<span class="org-variable-name">nd</span>)
-{
-    <span class="org-comment-delimiter">/*</span>
-<span class="org-comment">     * We allow everybody to read from our module, but only root (uid 0)</span>
-<span class="org-comment">     * may write to it</span>
-<span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
-    <span class="org-keyword">if</span> (op == 4 || (op == 2 &amp;&amp; current-&gt;euid == 0))
-        <span class="org-keyword">return</span> 0;
-
-    <span class="org-comment-delimiter">/*</span>
-<span class="org-comment">     * If it's anything else, access is denied</span>
-<span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
-    <span class="org-keyword">return</span> -EACCES;
-}
-
-<span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> * Structures to register as the /proc file, with pointers to all the relevant</span>
 <span class="org-comment"> * functions.</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
@@ -3611,22 +3584,10 @@ DECLARE_WAIT_QUEUE_HEAD(WaitQ);
 <span class="org-comment"> * means we don't want to deal with something.</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
 <span class="org-keyword">static</span> <span class="org-keyword">struct</span> <span class="org-type">file_operations</span> <span class="org-variable-name">File_Ops_4_Our_Proc_File</span> = {
-        .read = module_output,  <span class="org-comment-delimiter">/* </span><span class="org-comment">"read" from the file </span><span class="org-comment-delimiter">*/</span>
-        .write = module_input,  <span class="org-comment-delimiter">/* </span><span class="org-comment">"write" to the file </span><span class="org-comment-delimiter">*/</span>
-        .open = module_open,    <span class="org-comment-delimiter">/* </span><span class="org-comment">called when the /proc file is opened </span><span class="org-comment-delimiter">*/</span>
-        .release = module_close,        <span class="org-comment-delimiter">/* </span><span class="org-comment">called when it's closed </span><span class="org-comment-delimiter">*/</span>
-};
-
-<span class="org-comment-delimiter">/*</span>
-<span class="org-comment"> * Inode operations for our proc file.  We need it so we'll have somewhere to</span>
-<span class="org-comment"> * specify the file operations structure we want to use, and the function we</span>
-<span class="org-comment"> * use for permissions. It's also possible to specify functions to be called</span>
-<span class="org-comment"> * for anything else which could be done to an inode (although we don't bother,</span>
-<span class="org-comment"> * we just put NULL).</span>
-<span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
-
-<span class="org-keyword">static</span> <span class="org-keyword">struct</span> <span class="org-type">inode_operations</span> <span class="org-variable-name">Inode_Ops_4_Our_Proc_File</span> = {
-        .permission = module_permission,        <span class="org-comment-delimiter">/* </span><span class="org-comment">check for permissions </span><span class="org-comment-delimiter">*/</span>
+    .read = module_output,  <span class="org-comment-delimiter">/* </span><span class="org-comment">"read" from the file </span><span class="org-comment-delimiter">*/</span>
+    .write = module_input,  <span class="org-comment-delimiter">/* </span><span class="org-comment">"write" to the file </span><span class="org-comment-delimiter">*/</span>
+    .open = module_open,    <span class="org-comment-delimiter">/* </span><span class="org-comment">called when the /proc file is opened </span><span class="org-comment-delimiter">*/</span>
+    .release = module_close,        <span class="org-comment-delimiter">/* </span><span class="org-comment">called when it's closed </span><span class="org-comment-delimiter">*/</span>
 };
 
 <span class="org-comment-delimiter">/*</span>
@@ -3639,21 +3600,15 @@ DECLARE_WAIT_QUEUE_HEAD(WaitQ);
 
 <span class="org-type">int</span> <span class="org-function-name">init_module</span>()
 {
-    Our_Proc_File = create_proc_entry(PROC_ENTRY_FILENAME, 0644, <span class="org-constant">NULL</span>);
-
-    <span class="org-keyword">if</span> (Our_Proc_File == <span class="org-constant">NULL</span>) {
-        remove_proc_entry(PROC_ENTRY_FILENAME, &amp;proc_root);
-        printk(KERN_ALERT <span class="org-string">"Error: Could not initialize /proc/test\n"</span>);
+    Our_Proc_File = proc_create(PROC_ENTRY_FILENAME, 0644, <span class="org-constant">NULL</span>, &amp;File_Ops_4_Our_Proc_File);
+    <span class="org-keyword">if</span>(Our_Proc_File == <span class="org-constant">NULL</span>)
+    {
+        remove_proc_entry(PROC_ENTRY_FILENAME, <span class="org-constant">NULL</span>);
+        printk(KERN_DEBUG <span class="org-string">"Error: Could not initialize /proc/%s\n"</span>, PROC_ENTRY_FILENAME);
         <span class="org-keyword">return</span> -ENOMEM;
     }
-
-    Our_Proc_File-&gt;owner = THIS_MODULE;
-    Our_Proc_File-&gt;proc_iops = &amp;Inode_Ops_4_Our_Proc_File;
-    Our_Proc_File-&gt;proc_fops = &amp;File_Ops_4_Our_Proc_File;
-    Our_Proc_File-&gt;mode = S_IFREG | S_IRUGO | S_IWUSR;
-    Our_Proc_File-&gt;uid = 0;
-    Our_Proc_File-&gt;gid = 0;
-    Our_Proc_File-&gt;size = 80;
+    proc_set_size(Our_Proc_File, 80);
+    proc_set_user(Our_Proc_File,  GLOBAL_ROOT_UID, GLOBAL_ROOT_GID);
 
     printk(KERN_INFO <span class="org-string">"/proc/test created\n"</span>);
 
@@ -3668,9 +3623,8 @@ DECLARE_WAIT_QUEUE_HEAD(WaitQ);
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
 <span class="org-type">void</span> <span class="org-function-name">cleanup_module</span>()
 {
-    remove_proc_entry(PROC_ENTRY_FILENAME, &amp;proc_root);
-
-    printk(KERN_INFO <span class="org-string">"/proc/test removed\n"</span>);
+    remove_proc_entry(PROC_ENTRY_FILENAME, <span class="org-constant">NULL</span>);
+    printk(KERN_DEBUG <span class="org-string">"/proc/%s removed\n"</span>, PROC_ENTRY_FILENAME);
 }
 </pre>
 </div>
