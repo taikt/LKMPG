@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-03-21 Mon 10:54 -->
+<!-- 2016-03-21 Mon 15:11 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -2151,201 +2151,84 @@ It's important to note that the standard roles of read and write are reversed in
 <div class="outline-text-4" id="text-orgheadline55">
 <div class="org-src-container">
 
-<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
-<span class="org-comment"> *  procfs3.c -  create a "file" in /proc, use the file_operation way</span>
-<span class="org-comment"> *              to manage the file.</span>
-<span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
+<pre class="src src-c"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/proc_fs.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/sched.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;asm/uaccess.h&gt;</span>
 
-<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>       <span class="org-comment-delimiter">/* </span><span class="org-comment">We're doing kernel work </span><span class="org-comment-delimiter">*/</span>
-<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>       <span class="org-comment-delimiter">/* </span><span class="org-comment">Specifically, a module </span><span class="org-comment-delimiter">*/</span>
-<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/proc_fs.h&gt;</span>      <span class="org-comment-delimiter">/* </span><span class="org-comment">Necessary because we use proc fs </span><span class="org-comment-delimiter">*/</span>
-<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/sched.h&gt;</span>        <span class="org-comment-delimiter">/* </span><span class="org-comment">current_euid() </span><span class="org-comment-delimiter">*/</span>
-<span class="org-preprocessor">#include</span> <span class="org-string">&lt;asm/uaccess.h&gt;</span>        <span class="org-comment-delimiter">/* </span><span class="org-comment">for copy_*_user </span><span class="org-comment-delimiter">*/</span>
-
-<span class="org-preprocessor">#define</span> <span class="org-variable-name">PROC_ENTRY_FILENAME</span>     <span class="org-string">"buffer2k"</span>
 <span class="org-preprocessor">#define</span> <span class="org-variable-name">PROCFS_MAX_SIZE</span>         2048
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">PROCFS_ENTRY_FILENAME</span>   <span class="org-string">"buffer2k"</span>
 
-<span class="org-doc">/**</span>
-<span class="org-doc"> * The buffer (2k) for this module</span>
-<span class="org-doc"> *</span>
-<span class="org-doc"> */</span>
+<span class="org-keyword">struct</span> <span class="org-type">proc_dir_entry</span> *<span class="org-variable-name">Our_Proc_File</span>;
 <span class="org-keyword">static</span> <span class="org-type">char</span> <span class="org-variable-name">procfs_buffer</span>[PROCFS_MAX_SIZE];
-
-<span class="org-doc">/**</span>
-<span class="org-doc"> * The size of the data hold in the buffer</span>
-<span class="org-doc"> *</span>
-<span class="org-doc"> */</span>
 <span class="org-keyword">static</span> <span class="org-type">unsigned</span> <span class="org-type">long</span> <span class="org-variable-name">procfs_buffer_size</span> = 0;
 
-<span class="org-doc">/**</span>
-<span class="org-doc"> * The structure keeping information about the /proc file</span>
-<span class="org-doc"> *</span>
-<span class="org-doc"> */</span>
-<span class="org-keyword">static</span> <span class="org-keyword">struct</span> <span class="org-type">proc_dir_entry</span> *<span class="org-variable-name">Our_Proc_File</span>;
-
-<span class="org-doc">/**</span>
-<span class="org-doc"> * This funtion is called when the /proc file is read</span>
-<span class="org-doc"> *</span>
-<span class="org-doc"> */</span>
-<span class="org-keyword">static</span> <span class="org-type">ssize_t</span> <span class="org-function-name">procfs_read</span>(<span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">filp</span>,   <span class="org-comment-delimiter">/* </span><span class="org-comment">see include/linux/fs.h   </span><span class="org-comment-delimiter">*/</span>
-                             <span class="org-type">char</span> *<span class="org-variable-name">buffer</span>,      <span class="org-comment-delimiter">/* </span><span class="org-comment">buffer to fill with data </span><span class="org-comment-delimiter">*/</span>
-                             <span class="org-type">size_t</span> <span class="org-variable-name">length</span>,     <span class="org-comment-delimiter">/* </span><span class="org-comment">length of the buffer     </span><span class="org-comment-delimiter">*/</span>
-                             <span class="org-type">loff_t</span> * <span class="org-variable-name">offset</span>)
+<span class="org-keyword">static</span> <span class="org-type">ssize_t</span> <span class="org-function-name">procfs_read</span>(<span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">filp</span>, <span class="org-type">char</span> *<span class="org-variable-name">buffer</span>,
+                           <span class="org-type">size_t</span> <span class="org-variable-name">length</span>, <span class="org-type">loff_t</span> *<span class="org-variable-name">offset</span>)
 {
     <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-variable-name">finished</span> = 0;
-
-    <span class="org-comment-delimiter">/*</span>
-<span class="org-comment">     * We return 0 to indicate end of file, that we have</span>
-<span class="org-comment">     * no more information. Otherwise, processes will</span>
-<span class="org-comment">     * continue to read from us in an endless loop.</span>
-<span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
-    <span class="org-keyword">if</span> ( finished ) {
-        printk(KERN_INFO <span class="org-string">"procfs_read: END\n"</span>);
+    <span class="org-keyword">if</span>(finished)
+    {
+        printk(KERN_DEBUG <span class="org-string">"procfs_read: END\n"</span>);
         finished = 0;
         <span class="org-keyword">return</span> 0;
     }
-
     finished = 1;
-
-    <span class="org-comment-delimiter">/*</span>
-<span class="org-comment">     * We use put_to_user to copy the string from the kernel's</span>
-<span class="org-comment">     * memory segment to the memory segment of the process</span>
-<span class="org-comment">     * that called us. get_from_user, BTW, is</span>
-<span class="org-comment">     * used for the reverse.</span>
-<span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
-    <span class="org-keyword">if</span> ( copy_to_user(buffer, procfs_buffer, procfs_buffer_size) ) {
+    <span class="org-keyword">if</span>(copy_to_user(buffer, procfs_buffer, procfs_buffer_size))
         <span class="org-keyword">return</span> -EFAULT;
-    }
-
-    printk(KERN_INFO <span class="org-string">"procfs_read: read %lu bytes\n"</span>, procfs_buffer_size);
-
-    <span class="org-keyword">return</span> procfs_buffer_size;      <span class="org-comment-delimiter">/* </span><span class="org-comment">Return the number of bytes "read" </span><span class="org-comment-delimiter">*/</span>
-}
-
-<span class="org-comment-delimiter">/*</span>
-<span class="org-comment"> * This function is called when /proc is written</span>
-<span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
-<span class="org-keyword">static</span> <span class="org-type">ssize_t</span>
-<span class="org-function-name">procfs_write</span>(<span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">file</span>, <span class="org-keyword">const</span> <span class="org-type">char</span> *<span class="org-variable-name">buffer</span>, <span class="org-type">size_t</span> <span class="org-variable-name">len</span>, <span class="org-type">loff_t</span> * <span class="org-variable-name">off</span>)
-{
-    <span class="org-keyword">if</span> ( len &gt; PROCFS_MAX_SIZE )    {
-        procfs_buffer_size = PROCFS_MAX_SIZE;
-    }
-    <span class="org-keyword">else</span> {
-        procfs_buffer_size = len;
-    }
-
-    <span class="org-keyword">if</span> ( copy_from_user(procfs_buffer, buffer, procfs_buffer_size) ) {
-        <span class="org-keyword">return</span> -EFAULT;
-    }
-
-    printk(KERN_INFO <span class="org-string">"procfs_write: write %lu bytes\n"</span>, procfs_buffer_size);
-
+    printk(KERN_DEBUG <span class="org-string">"procfs_read: read %lu bytes\n"</span>, procfs_buffer_size);
     <span class="org-keyword">return</span> procfs_buffer_size;
 }
-
-<span class="org-comment-delimiter">/*</span>
-<span class="org-comment"> * This function decides whether to allow an operation</span>
-<span class="org-comment"> * (return zero) or not allow it (return a non-zero</span>
-<span class="org-comment"> * which indicates why it is not allowed).</span>
-<span class="org-comment"> *</span>
-<span class="org-comment"> * The operation can be one of the following values:</span>
-<span class="org-comment"> * 0 - Execute (run the "file" - meaningless in our case)</span>
-<span class="org-comment"> * 2 - Write (input to the kernel module)</span>
-<span class="org-comment"> * 4 - Read (output from the kernel module)</span>
-<span class="org-comment"> *</span>
-<span class="org-comment"> * This is the real function that checks file</span>
-<span class="org-comment"> * permissions. The permissions returned by ls -l are</span>
-<span class="org-comment"> * for referece only, and can be overridden here.</span>
-<span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
-<span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">module_permission</span>(<span class="org-keyword">struct</span> <span class="org-type">inode</span> *<span class="org-variable-name">inode</span>, <span class="org-type">int</span> <span class="org-variable-name">op</span>)
+<span class="org-keyword">static</span> <span class="org-type">ssize_t</span> <span class="org-function-name">procfs_write</span>(<span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">file</span>,  <span class="org-keyword">const</span> <span class="org-type">char</span> *<span class="org-variable-name">buffer</span>,
+                            <span class="org-type">size_t</span> <span class="org-variable-name">len</span>, <span class="org-type">loff_t</span> *<span class="org-variable-name">off</span>)
 {
-    <span class="org-comment-delimiter">/*</span>
-<span class="org-comment">     * We allow everybody to read from our module, but</span>
-<span class="org-comment">     * only root (uid 0) may write to it</span>
-<span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
-    <span class="org-keyword">if</span> (op == 4 || (op == 2 &amp;&amp; current_euid() == 0))
-        <span class="org-keyword">return</span> 0;
-
-    <span class="org-comment-delimiter">/*</span>
-<span class="org-comment">     * If it's anything else, access is denied</span>
-<span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
-    <span class="org-keyword">return</span> -EACCES;
+    <span class="org-keyword">if</span>(len&gt;PROCFS_MAX_SIZE)
+        procfs_buffer_size = PROCFS_MAX_SIZE;
+    <span class="org-keyword">else</span>
+        procfs_buffer_size = len;
+    <span class="org-keyword">if</span>(copy_from_user(procfs_buffer, buffer, procfs_buffer_size))
+        <span class="org-keyword">return</span> -EFAULT;
+    printk(KERN_DEBUG <span class="org-string">"procfs_write: write %lu bytes\n"</span>, procfs_buffer_size);
+    <span class="org-keyword">return</span> procfs_buffer_size;
 }
-
-<span class="org-comment-delimiter">/*</span>
-<span class="org-comment"> * The file is opened - we don't really care about</span>
-<span class="org-comment"> * that, but it does mean we need to increment the</span>
-<span class="org-comment"> * module's reference count.</span>
-<span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
 <span class="org-type">int</span> <span class="org-function-name">procfs_open</span>(<span class="org-keyword">struct</span> <span class="org-type">inode</span> *<span class="org-variable-name">inode</span>, <span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">file</span>)
 {
     try_module_get(THIS_MODULE);
     <span class="org-keyword">return</span> 0;
 }
-
-<span class="org-comment-delimiter">/*</span>
-<span class="org-comment"> * The file is closed - again, interesting only because</span>
-<span class="org-comment"> * of the reference count.</span>
-<span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
 <span class="org-type">int</span> <span class="org-function-name">procfs_close</span>(<span class="org-keyword">struct</span> <span class="org-type">inode</span> *<span class="org-variable-name">inode</span>, <span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">file</span>)
 {
     module_put(THIS_MODULE);
-    <span class="org-keyword">return</span> 0;               <span class="org-comment-delimiter">/* </span><span class="org-comment">success </span><span class="org-comment-delimiter">*/</span>
+    <span class="org-keyword">return</span> 0;
 }
 
 <span class="org-keyword">static</span> <span class="org-keyword">struct</span> <span class="org-type">file_operations</span> <span class="org-variable-name">File_Ops_4_Our_Proc_File</span> = {
-    .read    = procfs_read,
-    .write   = procfs_write,
-    .open    = procfs_open,
-    .release = procfs_close,
+    .read       = procfs_read,
+    .write      = procfs_write,
+    .open       = procfs_open,
+    .release    = procfs_close,
 };
 
-<span class="org-comment-delimiter">/*</span>
-<span class="org-comment"> * Inode operations for our proc file. We need it so</span>
-<span class="org-comment"> * we'll have some place to specify the file operations</span>
-<span class="org-comment"> * structure we want to use, and the function we use for</span>
-<span class="org-comment"> * permissions. It's also possible to specify functions</span>
-<span class="org-comment"> * to be called for anything else which could be done to</span>
-<span class="org-comment"> * an inode (although we don't bother, we just put</span>
-<span class="org-comment"> * NULL).</span>
-<span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
-
-<span class="org-keyword">static</span> <span class="org-keyword">struct</span> <span class="org-type">inode_operations</span> <span class="org-variable-name">Inode_Ops_4_Our_Proc_File</span> = {
-    .permission = module_permission,        <span class="org-comment-delimiter">/* </span><span class="org-comment">check for permissions </span><span class="org-comment-delimiter">*/</span>
-};
-
-<span class="org-comment-delimiter">/*</span>
-<span class="org-comment"> * Module initialization and cleanup</span>
-<span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
 <span class="org-type">int</span> <span class="org-function-name">init_module</span>()
 {
-    <span class="org-comment-delimiter">/* </span><span class="org-comment">create the /proc file </span><span class="org-comment-delimiter">*/</span>
-    Our_Proc_File = proc_create(PROC_ENTRY_FILENAME, 0644, <span class="org-constant">NULL</span>, <span class="org-constant">NULL</span>);
-
-    <span class="org-comment-delimiter">/* </span><span class="org-comment">check if the /proc file was created successfuly </span><span class="org-comment-delimiter">*/</span>
-    <span class="org-keyword">if</span> (Our_Proc_File == <span class="org-constant">NULL</span>){
-        printk(KERN_ALERT <span class="org-string">"Error: Could not initialize /proc/%s\n"</span>,
-               PROC_ENTRY_FILENAME);
+    Our_Proc_File = proc_create(PROCFS_ENTRY_FILENAME, 0644, <span class="org-constant">NULL</span>,&amp;File_Ops_4_Our_Proc_File);
+    <span class="org-keyword">if</span>(Our_Proc_File == <span class="org-constant">NULL</span>)
+    {
+        remove_proc_entry(PROCFS_ENTRY_FILENAME, <span class="org-constant">NULL</span>);
+        printk(KERN_DEBUG <span class="org-string">"Error: Could not initialize /proc/%s\n"</span>, PROCFS_ENTRY_FILENAME);
         <span class="org-keyword">return</span> -ENOMEM;
     }
+    proc_set_size(Our_Proc_File, 80);
+    proc_set_user(Our_Proc_File,  GLOBAL_ROOT_UID, GLOBAL_ROOT_GID);
 
-    Our_Proc_File-&gt;proc_iops = &amp;Inode_Ops_4_Our_Proc_File;
-    Our_Proc_File-&gt;proc_fops = &amp;File_Ops_4_Our_Proc_File;
-    Our_Proc_File-&gt;mode = S_IFREG | S_IRUGO | S_IWUSR;
-    Our_Proc_File-&gt;uid = 0;
-    Our_Proc_File-&gt;gid = 0;
-    Our_Proc_File-&gt;size = 80;
-
-    printk(KERN_INFO <span class="org-string">"/proc/%s created\n"</span>, PROC_ENTRY_FILENAME);
-
-    <span class="org-keyword">return</span> 0;       <span class="org-comment-delimiter">/* </span><span class="org-comment">success </span><span class="org-comment-delimiter">*/</span>
+    printk(KERN_DEBUG <span class="org-string">"/proc/%s created\n"</span>, PROCFS_ENTRY_FILENAME);
+    <span class="org-keyword">return</span> 0;
 }
-
 <span class="org-type">void</span> <span class="org-function-name">cleanup_module</span>()
 {
-    remove_proc_entry(PROC_ENTRY_FILENAME, <span class="org-constant">NULL</span>);
-    printk(KERN_INFO <span class="org-string">"/proc/%s removed\n"</span>, PROC_ENTRY_FILENAME);
+    remove_proc_entry(PROCFS_ENTRY_FILENAME, <span class="org-constant">NULL</span>);
+    printk(KERN_DEBUG <span class="org-string">"/proc/%s removed\n"</span>, PROCFS_ENTRY_FILENAME);
 }
 </pre>
 </div>
@@ -2402,10 +2285,6 @@ Seq_file provides basic functions for file_operations, as seq_read, seq_lseek, a
 <div id="outline-container-orgheadline58" class="outline-4">
 <h4 id="orgheadline58">Example: procfs4.c</h4>
 <div class="outline-text-4" id="text-orgheadline58">
-<p>
-TODO: this will be out of date because of create_proc_entry
-</p>
-
 <div class="org-src-container">
 
 <pre class="src src-c"><span class="org-doc">/**</span>
@@ -2522,9 +2401,12 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 {
     <span class="org-keyword">struct</span> <span class="org-type">proc_dir_entry</span> *<span class="org-variable-name">entry</span>;
 
-    entry = create_proc_entry(PROC_NAME, 0, <span class="org-constant">NULL</span>);
-    <span class="org-keyword">if</span> (entry) {
-        entry-&gt;proc_fops = &amp;my_file_ops;
+    entry = proc_create(PROC_NAME, 0, <span class="org-constant">NULL</span>, &amp;my_file_ops);
+    <span class="org-keyword">if</span>(entry == <span class="org-constant">NULL</span>)
+    {
+        remove_proc_entry(PROC_NAME, <span class="org-constant">NULL</span>);
+        printk(KERN_DEBUG <span class="org-string">"Error: Could not initialize /proc/%s\n"</span>, PROC_NAME);
+        <span class="org-keyword">return</span> -ENOMEM;
     }
 
     <span class="org-keyword">return</span> 0;
@@ -2537,6 +2419,7 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 <span class="org-type">void</span> <span class="org-function-name">cleanup_module</span>(<span class="org-type">void</span>)
 {
     remove_proc_entry(PROC_NAME, <span class="org-constant">NULL</span>);
+    printk(KERN_DEBUG <span class="org-string">"/proc/%s removed\n"</span>, PROC_NAME);
 }
 </pre>
 </div>
