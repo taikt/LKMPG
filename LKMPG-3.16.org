@@ -3,8 +3,8 @@
 #+KEYWORDS: linux, kernel, kernel module, kernel programming
 #+DESCRIPTION: How to make kernel modules for Linux
 #+OPTIONS: ^:nil
-#+STYLE: <link rel="stylesheet" type="text/css" href="index.css" />
 
+* Introduction
 The Linux Kernel Module Programming Guide is a free book; you may reproduce and/or modify it under the terms of the Open Software License, version 1.1. You can obtain a copy of this license at [[http://opensource.org/licenses/osl.php][http://opensource.org/licenses/osl.php]].
 
 This book is distributed in the hope it will be useful, but without any warranty, without even the implied warranty of merchantability or fitness for a particular purpose.
@@ -15,23 +15,20 @@ Derivative works and translations of this document must be placed under the Open
 
 If you publish or distribute this book commercially, donations, royalties, and/or printed copies are greatly appreciated by the author and the [[http://www.tldp.org][Linux Documentation Project]] (LDP). Contributing in this way shows your support for free software and the LDP. If you have questions or comments, please contact the address above.
 
-*Foreword*
-
-*Authorship*
+** Authorship
 
 The Linux Kernel Module Programming Guide was originally written for the 2.2 kernels by Ori Pomerantz. Eventually, Ori no longer had time to maintain the document. After all, the Linux kernel is a fast moving target. Peter Jay Salzman took over maintenance and updated it for the 2.4 kernels. Eventually, Peter no longer had time to follow developments with the 2.6 kernel, so Michael Burian became a co-maintainer to update the document for the 2.6 kernels.  Bob Mottram updated the examples for 3.8 and 3.16 kernels and modified or updated some chapters.
 
-*Versioning and Notes*
+** Versioning and Notes
 
 The Linux kernel is a moving target. There has always been a question whether the LKMPG should remove deprecated information or keep it around for historical sake. Michael Burian and I decided to create a new branch of the LKMPG for each new stable kernel version. So version LKMPG 3.16.x will address Linux kernel 3.16 and LKMPG 2.6.x will address Linux kernel 2.6. No attempt will be made to archive historical information; a person wishing this information should read the appropriately versioned LKMPG.
 
 The source code and discussions should apply to most architectures, but I can't promise anything. One exception is Chapter 12, Interrupt Handlers, which should not work on any architecture except for x86.
 
-*Acknowledgements*
+** Acknowledgements
 
 The following people have contributed corrections or good suggestions: Ignacio Martin, David Porter, Daniele Paolo Scarpazza, Dimo Velev, Francois Audeon, Horst Schirmeier and Bob Mottram.
 
-* Introduction
 ** What Is A Kernel Module?
 
 So, you want to write a kernel module. You know C, you've written a few normal programs to run as processes, and now you want to get to where the real action is, to where a single wild pointer can wipe out your file system and a core dump means a reboot.
