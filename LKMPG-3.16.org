@@ -2574,11 +2574,7 @@ void cleanup_module()
 #+BEGIN_SRC c
 /* cat_noblock.c - open a file and display its contents, but exit rather than
  * wait for input */
-
-
 /* Copyright (C) 1998 by Ori Pomerantz */
-
-
 
 #include <stdio.h>    /* standard I/O */
 #include <fcntl.h>    /* for open */
@@ -2886,8 +2882,6 @@ Instead of doing that, we can create a function that will be called once for eve
 There's one more point we need to remember here. When a module is removed by rmmod, first its reference count is checked. If it is zero, module_cleanup is called. Then, the module is removed from memory with all its functions. Things need to be shut down properly, or bad things will happen. See the code below how this can be done in a safe way.
 
 ** Example: sched.c
-TODO: test this out. Not sure about the proc creation
-
 #+BEGIN_SRC c
 /*
  *  sched.c - scheduale a function to be called on every timer interrupt.
@@ -2914,6 +2908,12 @@ TODO: test this out. Not sure about the proc creation
 struct proc_dir_entry *Our_Proc_File;
 #define PROC_ENTRY_FILENAME "sched"
 #define MY_WORK_QUEUE_NAME "WQsched.c"
+
+/*
+ * some work_queue related functions
+ * are just available to GPL licensed Modules
+ */
+MODULE_LICENSE("GPL");
 
 /*
  * The number of times the timer interrupt has been called so far
@@ -3006,12 +3006,8 @@ int __init init_module()
                PROC_ENTRY_FILENAME);
         return -ENOMEM;
     }
-
-    Our_Proc_File->read_proc = procfile_read;
-    Our_Proc_File->mode = S_IFREG | S_IRUGO;
-    Our_Proc_File->uid = 0;
-    Our_Proc_File->gid = 0;
-    Our_Proc_File->size = 80;
+    proc_set_size(Our_Proc_File, 80);
+    proc_set_user(Our_Proc_File,  GLOBAL_ROOT_UID, GLOBAL_ROOT_GID);
 
     /*
      * Put the task in the work_timer task queue, so it will be executed at
@@ -3051,12 +3047,6 @@ void __exit cleanup_module()
      * routine it's time to die.
      */
 }
-
-/*
- * some work_queue related functions
- * are just available to GPL licensed Modules
- */
-MODULE_LICENSE("GPL");
 #+END_SRC
 
 * Interrupt Handlers

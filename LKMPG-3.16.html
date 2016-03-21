@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-03-21 Mon 15:34 -->
+<!-- 2016-03-21 Mon 15:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -3638,11 +3638,7 @@ DECLARE_WAIT_QUEUE_HEAD(WaitQ);
 
 <pre class="src src-c"><span class="org-comment-delimiter">/* </span><span class="org-comment">cat_noblock.c - open a file and display its contents, but exit rather than</span>
 <span class="org-comment"> * wait for input </span><span class="org-comment-delimiter">*/</span>
-
-
 <span class="org-comment-delimiter">/* </span><span class="org-comment">Copyright (C) 1998 by Ori Pomerantz </span><span class="org-comment-delimiter">*/</span>
-
-
 
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>    <span class="org-comment-delimiter">/* </span><span class="org-comment">standard I/O </span><span class="org-comment-delimiter">*/</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;fcntl.h&gt;</span>    <span class="org-comment-delimiter">/* </span><span class="org-comment">for open </span><span class="org-comment-delimiter">*/</span>
@@ -3997,10 +3993,6 @@ There's one more point we need to remember here. When a module is removed by rmm
 <div id="outline-container-orgheadline76" class="outline-3">
 <h3 id="orgheadline76">Example: sched.c</h3>
 <div class="outline-text-3" id="text-orgheadline76">
-<p>
-TODO: test this out. Not sure about the proc creation
-</p>
-
 <div class="org-src-container">
 
 <pre class="src src-c"><span class="org-comment-delimiter">/*</span>
@@ -4025,9 +4017,15 @@ TODO: test this out. Not sure about the proc creation
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/init.h&gt;</span>         <span class="org-comment-delimiter">/* </span><span class="org-comment">For __init and __exit </span><span class="org-comment-delimiter">*/</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/interrupt.h&gt;</span>    <span class="org-comment-delimiter">/* </span><span class="org-comment">For irqreturn_t </span><span class="org-comment-delimiter">*/</span>
 
-<span class="org-keyword">struct</span> <span class="org-type">proc_dir_entry</span> *Our_Proc_File;
+<span class="org-keyword">struct</span> <span class="org-type">proc_dir_entry</span> *<span class="org-variable-name">Our_Proc_File</span>;
 <span class="org-preprocessor">#define</span> <span class="org-variable-name">PROC_ENTRY_FILENAME</span> <span class="org-string">"sched"</span>
 <span class="org-preprocessor">#define</span> <span class="org-variable-name">MY_WORK_QUEUE_NAME</span> <span class="org-string">"WQsched.c"</span>
+
+<span class="org-comment-delimiter">/*</span>
+<span class="org-comment"> * some work_queue related functions</span>
+<span class="org-comment"> * are just available to GPL licensed Modules</span>
+<span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
+MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 
 <span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> * The number of times the timer interrupt has been called so far</span>
@@ -4120,12 +4118,8 @@ TODO: test this out. Not sure about the proc creation
                PROC_ENTRY_FILENAME);
         <span class="org-keyword">return</span> -ENOMEM;
     }
-
-    Our_Proc_File-&gt;read_proc = procfile_read;
-    Our_Proc_File-&gt;mode = S_IFREG | S_IRUGO;
-    Our_Proc_File-&gt;uid = 0;
-    Our_Proc_File-&gt;gid = 0;
-    Our_Proc_File-&gt;size = 80;
+    proc_set_size(Our_Proc_File, 80);
+    proc_set_user(Our_Proc_File,  GLOBAL_ROOT_UID, GLOBAL_ROOT_GID);
 
     <span class="org-comment-delimiter">/*</span>
 <span class="org-comment">     * Put the task in the work_timer task queue, so it will be executed at</span>
@@ -4165,12 +4159,6 @@ TODO: test this out. Not sure about the proc creation
 <span class="org-comment">     * routine it's time to die.</span>
 <span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
 }
-
-<span class="org-comment-delimiter">/*</span>
-<span class="org-comment"> * some work_queue related functions</span>
-<span class="org-comment"> * are just available to GPL licensed Modules</span>
-<span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
-MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 </pre>
 </div>
 </div>
