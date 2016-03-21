@@ -143,7 +143,7 @@ Ironically, this can also cause a problem. By default, gcc on your system may lo
 * Hello World
 ** Hello, World (part 1): The Simplest Module
 
-When the first caveman programmer chiseled the first program on the walls of the first cave computer, it was a program to paint the string `Hello, world' in Antelope pictures. Roman programming textbooks began with the `Salut, Mundi' program. I don't know what happens to people who break with this tradition, but I think it's safer not to find out. We'll start with a series of hello world programs that demonstrate the different aspects of the basics of writing a kernel module.
+Most people learning programming start out with some sort of /"hello world"/ example. I don't know what happens to people who break with this tradition, but I think it's safer not to find out. We'll start with a series of hello world programs that demonstrate the different aspects of the basics of writing a kernel module.
 
 Here's the simplest module possible.
 
