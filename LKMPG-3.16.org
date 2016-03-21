@@ -2300,8 +2300,6 @@ hostname:~/lkmpg-examples/09-BlockingProcesses#
 #+END_SRC
 
 ** Example: sleep.c
-TODO: this will be out of date because of create_proc_entry
-
 #+BEGIN_SRC c
 /*
  *  sleep.c - create a /proc file, and if several processes try to open it at
