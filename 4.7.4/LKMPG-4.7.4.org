@@ -103,7 +103,7 @@ apt-cache search linux-headers-$(uname -r)
 This will tell you what kernel header files are available. Then for example:
 
 #+BEGIN_SRC sh
-sudo apt-get install linux-headers-4.7.4-1-amd64
+sudo apt-get install kmod linux-headers-4.7.4-1-amd64
 #+END_SRC
 
 * Hello World
@@ -1551,9 +1551,9 @@ The ioctl number encodes the major device number, the type of the ioctl, the com
 
 If you want to use ioctls in your own kernel modules, it is best to receive an official ioctl assignment, so if you accidentally get somebody else's ioctls, or if they get yours, you'll know something is wrong. For more information, consult the kernel source tree at Documentation/ioctl-number.txt.
 
-#+BEGIN_SRC c :file chardev.c
+#+BEGIN_SRC c :file chardev2.c
 /*
- *  chardev.c - Create an input/output character device
+ *  chardev2.c - Create an input/output character device
  */
 
 #include <linux/kernel.h>       /* We're doing kernel work */
@@ -1561,7 +1561,7 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
 #include <linux/fs.h>
 #include <asm/uaccess.h>        /* for get_user and put_user */
 
-#include "chardev.h"
+#include "chardev2.h"
 #define SUCCESS 0
 #define DEVICE_NAME "char_dev"
 #define BUF_LEN 80
@@ -1923,19 +1923,20 @@ void cleanup_module()
  * Functions for the ioctl calls
  */
 
-ioctl_set_msg(int file_desc, char *message)
+int ioctl_set_msg(int file_desc, char *message)
 {
     int ret_val;
 
     ret_val = ioctl(file_desc, IOCTL_SET_MSG, message);
 
-     if (ret_val < 0) {
-         printf("ioctl_set_msg failed:%d\n", ret_val);
-         exit(-1);
-     }
+    if (ret_val < 0) {
+        printf("ioctl_set_msg failed:%d\n", ret_val);
+        exit(-1);
+    }
+    return 0;
 }
 
-ioctl_get_msg(int file_desc)
+int ioctl_get_msg(int file_desc)
 {
     int ret_val;
     char message[100];
@@ -1956,9 +1957,10 @@ ioctl_get_msg(int file_desc)
     }
 
     printf("get_msg message:%s\n", message);
+    return 0;
 }
 
-ioctl_get_nth_byte(int file_desc)
+int ioctl_get_nth_byte(int file_desc)
 {
     int i;
     char c;
@@ -1978,12 +1980,13 @@ ioctl_get_nth_byte(int file_desc)
         putchar(c);
     } while (c != 0);
     putchar('\n');
+    return 0;
 }
 
 /*
  * Main - Call the ioctl functions
  */
-main()
+int main()
 {
     int file_desc, ret_val;
     char *msg = "Message passed by ioctl\n";
@@ -1999,6 +2002,7 @@ main()
     ioctl_set_msg(file_desc, msg);
 
     close(file_desc);
+    return 0;
 }
 #+END_SRC
 
@@ -2504,7 +2508,7 @@ void cleanup_module()
 #define MAX_BYTES 1024*4
 
 
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     int    fd;  /* The file descriptor for the file to read */
     size_t bytes; /* The number of bytes read */
@@ -2554,6 +2558,7 @@ main(int argc, char *argv[])
 
         /* While there are no errors and the file isn't over */
     } while (bytes > 0);
+    return 0;
 }
 #+END_SRC
 
