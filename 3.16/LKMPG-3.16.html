@@ -884,7 +884,7 @@ There is also an <b>__initdata</b> which works similarly to <b>__init</b> but fo
 </p>
 
 <p>
-The <b>__exit</b> macro causes the omission of the function when the module is built into the kernel, and like __exit, has no effect for loadable modules. Again, if you consider when the cleanup function runs, this makes complete sense; built-in drivers don't need a cleanup function, while loadable modules do.
+The <b>__exit</b> macro causes the omission of the function when the module is built into the kernel, and like __init, has no effect for loadable modules. Again, if you consider when the cleanup function runs, this makes complete sense; built-in drivers don't need a cleanup function, while loadable modules do.
 </p>
 
 <p>
