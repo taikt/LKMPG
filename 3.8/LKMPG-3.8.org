@@ -451,9 +451,9 @@ Arrays are supported too, but things are a bit different now than they were in t
 int myintarray[2];
 module_param_array(myintarray, int, NULL, 0); /* not interested in count */
 
-int myshortarray[4];
+short myshortarray[4];
 int count;
-module_parm_array(myshortarray, short, , 0); /* put count into "count" variable */
+module_param_array(myshortarray, short, &count, 0); /* put count into "count" variable */
 #+END_SRC
 
 A good use for this is to have the module variable's default values set, like an port or IO address. If the variables contain the default values, then perform autodetection (explained elsewhere). Otherwise, keep the current value. This will be made clear later on.

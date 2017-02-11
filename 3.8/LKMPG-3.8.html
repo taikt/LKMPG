@@ -1191,9 +1191,9 @@ module_param_array(myintarray, int, NULL, 0); <i>* not interested in count *</i>
 </p>
 
 <p>
-int myshortarray[4];
+short myshortarray[4];
 int count;
-module_parm_array(myshortarray, short, , 0); <i>* put count into "count" variable *</i>
+module_param_array(myshortarray, short, &amp;count, 0); <i>* put count into "count" variable *</i>
 #+END_SRC
 </p>
 
