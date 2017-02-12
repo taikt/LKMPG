@@ -920,9 +920,9 @@ Arrays are supported too, but things are a bit different now than they were in t
 <pre class="src src-c"><span class="org-type">int</span> <span class="org-variable-name">myintarray</span>[2];
 module_param_array(myintarray, <span class="org-type">int</span>, <span class="org-constant">NULL</span>, 0); <span class="org-comment-delimiter">/* </span><span class="org-comment">not interested in count </span><span class="org-comment-delimiter">*/</span>
 
-<span class="org-type">int</span> <span class="org-variable-name">myshortarray</span>[4];
+<span class="org-type">short</span> <span class="org-variable-name">myshortarray</span>[4];
 <span class="org-type">int</span> <span class="org-variable-name">count</span>;
-module_parm_array(myshortarray, <span class="org-type">short</span>, , 0); <span class="org-comment-delimiter">/* </span><span class="org-comment">put count into "count" variable </span><span class="org-comment-delimiter">*/</span>
+module_param_array(myshortarray, <span class="org-type">short</span>, &amp;count, 0); <span class="org-comment-delimiter">/* </span><span class="org-comment">put count into "count" variable </span><span class="org-comment-delimiter">*/</span>
 </pre>
 </div>
 
