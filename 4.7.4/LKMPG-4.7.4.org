@@ -622,7 +622,7 @@ int main(void)
 { printf("hello"); return 0; }
 #+END_SRC
 
-with *gcc -Wall -o hello hello.c*. Run the exectable with strace *./hello*. Are you impressed? Every line you see corresponds to a system call. strace[4] is a handy program that gives you details about what system calls a program is making, including which call is made, what its arguments are what it returns. It's an invaluable tool for figuring out things like what files a program is trying to access. Towards the end, you'll see a line which looks like write (1, "hello", 5hello). There it is. The face behind the printf() mask. You may not be familiar with write, since most people use library functions for file I/O (like fopen, fputs, fclose). If that's the case, try looking at man 2 write. The 2nd man section is devoted to system calls (like kill() and read (). The 3rd man section is devoted to library calls, which you would probably be more familiar with (like cosh() and random()).
+with *gcc -Wall -o hello hello.c*. Run the exectable with strace *./hello*. Are you impressed? Every line you see corresponds to a system call. strace[fn:4] is a handy program that gives you details about what system calls a program is making, including which call is made, what its arguments are what it returns. It's an invaluable tool for figuring out things like what files a program is trying to access. Towards the end, you'll see a line which looks like write (1, "hello", 5hello). There it is. The face behind the printf() mask. You may not be familiar with write, since most people use library functions for file I/O (like fopen, fputs, fclose). If that's the case, try looking at man 2 write. The 2nd man section is devoted to system calls (like kill() and read (). The 3rd man section is devoted to library calls, which you would probably be more familiar with (like cosh() and random()).
 
 You can even write modules to replace the kernel's system calls, which we'll do shortly. Crackers often make use of this sort of thing for backdoors or trojans, but you can write your own modules to do more benign things, like have the kernel write Tee hee, that tickles! everytime someone tries to delete a file on your system.
 
@@ -641,11 +641,11 @@ The file */proc/kallsyms* holds all the symbols that the kernel knows about and 
 ** Code space
 Memory management is a very complicated subject and the majority of O'Reilly's "/Understanding The Linux Kernel/" exclusively covers memory management! We're not setting out to be experts on memory managements, but we do need to know a couple of facts to even begin worrying about writing real modules.
 
-If you haven't thought about what a segfault really means, you may be surprised to hear that pointers don't actually point to memory locations. Not real ones, anyway. When a process is created, the kernel sets aside a portion of real physical memory and hands it to the process to use for its executing code, variables, stack, heap and other things which a computer scientist would know about[5]. This memory begins with 0x00000000 and extends up to whatever it needs to be. Since the memory space for any two processes don't overlap, every process that can access a memory address, say 0xbffff978, would be accessing a different location in real physical memory! The processes would be accessing an index named 0xbffff978 which points to some kind of offset into the region of memory set aside for that particular process. For the most part, a process like our Hello, World program can't access the space of another process, although there are ways which we'll talk about later.
+If you haven't thought about what a segfault really means, you may be surprised to hear that pointers don't actually point to memory locations. Not real ones, anyway. When a process is created, the kernel sets aside a portion of real physical memory and hands it to the process to use for its executing code, variables, stack, heap and other things which a computer scientist would know about[fn:5]. This memory begins with 0x00000000 and extends up to whatever it needs to be. Since the memory space for any two processes don't overlap, every process that can access a memory address, say 0xbffff978, would be accessing a different location in real physical memory! The processes would be accessing an index named 0xbffff978 which points to some kind of offset into the region of memory set aside for that particular process. For the most part, a process like our Hello, World program can't access the space of another process, although there are ways which we'll talk about later.
 
 The kernel has its own space of memory as well. Since a module is code which can be dynamically inserted and removed in the kernel (as opposed to a semi-autonomous object), it shares the kernel's codespace rather than having its own. Therefore, if your module segfaults, the kernel segfaults. And if you start writing over data because of an off-by-one error, then you're trampling on kernel data (or code). This is even worse than it sounds, so try your best to be careful.
 
-By the way, I would like to point out that the above discussion is true for any operating system which uses a monolithic kernel[6]. There are things called microkernels which have modules which get their own codespace. The GNU Hurd and QNX Neutrino are two examples of a microkernel.
+By the way, I would like to point out that the above discussion is true for any operating system which uses a monolithic kernel[fn:6]. There are things called microkernels which have modules which get their own codespace. The GNU Hurd and QNX Neutrino are two examples of a microkernel.
 
 ** Device Drivers
 One class of module is the device driver, which provides functionality for hardware like a serial port. On unix, each piece of hardware is represented by a file located in /dev named a device file which provides the means to communicate with the hardware. The device driver provides the communication on behalf of a user program. So the es1370.o sound card device driver might connect the /dev/sound device file to the Ensoniq IS1370 sound card. A userspace program like mp3blaster can use /dev/sound without ever knowing what kind of sound card is installed.
@@ -766,7 +766,7 @@ An instance of struct file is commonly named filp. You'll also see it refered to
 Go ahead and look at the definition of file. Most of the entries you see, like struct dentry aren't used by device drivers, and you can ignore them. This is because drivers don't fill file directly; they only use structures contained in file which are created elsewhere.
 
 ** Registering A Device
-As discussed earlier, char devices are accessed through device files, usually located in /dev[7]. The major number tells you which driver handles which device file. The minor number is used only by the driver itself to differentiate which device it's operating on, just in case the driver handles more than one device.
+As discussed earlier, char devices are accessed through device files, usually located in /dev[fn:7]. The major number tells you which driver handles which device file. The minor number is used only by the driver itself to differentiate which device it's operating on, just in case the driver handles more than one device.
 
 Adding a driver to your system means registering it with the kernel. This is synonymous with assigning it a major number during the module's initialization. You do this by using the register_chrdev function, defined by linux/fs.h.
 
@@ -984,7 +984,7 @@ In Linux, there is an additional mechanism for the kernel and kernel modules to 
 
 The method to use the proc file system is very similar to the one used with device drivers --- a structure is created with all the information needed for the */proc* file, including pointers to any handler functions (in our case there is only one, the one called when somebody attempts to read from the */proc* file). Then, init_module registers the structure with the kernel and cleanup_module unregisters it.
 
-The reason we use proc_register_dynamic[8] is because we don't want to determine the inode number used for our file in advance, but to allow the kernel to determine it to prevent clashes. Normal file systems are located on a disk, rather than just in memory (which is where */proc* is), and in that case the inode number is a pointer to a disk location where the file's index-node (inode for short) is located. The inode contains information about the file, for example the file's permissions, together with a pointer to the disk location or locations where the file's data can be found.
+The reason we use proc_register_dynamic[fn:8] is because we don't want to determine the inode number used for our file in advance, but to allow the kernel to determine it to prevent clashes. Normal file systems are located on a disk, rather than just in memory (which is where */proc* is), and in that case the inode number is a pointer to a disk location where the file's index-node (inode for short) is located. The inode contains information about the file, for example the file's permissions, together with a pointer to the disk location or locations where the file's data can be found.
 
 Because we don't get called when the file is opened or closed, there's nowhere for us to put try_module_get and try_module_put in this module, and if the file is opened and then the module is removed, there's no way to avoid the consequences.
 
@@ -1163,7 +1163,7 @@ void cleanup_module()
 ** Manage /proc file with standard filesystem
 We have seen how to read and write a /proc file with the /proc interface. But it's also possible to manage /proc file with inodes. The main concern is to use advanced functions, like permissions.
 
-In Linux, there is a standard mechanism for file system registration. Since every file system has to have its own functions to handle inode and file operations[9], there is a special structure to hold pointers to all those functions, struct inode_operations, which includes a pointer to struct file_operations. In /proc, whenever we register a new file, we're allowed to specify which struct inode_operations will be used to access to it. This is the mechanism we use, a struct inode_operations which includes a pointer to a struct file_operations which includes pointers to our procfs_read and procfs_write functions.
+In Linux, there is a standard mechanism for file system registration. Since every file system has to have its own functions to handle inode and file operations[fn:9], there is a special structure to hold pointers to all those functions, struct inode_operations, which includes a pointer to struct file_operations. In /proc, whenever we register a new file, we're allowed to specify which struct inode_operations will be used to access to it. This is the mechanism we use, a struct inode_operations which includes a pointer to a struct file_operations which includes pointers to our procfs_read and procfs_write functions.
 
 Another interesting point here is the module_permission function. This function is called whenever a process tries to do something with the /proc file, and it can decide whether to allow access or not. Right now it is only based on the operation and the uid of the current user (as available in current, a pointer to a structure which includes information on the currently running process), but it could be based on anything we like, such as what other processes are doing with the same file, the time of day, or the last input we received.
 
@@ -1553,7 +1553,7 @@ Device files are supposed to represent physical devices. Most physical devices a
 
 This is not always enough. Imagine you had a serial port connected to a modem (even if you have an internal modem, it is still implemented from the CPU's perspective as a serial port connected to a modem, so you don't have to tax your imagination too hard). The natural thing to do would be to use the device file to write things to the modem (either modem commands or data to be sent through the phone line) and read things from the modem (either responses for commands or the data received through the phone line). However, this leaves open the question of what to do when you need to talk to the serial port itself, for example to send the rate at which data is sent and received.
 
-The answer in Unix is to use a special function called *ioctl* (short for Input Output ConTroL). Every device can have its own ioctl commands, which can be read ioctl's (to send information from a process to the kernel), write ioctl's (to return information to a process), [10] both or neither. The ioctl function is called with three parameters: the file descriptor of the appropriate device file, the ioctl number, and a parameter, which is of type long so you can use a cast to use it to pass anything. [11]
+The answer in Unix is to use a special function called *ioctl* (short for Input Output ConTroL). Every device can have its own ioctl commands, which can be read ioctl's (to send information from a process to the kernel), write ioctl's (to return information to a process), [fn:10] both or neither. The ioctl function is called with three parameters: the file descriptor of the appropriate device file, the ioctl number, and a parameter, which is of type long so you can use a cast to use it to pass anything. [fn:11]
 
 The ioctl number encodes the major device number, the type of the ioctl, the command, and the type of the parameter. This ioctl number is usually created by a macro call (_IO, _IOR, _IOW or _IOWR --- depending on the type) in a header file. This header file should then be included both by the programs which will use ioctl (so they can generate the appropriate ioctl's) and by the kernel module (so it can understand it). In the example below, the header file is chardev.h and the program which uses it is ioctl.c.
 
@@ -2195,14 +2195,14 @@ void cleanup_module()
 * Blocking Processes
 What do you do when somebody asks you for something you can't do right away? If you're a human being and you're bothered by a human being, the only thing you can say is: "/Not right now, I'm busy. Go away!/". But if you're a kernel module and you're bothered by a process, you have another possibility. You can put the process to sleep until you can service it. After all, processes are being put to sleep by the kernel and woken up all the time (that's the way multiple processes appear to run on the same time on a single CPU).
 
-This kernel module is an example of this. The file (called */proc/sleep*) can only be opened by a single process at a time. If the file is already open, the kernel module calls wait_event_interruptible[12]. This function changes
+This kernel module is an example of this. The file (called */proc/sleep*) can only be opened by a single process at a time. If the file is already open, the kernel module calls wait_event_interruptible[fn:12]. This function changes
 the status of the task (a task is the kernel data structure which holds information about a process and the system call it's in, if any) to *TASK_INTERRUPTIBLE*, which means that the task will not run until it is woken up somehow, and adds it to WaitQ, the queue of tasks waiting to access the file. Then, the function calls the scheduler to context switch to a different process, one which has some use for the CPU.
 
-When a process is done with the file, it closes it, and module_close is called. That function wakes up all the processes in the queue (there's no mechanism to only wake up one of them). It then returns and the process which just closed the file can continue to run. In time, the scheduler decides that that process has had enough and gives control of the CPU to another process. Eventually, one of the processes which was in the queue will be given control of the CPU by the scheduler. It starts at the point right after the call to module_interruptible_sleep_on[13]. It can then proceed to set a global variable to tell all the other processes that the file is still open and go on with its life. When the other processes get a piece of the CPU, they'll see that global variable and go back to sleep.
+When a process is done with the file, it closes it, and module_close is called. That function wakes up all the processes in the queue (there's no mechanism to only wake up one of them). It then returns and the process which just closed the file can continue to run. In time, the scheduler decides that that process has had enough and gives control of the CPU to another process. Eventually, one of the processes which was in the queue will be given control of the CPU by the scheduler. It starts at the point right after the call to module_interruptible_sleep_on[fn:13]. It can then proceed to set a global variable to tell all the other processes that the file is still open and go on with its life. When the other processes get a piece of the CPU, they'll see that global variable and go back to sleep.
 
 So we'll use tail -f to keep the file open in the background, while trying to access it with another process (again in the background, so that we need not switch to a different vt). As soon as the first background process is killed with kill %1 , the second is woken up, is able to access the file and finally terminates.
 
-To make our life more interesting, module_close doesn't have a monopoly on waking up the processes which wait to access the file. A signal, such as /Ctrl +c/ (*SIGINT*) can also wake up a process. [14] In that case, we want to return with *-EINTR* immediately. This is important so users can, for example, kill the process before it receives the file.
+To make our life more interesting, module_close doesn't have a monopoly on waking up the processes which wait to access the file. A signal, such as /Ctrl +c/ (*SIGINT*) can also wake up a process. [fn:14] In that case, we want to return with *-EINTR* immediately. This is important so users can, for example, kill the process before it receives the file.
 
 There is one more point to remember. Some times processes don't want to sleep, they want either to get what they want immediately, or to be told it cannot be done. Such processes use the *O_NONBLOCK* flag when opening the file. The kernel is supposed to respond by returning with the error code *-EAGAIN* from operations which would otherwise block, such as opening the file in this example. The program cat_noblock, available in the source directory for this chapter, can be used to open a file with *O_NONBLOCK*.
 
@@ -2567,7 +2567,7 @@ int main(int argc, char *argv[])
 
 * Replacing Printks
 ** Replacing printk
-In Section 1.2.1.2, I said that X and kernel module programming don't mix. That's true for developing kernel modules, but in actual use, you want to be able to send messages to whichever tty[15] the command to load the module came from.
+In Section 1.2.1.2, I said that X and kernel module programming don't mix. That's true for developing kernel modules, but in actual use, you want to be able to send messages to whichever tty[fn:15] the command to load the module came from.
 
 The way this is done is by using current, a pointer to the currently running task, to get the current task's tty structure. Then, we look inside that tty structure to find a pointer to a string write function, which we use to write a string to the tty.
 
@@ -2969,11 +2969,11 @@ Except for the last chapter, everything we did in the kernel so far we've done a
 
 There are two types of interaction between the CPU and the rest of the computer's hardware. The first type is when the CPU gives orders to the hardware, the other is when the hardware needs to tell the CPU something. The second, called interrupts, is much harder to implement because it has to be dealt with when convenient for the hardware, not the CPU. Hardware devices typically have a very small amount of RAM, and if you don't read their information when available, it is lost.
 
-Under Linux, hardware interrupts are called IRQ's (InterruptRe quests)[16]. There are two types of IRQ's, short and long. A short IRQ is one which is expected to take a very short period of time, during which the rest of the machine will be blocked and no other interrupts will be handled. A long IRQ is one which can take longer, and during which other interrupts may occur (but not interrupts from the same device). If at all possible, it's better to declare an interrupt handler to be long.
+Under Linux, hardware interrupts are called IRQ's (InterruptRe quests)[fn:16]. There are two types of IRQ's, short and long. A short IRQ is one which is expected to take a very short period of time, during which the rest of the machine will be blocked and no other interrupts will be handled. A long IRQ is one which can take longer, and during which other interrupts may occur (but not interrupts from the same device). If at all possible, it's better to declare an interrupt handler to be long.
 
 When the CPU receives an interrupt, it stops whatever it's doing (unless it's processing a more important interrupt, in which case it will deal with this one only when the more important one is done), saves certain parameters on the stack and calls the interrupt handler. This means that certain things are not allowed in the interrupt handler itself, because the system is in an unknown state. The solution to this problem is for the interrupt handler to do what needs to be done immediately, usually read something from the hardware or send something to the hardware, and then schedule the handling of the new information at a later time (this is called the "bottom half") and return. The kernel is then guaranteed to call the bottom half as soon as possible -- and when it does, everything allowed in kernel modules will be allowed.
 
-The way to implement this is to call request_irq() to get your interrupt handler called when the relevant IRQ is received. [17]This function receives the IRQ number, the name of the function, flags, a name for /proc/interrupts and a parameter to pass to the interrupt handler. Usually there is a certain number of IRQs available. How many IRQs there are is hardware-dependent. The flags can include SA_SHIRQ to indicate you're willing to share the IRQ with other interrupt handlers (usually because a number of hardware devices sit on the same IRQ) and SA_INTERRUPT to indicate this is a fast interrupt. This function will only succeed if there isn't already a handler on this IRQ, or if you're both willing to share.
+The way to implement this is to call request_irq() to get your interrupt handler called when the relevant IRQ is received. [fn:17]This function receives the IRQ number, the name of the function, flags, a name for /proc/interrupts and a parameter to pass to the interrupt handler. Usually there is a certain number of IRQs available. How many IRQs there are is hardware-dependent. The flags can include SA_SHIRQ to indicate you're willing to share the IRQ with other interrupt handlers (usually because a number of hardware devices sit on the same IRQ) and SA_INTERRUPT to indicate this is a fast interrupt. This function will only succeed if there isn't already a handler on this IRQ, or if you're both willing to share.
 
 Then, from within the interrupt handler, we communicate with the hardware and then use queue_work() mark_bh(BH_IMMEDIATE) to schedule the bottom half.
 
@@ -3124,9 +3124,9 @@ I hope I have helped you in your quest to become a better programmer, or at leas
 
 If you'd like to contribute to this guide, please contact one the maintainers for details. As you've already seen, there's a placeholder chapter now, waiting to be filled with examples for sysfs.
 
-* Notes
-[1]  In earlier versions of linux, this was known as kerneld.
-[2]  If such a file exists. Note that the acual behavoir might be
+
+[fn:1]  In earlier versions of linux, this was known as kerneld.
+[fn:2]  If such a file exists. Note that the acual behavoir might be
      distribution-dependent. If you're interested in the details,read the man
      pages that came with module-init-tools, and see for yourself what's
      really going on. You could use something like strace modprobe dummy to
@@ -3134,45 +3134,45 @@ If you'd like to contribute to this guide, please contact one the maintainers fo
      here is part of the mainline kernel and can be found in the networking
      section. It needs to be compiled as a module (and installed, of course)
      for this to work.
-[3]  If you are modifying the kernel, to avoid overwriting your existing
+[fn:3]  If you are modifying the kernel, to avoid overwriting your existing
      modules you may want to use the EXTRAVERSION variable in the kernel
      Makefile to create a seperate directory.
-[4]  It's an invaluable tool for figuring out things like what files a
+[fn:4]  It's an invaluable tool for figuring out things like what files a
      program is trying to access. Ever have a program bail silently because
      it couldn't find a file? It's a PITA!
-[5]  I'm a physicist, not a computer scientist, Jim!
-[6]  This isn't quite the same thing as `building all your modules into the
+[fn:5]  I'm a physicist, not a computer scientist, Jim!
+[fn:6]  This isn't quite the same thing as `building all your modules into the
      kernel', although the idea is the same.
-[7]  This is by convention. When writing a driver, it's OK to put the device
+[fn:7]  This is by convention. When writing a driver, it's OK to put the device
      file in your current directory. Just make sure you place it in /dev for
      a production driver
-[8]  In version 2.0, in version 2.2 this is done automatically if we set the
+[fn:8]  In version 2.0, in version 2.2 this is done automatically if we set the
      inode to zero.
-[9]  The difference between the two is that file operations deal with the
+[fn:9]  The difference between the two is that file operations deal with the
      file itself, and inode operations deal with ways of referencing the
      file, such as creating links to it.
-[10] Notice that here the roles of read and write are reversed again, so in
+[fn:10] Notice that here the roles of read and write are reversed again, so in
      ioctl's read is to send information to the kernel and write is to
      receive information from the kernel.
-[11] This isn't exact. You won't be able to pass a structure, for example,
+[fn:11] This isn't exact. You won't be able to pass a structure, for example,
      through an ioctl --- but you will be able to pass a pointer to the
      structure.
-[12] The easiest way to keep a file open is to open it with tail -f.
-[13] This means that the process is still in kernel mode -- as far as the
+[fn:12] The easiest way to keep a file open is to open it with tail -f.
+[fn:13] This means that the process is still in kernel mode -- as far as the
      process is concerned, it issued the open system call and the system call
      hasn't returned yet. The process doesn't know somebody else used the CPU
      for most of the time between the moment it issued the call and the
      moment it returned.
-[14] This is because we used module_interruptible_sleep_on. We could have
+[fn:14] This is because we used module_interruptible_sleep_on. We could have
      used module_sleep_on instead, but that would have resulted is extremely
      angry users whose Ctrl+cs are ignored.
-[15] Teletype, originally a combination keyboard-printer used to communicate
+[fn:15] Teletype, originally a combination keyboard-printer used to communicate
      with a Unix system, and today an abstraction for the text stream used
      for a Unix program, whether it's a physical terminal, an xterm on an X
      display, a network connection used with telnet, etc.
-[16] This is standard nomencalture on the Intel architecture where Linux
+[fn:16] This is standard nomencalture on the Intel architecture where Linux
      originated.
-[17] In practice IRQ handling can be a bit more complex. Hardware is often
+[fn:17] In practice IRQ handling can be a bit more complex. Hardware is often
      designed in a way that chains two interrupt controllers, so that all the
      IRQs from interrupt controller B are cascaded to a certain IRQ from
      interrupt controller A. Of course that requires that the kernel finds
@@ -3186,6 +3186,6 @@ If you'd like to contribute to this guide, please contact one the maintainers fo
      problems. It's not enough to know if a certain IRQs has happend, it's
      also important for what CPU(s) it was for. People still interested in
      more details, might want to do a web search for "APIC" now ;)
-[18] The exception is threaded processes, which can run on several CPU's at
+[fn:18] The exception is threaded processes, which can run on several CPU's at
      once.
-[19] Meaning it is safe to use it with SMP
+[fn:19] Meaning it is safe to use it with SMP
