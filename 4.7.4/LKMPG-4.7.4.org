@@ -116,7 +116,7 @@ make
 If there are any compile errors then you might have a more recent kernel version or need to install the corresponding kernel header files.
 * Hello World
 ** The Simplest Module
-Most people learning programming start out with some sort of /"hello world"/ example. I don't know what happens to people who break with this tradition, but I think it's safer not to find out. We'll start with a series of hello world programs that demonstrate the different aspects of the basics of writing a kernel module.
+Most people learning programming start out with some sort of "/hello world/" example. I don't know what happens to people who break with this tradition, but I think it's safer not to find out. We'll start with a series of hello world programs that demonstrate the different aspects of the basics of writing a kernel module.
 
 Here's the simplest module possible.
 
@@ -319,7 +319,7 @@ Warning: loading xxxxxx.ko will taint the kernel: no license
 Module xxxxxx loaded, with warnings
 #+END_SRC
 
-You can use a few macros to indicate the license for your module. Some examples are /"GPL"/, /"GPL v2"/, /"GPL and additional rights"/, /"Dual BSD/GPL"/, /"Dual MIT/GPL"/, /"Dual MPL/GPL"/ and /"Proprietary"/. They're defined within *linux/module.h*.
+You can use a few macros to indicate the license for your module. Some examples are "GPL", "GPL v2", "GPL and additional rights", "Dual BSD/GPL", "Dual MIT/GPL", "Dual MPL/GPL" and "Proprietary". They're defined within *linux/module.h*.
 
 To reference what license you're using a macro is available called *MODULE_LICENSE*. This and a few other macros describing the module are illustrated in the below example.
 
