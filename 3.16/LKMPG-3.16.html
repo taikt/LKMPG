@@ -485,7 +485,7 @@ The source code and discussions should apply to most architectures, but I can't 
 <h3 id="orge62c760">Acknowledgements</h3>
 <div class="outline-text-3" id="text-orge62c760">
 <p>
-The following people have contributed corrections or good suggestions: Ignacio Martin, David Porter, Daniele Paolo Scarpazza, Dimo Velev, Francois Audeon, Horst Schirmeier and Bob Mottram.
+The following people have contributed corrections or good suggestions: Ignacio Martin, David Porter, Daniele Paolo Scarpazza, Dimo Velev, Francois Audeon, Horst Schirmeier, Bob Mottram and Roman Lakeev.
 </p>
 </div>
 </div>
@@ -1430,13 +1430,17 @@ Would you like to see what system calls are made by printf()? It's easy! Compile
 
 <div class="org-src-container">
 <pre class="src src-c"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
+
 <span class="org-type">int</span> <span class="org-function-name">main</span>(<span class="org-type">void</span>)
-{ printf(<span class="org-string">"hello"</span>); <span class="org-keyword">return</span> 0; }
+{
+    printf(<span class="org-string">"hello"</span>);
+    <span class="org-keyword">return</span> 0;
+}
 </pre>
 </div>
 
 <p>
-with <b>gcc -Wall -o hello hello.c</b>. Run the exectable with strace <b>./hello</b>. Are you impressed? Every line you see corresponds to a system call. strace[4] is a handy program that gives you details about what system calls a program is making, including which call is made, what its arguments are what it returns. It's an invaluable tool for figuring out things like what files a program is trying to access. Towards the end, you'll see a line which looks like write (1, "hello", 5hello). There it is. The face behind the printf() mask. You may not be familiar with write, since most people use library functions for file I/O (like fopen, fputs, fclose). If that's the case, try looking at man 2 write. The 2nd man section is devoted to system calls (like kill() and read (). The 3rd man section is devoted to library calls, which you would probably be more familiar with (like cosh() and random()).
+with <b>gcc -Wall -o hello hello.c</b>. Run the exectable with <b>strace ./hello</b>. Are you impressed? Every line you see corresponds to a system call. strace[4] is a handy program that gives you details about what system calls a program is making, including which call is made, what its arguments are what it returns. It's an invaluable tool for figuring out things like what files a program is trying to access. Towards the end, you'll see a line which looks like write (1, "hello", 5hello). There it is. The face behind the printf() mask. You may not be familiar with write, since most people use library functions for file I/O (like fopen, fputs, fclose). If that's the case, try looking at man 2 write. The 2nd man section is devoted to system calls (like kill() and read()). The 3rd man section is devoted to library calls, which you would probably be more familiar with (like cosh() and random()).
 </p>
 
 <p>

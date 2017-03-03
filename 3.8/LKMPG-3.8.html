@@ -483,7 +483,7 @@ The source code and discussions should apply to most architectures, but I can't 
 </p>
 
 <p>
-The following people have contributed corrections or good suggestions: Ignacio Martin, David Porter, Daniele Paolo Scarpazza, Dimo Velev, Francois Audeon, Horst Schirmeier and Bob Mottram.
+The following people have contributed corrections or good suggestions: Ignacio Martin, David Porter, Daniele Paolo Scarpazza, Dimo Velev, Francois Audeon, Horst Schirmeier, Bob Mottram and Roman Lakeev.
 </p>
 
 <div id="outline-container-orgf7edacc" class="outline-2">
@@ -1616,7 +1616,10 @@ Would you like to see what system calls are made by printf()? It's easy! Compile
 #+BEGIN_SRC: c
 #include &lt;stdio.h&gt;
 int main(void)
-{ printf("hello"); return 0; }
+{
+    printf("hello");
+    return 0;
+}
 #+END_SRC
 </p>
 
