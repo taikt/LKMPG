@@ -2984,8 +2984,6 @@ When the CPU receives an interrupt, it stops whatever it's doing (unless it's pr
 
 The way to implement this is to call *request_irq()* to get your interrupt handler called when the relevant IRQ is received. [fn:17]This function receives the IRQ number, the name of the function, flags, a name for /proc/interrupts and a parameter to pass to the interrupt handler. Usually there is a certain number of IRQs available. How many IRQs there are is hardware-dependent. The flags can include SA_SHIRQ to indicate you're willing to share the IRQ with other interrupt handlers (usually because a number of hardware devices sit on the same IRQ) and SA_INTERRUPT to indicate this is a fast interrupt. This function will only succeed if there isn't already a handler on this IRQ, or if you're both willing to share.
 
-Then, from within the interrupt handler, we communicate with the hardware and then use queue_work() mark_bh(BH_IMMEDIATE) to schedule the bottom half.
-
 ** Detecting button presses
 Many popular single board computers, such as Raspberry Pis or Beagleboards, have a bunch of GPIO pins. Attaching buttons to those and then having a button press do something is a classic case in which you might need to use interrupts so that instead of having the CPU waste time and battery power polling for a change in input state it's better for the input to trigger the CPU to then run a particular handling function.
 
