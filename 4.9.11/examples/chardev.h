@@ -21,9 +21,9 @@
 /*
  * Set the message of the device driver
  */
-#define IOCTL_SET_MSG _IOR(MAJOR_NUM, 0, char *)
+#define IOCTL_SET_MSG _IOW(MAJOR_NUM, 0, char *)
 /*
- * _IOR means that we're creating an ioctl command
+ * _IOW means that we're creating an ioctl command
  * number for passing information from a user process
  * to the kernel module.
  *

@@ -661,7 +661,7 @@ Programmers use functions they don't define all the time. A prime example of thi
 
 Kernel modules are different here, too. In the hello world example, you might have noticed that we used a function, *printk()* but didn't include a standard I/O library. That's because modules are object files whose symbols get resolved upon insmod'ing. The definition for the symbols comes from the kernel itself; the only external functions you can use are the ones provided by the kernel. If you're curious about what symbols have been exported by your kernel, take a look at */proc/kallsyms*.
 
-One point to keep in mind is the difference between library functions and system calls. Library functions are higher level, run completely in user space and provide a more convenient interface for the programmer to the functions that do the real work---system calls. System calls run in kernel mode on the user's behalf and are provided by the kernel itself. The library function printf() may look like a very general printing function, but all it really does is format the data into strings and write the string data using the low-level system call write(), which then sends the data to standard output.
+One point to keep in mind is the difference between library functions and system calls. Library functions are higher level, run completely in user space and provide a more convenient interface for the programmer to the functions that do the real work --- system calls. System calls run in kernel mode on the user's behalf and are provided by the kernel itself. The library function printf() may look like a very general printing function, but all it really does is format the data into strings and write the string data using the low-level system call write(), which then sends the data to standard output.
 
 Would you like to see what system calls are made by printf()? It's easy! Compile the following program:
 
@@ -695,7 +695,7 @@ The file */proc/kallsyms* holds all the symbols that the kernel knows about and 
 
 ** Code space
 
-Memory management is a very complicated subject---the majority of O'Reilly's "/Understanding The Linux Kernel/" is just on memory management! We're not setting out to be experts on memory managements, but we do need to know a couple of facts to even begin worrying about writing real modules.
+Memory management is a very complicated subject --- the majority of O'Reilly's "/Understanding The Linux Kernel/" is just on memory management! We're not setting out to be experts on memory managements, but we do need to know a couple of facts to even begin worrying about writing real modules.
 
 If you haven't thought about what a segfault really means, you may be surprised to hear that pointers don't actually point to memory locations. Not real ones, anyway. When a process is created, the kernel sets aside a portion of real physical memory and hands it to the process to use for its executing code, variables, stack, heap and other things which a computer scientist would know about[5]. This memory begins with 0x00000000 and extends up to whatever it needs to be. Since the memory space for any two processes don't overlap, every process that can access a memory address, say 0xbffff978, would be accessing a different location in real physical memory! The processes would be accessing an index named 0xbffff978 which points to some kind of offset into the region of memory set aside for that particular process. For the most part, a process like our Hello, World program can't access the space of another process, although there are ways which we'll talk about later.
 
@@ -1931,9 +1931,9 @@ void cleanup_module()
 /*
  * Set the message of the device driver
  */
-#define IOCTL_SET_MSG _IOR(MAJOR_NUM, 0, char *)
+#define IOCTL_SET_MSG _IOW(MAJOR_NUM, 0, char *)
 /*
- * _IOR means that we're creating an ioctl command
+ * _IOW means that we're creating an ioctl command
  * number for passing information from a user process
  * to the kernel module.
  *

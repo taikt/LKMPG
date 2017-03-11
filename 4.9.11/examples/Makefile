@@ -14,7 +14,7 @@ obj-m += hello-sysfs.o
 obj-m += sleep.o
 obj-m += print_string.o
 obj-m += kbleds.o
-obj-m += file_sched.o
+obj-m += sched.o
 obj-m += chardev2.o
 obj-m += syscall.o
 

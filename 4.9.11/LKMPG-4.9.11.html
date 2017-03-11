@@ -1255,7 +1255,7 @@ Kernel modules are different here, too. In the hello world example, you might ha
 </p>
 
 <p>
-One point to keep in mind is the difference between library functions and system calls. Library functions are higher level, run completely in user space and provide a more convenient interface for the programmer to the functions that do the real work&#x2014;system calls. System calls run in kernel mode on the user's behalf and are provided by the kernel itself. The library function printf() may look like a very general printing function, but all it really does is format the data into strings and write the string data using the low-level system call write(), which then sends the data to standard output.
+One point to keep in mind is the difference between library functions and system calls. Library functions are higher level, run completely in user space and provide a more convenient interface for the programmer to the functions that do the real work &#x2014; system calls. System calls run in kernel mode on the user's behalf and are provided by the kernel itself. The library function printf() may look like a very general printing function, but all it really does is format the data into strings and write the string data using the low-level system call write(), which then sends the data to standard output.
 </p>
 
 <p>
@@ -1696,7 +1696,7 @@ The next code sample creates a char driver named chardev. You can cat its device
 <span class="org-comment">         </span><span class="org-comment-delimiter">*/</span>
         module_put(THIS_MODULE);
 
-        <span class="org-keyword">return</span> 0;
+        <span class="org-keyword">return</span> SUCCESS;
 }
 
 <span class="org-comment-delimiter">/*</span>
@@ -2463,7 +2463,7 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/fs.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;asm/uaccess.h&gt;</span>        <span class="org-comment-delimiter">/* </span><span class="org-comment">for get_user and put_user </span><span class="org-comment-delimiter">*/</span>
 
-<span class="org-preprocessor">#include</span> <span class="org-string">"chardev2.h"</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">"chardev.h"</span>
 <span class="org-preprocessor">#define</span> <span class="org-variable-name">SUCCESS</span> 0
 <span class="org-preprocessor">#define</span> <span class="org-variable-name">DEVICE_NAME</span> <span class="org-string">"char_dev"</span>
 <span class="org-preprocessor">#define</span> <span class="org-variable-name">BUF_LEN</span> 80
@@ -2757,9 +2757,9 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
 <span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> * Set the message of the device driver</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
-<span class="org-preprocessor">#define</span> <span class="org-variable-name">IOCTL_SET_MSG</span> _IOR(MAJOR_NUM, 0, <span class="org-type">char</span> *)
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">IOCTL_SET_MSG</span> _IOW(MAJOR_NUM, 0, <span class="org-type">char</span> *)
 <span class="org-comment-delimiter">/*</span>
-<span class="org-comment"> * _IOR means that we're creating an ioctl command</span>
+<span class="org-comment"> * _IOW means that we're creating an ioctl command</span>
 <span class="org-comment"> * number for passing information from a user process</span>
 <span class="org-comment"> * to the kernel module.</span>
 <span class="org-comment"> *</span>
@@ -2815,7 +2815,7 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
 <span class="org-comment"> * device specifics, such as ioctl numbers and the</span>
 <span class="org-comment"> * major device file.</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
-<span class="org-preprocessor">#include</span> <span class="org-string">"chardev.h"</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">"../chardev.h"</span>
 
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdlib.h&gt;</span>
@@ -2953,7 +2953,7 @@ The <b>init_module</b> function replaces the appropriate location in <b>sys_call
 </p>
 
 <p>
-Now, if B is removed first, everything will be well&#x2014;it will simply restore the system call to A_open, which calls the original. However, if A is removed and then B is removed, the system will crash. A's removal will restore the system call to the original, sys_open, cutting B out of the loop. Then, when B is removed, it will restore the system call to what it thinks is the original, <b>A_open</b>, which is no longer in memory. At first glance, it appears we could solve this particular problem by checking if the system call is equal to our open function and if so not changing it at all (so that B won't change the system call when it's removed), but that will cause an even worse problem. When A is removed, it sees that the system call was changed to <b>B_open</b> so that it is no longer pointing to <b>A_open</b>, so it won't restore it to <b>sys_open</b> before it is removed from memory. Unfortunately, <b>B_open</b> will still try to call <b>A_open</b> which is no longer there, so that even without removing B the system would crash.
+Now, if B is removed first, everything will be well &#x2014; it will simply restore the system call to A_open, which calls the original. However, if A is removed and then B is removed, the system will crash. A's removal will restore the system call to the original, sys_open, cutting B out of the loop. Then, when B is removed, it will restore the system call to what it thinks is the original, <b>A_open</b>, which is no longer in memory. At first glance, it appears we could solve this particular problem by checking if the system call is equal to our open function and if so not changing it at all (so that B won't change the system call when it's removed), but that will cause an even worse problem. When A is removed, it sees that the system call was changed to <b>B_open</b> so that it is no longer pointing to <b>A_open</b>, so it won't restore it to <b>sys_open</b> before it is removed from memory. Unfortunately, <b>B_open</b> will still try to call <b>A_open</b> which is no longer there, so that even without removing B the system would crash.
 </p>
 
 <p>
@@ -3561,7 +3561,7 @@ MODULE_AUTHOR(<span class="org-string">"Peter Jay Salzman"</span>);
     <span class="org-comment-delimiter">/*</span>
 <span class="org-comment">     * The tty for the current task, for 2.6.6+ kernels</span>
 <span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
-    my_tty = current-&gt;signal-&gt;tty;
+    my_tty = get_current_tty();;
 <span class="org-preprocessor">#endif</span>
     ttyops = my_tty-&gt;driver-&gt;ops;
 
