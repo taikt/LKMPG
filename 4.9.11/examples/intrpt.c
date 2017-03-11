@@ -1,113 +1,151 @@
 /*
- *  intrpt.c - An interrupt handler.
+ *  intrpt.c - Handling GPIO with interrupts
  *
- *  Copyright (C) 2001 by Peter Jay Salzman
+ *  Copyright (C) 2017 by Bob Mottram
+ *  Based upon the Rpi example by Stefan Wendler (devnull@kaltpost.de)
+ *  from:
+ *    https://github.com/wendlers/rpi-kmod-samples
+ *
+ *  Press one button to turn on a LED and another to turn it off
  */
+
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/gpio.h>
+#include <linux/interrupt.h>
+
+static int button_irqs[] = { -1, -1 };
+
+/* Define GPIOs for LEDs.
+   Change the numbers for the GPIO on your board. */
+static struct gpio leds[] = {
+        {  4, GPIOF_OUT_INIT_LOW, "LED 1" }
+};
+
+/* Define GPIOs for BUTTONS
+   Change the numbers for the GPIO on your board. */
+static struct gpio buttons[] = {
+        { 17, GPIOF_IN, "LED 1 ON BUTTON" },
+        { 18, GPIOF_IN, "LED 1 OFF BUTTON" }
+};
 
 /*
- * The necessary header files
+ * interrupt function triggered when a button is pressed
  */
-
-/*
- * Standard in kernel modules
- */
-#include <linux/kernel.h>       /* We're doing kernel work */
-#include <linux/module.h>       /* Specifically, a module */
-#include <linux/sched.h>
-#include <linux/workqueue.h>
-#include <linux/interrupt.h>    /* We want an interrupt */
-#include <asm/io.h>
-
-#define MY_WORK_QUEUE_NAME "WQsched.c"
-
-static struct workqueue_struct *my_workqueue;
-
-/*
- * This will get called by the kernel as soon as it's safe
- * to do everything normally allowed by kernel modules.
- */
-static void got_char(void *scancode)
+static irqreturn_t button_isr(int irq, void *data)
 {
-    printk(KERN_INFO "Scan Code %x %s.\n",
-           (int)*((char *)scancode) & 0x7F,
-           *((char *)scancode) & 0x80 ? "Released" : "Pressed");
-}
-
-/*
- * This function services keyboard interrupts. It reads the relevant
- * information from the keyboard and then puts the non time critical
- * part into the work queue. This will be run when the kernel considers it safe.
- */
-irqreturn_t irq_handler(int irq, void *dev_id, struct pt_regs *regs)
-{
-    /*
-     * This variables are static because they need to be
-     * accessible (through pointers) to the bottom half routine.
-     */
-    static int initialised = 0;
-    static unsigned char scancode;
-    static struct work_struct task;
-    unsigned char status;
-
-    /*
-     * Read keyboard status
-     */
-    status = inb(0x64);
-    scancode = inb(0x60);
-
-    if (initialised == 0) {
-        INIT_WORK(&task, got_char, &scancode);
-        initialised = 1;
-    } else {
-        PREPARE_WORK(&task, got_char, &scancode);
-    }
-
-    queue_work(my_workqueue, &task);
+    /* first button */
+    if (irq == button_irqs[0] && !gpio_get_value(leds[0].gpio))
+            gpio_set_value(leds[0].gpio, 1);
+    /* second button */
+    else if(irq == button_irqs[1] && gpio_get_value(leds[0].gpio))
+            gpio_set_value(leds[0].gpio, 0);
 
     return IRQ_HANDLED;
 }
 
-/*
- * Initialize the module - register the IRQ handler
- */
 int init_module()
 {
-    my_workqueue = create_workqueue(MY_WORK_QUEUE_NAME);
+    int ret = 0;
 
-    /*
-     * Since the keyboard handler won't co-exist with another handler,
-     * such as us, we have to disable it (free its IRQ) before we do
-     * anything.  Since we don't know where it is, there's no way to
-     * reinstate it later - so the computer will have to be rebooted
-     * when we're done.
-     */
-    free_irq(1, NULL);
+    printk(KERN_INFO "%s\n", __func__);
 
-    /*
-     * Request IRQ 1, the keyboard IRQ, to go to our irq_handler.
-     * SA_SHIRQ means we're willing to have othe handlers on this IRQ.
-     * SA_INTERRUPT can be used to make the handler into a fast interrupt.
-     */
-    return request_irq(1,   /* The number of the keyboard IRQ on PCs */
-                       irq_handler, /* our handler */
-                       SA_SHIRQ, "test_keyboard_irq_handler",
-                       (void *)(irq_handler));
+    /* register LED gpios */
+    ret = gpio_request_array(leds, ARRAY_SIZE(leds));
+
+    if (ret) {
+        printk(KERN_ERR "Unable to request GPIOs for LEDs: %d\n", ret);
+        return ret;
+    }
+
+    /* register BUTTON gpios */
+    ret = gpio_request_array(buttons, ARRAY_SIZE(buttons));
+
+    if (ret) {
+        printk(KERN_ERR "Unable to request GPIOs for BUTTONs: %d\n", ret);
+        goto fail1;
+    }
+
+    printk(KERN_INFO "Current button1 value: %d\n",
+           gpio_get_value(buttons[0].gpio));
+
+    ret = gpio_to_irq(buttons[0].gpio);
+
+    if (ret < 0) {
+        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        goto fail2;
+    }
+
+    button_irqs[0] = ret;
+
+    printk(KERN_INFO "Successfully requested BUTTON1 IRQ # %d\n",
+           button_irqs[0]);
+
+    ret = request_irq(button_irqs[0], button_isr,
+                      IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING,
+                      "gpiomod#button1", NULL);
+
+    if (ret) {
+        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        goto fail2;
+    }
+
+
+    ret = gpio_to_irq(buttons[1].gpio);
+
+    if (ret < 0) {
+        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        goto fail2;
+    }
+
+    button_irqs[1] = ret;
+
+    printk(KERN_INFO "Successfully requested BUTTON2 IRQ # %d\n",
+           button_irqs[1]);
+
+    ret = request_irq(button_irqs[1], button_isr,
+                      IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING,
+                      "gpiomod#button2", NULL);
+
+    if (ret) {
+        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        goto fail3;
+    }
+
+    return 0;
+
+/* cleanup what has been setup so far */
+fail3:
+    free_irq(button_irqs[0], NULL);
+
+fail2:
+    gpio_free_array(buttons, ARRAY_SIZE(leds));
+
+fail1:
+    gpio_free_array(leds, ARRAY_SIZE(leds));
+
+    return ret;
 }
 
-/*
- * Cleanup
- */
 void cleanup_module()
 {
-    /*
-     * This is only here for completeness. It's totally irrelevant, since
-     * we don't have a way to restore the normal keyboard interrupt so the
-     * computer is completely useless and has to be rebooted.
-     */
-    free_irq(1, NULL);
+    int i;
+
+    printk(KERN_INFO "%s\n", __func__);
+
+    /* free irqs */
+    free_irq(button_irqs[0], NULL);
+    free_irq(button_irqs[1], NULL);
+
+    /* turn all LEDs off */
+    for (i = 0; i < ARRAY_SIZE(leds); i++)
+        gpio_set_value(leds[i].gpio, 0);
+
+    /* unregister */
+    gpio_free_array(leds, ARRAY_SIZE(leds));
+    gpio_free_array(buttons, ARRAY_SIZE(buttons));
 }
 
-/*
- * some work_queue related functions are just available to GPL licensed Modules
- */
 MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Bob Mottram");
+MODULE_DESCRIPTION("Handle some GPIO interrupts");

@@ -17,6 +17,7 @@ obj-m += kbleds.o
 obj-m += sched.o
 obj-m += chardev2.o
 obj-m += syscall.o
+obj-m += intrpt.o
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
