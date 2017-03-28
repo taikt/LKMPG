@@ -17,7 +17,7 @@ If you publish or distribute this book commercially, donations, royalties, and/o
 
 ** Authorship
 
-The Linux Kernel Module Programming Guide was originally written for the 2.2 kernels by Ori Pomerantz. Eventually, Ori no longer had time to maintain the document. After all, the Linux kernel is a fast moving target. Peter Jay Salzman took over maintenance and updated it for the 2.4 kernels. Eventually, Peter no longer had time to follow developments with the 2.6 kernel, so Michael Burian became a co-maintainer to update the document for the 2.6 kernels.  Bob Mottram updated the examples for 3.8 and later kernels and modified or updated some chapters.
+The Linux Kernel Module Programming Guide was originally written for the 2.2 kernels by Ori Pomerantz. Eventually, Ori no longer had time to maintain the document. After all, the Linux kernel is a fast moving target. Peter Jay Salzman took over maintenance and updated it for the 2.4 kernels. Eventually, Peter no longer had time to follow developments with the 2.6 kernel, so Michael Burian became a co-maintainer to update the document for the 2.6 kernels.  Bob Mottram updated the examples for 3.8 and later kernels, added the sysfs chapter and modified or updated other chapters.
 
 ** Versioning and Notes
 
@@ -1447,9 +1447,13 @@ If you want more information, you can read this web page:
 You can also read the code of fs/seq_file.c in the linux kernel.
 
 * sysfs: Interacting with your module
-/sysfs/ allows you to interact with the running kernel by reading or setting variables inside of modules. This can be useful for debugging purposes, or just as an interface for userland applications or scripts.
+/sysfs/ allows you to interact with the running kernel from userspace by reading or setting variables inside of modules. This can be useful for debugging purposes, or just as an interface for applications or scripts. You can find sysfs directories and files under the /sys/ directory on your system.
 
-An example of a hello world module which includes a variable accessible via sysfs is given below.
+#+begin_src bash
+ls -l /sys
+#+end_src
+
+An example of a hello world module which includes the creation of a variable accessible via sysfs is given below.
 
 #+BEGIN_SRC c file: hello-sysfs.c
 /*
