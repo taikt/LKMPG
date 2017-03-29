@@ -3147,6 +3147,280 @@ MODULE_AUTHOR("Bob Mottram");
 MODULE_DESCRIPTION("Handle some GPIO interrupts");
 #+END_SRC
 
+* Crypto
+At the dawn of the internet everybody trusted everybody completely...but that didn't work out so well. When this guide was originally written it was a more innocent era in which almost nobody actually gave a damn about crypto - least of all kernel developers. That's certainly no longer the case now. To handle crypto stuff the kernel has its own API enabling common methods of encryption, decryption and your favourite hash functions.
+
+** Hash functions
+
+Calculating and checking the hashes of things is a common operation. Here is a demonstration of how to calculate a sha256 hash within a kernel module.
+
+#+begin_src C :file cryptosha256.c
+#include <linux/module.h>
+#include <crypto/internal/hash.h>
+
+#define SHA256_LENGTH (256/8)
+
+static void show_hash_result(char * plaintext, char * hash_sha256)
+{
+    int i;
+    char str[SHA256_LENGTH*2 + 1];
+
+    printk("sha256 test for string: \"%s\"\n", plaintext);
+    for (i = 0; i < SHA256_LENGTH ; i++)
+        sprintf(&str[i*2],"%02x", (unsigned char)hash_sha256[i]);
+    str[i*2] = 0;
+    printk("%s\n", str);
+}
+
+int cryptosha256_init(void)
+{
+    char * plaintext = "This is a test";
+    char hash_sha256[SHA256_LENGTH];
+    struct crypto_shash *sha256;
+    struct shash_desc *shash;
+
+    sha256 = crypto_alloc_shash("sha256", 0, 0);
+    if (IS_ERR(sha256))
+        return -1;
+
+    shash =
+        kmalloc(sizeof(struct shash_desc) + crypto_shash_descsize(sha256),
+                GFP_KERNEL);
+    if (!shash)
+        return -ENOMEM;
+
+    shash->tfm = sha256;
+    shash->flags = 0;
+
+    if (crypto_shash_init(shash))
+        return -1;
+
+    if (crypto_shash_update(shash, plaintext, strlen(plaintext)))
+        return -1;
+
+    if (crypto_shash_final(shash, hash_sha256))
+        return -1;
+
+    kfree(shash);
+    crypto_free_shash(sha256);
+
+    show_hash_result(plaintext, hash_sha256);
+
+    return 0;
+}
+
+void cryptosha256_exit(void)
+{
+}
+
+module_init(cryptosha256_init);
+module_exit(cryptosha256_exit);
+
+MODULE_AUTHOR("Bob Mottram");
+MODULE_DESCRIPTION("sha256 hash test");
+MODULE_LICENSE("GPL");
+#+end_src
+
+Make and install the module:
+
+#+BEGIN_SRC sh
+make
+sudo insmod cryptosha256.ko
+dmesg
+#+END_SRC
+
+And you should see that the hash was calculated for the test string.
+
+Finally, remove the test module:
+
+#+BEGIN_SRC sh
+sudo rmmod cryptosha256
+#+END_SRC
+** Symmetric key encryption
+Here is an example of symmetrically encrypting a string using the AES algorithm and a password.
+
+#+begin_src C file:cryptosk.c
+#include <crypto/internal/skcipher.h>
+#include <linux/module.h>
+#include <linux/crypto.h>
+
+#define SYMMETRIC_KEY_LENGTH 32
+#define CIPHER_BLOCK_SIZE    16
+
+struct tcrypt_result {
+    struct completion completion;
+    int err;
+};
+
+struct skcipher_def {
+    struct scatterlist sg;
+    struct crypto_skcipher * tfm;
+    struct skcipher_request * req;
+    struct tcrypt_result result;
+    char * scratchpad;
+    char * ciphertext;
+    char * ivdata;
+};
+
+static struct skcipher_def sk;
+
+static void test_skcipher_finish(struct skcipher_def * sk)
+{
+    if (sk->tfm)
+        crypto_free_skcipher(sk->tfm);
+    if (sk->req)
+        skcipher_request_free(sk->req);
+    if (sk->ivdata)
+        kfree(sk->ivdata);
+    if (sk->scratchpad)
+        kfree(sk->scratchpad);
+    if (sk->ciphertext)
+        kfree(sk->ciphertext);
+}
+
+static int test_skcipher_result(struct skcipher_def * sk, int rc)
+{
+    switch (rc) {
+    case 0:
+        break;
+    case -EINPROGRESS:
+    case -EBUSY:
+        rc = wait_for_completion_interruptible(
+            &sk->result.completion);
+        if (!rc && !sk->result.err) {
+            reinit_completion(&sk->result.completion);
+            break;
+        }
+    default:
+        printk("skcipher encrypt returned with %d result %d\n",
+            rc, sk->result.err);
+        break;
+    }
+
+    init_completion(&sk->result.completion);
+
+    return rc;
+}
+
+static void test_skcipher_callback(struct crypto_async_request *req, int error)
+{
+    struct tcrypt_result *result = req->data;
+    int ret;
+
+    if (error == -EINPROGRESS)
+        return;
+
+    result->err = error;
+    complete(&result->completion);
+    printk("Encryption finished successfully\n");
+}
+
+static int test_skcipher_encrypt(char * plaintext, char * password,
+                                 struct skcipher_def * sk)
+{
+    int ret = -EFAULT;
+    unsigned char key[SYMMETRIC_KEY_LENGTH];
+
+    if (!sk->tfm) {
+        sk->tfm = crypto_alloc_skcipher("cbc-aes-aesni", 0, 0);
+        if (IS_ERR(sk->tfm)) {
+            printk("could not allocate skcipher handle\n");
+            return PTR_ERR(sk->tfm);
+        }
+    }
+
+    if (!sk->req) {
+        sk->req = skcipher_request_alloc(sk->tfm, GFP_KERNEL);
+        if (!sk->req) {
+            printk("could not allocate skcipher request\n");
+            ret = -ENOMEM;
+            goto out;
+        }
+    }
+
+    skcipher_request_set_callback(sk->req, CRYPTO_TFM_REQ_MAY_BACKLOG,
+                                  test_skcipher_callback,
+                                  &sk->result);
+
+    /* clear the key */
+    memset((void*)key,'\0',SYMMETRIC_KEY_LENGTH);
+
+    /* Use the world's favourite password */
+    sprintf((char*)key,"%s",password);
+
+    /* AES 256 with given symmetric key */
+    if (crypto_skcipher_setkey(sk->tfm, key, SYMMETRIC_KEY_LENGTH)) {
+        printk("key could not be set\n");
+        ret = -EAGAIN;
+        goto out;
+    }
+    printk("Symmetric key: %s\n", key);
+    printk("Plaintext: %s\n", plaintext);
+
+    if (!sk->ivdata) {
+        /* see https://en.wikipedia.org/wiki/Initialization_vector */
+        sk->ivdata = kmalloc(CIPHER_BLOCK_SIZE, GFP_KERNEL);
+        if (!sk->ivdata) {
+            printk("could not allocate ivdata\n");
+            goto out;
+        }
+        get_random_bytes(sk->ivdata, CIPHER_BLOCK_SIZE);
+    }
+
+    if (!sk->scratchpad) {
+        /* The text to be encrypted */
+        sk->scratchpad = kmalloc(CIPHER_BLOCK_SIZE, GFP_KERNEL);
+        if (!sk->scratchpad) {
+            printk("could not allocate scratchpad\n");
+            goto out;
+        }
+    }
+    sprintf((char*)sk->scratchpad,"%s",plaintext);
+
+    sg_init_one(&sk->sg, sk->scratchpad, CIPHER_BLOCK_SIZE);
+    skcipher_request_set_crypt(sk->req, &sk->sg, &sk->sg,
+                               CIPHER_BLOCK_SIZE, sk->ivdata);
+    init_completion(&sk->result.completion);
+
+    /* encrypt data */
+    ret = crypto_skcipher_encrypt(sk->req);
+    ret = test_skcipher_result(sk, ret);
+    if (ret)
+        goto out;
+
+    printk("Encryption request successful\n");
+
+out:
+    return ret;
+}
+
+int cryptoapi_init(void)
+{
+    /* The world's favourite password */
+    char * password = "password123";
+
+    sk.tfm = NULL;
+    sk.req = NULL;
+    sk.scratchpad = NULL;
+    sk.ciphertext = NULL;
+    sk.ivdata = NULL;
+
+    test_skcipher_encrypt("Testing", password, &sk);
+    return 0;
+}
+
+void cryptoapi_exit(void)
+{
+    test_skcipher_finish(&sk);
+}
+
+module_init(cryptoapi_init);
+module_exit(cryptoapi_exit);
+
+MODULE_AUTHOR("Bob Mottram");
+MODULE_DESCRIPTION("Symmetric key encryption example");
+MODULE_LICENSE("GPL");
+#+end_src
 * Common Pitfalls
 Before I send you on your way to go out into the world and write kernel modules, there are a few things I need to warn you about. If I fail to warn you and something bad happens, please report the problem to me for a full refund of the amount I was paid for your copy of the book.
 
