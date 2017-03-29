@@ -2976,6 +2976,96 @@ void __exit cleanup_module()
 }
 #+END_SRC
 
+* The order of completion
+Sometimes one thing should happen before another and a thread should wait until it is ready to run. Rather than using /sleep/ commands the kernel has a simple way to do this which allows timeouts or interrupts to also happen.
+
+In the following example two threads are started, but one needs to start before another.
+
+#+begin_src C file:completions.c
+#include <linux/init.h>
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/kthread.h>
+#include <linux/completion.h>
+
+static struct {
+    struct completion crank_comp;
+    struct completion flywheel_comp;
+} machine;
+
+static int machine_crank_thread(void* arg)
+{
+    printk("Turn the crank\n");
+
+    complete_all(&machine.crank_comp);
+    complete_and_exit(&machine.crank_comp, 0);
+}
+
+static int machine_flywheel_spinup_thread(void* arg)
+{
+    wait_for_completion(&machine.crank_comp);
+
+    printk("Flywheel spins up\n");
+
+    complete_all(&machine.flywheel_comp);
+    complete_and_exit(&machine.flywheel_comp, 0);
+}
+
+static int completions_init(void)
+{
+    struct task_struct* crank_thread;
+    struct task_struct* flywheel_thread;
+
+    printk("completions example\n");
+
+    init_completion(&machine.crank_comp);
+    init_completion(&machine.flywheel_comp);
+
+    crank_thread =
+        kthread_create(machine_crank_thread,
+                       NULL, "KThread Crank");
+    if (IS_ERR(crank_thread))
+        goto ERROR_THREAD_1;
+
+    flywheel_thread =
+        kthread_create(machine_flywheel_spinup_thread,
+                       NULL, "KThread Flywheel");
+    if (IS_ERR(flywheel_thread))
+        goto ERROR_THREAD_2;
+
+    wake_up_process(flywheel_thread);
+    wake_up_process(crank_thread);
+
+    return 0;
+
+ERROR_THREAD_2:
+    kthread_stop(crank_thread);
+ERROR_THREAD_1:
+
+    return -1;
+}
+
+void completions_exit(void)
+{
+    wait_for_completion(&machine.crank_comp);
+    wait_for_completion(&machine.flywheel_comp);
+
+    printk("completions exit\n");
+}
+
+module_init(completions_init);
+module_exit(completions_exit);
+
+MODULE_AUTHOR("Bob Mottram");
+MODULE_DESCRIPTION("Completions example");
+MODULE_LICENSE("GPL");
+#+end_src
+
+The /machine/ structure stores the completion states for the two threads. At the exit point of each thread the respective completion state is updated, and /wait_for_completion/ is used by the flywheel thread to ensure that it doesn't begin prematurely.
+
+So even though /flywheel_thread/ is started first you should notice if you load this module and run /dmesg/ that turning the crank always happens first because the flywheel thread waits for it to complete.
+
+There are other variations upon the /wait_for_completion/ function, which include timeouts or being interrupted, but this basic mechanism is enough for many common situations without adding a lot of complexity.
 * Interrupt Handlers
 ** Interrupt Handlers
 Except for the last chapter, everything we did in the kernel so far we've done as a response to a process asking for it, either by dealing with a special file, sending an ioctl(), or issuing a system call. But the job of the kernel isn't just to respond to process requests. Another job, which is every bit as important, is to speak to the hardware connected to the machine.

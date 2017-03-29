@@ -20,6 +20,7 @@ obj-m += syscall.o
 obj-m += intrpt.o
 obj-m += cryptosha256.o
 obj-m += cryptoapi.o
+obj-m += completions.o
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
