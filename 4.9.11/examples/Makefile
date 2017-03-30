@@ -21,6 +21,7 @@ obj-m += intrpt.o
 obj-m += cryptosha256.o
 obj-m += cryptoapi.o
 obj-m += completions.o
+obj-m += example_tasklet.o
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
