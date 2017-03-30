@@ -560,7 +560,7 @@ In other words, your kernel refuses to accept your module because version string
 #+BEGIN_SRC txt
 # sudo modinfo hello-4.ko
 license:        GPL
-author:         Bob Mottram <bob@robotics.uk.to>
+author:         Bob Mottram <bob@freedombone.net>
 description:    A sample driver
 vermagic:       4.9.11-1.358 amd64 REGPARM 4KSTACKS gcc-4.9.2
 depends:
@@ -2670,7 +2670,6 @@ So even though /flywheel_thread/ is started first you should notice if you load 
 
 There are other variations upon the /wait_for_completion/ function, which include timeouts or being interrupted, but this basic mechanism is enough for many common situations without adding a lot of complexity.
 
-
 * Replacing Printks
 ** Replacing printk
 In Section 1.2.1.2, I said that X and kernel module programming don't mix. That's true for developing kernel modules, but in actual use, you want to be able to send messages to whichever tty[fn:15] the command to load the module came from.
@@ -3565,6 +3564,107 @@ module_exit(cryptoapi_exit);
 MODULE_AUTHOR("Bob Mottram");
 MODULE_DESCRIPTION("Symmetric key encryption example");
 MODULE_LICENSE("GPL");
+#+end_src
+* Standardising the interfaces: The Device Model
+Up to this point we've seen all kinds of modules doing all kinds of things, but there was no consistency in their interfaces with the rest of the kernel. To impose some consistency such that there is at minimum a standardised way to start, suspend and resume a device a device model was added. An example is show below, and you can use this as a template to add your own suspend, resume or other interface functions.
+
+#+begin_src C file:devicemodel.c
+#include <linux/kernel.h>
+#include <linux/module.h>
+#include <linux/platform_device.h>
+
+struct devicemodel_data {
+    char *greeting;
+    int   number;
+};
+
+static int devicemodel_probe(struct platform_device *dev)
+{
+    struct devicemodel_data *pd = (struct devicemodel_data *)(dev->dev.platform_data);
+
+    printk("devicemodel probe\n");
+    printk("devicemodel greeting: %s; %d\n", pd->greeting, pd->number);
+
+    /* Your device initialisation code */
+
+    return 0;
+}
+
+static int devicemodel_remove(struct platform_device *dev)
+{
+    printk("devicemodel example removed\n");
+
+    /* Your device removal code */
+
+    return 0;
+}
+
+static int devicemodel_suspend(struct device *dev)
+{
+    printk("devicemodel example suspend\n");
+
+    /* Your device suspend code */
+
+    return 0;
+}
+
+static int devicemodel_resume(struct device *dev)
+{
+    printk("devicemodel example resume\n");
+
+    /* Your device resume code */
+
+    return 0;
+}
+
+static const struct dev_pm_ops devicemodel_pm_ops =
+{
+    .suspend = devicemodel_suspend,
+    .resume = devicemodel_resume,
+    .poweroff = devicemodel_suspend,
+    .freeze = devicemodel_suspend,
+    .thaw = devicemodel_resume,
+    .restore = devicemodel_resume
+};
+
+static struct platform_driver devicemodel_driver = {
+    .driver     = {
+        .name   = "devicemodel_example",
+        .owner  = THIS_MODULE,
+        .pm     = &devicemodel_pm_ops,
+    },
+    .probe      = devicemodel_probe,
+    .remove     = devicemodel_remove,
+};
+
+static int devicemodel_init(void)
+{
+    int ret;
+
+    printk("devicemodel init\n");
+
+    ret = platform_driver_register(&devicemodel_driver);
+
+    if (ret) {
+        printk(KERN_ERR "Unable to register driver\n");
+        return ret;
+    }
+
+    return 0;
+}
+
+static void devicemodel_exit(void)
+{
+    printk("devicemodel exit\n");
+    platform_driver_unregister(&devicemodel_driver);
+}
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Bob Mottram");
+MODULE_DESCRIPTION("Linux Device Model example");
+
+module_init(devicemodel_init);
+module_exit(devicemodel_exit);
 #+end_src
 * Common Pitfalls
 Before I send you on your way to go out into the world and write kernel modules, there are a few things I need to warn you about. If I fail to warn you and something bad happens, please report the problem to me for a full refund of the amount I was paid for your copy of the book.

@@ -22,10 +22,11 @@ obj-m += cryptosha256.o
 obj-m += cryptoapi.o
 obj-m += completions.o
 obj-m += example_tasklet.o
+obj-m += devicemodel.o
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
 
 clean:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
-	rm other/ioctl other/cat_noblock
+	rm other/ioctl other/cat_noblock *.plist
