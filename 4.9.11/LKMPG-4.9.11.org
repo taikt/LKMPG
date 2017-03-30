@@ -3760,7 +3760,7 @@ If you're interested in more examples of short kernel modules, I recommend Phrac
 
 I hope I have helped you in your quest to become a better programmer, or at least to have fun through technology. And, if you do write useful kernel modules, I hope you publish them under the GPL, so I can use them too.
 
-If you'd like to contribute to this guide, please contact one the maintainers for details. As you've already seen, there's a placeholder chapter now, waiting to be filled with examples for sysfs.
+If you'd like to contribute to this guide, notice anything glaringly wrong, or just want to add extra sarcastic remarks perhaps involving monkeys or some other kind of animal then please file an issue or even better submit a pull request at https://github.com/bashrc/LKMPG.
 
 
 [fn:1]  In earlier versions of linux, this was known as kerneld.
