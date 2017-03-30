@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-03-29 Wed 17:45 -->
+<!-- 2017-03-30 Thu 11:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -264,99 +264,99 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org8903595">Introduction</a>
+<li><a href="#org90ec0fd">Introduction</a>
 <ul>
-<li><a href="#orgb22af9b">Authorship</a></li>
-<li><a href="#orgd87d06b">Versioning and Notes</a></li>
-<li><a href="#org42c24c3">Acknowledgements</a></li>
-<li><a href="#orge9eeec1">What Is A Kernel Module?</a></li>
-<li><a href="#org5273fd8">Kernel module package</a></li>
-<li><a href="#org3655711">What Modules are in my Kernel?</a></li>
-<li><a href="#org2e2ffcc">Do I need to download and compile the kernel?</a></li>
-<li><a href="#org9b69c62">Before We Begin</a></li>
+<li><a href="#org1ad0b28">Authorship</a></li>
+<li><a href="#orgb34d554">Versioning and Notes</a></li>
+<li><a href="#org2704dac">Acknowledgements</a></li>
+<li><a href="#orgf4c315e">What Is A Kernel Module?</a></li>
+<li><a href="#orgae9a2fd">Kernel module package</a></li>
+<li><a href="#org57b85a2">What Modules are in my Kernel?</a></li>
+<li><a href="#org6abc6f8">Do I need to download and compile the kernel?</a></li>
+<li><a href="#org774dcfe">Before We Begin</a></li>
 </ul>
 </li>
-<li><a href="#org2526029">Headers</a></li>
-<li><a href="#orgeead7f4">Examples</a></li>
-<li><a href="#org498de8a">Hello World</a>
+<li><a href="#org501dc39">Headers</a></li>
+<li><a href="#orgc7fdee8">Examples</a></li>
+<li><a href="#orgc265e0d">Hello World</a>
 <ul>
-<li><a href="#org2a10df6">The Simplest Module</a></li>
-<li><a href="#org12923c1">Hello and Goodbye</a></li>
-<li><a href="#org7dea386">The __init and __exit Macros</a></li>
-<li><a href="#org5aad496">Licensing and Module Documentation</a></li>
-<li><a href="#org2a5f2ef">Passing Command Line Arguments to a Module</a></li>
-<li><a href="#org2a2bd43">Modules Spanning Multiple Files</a></li>
-<li><a href="#org50d4d00">Building modules for a precompiled kernel</a></li>
+<li><a href="#org450c0c8">The Simplest Module</a></li>
+<li><a href="#orgb86c1cb">Hello and Goodbye</a></li>
+<li><a href="#org8e1265f">The __init and __exit Macros</a></li>
+<li><a href="#org2594ffb">Licensing and Module Documentation</a></li>
+<li><a href="#org2cd8590">Passing Command Line Arguments to a Module</a></li>
+<li><a href="#orgc153ca5">Modules Spanning Multiple Files</a></li>
+<li><a href="#org843f61b">Building modules for a precompiled kernel</a></li>
 </ul>
 </li>
-<li><a href="#org395ced2">Preliminaries</a>
+<li><a href="#org63877d3">Preliminaries</a>
 <ul>
-<li><a href="#org3f9e5a9">How modules begin and end</a></li>
-<li><a href="#org8d4b734">Functions available to modules</a></li>
-<li><a href="#orgaf82024">User Space vs Kernel Space</a></li>
-<li><a href="#org80b4b73">Name Space</a></li>
-<li><a href="#org47678e3">Code space</a></li>
-<li><a href="#org43ccd14">Device Drivers</a></li>
+<li><a href="#org5889c6c">How modules begin and end</a></li>
+<li><a href="#org2bc01a0">Functions available to modules</a></li>
+<li><a href="#org49dff8a">User Space vs Kernel Space</a></li>
+<li><a href="#org665b736">Name Space</a></li>
+<li><a href="#org993006a">Code space</a></li>
+<li><a href="#orga0095db">Device Drivers</a></li>
 </ul>
 </li>
-<li><a href="#orgc660557">Character Device drivers</a>
+<li><a href="#orgb6dfdb2">Character Device drivers</a>
 <ul>
-<li><a href="#org7cc29ca">The file_operations Structure</a></li>
-<li><a href="#orgf8f81fa">The file structure</a></li>
-<li><a href="#org122de23">Registering A Device</a></li>
-<li><a href="#org7a43e19">Unregistering A Device</a></li>
-<li><a href="#org2fcec75">chardev.c</a></li>
-<li><a href="#org7024eec">Writing Modules for Multiple Kernel Versions</a></li>
+<li><a href="#org4932688">The file_operations Structure</a></li>
+<li><a href="#org9858517">The file structure</a></li>
+<li><a href="#org4823c20">Registering A Device</a></li>
+<li><a href="#orgaf25985">Unregistering A Device</a></li>
+<li><a href="#org75c43a4">chardev.c</a></li>
+<li><a href="#orga40f498">Writing Modules for Multiple Kernel Versions</a></li>
 </ul>
 </li>
-<li><a href="#orgaa369fe">The /proc File System</a>
+<li><a href="#orgdcc4fd1">The /proc File System</a>
 <ul>
-<li><a href="#orgfef93ab">Read and Write a /proc File</a></li>
-<li><a href="#orgde45648">Manage /proc file with standard filesystem</a></li>
-<li><a href="#orgdd64e9c">Manage /proc file with seq_file</a></li>
+<li><a href="#orge2e7e76">Read and Write a /proc File</a></li>
+<li><a href="#org31db2e9">Manage /proc file with standard filesystem</a></li>
+<li><a href="#orgc55d235">Manage /proc file with seq_file</a></li>
 </ul>
 </li>
-<li><a href="#org7781012">sysfs: Interacting with your module</a></li>
-<li><a href="#orgc7c613e">Talking To Device Files</a></li>
-<li><a href="#org286eb5c">System Calls</a></li>
-<li><a href="#org01c8880">Blocking Processes</a></li>
-<li><a href="#org4b3a265">Replacing Printks</a>
+<li><a href="#org03726ad">sysfs: Interacting with your module</a></li>
+<li><a href="#org5e572ed">Talking To Device Files</a></li>
+<li><a href="#orgad18a77">System Calls</a></li>
+<li><a href="#org0b9beb1">Blocking Processes</a></li>
+<li><a href="#org217b343">Replacing Printks</a>
 <ul>
-<li><a href="#org5e61856">Replacing printk</a></li>
-<li><a href="#org36a2577">Flashing keyboard LEDs</a></li>
+<li><a href="#org2a8d5ea">Replacing printk</a></li>
+<li><a href="#org9c22080">Flashing keyboard LEDs</a></li>
 </ul>
 </li>
-<li><a href="#org60adeed">Scheduling Tasks</a></li>
-<li><a href="#org9e1abc5">The order of completion</a></li>
-<li><a href="#org1695f19">Interrupt Handlers</a>
+<li><a href="#org1acf60d">Scheduling Tasks</a></li>
+<li><a href="#orgbd5e0e8">The order of completion</a></li>
+<li><a href="#org817a51f">Interrupt Handlers</a>
 <ul>
-<li><a href="#org40cfc2f">Interrupt Handlers</a></li>
-<li><a href="#org47c999a">Detecting button presses</a></li>
+<li><a href="#org1cc1d98">Interrupt Handlers</a></li>
+<li><a href="#orgbf386f2">Detecting button presses</a></li>
 </ul>
 </li>
-<li><a href="#org4f104fb">Crypto</a>
+<li><a href="#orgfde0b60">Crypto</a>
 <ul>
-<li><a href="#org4fb3081">Hash functions</a></li>
-<li><a href="#org0bdfe1c">Symmetric key encryption</a></li>
+<li><a href="#org1596f8c">Hash functions</a></li>
+<li><a href="#org69c49d0">Symmetric key encryption</a></li>
 </ul>
 </li>
-<li><a href="#orgce859ff">Common Pitfalls</a>
+<li><a href="#org64a0d22">Common Pitfalls</a>
 <ul>
-<li><a href="#orgc9cc97a">Using standard libraries</a></li>
-<li><a href="#org224d8f5">Disabling interrupts</a></li>
-<li><a href="#org215d0a5">Sticking your head inside a large carnivore</a></li>
+<li><a href="#org284e891">Using standard libraries</a></li>
+<li><a href="#orgd243510">Disabling interrupts</a></li>
+<li><a href="#org715edbe">Sticking your head inside a large carnivore</a></li>
 </ul>
 </li>
-<li><a href="#org5b1d870">Where To Go From Here?</a></li>
+<li><a href="#orga8766c0">Where To Go From Here?</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org8903595" class="outline-2">
-<h2 id="org8903595">Introduction</h2>
-<div class="outline-text-2" id="text-org8903595">
+<div id="outline-container-org90ec0fd" class="outline-2">
+<h2 id="org90ec0fd">Introduction</h2>
+<div class="outline-text-2" id="text-org90ec0fd">
 <p>
-The Linux Kernel Module Programming Guide is a free book; you may reproduce and/or modify it under the terms of the Open Software License, version 1.1. You can obtain a copy of this license at <a href="http://opensource.org/licenses/osl.php">http://opensource.org/licenses/osl.php</a>.
+The Linux Kernel Module Programming Guide is a free book; you may reproduce and/or modify it under the terms of the Open Software License, version 1.1.
 </p>
 
 <p>
@@ -376,18 +376,18 @@ If you publish or distribute this book commercially, donations, royalties, and/o
 </p>
 </div>
 
-<div id="outline-container-orgb22af9b" class="outline-3">
-<h3 id="orgb22af9b">Authorship</h3>
-<div class="outline-text-3" id="text-orgb22af9b">
+<div id="outline-container-org1ad0b28" class="outline-3">
+<h3 id="org1ad0b28">Authorship</h3>
+<div class="outline-text-3" id="text-org1ad0b28">
 <p>
 The Linux Kernel Module Programming Guide was originally written for the 2.2 kernels by Ori Pomerantz. Eventually, Ori no longer had time to maintain the document. After all, the Linux kernel is a fast moving target. Peter Jay Salzman took over maintenance and updated it for the 2.4 kernels. Eventually, Peter no longer had time to follow developments with the 2.6 kernel, so Michael Burian became a co-maintainer to update the document for the 2.6 kernels.  Bob Mottram updated the examples for 3.8 and later kernels, added the sysfs chapter and modified or updated other chapters.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgd87d06b" class="outline-3">
-<h3 id="orgd87d06b">Versioning and Notes</h3>
-<div class="outline-text-3" id="text-orgd87d06b">
+<div id="outline-container-orgb34d554" class="outline-3">
+<h3 id="orgb34d554">Versioning and Notes</h3>
+<div class="outline-text-3" id="text-orgb34d554">
 <p>
 The Linux kernel is a moving target. There has always been a question whether the LKMPG should remove deprecated information or keep it around for historical sake. Michael Burian and I decided to create a new branch of the LKMPG for each new stable kernel version. So version LKMPG 4.9.x will address Linux kernel 4.9.x and LKMPG 2.6.x will address Linux kernel 2.6. No attempt will be made to archive historical information; a person wishing this information should read the appropriately versioned LKMPG.
 </p>
@@ -398,18 +398,18 @@ The source code and discussions should apply to most architectures, but I can't 
 </div>
 </div>
 
-<div id="outline-container-org42c24c3" class="outline-3">
-<h3 id="org42c24c3">Acknowledgements</h3>
-<div class="outline-text-3" id="text-org42c24c3">
+<div id="outline-container-org2704dac" class="outline-3">
+<h3 id="org2704dac">Acknowledgements</h3>
+<div class="outline-text-3" id="text-org2704dac">
 <p>
 The following people have contributed corrections or good suggestions: Ignacio Martin, David Porter, Daniele Paolo Scarpazza, Dimo Velev, Francois Audeon, Horst Schirmeier, Bob Mottram and Roman Lakeev.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orge9eeec1" class="outline-3">
-<h3 id="orge9eeec1">What Is A Kernel Module?</h3>
-<div class="outline-text-3" id="text-orge9eeec1">
+<div id="outline-container-orgf4c315e" class="outline-3">
+<h3 id="orgf4c315e">What Is A Kernel Module?</h3>
+<div class="outline-text-3" id="text-orgf4c315e">
 <p>
 So, you want to write a kernel module. You know C, you've written a few normal programs to run as processes, and now you want to get to where the real action is, to where a single wild pointer can wipe out your file system and a core dump means a reboot.
 </p>
@@ -420,9 +420,9 @@ What exactly is a kernel module? Modules are pieces of code that can be loaded a
 </div>
 </div>
 
-<div id="outline-container-org5273fd8" class="outline-3">
-<h3 id="org5273fd8">Kernel module package</h3>
-<div class="outline-text-3" id="text-org5273fd8">
+<div id="outline-container-orgae9a2fd" class="outline-3">
+<h3 id="orgae9a2fd">Kernel module package</h3>
+<div class="outline-text-3" id="text-orgae9a2fd">
 <p>
 Linux distros provide the commands <i>modprobe</i>, <i>insmod</i> and <i>depmod</i> within a package.
 </p>
@@ -447,9 +447,9 @@ On Parabola:
 </div>
 </div>
 
-<div id="outline-container-org3655711" class="outline-3">
-<h3 id="org3655711">What Modules are in my Kernel?</h3>
-<div class="outline-text-3" id="text-org3655711">
+<div id="outline-container-org57b85a2" class="outline-3">
+<h3 id="org57b85a2">What Modules are in my Kernel?</h3>
+<div class="outline-text-3" id="text-org57b85a2">
 <p>
 To discover what modules are already loaded within your current kernel use the command <b>lsmod</b>.
 </p>
@@ -479,33 +479,33 @@ This can be a long list, and you might prefer to search for something particular
 </div>
 </div>
 
-<div id="outline-container-org2e2ffcc" class="outline-3">
-<h3 id="org2e2ffcc">Do I need to download and compile the kernel?</h3>
-<div class="outline-text-3" id="text-org2e2ffcc">
+<div id="outline-container-org6abc6f8" class="outline-3">
+<h3 id="org6abc6f8">Do I need to download and compile the kernel?</h3>
+<div class="outline-text-3" id="text-org6abc6f8">
 <p>
 For the purposes of following this guide you don't necessarily need to do that. However, it would be wise to run the examples within a test distro running on a virtual machine in order to avoid any possibility of messing up your system.
 </p>
 </div>
 </div>
-<div id="outline-container-org9b69c62" class="outline-3">
-<h3 id="org9b69c62">Before We Begin</h3>
-<div class="outline-text-3" id="text-org9b69c62">
+<div id="outline-container-org774dcfe" class="outline-3">
+<h3 id="org774dcfe">Before We Begin</h3>
+<div class="outline-text-3" id="text-org774dcfe">
 <p>
 Before we delve into code, there are a few issues we need to cover. Everyone's system is different and everyone has their own groove. Getting your first "hello world" program to compile and load correctly can sometimes be a trick. Rest assured, after you get over the initial hurdle of doing it for the first time, it will be smooth sailing thereafter.
 </p>
 </div>
 
 <ul class="org-ul">
-<li><a id="org3064c5d"></a>Modversioning<br />
-<div class="outline-text-5" id="text-org3064c5d">
+<li><a id="org575ed09"></a>Modversioning<br />
+<div class="outline-text-5" id="text-org575ed09">
 <p>
 A module compiled for one kernel won't load if you boot a different kernel unless you enable CONFIG_MODVERSIONS in the kernel. We won't go into module versioning until later in this guide. Until we cover modversions, the examples in the guide may not work if you're running a kernel with modversioning turned on. However, most stock Linux distro kernels come with it turned on. If you're having trouble loading the modules because of versioning errors, compile a kernel with modversioning turned off.
 </p>
 </div>
 </li>
 
-<li><a id="orge37c26b"></a>Using X<br />
-<div class="outline-text-5" id="text-orge37c26b">
+<li><a id="org566b976"></a>Using X<br />
+<div class="outline-text-5" id="text-org566b976">
 <p>
 It is highly recommended that you type in, compile and load all the examples this guide discusses. It's also highly recommended you do this from a console. You should not be working on this stuff in X.
 </p>
@@ -519,9 +519,9 @@ Modules can't print to the screen like printf() can, but they can log informatio
 </div>
 </div>
 
-<div id="outline-container-org2526029" class="outline-2">
-<h2 id="org2526029">Headers</h2>
-<div class="outline-text-2" id="text-org2526029">
+<div id="outline-container-org501dc39" class="outline-2">
+<h2 id="org501dc39">Headers</h2>
+<div class="outline-text-2" id="text-org501dc39">
 <p>
 Before you can build anything you'll need to install the header files for your kernel. On Parabola GNU/Linux:
 </p>
@@ -551,9 +551,9 @@ This will tell you what kernel header files are available. Then for example:
 </div>
 </div>
 </div>
-<div id="outline-container-orgeead7f4" class="outline-2">
-<h2 id="orgeead7f4">Examples</h2>
-<div class="outline-text-2" id="text-orgeead7f4">
+<div id="outline-container-orgc7fdee8" class="outline-2">
+<h2 id="orgc7fdee8">Examples</h2>
+<div class="outline-text-2" id="text-orgc7fdee8">
 <p>
 All the examples from this document are available within the <i>examples</i> subdirectory. To test that they compile:
 </p>
@@ -569,13 +569,13 @@ If there are any compile errors then you might have a more recent kernel version
 </p>
 </div>
 </div>
-<div id="outline-container-org498de8a" class="outline-2">
-<h2 id="org498de8a">Hello World</h2>
-<div class="outline-text-2" id="text-org498de8a">
+<div id="outline-container-orgc265e0d" class="outline-2">
+<h2 id="orgc265e0d">Hello World</h2>
+<div class="outline-text-2" id="text-orgc265e0d">
 </div>
-<div id="outline-container-org2a10df6" class="outline-3">
-<h3 id="org2a10df6">The Simplest Module</h3>
-<div class="outline-text-3" id="text-org2a10df6">
+<div id="outline-container-org450c0c8" class="outline-3">
+<h3 id="org450c0c8">The Simplest Module</h3>
+<div class="outline-text-3" id="text-org450c0c8">
 <p>
 Most people learning programming start out with some sort of "<i>hello world</i>" example. I don't know what happens to people who break with this tradition, but I think it's safer not to find out. We'll start with a series of hello world programs that demonstrate the different aspects of the basics of writing a kernel module.
 </p>
@@ -719,8 +719,8 @@ Lastly, every kernel module needs to include linux/module.h. We needed to includ
 </div>
 
 <ul class="org-ul">
-<li><a id="org33fc84a"></a>Introducing printk()<br />
-<div class="outline-text-5" id="text-org33fc84a">
+<li><a id="org2a51189"></a>Introducing printk()<br />
+<div class="outline-text-5" id="text-org2a51189">
 <p>
 Despite what you might think, <b>printk()</b> was not meant to communicate information to the user, even though we used it for exactly this purpose in hello-1! It happens to be a logging mechanism for the kernel, and is used to log information or give warnings. Therefore, each printk() statement comes with a priority, which is the &lt;1&gt; and KERN_ALERT you see. There are 8 priorities and the kernel has macros for them, so you don't have to use cryptic numbers, and you can view them (and their meanings) in <b>linux/kernel.h</b>. If you don't specify a priority level, the default priority, DEFAULT_MESSAGE_LOGLEVEL, will be used.
 </p>
@@ -735,8 +735,8 @@ If the priority is less than int console_loglevel, the message is printed on you
 </div>
 </li>
 
-<li><a id="org623fd9e"></a>About Compiling<br />
-<div class="outline-text-5" id="text-org623fd9e">
+<li><a id="org2ca7a25"></a>About Compiling<br />
+<div class="outline-text-5" id="text-org2ca7a25">
 <p>
 Kernel modules need to be compiled a bit differently from regular userspace apps. Former kernel versions required us to care much about these settings, which are usually stored in Makefiles. Although hierarchically organized, many redundant settings accumulated in sublevel Makefiles and made them large and rather difficult to maintain. Fortunately, there is a new way of doing these things, called kbuild, and the build process for external loadable modules is now fully integrated into the standard kernel build mechanism. To learn more on how to compile modules which are not part of the official kernel (such as all the examples you'll find in this guide), see file <b>linux/Documentation/kbuild/modules.txt</b>.
 </p>
@@ -755,9 +755,9 @@ Here's another exercise for the reader. See that comment above the return statem
 </ul>
 </div>
 
-<div id="outline-container-org12923c1" class="outline-3">
-<h3 id="org12923c1">Hello and Goodbye</h3>
-<div class="outline-text-3" id="text-org12923c1">
+<div id="outline-container-orgb86c1cb" class="outline-3">
+<h3 id="orgb86c1cb">Hello and Goodbye</h3>
+<div class="outline-text-3" id="text-orgb86c1cb">
 <p>
 In early kernel versions you had to use the <b>init_module</b> and <b>cleanup_module</b> functions, as in the first hello world example, but these days you can name those anything you want by using the <b>module_init</b> and <b>module_exit</b> macros. These macros are defined in <b>linux/init.h</b>. The only requirement is that your init and cleanup functions must be defined before calling the those macros, otherwise you'll get compilation errors. Here's an example of this technique:
 </p>
@@ -809,9 +809,9 @@ Now have a look at linux/drivers/char/Makefile for a real world example. As you 
 </div>
 </div>
 
-<div id="outline-container-org7dea386" class="outline-3">
-<h3 id="org7dea386">The __init and __exit Macros</h3>
-<div class="outline-text-3" id="text-org7dea386">
+<div id="outline-container-org8e1265f" class="outline-3">
+<h3 id="org8e1265f">The __init and __exit Macros</h3>
+<div class="outline-text-3" id="text-org8e1265f">
 <p>
 This demonstrates a feature of kernel 2.2 and later. Notice the change in the definitions of the init and cleanup functions. The <b>__init</b> macro causes the init function to be discarded and its memory freed once the init function finishes for built-in drivers, but not loadable modules. If you think about when the init function is invoked, this makes perfect sense.
 </p>
@@ -856,9 +856,9 @@ module_exit(hello_3_exit);
 </div>
 </div>
 
-<div id="outline-container-org5aad496" class="outline-3">
-<h3 id="org5aad496">Licensing and Module Documentation</h3>
-<div class="outline-text-3" id="text-org5aad496">
+<div id="outline-container-org2594ffb" class="outline-3">
+<h3 id="org2594ffb">Licensing and Module Documentation</h3>
+<div class="outline-text-3" id="text-org2594ffb">
 <p>
 Honestly, who loads or even cares about proprietary modules? If you do then you might have seen something like this:
 </p>
@@ -910,9 +910,9 @@ module_exit(cleanup_hello_4);
 </div>
 </div>
 
-<div id="outline-container-org2a5f2ef" class="outline-3">
-<h3 id="org2a5f2ef">Passing Command Line Arguments to a Module</h3>
-<div class="outline-text-3" id="text-org2a5f2ef">
+<div id="outline-container-org2cd8590" class="outline-3">
+<h3 id="org2cd8590">Passing Command Line Arguments to a Module</h3>
+<div class="outline-text-3" id="text-org2cd8590">
 <p>
 Modules can take command line arguments, but not with the argc/argv you might be used to.
 </p>
@@ -1062,9 +1062,9 @@ hello-5.o: invalid argument syntax for mylong: 'h'
 </div>
 </div>
 
-<div id="outline-container-org2a2bd43" class="outline-3">
-<h3 id="org2a2bd43">Modules Spanning Multiple Files</h3>
-<div class="outline-text-3" id="text-org2a2bd43">
+<div id="outline-container-orgc153ca5" class="outline-3">
+<h3 id="orgc153ca5">Modules Spanning Multiple Files</h3>
+<div class="outline-text-3" id="text-orgc153ca5">
 <p>
 Sometimes it makes sense to divide a kernel module between several source files.
 </p>
@@ -1135,9 +1135,9 @@ This is the complete makefile for all the examples we've seen so far. The first 
 </div>
 </div>
 
-<div id="outline-container-org50d4d00" class="outline-3">
-<h3 id="org50d4d00">Building modules for a precompiled kernel</h3>
-<div class="outline-text-3" id="text-org50d4d00">
+<div id="outline-container-org843f61b" class="outline-3">
+<h3 id="org843f61b">Building modules for a precompiled kernel</h3>
+<div class="outline-text-3" id="text-org843f61b">
 <p>
 Obviously, we strongly suggest you to recompile your kernel, so that you can enable a number of useful debugging features, such as forced module unloading (<b>MODULE_FORCE_UNLOAD</b>): when this option is enabled, you can force the kernel to unload a module even when it believes it is unsafe, via a <b>sudo rmmod -f module</b> command. This option can save you a lot of time and a number of reboots during the development of a module. If you don't want to recompile your kernel then you should consider running the examples within a test distro on a virtual machine. If you mess anything up then you can easily reboot or restore the VM.
 </p>
@@ -1229,13 +1229,13 @@ If you do not desire to actually compile the kernel, you can interrupt the build
 </div>
 </div>
 
-<div id="outline-container-org395ced2" class="outline-2">
-<h2 id="org395ced2">Preliminaries</h2>
-<div class="outline-text-2" id="text-org395ced2">
+<div id="outline-container-org63877d3" class="outline-2">
+<h2 id="org63877d3">Preliminaries</h2>
+<div class="outline-text-2" id="text-org63877d3">
 </div>
-<div id="outline-container-org3f9e5a9" class="outline-3">
-<h3 id="org3f9e5a9">How modules begin and end</h3>
-<div class="outline-text-3" id="text-org3f9e5a9">
+<div id="outline-container-org5889c6c" class="outline-3">
+<h3 id="org5889c6c">How modules begin and end</h3>
+<div class="outline-text-3" id="text-org5889c6c">
 <p>
 A program usually begins with a <b>main()</b> function, executes a bunch of instructions and terminates upon completion of those instructions. Kernel modules work a bit differently. A module always begin with either the init_module or the function you specify with module_init call. This is the entry function for modules; it tells the kernel what functionality the module provides and sets up the kernel to run the module's functions when they're needed. Once it does this, entry function returns and the module does nothing until the kernel wants to do something with the code that the module provides.
 </p>
@@ -1250,9 +1250,9 @@ Every module must have an entry function and an exit function. Since there's mor
 </div>
 </div>
 
-<div id="outline-container-org8d4b734" class="outline-3">
-<h3 id="org8d4b734">Functions available to modules</h3>
-<div class="outline-text-3" id="text-org8d4b734">
+<div id="outline-container-org2bc01a0" class="outline-3">
+<h3 id="org2bc01a0">Functions available to modules</h3>
+<div class="outline-text-3" id="text-org2bc01a0">
 <p>
 Programmers use functions they don't define all the time. A prime example of this is <b>printf()</b>. You use these library functions which are provided by the standard C library, libc. The definitions for these functions don't actually enter your program until the linking stage, which insures that the code (for printf() for example) is available, and fixes the call instruction to point to that code.
 </p>
@@ -1290,9 +1290,9 @@ You can even write modules to replace the kernel's system calls, which we'll do 
 </div>
 </div>
 
-<div id="outline-container-orgaf82024" class="outline-3">
-<h3 id="orgaf82024">User Space vs Kernel Space</h3>
-<div class="outline-text-3" id="text-orgaf82024">
+<div id="outline-container-org49dff8a" class="outline-3">
+<h3 id="org49dff8a">User Space vs Kernel Space</h3>
+<div class="outline-text-3" id="text-org49dff8a">
 <p>
 A kernel is all about access to resources, whether the resource in question happens to be a video card, a hard drive or even memory. Programs often compete for the same resource. As I just saved this document, updatedb started updating the locate database. My vim session and updatedb are both using the hard drive concurrently. The kernel needs to keep things orderly, and not give users access to resources whenever they feel like it. To this end, a CPU can run in different modes. Each mode gives a different level of freedom to do what you want on the system. The Intel 80386 architecture had 4 of these modes, which were called rings. Unix uses only two rings; the highest ring (ring 0, also known as `supervisor mode' where everything is allowed to happen) and the lowest ring, which is called `user mode'.
 </p>
@@ -1303,9 +1303,9 @@ Recall the discussion about library functions vs system calls. Typically, you us
 </div>
 </div>
 
-<div id="outline-container-org80b4b73" class="outline-3">
-<h3 id="org80b4b73">Name Space</h3>
-<div class="outline-text-3" id="text-org80b4b73">
+<div id="outline-container-org665b736" class="outline-3">
+<h3 id="org665b736">Name Space</h3>
+<div class="outline-text-3" id="text-org665b736">
 <p>
 When you write a small C program, you use variables which are convenient and make sense to the reader. If, on the other hand, you're writing routines which will be part of a bigger problem, any global variables you have are part of a community of other peoples' global variables; some of the variable names can clash. When a program has lots of global variables which aren't meaningful enough to be distinguished, you get namespace pollution. In large projects, effort must be made to remember reserved names, and to find ways to develop a scheme for naming unique variable names and symbols.
 </p>
@@ -1320,9 +1320,9 @@ The file <b>/proc/kallsyms</b> holds all the symbols that the kernel knows about
 </div>
 </div>
 
-<div id="outline-container-org47678e3" class="outline-3">
-<h3 id="org47678e3">Code space</h3>
-<div class="outline-text-3" id="text-org47678e3">
+<div id="outline-container-org993006a" class="outline-3">
+<h3 id="org993006a">Code space</h3>
+<div class="outline-text-3" id="text-org993006a">
 <p>
 Memory management is a very complicated subject and the majority of O'Reilly's "<i>Understanding The Linux Kernel</i>" exclusively covers memory management! We're not setting out to be experts on memory managements, but we do need to know a couple of facts to even begin worrying about writing real modules.
 </p>
@@ -1341,17 +1341,17 @@ By the way, I would like to point out that the above discussion is true for any 
 </div>
 </div>
 
-<div id="outline-container-org43ccd14" class="outline-3">
-<h3 id="org43ccd14">Device Drivers</h3>
-<div class="outline-text-3" id="text-org43ccd14">
+<div id="outline-container-orga0095db" class="outline-3">
+<h3 id="orga0095db">Device Drivers</h3>
+<div class="outline-text-3" id="text-orga0095db">
 <p>
 One class of module is the device driver, which provides functionality for hardware like a serial port. On unix, each piece of hardware is represented by a file located in /dev named a device file which provides the means to communicate with the hardware. The device driver provides the communication on behalf of a user program. So the es1370.o sound card device driver might connect the /dev/sound device file to the Ensoniq IS1370 sound card. A userspace program like mp3blaster can use /dev/sound without ever knowing what kind of sound card is installed.
 </p>
 </div>
 
 <ul class="org-ul">
-<li><a id="org6dbe1c8"></a>Major and Minor Numbers<br />
-<div class="outline-text-5" id="text-org6dbe1c8">
+<li><a id="org5019a5f"></a>Major and Minor Numbers<br />
+<div class="outline-text-5" id="text-org5019a5f">
 <p>
 Let's look at some device files. Here are device files which represent the first three partitions on the primary master IDE hard drive:
 </p>
@@ -1416,13 +1416,13 @@ By now you can look at these two device files and know instantly that they are b
 </div>
 </div>
 
-<div id="outline-container-orgc660557" class="outline-2">
-<h2 id="orgc660557">Character Device drivers</h2>
-<div class="outline-text-2" id="text-orgc660557">
+<div id="outline-container-orgb6dfdb2" class="outline-2">
+<h2 id="orgb6dfdb2">Character Device drivers</h2>
+<div class="outline-text-2" id="text-orgb6dfdb2">
 </div>
-<div id="outline-container-org7cc29ca" class="outline-3">
-<h3 id="org7cc29ca">The file_operations Structure</h3>
-<div class="outline-text-3" id="text-org7cc29ca">
+<div id="outline-container-org4932688" class="outline-3">
+<h3 id="org4932688">The file_operations Structure</h3>
+<div class="outline-text-3" id="text-org4932688">
 <p>
 The file_operations structure is defined in <b>/usr/include/linux/fs.h</b>, and holds pointers to functions defined by the driver that perform various operations on the device. Each field of the structure corresponds to the address of some function defined by the driver to handle a requested operation.
 </p>
@@ -1507,9 +1507,9 @@ An instance of struct file_operations containing pointers to functions that are 
 </div>
 </div>
 
-<div id="outline-container-orgf8f81fa" class="outline-3">
-<h3 id="orgf8f81fa">The file structure</h3>
-<div class="outline-text-3" id="text-orgf8f81fa">
+<div id="outline-container-org9858517" class="outline-3">
+<h3 id="org9858517">The file structure</h3>
+<div class="outline-text-3" id="text-org9858517">
 <p>
 Each device is represented in the kernel by a file structure, which is defined in <b>linux/fs.h</b>. Be aware that a file is a kernel level structure and never appears in a user space program. It's not the same thing as a <b>FILE</b>, which is defined by glibc and would never appear in a kernel space function. Also, its name is a bit misleading; it represents an abstract open `file', not a file on a disk, which is represented by a structure named inode.
 </p>
@@ -1524,9 +1524,9 @@ Go ahead and look at the definition of file. Most of the entries you see, like s
 </div>
 </div>
 
-<div id="outline-container-org122de23" class="outline-3">
-<h3 id="org122de23">Registering A Device</h3>
-<div class="outline-text-3" id="text-org122de23">
+<div id="outline-container-org4823c20" class="outline-3">
+<h3 id="org4823c20">Registering A Device</h3>
+<div class="outline-text-3" id="text-org4823c20">
 <p>
 As discussed earlier, char devices are accessed through device files, usually located in /dev<sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup>. The major number tells you which driver handles which device file. The minor number is used only by the driver itself to differentiate which device it's operating on, just in case the driver handles more than one device.
 </p>
@@ -1554,9 +1554,9 @@ If you pass a major number of 0 to register_chrdev, the return value will be the
 </div>
 </div>
 
-<div id="outline-container-org7a43e19" class="outline-3">
-<h3 id="org7a43e19">Unregistering A Device</h3>
-<div class="outline-text-3" id="text-org7a43e19">
+<div id="outline-container-orgaf25985" class="outline-3">
+<h3 id="orgaf25985">Unregistering A Device</h3>
+<div class="outline-text-3" id="text-orgaf25985">
 <p>
 We can't allow the kernel module to be rmmod'ed whenever root feels like it. If the device file is opened by a process and then we remove the kernel module, using the file would cause a call to the memory location where the appropriate function (read/write) used to be. If we're lucky, no other code was loaded there, and we'll get an ugly error message. If we're unlucky, another kernel module was loaded into the same location, which means a jump into the middle of another function within the kernel. The results of this would be impossible to predict, but they can't be very positive.
 </p>
@@ -1576,9 +1576,9 @@ It's important to keep the counter accurate; if you ever do lose track of the co
 </div>
 </div>
 
-<div id="outline-container-org2fcec75" class="outline-3">
-<h3 id="org2fcec75">chardev.c</h3>
-<div class="outline-text-3" id="text-org2fcec75">
+<div id="outline-container-org75c43a4" class="outline-3">
+<h3 id="org75c43a4">chardev.c</h3>
+<div class="outline-text-3" id="text-org75c43a4">
 <p>
 The next code sample creates a char driver named chardev. You can cat its device file.
 </p>
@@ -1766,9 +1766,9 @@ The next code sample creates a char driver named chardev. You can cat its device
 </div>
 </div>
 
-<div id="outline-container-org7024eec" class="outline-3">
-<h3 id="org7024eec">Writing Modules for Multiple Kernel Versions</h3>
-<div class="outline-text-3" id="text-org7024eec">
+<div id="outline-container-orga40f498" class="outline-3">
+<h3 id="orga40f498">Writing Modules for Multiple Kernel Versions</h3>
+<div class="outline-text-3" id="text-orga40f498">
 <p>
 The system calls, which are the major interface the kernel shows to the processes, generally stay the same across versions. A new system call may be added, but usually the old ones will behave exactly like they used to. This is necessary for backward compatibility &#x2013; a new kernel version is not supposed to break regular processes. In most cases, the device files will also remain the same. On the other hand, the internal interfaces within the kernel can and do change between versions.
 </p>
@@ -1792,9 +1792,9 @@ You might already have noticed that recent kernels look different. In case you h
 </div>
 </div>
 
-<div id="outline-container-orgaa369fe" class="outline-2">
-<h2 id="orgaa369fe">The /proc File System</h2>
-<div class="outline-text-2" id="text-orgaa369fe">
+<div id="outline-container-orgdcc4fd1" class="outline-2">
+<h2 id="orgdcc4fd1">The /proc File System</h2>
+<div class="outline-text-2" id="text-orgdcc4fd1">
 <p>
 In Linux, there is an additional mechanism for the kernel and kernel modules to send information to processes &#x2014; the <b>/proc</b> file system. Originally designed to allow easy access to information about processes (hence the name), it is now used by every bit of the kernel which has something interesting to report, such as <b>/proc/modules</b> which provides the list of modules and <b>/proc/meminfo</b> which stats memory usage statistics.
 </p>
@@ -1884,9 +1884,9 @@ HelloWorld!
 </div>
 </div>
 
-<div id="outline-container-orgfef93ab" class="outline-3">
-<h3 id="orgfef93ab">Read and Write a /proc File</h3>
-<div class="outline-text-3" id="text-orgfef93ab">
+<div id="outline-container-orge2e7e76" class="outline-3">
+<h3 id="orge2e7e76">Read and Write a /proc File</h3>
+<div class="outline-text-3" id="text-orge2e7e76">
 <p>
 We have seen a very simple example for a /proc file where we only read the file /proc/helloworld. It's also possible to write in a /proc file. It works the same way as read, a function is called when the /proc file is written. But there is a little difference with read, data comes from user, so you have to import data from user space to kernel space (with copy_from_user or get_user)
 </p>
@@ -2003,9 +2003,9 @@ The only memory segment accessible to a process is its own, so when writing regu
 </div>
 </div>
 
-<div id="outline-container-orgde45648" class="outline-3">
-<h3 id="orgde45648">Manage /proc file with standard filesystem</h3>
-<div class="outline-text-3" id="text-orgde45648">
+<div id="outline-container-org31db2e9" class="outline-3">
+<h3 id="org31db2e9">Manage /proc file with standard filesystem</h3>
+<div class="outline-text-3" id="text-org31db2e9">
 <p>
 We have seen how to read and write a /proc file with the /proc interface. But it's also possible to manage /proc file with inodes. The main concern is to use advanced functions, like permissions.
 </p>
@@ -2115,9 +2115,9 @@ Still hungry for procfs examples? Well, first of all keep in mind, there are rum
 </div>
 </div>
 
-<div id="outline-container-orgdd64e9c" class="outline-3">
-<h3 id="orgdd64e9c">Manage /proc file with seq_file</h3>
-<div class="outline-text-3" id="text-orgdd64e9c">
+<div id="outline-container-orgc55d235" class="outline-3">
+<h3 id="orgc55d235">Manage /proc file with seq_file</h3>
+<div class="outline-text-3" id="text-orgc55d235">
 <p>
 As we have seen, writing a /proc file may be quite "complex". So to help
 people writting /proc file, there is an API named seq_file that helps
@@ -2307,9 +2307,9 @@ You can also read the code of fs/seq_file.c in the linux kernel.
 </div>
 </div>
 
-<div id="outline-container-org7781012" class="outline-2">
-<h2 id="org7781012">sysfs: Interacting with your module</h2>
-<div class="outline-text-2" id="text-org7781012">
+<div id="outline-container-org03726ad" class="outline-2">
+<h2 id="org03726ad">sysfs: Interacting with your module</h2>
+<div class="outline-text-2" id="text-org03726ad">
 <p>
 <i>sysfs</i> allows you to interact with the running kernel from userspace by reading or setting variables inside of modules. This can be useful for debugging purposes, or just as an interface for applications or scripts. You can find sysfs directories and files under the <i>sys</i> directory on your system.
 </p>
@@ -2444,9 +2444,9 @@ Finally, remove the test module:
 </div>
 </div>
 
-<div id="outline-container-orgc7c613e" class="outline-2">
-<h2 id="orgc7c613e">Talking To Device Files</h2>
-<div class="outline-text-2" id="text-orgc7c613e">
+<div id="outline-container-org5e572ed" class="outline-2">
+<h2 id="org5e572ed">Talking To Device Files</h2>
+<div class="outline-text-2" id="text-org5e572ed">
 <p>
 Device files are supposed to represent physical devices. Most physical devices are used for output as well as input, so there has to be some mechanism for device drivers in the kernel to get the output to send to the device from processes. This is done by opening the device file for output and writing to it, just like writing to a file. In the following example, this is implemented by device_write.
 </p>
@@ -2927,9 +2927,9 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
 </div>
 </div>
 
-<div id="outline-container-org286eb5c" class="outline-2">
-<h2 id="org286eb5c">System Calls</h2>
-<div class="outline-text-2" id="text-org286eb5c">
+<div id="outline-container-orgad18a77" class="outline-2">
+<h2 id="orgad18a77">System Calls</h2>
+<div class="outline-text-2" id="text-orgad18a77">
 <p>
 So far, the only thing we've done was to use well defined kernel mechanisms to register <b>/proc</b> files and device handlers. This is fine if you want to do something the kernel programmers thought you'd want, such as write a device driver. But what if you want to do something unusual, to change the behavior of the system in some way? Then, you're mostly on your own.
 </p>
@@ -3135,9 +3135,9 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 </div>
 </div>
 
-<div id="outline-container-org01c8880" class="outline-2">
-<h2 id="org01c8880">Blocking Processes</h2>
-<div class="outline-text-2" id="text-org01c8880">
+<div id="outline-container-org0b9beb1" class="outline-2">
+<h2 id="org0b9beb1">Blocking Processes</h2>
+<div class="outline-text-2" id="text-org0b9beb1">
 <p>
 What do you do when somebody asks you for something you can't do right away? If you're a human being and you're bothered by a human being, the only thing you can say is: "<i>Not right now, I'm busy. Go away!</i>". But if you're a kernel module and you're bothered by a process, you have another possibility. You can put the process to sleep until you can service it. After all, processes are being put to sleep by the kernel and woken up all the time (that's the way multiple processes appear to run on the same time on a single CPU).
 </p>
@@ -3527,13 +3527,13 @@ DECLARE_WAIT_QUEUE_HEAD(WaitQ);
 </div>
 </div>
 
-<div id="outline-container-org4b3a265" class="outline-2">
-<h2 id="org4b3a265">Replacing Printks</h2>
-<div class="outline-text-2" id="text-org4b3a265">
+<div id="outline-container-org217b343" class="outline-2">
+<h2 id="org217b343">Replacing Printks</h2>
+<div class="outline-text-2" id="text-org217b343">
 </div>
-<div id="outline-container-org5e61856" class="outline-3">
-<h3 id="org5e61856">Replacing printk</h3>
-<div class="outline-text-3" id="text-org5e61856">
+<div id="outline-container-org2a8d5ea" class="outline-3">
+<h3 id="org2a8d5ea">Replacing printk</h3>
+<div class="outline-text-3" id="text-org2a8d5ea">
 <p>
 In Section 1.2.1.2, I said that X and kernel module programming don't mix. That's true for developing kernel modules, but in actual use, you want to be able to send messages to whichever tty<sup><a id="fnr.12" class="footref" href="#fn.12">12</a></sup> the command to load the module came from.
 </p>
@@ -3656,9 +3656,9 @@ module_exit(print_string_exit);
 </div>
 </div>
 
-<div id="outline-container-org36a2577" class="outline-3">
-<h3 id="org36a2577">Flashing keyboard LEDs</h3>
-<div class="outline-text-3" id="text-org36a2577">
+<div id="outline-container-org9c22080" class="outline-3">
+<h3 id="org9c22080">Flashing keyboard LEDs</h3>
+<div class="outline-text-3" id="text-org9c22080">
 <p>
 In certain conditions, you may desire a simpler and more direct way to communicate to the external world. Flashing keyboard LEDs can be such a solution: It is an immediate way to attract attention or to display a status condition. Keyboard LEDs are present on every hardware, they are always visible, they do not need any setup, and their use is rather simple and non-intrusive, compared to writing to a tty or a file.
 </p>
@@ -3777,9 +3777,9 @@ While you have seen lots of stuff that can be used to aid debugging here, there 
 </div>
 </div>
 
-<div id="outline-container-org60adeed" class="outline-2">
-<h2 id="org60adeed">Scheduling Tasks</h2>
-<div class="outline-text-2" id="text-org60adeed">
+<div id="outline-container-org1acf60d" class="outline-2">
+<h2 id="org1acf60d">Scheduling Tasks</h2>
+<div class="outline-text-2" id="text-org1acf60d">
 <p>
 Very often, we have "housekeeping" tasks which have to be done at a certain time, or every so often. If the task is to be done by a process, we do it by putting it in the crontab file. If the task is to be done by a kernel module, we have two possibilities. The first is to put a process in the crontab file which will wake up the module by a system call when necessary, for example by opening a file. This is terribly inefficient, however &#x2013; we run a new process off of crontab, read a new executable to memory, and all this just to wake up a kernel module which is in memory anyway.
 </p>
@@ -3962,9 +3962,9 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 </div>
 </div>
 
-<div id="outline-container-org9e1abc5" class="outline-2">
-<h2 id="org9e1abc5">The order of completion</h2>
-<div class="outline-text-2" id="text-org9e1abc5">
+<div id="outline-container-orgbd5e0e8" class="outline-2">
+<h2 id="orgbd5e0e8">The order of completion</h2>
+<div class="outline-text-2" id="text-orgbd5e0e8">
 <p>
 Sometimes one thing should happen before another and a thread should wait until it is ready to run. Rather than using <i>sleep</i> commands the kernel has a simple way to do this which allows timeouts or interrupts to also happen.
 </p>
@@ -4067,13 +4067,13 @@ There are other variations upon the <i>wait_for_completion</i> function, which i
 </p>
 </div>
 </div>
-<div id="outline-container-org1695f19" class="outline-2">
-<h2 id="org1695f19">Interrupt Handlers</h2>
-<div class="outline-text-2" id="text-org1695f19">
+<div id="outline-container-org817a51f" class="outline-2">
+<h2 id="org817a51f">Interrupt Handlers</h2>
+<div class="outline-text-2" id="text-org817a51f">
 </div>
-<div id="outline-container-org40cfc2f" class="outline-3">
-<h3 id="org40cfc2f">Interrupt Handlers</h3>
-<div class="outline-text-3" id="text-org40cfc2f">
+<div id="outline-container-org1cc1d98" class="outline-3">
+<h3 id="org1cc1d98">Interrupt Handlers</h3>
+<div class="outline-text-3" id="text-org1cc1d98">
 <p>
 Except for the last chapter, everything we did in the kernel so far we've done as a response to a process asking for it, either by dealing with a special file, sending an ioctl(), or issuing a system call. But the job of the kernel isn't just to respond to process requests. Another job, which is every bit as important, is to speak to the hardware connected to the machine.
 </p>
@@ -4096,9 +4096,9 @@ The way to implement this is to call <b>request_irq()</b> to get your interrupt 
 </div>
 </div>
 
-<div id="outline-container-org47c999a" class="outline-3">
-<h3 id="org47c999a">Detecting button presses</h3>
-<div class="outline-text-3" id="text-org47c999a">
+<div id="outline-container-orgbf386f2" class="outline-3">
+<h3 id="orgbf386f2">Detecting button presses</h3>
+<div class="outline-text-3" id="text-orgbf386f2">
 <p>
 Many popular single board computers, such as Raspberry Pis or Beagleboards, have a bunch of GPIO pins. Attaching buttons to those and then having a button press do something is a classic case in which you might need to use interrupts so that instead of having the CPU waste time and battery power polling for a change in input state it's better for the input to trigger the CPU to then run a particular handling function.
 </p>
@@ -4265,17 +4265,17 @@ MODULE_DESCRIPTION(<span class="org-string">"Handle some GPIO interrupts"</span>
 </div>
 </div>
 
-<div id="outline-container-org4f104fb" class="outline-2">
-<h2 id="org4f104fb">Crypto</h2>
-<div class="outline-text-2" id="text-org4f104fb">
+<div id="outline-container-orgfde0b60" class="outline-2">
+<h2 id="orgfde0b60">Crypto</h2>
+<div class="outline-text-2" id="text-orgfde0b60">
 <p>
 At the dawn of the internet everybody trusted everybody completely&#x2026;but that didn't work out so well. When this guide was originally written it was a more innocent era in which almost nobody actually gave a damn about crypto - least of all kernel developers. That's certainly no longer the case now. To handle crypto stuff the kernel has its own API enabling common methods of encryption, decryption and your favourite hash functions.
 </p>
 </div>
 
-<div id="outline-container-org4fb3081" class="outline-3">
-<h3 id="org4fb3081">Hash functions</h3>
-<div class="outline-text-3" id="text-org4fb3081">
+<div id="outline-container-org1596f8c" class="outline-3">
+<h3 id="org1596f8c">Hash functions</h3>
+<div class="outline-text-3" id="text-org1596f8c">
 <p>
 Calculating and checking the hashes of things is a common operation. Here is a demonstration of how to calculate a sha256 hash within a kernel module.
 </p>
@@ -4373,9 +4373,9 @@ Finally, remove the test module:
 </div>
 </div>
 </div>
-<div id="outline-container-org0bdfe1c" class="outline-3">
-<h3 id="org0bdfe1c">Symmetric key encryption</h3>
-<div class="outline-text-3" id="text-org0bdfe1c">
+<div id="outline-container-org69c49d0" class="outline-3">
+<h3 id="org69c49d0">Symmetric key encryption</h3>
+<div class="outline-text-3" id="text-org69c49d0">
 <p>
 Here is an example of symmetrically encrypting a string using the AES algorithm and a password.
 </p>
@@ -4566,35 +4566,35 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 </div>
 </div>
 </div>
-<div id="outline-container-orgce859ff" class="outline-2">
-<h2 id="orgce859ff">Common Pitfalls</h2>
-<div class="outline-text-2" id="text-orgce859ff">
+<div id="outline-container-org64a0d22" class="outline-2">
+<h2 id="org64a0d22">Common Pitfalls</h2>
+<div class="outline-text-2" id="text-org64a0d22">
 <p>
 Before I send you on your way to go out into the world and write kernel modules, there are a few things I need to warn you about. If I fail to warn you and something bad happens, please report the problem to me for a full refund of the amount I was paid for your copy of the book.
 </p>
 </div>
 
-<div id="outline-container-orgc9cc97a" class="outline-3">
-<h3 id="orgc9cc97a">Using standard libraries</h3>
-<div class="outline-text-3" id="text-orgc9cc97a">
+<div id="outline-container-org284e891" class="outline-3">
+<h3 id="org284e891">Using standard libraries</h3>
+<div class="outline-text-3" id="text-org284e891">
 <p>
 You can't do that. In a kernel module you can only use kernel functions, which are the functions you can see in /proc/kallsyms.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org224d8f5" class="outline-3">
-<h3 id="org224d8f5">Disabling interrupts</h3>
-<div class="outline-text-3" id="text-org224d8f5">
+<div id="outline-container-orgd243510" class="outline-3">
+<h3 id="orgd243510">Disabling interrupts</h3>
+<div class="outline-text-3" id="text-orgd243510">
 <p>
 You might need to do this for a short time and that is OK, but if you don't enable them afterwards, your system will be stuck and you'll have to power it off.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org215d0a5" class="outline-3">
-<h3 id="org215d0a5">Sticking your head inside a large carnivore</h3>
-<div class="outline-text-3" id="text-org215d0a5">
+<div id="outline-container-org715edbe" class="outline-3">
+<h3 id="org715edbe">Sticking your head inside a large carnivore</h3>
+<div class="outline-text-3" id="text-org715edbe">
 <p>
 I probably don't have to warn you about this, but I figured I will anyway, just in case.
 </p>
@@ -4602,9 +4602,9 @@ I probably don't have to warn you about this, but I figured I will anyway, just 
 </div>
 </div>
 
-<div id="outline-container-org5b1d870" class="outline-2">
-<h2 id="org5b1d870">Where To Go From Here?</h2>
-<div class="outline-text-2" id="text-org5b1d870">
+<div id="outline-container-orga8766c0" class="outline-2">
+<h2 id="orga8766c0">Where To Go From Here?</h2>
+<div class="outline-text-2" id="text-orga8766c0">
 <p>
 I could easily have squeezed a few more chapters into this book. I could have added a chapter about creating new file systems, or about adding new protocol stacks (as if there's a need for that &#x2013; you'd have to dig underground to find a protocol stack not supported by Linux). I could have added explanations of the kernel mechanisms we haven't touched upon, such as bootstrapping or the disk interface.
 </p>
@@ -4745,7 +4745,7 @@ more details, might want to do a web search for "APIC" now ;)
 </style>
 
 <div class="back-to-top">
-<a href="#top">Back to top</a> | <a href="mailto:bob@freedombone.net">E-mail me</a>
+<a href="#top">Back to top</a> | <a href="mailto:bob@robotics.uk.to">E-mail me</a>
 </div>
 </div>
 </body>

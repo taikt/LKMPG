@@ -5,7 +5,7 @@
 #+OPTIONS: ^:nil
 
 * Introduction
-The Linux Kernel Module Programming Guide is a free book; you may reproduce and/or modify it under the terms of the Open Software License, version 1.1. You can obtain a copy of this license at [[http://opensource.org/licenses/osl.php][http://opensource.org/licenses/osl.php]].
+The Linux Kernel Module Programming Guide is a free book; you may reproduce and/or modify it under the terms of the Open Software License, version 1.1.
 
 This book is distributed in the hope it will be useful, but without any warranty, without even the implied warranty of merchantability or fitness for a particular purpose.
 
