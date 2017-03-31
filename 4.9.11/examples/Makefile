@@ -26,6 +26,7 @@ obj-m += devicemodel.o
 obj-m += example_spinlock.o
 obj-m += example_rwlock.o
 obj-m += example_atomic.o
+obj-m += example_mutex.o
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules

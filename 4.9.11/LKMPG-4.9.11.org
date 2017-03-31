@@ -2672,6 +2672,51 @@ There are other variations upon the /wait_for_completion/ function, which includ
 
 * Avoiding Collisions and Deadlocks
 If processes running on different CPUs or in different threads try to access the same memory then it's possible that strange things can happen or your system can lock up. To avoid this various types of mutual exclusion kernel functions are available. These indicate if a section of code is "locked" or "unlocked" so that simultaneous attempts to run it can't happen.
+** Mutex
+You can use kernel mutexes (mutual exclusions) in much the same manner that you might deploy them in userland. This may be all that's needed to avoid collisions in most cases.
+
+#+begin_src C file:example_mutex.c
+#include <linux/kernel.h>
+#include <linux/module.h>
+#include <linux/init.h>
+#include <linux/mutex.h>
+
+DEFINE_MUTEX(mymutex);
+
+static int example_mutex_init(void)
+{
+    int ret;
+
+    printk("example_mutex init\n");
+
+    ret = mutex_trylock(&mymutex);
+    if (ret != 0) {
+        printk("mutex is locked\n");
+
+        if (mutex_is_locked(&mymutex) == 0)
+            printk("The mutex failed to lock!\n");
+
+        mutex_unlock(&mymutex);
+        printk("mutex is unlocked\n");
+    }
+    else
+        printk("Failed to lock\n");
+
+    return 0;
+}
+
+static void example_mutex_exit(void)
+{
+    printk("example_mutex exit\n");
+}
+
+module_init(example_mutex_init);
+module_exit(example_mutex_exit);
+
+MODULE_AUTHOR("Bob Mottram");
+MODULE_DESCRIPTION("Mutex example");
+MODULE_LICENSE("GPL");
+#+end_src
 ** Spinlocks
 As the name suggests, spinlocks lock up the CPU that the code is running on, taking 100% of its resources. Because of this you should only use the spinlock mechanism around code which is likely to take no more than a few milliseconds to run and so won't noticably slow anything down from the user's point of view.
 
