@@ -2802,6 +2802,7 @@ MODULE_DESCRIPTION("Read/Write locks example");
 MODULE_LICENSE("GPL");
 #+end_src
 
+Of course if you know for sure that there are no functions triggered by irqs which could possibly interfere with your logic then you can use the simpler  /read_lock(&myrwlock)/ and /read_unlock(&myrwlock)/ or the corresponding write functions.
 * Replacing Printks
 ** Replacing printk
 In Section 1.2.1.2, I said that X and kernel module programming don't mix. That's true for developing kernel modules, but in actual use, you want to be able to send messages to whichever tty[fn:15] the command to load the module came from.
