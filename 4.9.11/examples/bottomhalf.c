@@ -46,7 +46,7 @@ DECLARE_TASKLET(buttontask, bottomhalf_tasklet_fn, 0L);
  */
 static irqreturn_t button_isr(int irq, void *data)
 {
-    /* Do something quickly */
+    /* Do something quickly right now */
     if (irq == button_irqs[0] && !gpio_get_value(leds[0].gpio))
             gpio_set_value(leds[0].gpio, 1);
     else if(irq == button_irqs[1] && gpio_get_value(leds[0].gpio))
