@@ -3553,7 +3553,7 @@ MODULE_DESCRIPTION("Handle some GPIO interrupts");
 ** Bottom Half
 Suppose you want to do a bunch of stuff inside of an interrupt routine. A common way to do that without rendering the interrupt unavailable for a significant duration is to combine it with a tasklet. This pushes the bulk of the work off into the scheduler.
 
-This modifies the previous example to also run an additional task when an interrupt is triggered.
+The example below modifies the previous example to also run an additional task when an interrupt is triggered.
 
 #+begin_src C file:bottomhalf.c
 /*
