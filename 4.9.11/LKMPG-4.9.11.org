@@ -3610,7 +3610,7 @@ static irqreturn_t button_isr(int irq, void *data)
     else if(irq == button_irqs[1] && gpio_get_value(leds[0].gpio))
             gpio_set_value(leds[0].gpio, 0);
 
-    /* Do the rest at leasure via the scheduler */
+    /* Do the rest at leisure via the scheduler */
     tasklet_schedule(&buttontask);
 
     return IRQ_HANDLED;
