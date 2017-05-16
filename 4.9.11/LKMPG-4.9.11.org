@@ -3557,7 +3557,7 @@ This modifies the previous example to also run an additional task when an interr
 
 #+begin_src C file:bottomhalf.c
 /*
- * bottomhalf.c -
+ * bottomhalf.c - Top and bottom half interrupt handling
  *
  *  Copyright (C) 2017 by Bob Mottram
  *  Based upon the Rpi example by Stefan Wendler (devnull@kaltpost.de)

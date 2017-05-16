@@ -1,5 +1,5 @@
 /*
- * bottomhalf.c -
+ * bottomhalf.c - Top and bottom half interrupt handling
  *
  *  Copyright (C) 2017 by Bob Mottram
  *  Based upon the Rpi example by Stefan Wendler (devnull@kaltpost.de)
