@@ -27,6 +27,7 @@ obj-m += example_spinlock.o
 obj-m += example_rwlock.o
 obj-m += example_atomic.o
 obj-m += example_mutex.o
+obj-m += bottomhalf.o
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
