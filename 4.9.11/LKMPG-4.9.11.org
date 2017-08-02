@@ -628,7 +628,7 @@ int main(void)
 }
 #+END_SRC
 
-with *gcc -Wall -o hello hello.c*. Run the exectable with *strace ./hello*. Are you impressed? Every line you see corresponds to a system call. strace[fn:4] is a handy program that gives you details about what system calls a program is making, including which call is made, what its arguments are and what it returns. It's an invaluable tool for figuring out things like what files a program is trying to access. Towards the end, you'll see a line which looks like write (1, "hello", 5hello). There it is. The face behind the printf() mask. You may not be familiar with write, since most people use library functions for file I/O (like fopen, fputs, fclose). If that's the case, try looking at man 2 write. The 2nd man section is devoted to system calls (like kill() and read()). The 3rd man section is devoted to library calls, which you would probably be more familiar with (like cosh() and random()).
+with *gcc -Wall -o hello hello.c*. Run the exectable with *strace ./hello*. Are you impressed? Every line you see corresponds to a system call. [[https://strace.io/][strace]] is a handy program that gives you details about what system calls a program is making, including which call is made, what its arguments are and what it returns. It's an invaluable tool for figuring out things like what files a program is trying to access. Towards the end, you'll see a line which looks like write (1, "hello", 5hello). There it is. The face behind the printf() mask. You may not be familiar with write, since most people use library functions for file I/O (like fopen, fputs, fclose). If that's the case, try looking at man 2 write. The 2nd man section is devoted to system calls (like kill() and read()). The 3rd man section is devoted to library calls, which you would probably be more familiar with (like cosh() and random()).
 
 You can even write modules to replace the kernel's system calls, which we'll do shortly. Crackers often make use of this sort of thing for backdoors or trojans, but you can write your own modules to do more benign things, like have the kernel write Tee hee, that tickles! everytime someone tries to delete a file on your system.
 
@@ -647,11 +647,11 @@ The file */proc/kallsyms* holds all the symbols that the kernel knows about and 
 ** Code space
 Memory management is a very complicated subject and the majority of O'Reilly's "/Understanding The Linux Kernel/" exclusively covers memory management! We're not setting out to be experts on memory managements, but we do need to know a couple of facts to even begin worrying about writing real modules.
 
-If you haven't thought about what a segfault really means, you may be surprised to hear that pointers don't actually point to memory locations. Not real ones, anyway. When a process is created, the kernel sets aside a portion of real physical memory and hands it to the process to use for its executing code, variables, stack, heap and other things which a computer scientist would know about[fn:5]. This memory begins with 0x00000000 and extends up to whatever it needs to be. Since the memory space for any two processes don't overlap, every process that can access a memory address, say 0xbffff978, would be accessing a different location in real physical memory! The processes would be accessing an index named 0xbffff978 which points to some kind of offset into the region of memory set aside for that particular process. For the most part, a process like our Hello, World program can't access the space of another process, although there are ways which we'll talk about later.
+If you haven't thought about what a segfault really means, you may be surprised to hear that pointers don't actually point to memory locations. Not real ones, anyway. When a process is created, the kernel sets aside a portion of real physical memory and hands it to the process to use for its executing code, variables, stack, heap and other things which a computer scientist would know about. This memory begins with 0x00000000 and extends up to whatever it needs to be. Since the memory space for any two processes don't overlap, every process that can access a memory address, say 0xbffff978, would be accessing a different location in real physical memory! The processes would be accessing an index named 0xbffff978 which points to some kind of offset into the region of memory set aside for that particular process. For the most part, a process like our Hello, World program can't access the space of another process, although there are ways which we'll talk about later.
 
 The kernel has its own space of memory as well. Since a module is code which can be dynamically inserted and removed in the kernel (as opposed to a semi-autonomous object), it shares the kernel's codespace rather than having its own. Therefore, if your module segfaults, the kernel segfaults. And if you start writing over data because of an off-by-one error, then you're trampling on kernel data (or code). This is even worse than it sounds, so try your best to be careful.
 
-By the way, I would like to point out that the above discussion is true for any operating system which uses a monolithic kernel[fn:6]. There are things called microkernels which have modules which get their own codespace. The GNU Hurd and QNX Neutrino are two examples of a microkernel.
+By the way, I would like to point out that the above discussion is true for any operating system which uses a monolithic kernel. This isn't quite the same thing as /"building all your modules into the kernel"/, although the idea is the same. There are things called microkernels which have modules which get their own codespace. The GNU Hurd and the Magenta kernel of Google Fuchsia are two examples of a microkernel.
 
 ** Device Drivers
 One class of module is the device driver, which provides functionality for hardware like a serial port. On unix, each piece of hardware is represented by a file located in /dev named a device file which provides the means to communicate with the hardware. The device driver provides the communication on behalf of a user program. So the es1370.o sound card device driver might connect the /dev/sound device file to the Ensoniq IS1370 sound card. A userspace program like mp3blaster can use /dev/sound without ever knowing what kind of sound card is installed.
@@ -772,7 +772,7 @@ An instance of struct file is commonly named filp. You'll also see it refered to
 Go ahead and look at the definition of file. Most of the entries you see, like struct dentry aren't used by device drivers, and you can ignore them. This is because drivers don't fill file directly; they only use structures contained in file which are created elsewhere.
 
 ** Registering A Device
-As discussed earlier, char devices are accessed through device files, usually located in /dev[fn:7]. The major number tells you which driver handles which device file. The minor number is used only by the driver itself to differentiate which device it's operating on, just in case the driver handles more than one device.
+As discussed earlier, char devices are accessed through device files, usually located in /dev. This is by convention. When writing a driver, it's OK to put the device file in your current directory. Just make sure you place it in /dev for a production driver. The major number tells you which driver handles which device file. The minor number is used only by the driver itself to differentiate which device it's operating on, just in case the driver handles more than one device.
 
 Adding a driver to your system means registering it with the kernel. This is synonymous with assigning it a major number during the module's initialization. You do this by using the register_chrdev function, defined by linux/fs.h.
 
@@ -4139,27 +4139,7 @@ I hope I have helped you in your quest to become a better programmer, or at leas
 If you'd like to contribute to this guide, notice anything glaringly wrong, or just want to add extra sarcastic remarks perhaps involving monkeys or some other kind of animal then please file an issue or even better submit a pull request at https://github.com/bashrc/LKMPG.
 
 
-[fn:1]  In earlier versions of linux, this was known as kerneld.
-[fn:2]  If such a file exists. Note that the acual behavoir might be
-     distribution-dependent. If you're interested in the details,read the man
-     pages that came with module-init-tools, and see for yourself what's
-     really going on. You could use something like strace modprobe dummy to
-     find out how dummy.ko gets loaded. FYI: The dummy.ko I'm talking about
-     here is part of the mainline kernel and can be found in the networking
-     section. It needs to be compiled as a module (and installed, of course)
-     for this to work.
-[fn:3]  If you are modifying the kernel, to avoid overwriting your existing
-     modules you may want to use the EXTRAVERSION variable in the kernel
-     Makefile to create a seperate directory.
-[fn:4]  It's an invaluable tool for figuring out things like what files a
-     program is trying to access. Ever have a program bail silently because
-     it couldn't find a file? It's a PITA!
-[fn:5]  I'm a physicist, not a computer scientist, Jim!
-[fn:6]  This isn't quite the same thing as `building all your modules into the
-     kernel', although the idea is the same.
-[fn:7]  This is by convention. When writing a driver, it's OK to put the device
-     file in your current directory. Just make sure you place it in /dev for
-     a production driver
+
 [fn:8]  In version 2.0, in version 2.2 this is done automatically if we set the
      inode to zero.
 [fn:9]  The difference between the two is that file operations deal with the
