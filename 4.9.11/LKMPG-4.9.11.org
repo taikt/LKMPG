@@ -992,7 +992,7 @@ In Linux, there is an additional mechanism for the kernel and kernel modules to 
 
 The method to use the proc file system is very similar to the one used with device drivers --- a structure is created with all the information needed for the */proc* file, including pointers to any handler functions (in our case there is only one, the one called when somebody attempts to read from the */proc* file). Then, init_module registers the structure with the kernel and cleanup_module unregisters it.
 
-The reason we use proc_register_dynamic[fn:8] is because we don't want to determine the inode number used for our file in advance, but to allow the kernel to determine it to prevent clashes. Normal file systems are located on a disk, rather than just in memory (which is where */proc* is), and in that case the inode number is a pointer to a disk location where the file's index-node (inode for short) is located. The inode contains information about the file, for example the file's permissions, together with a pointer to the disk location or locations where the file's data can be found.
+Normal file systems are located on a disk, rather than just in memory (which is where */proc* is), and in that case the inode number is a pointer to a disk location where the file's index-node (inode for short) is located. The inode contains information about the file, for example the file's permissions, together with a pointer to the disk location or locations where the file's data can be found.
 
 Because we don't get called when the file is opened or closed, there's nowhere for us to put try_module_get and try_module_put in this module, and if the file is opened and then the module is removed, there's no way to avoid the consequences.
 
