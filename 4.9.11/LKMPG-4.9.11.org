@@ -4140,8 +4140,6 @@ If you'd like to contribute to this guide, notice anything glaringly wrong, or j
 
 
 
-[fn:8]  In version 2.0, in version 2.2 this is done automatically if we set the
-     inode to zero.
 [fn:9]  The difference between the two is that file operations deal with the
      file itself, and inode operations deal with ways of referencing the
      file, such as creating links to it.
