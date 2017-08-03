@@ -996,11 +996,11 @@ Normal file systems are located on a disk, rather than just in memory (which is 
 
 Because we don't get called when the file is opened or closed, there's nowhere for us to put try_module_get and try_module_put in this module, and if the file is opened and then the module is removed, there's no way to avoid the consequences.
 
-Here a simple example showing how to use a */proc* file. This is the HelloWorld for the */proc* filesystem. There are three parts: create the file */proc/ helloworld* in the function init_module, return a value (and a buffer) when the file */proc/helloworld* is read in the callback function *procfs_read*, and delete the file */proc/helloworld* in the function cleanup_module.
+Here a simple example showing how to use a */proc* file. This is the HelloWorld for the */proc* filesystem. There are three parts: create the file */proc/ helloworld* in the function init_module, return a value (and a buffer) when the file */proc/helloworld* is read in the callback function *procfile_read*, and delete the file */proc/helloworld* in the function cleanup_module.
 
 The */proc/helloworld* is created when the module is loaded with the function *proc_create*. The return value is a *struct proc_dir_entry* , and it will be used to configure the file */proc/helloworld* (for example, the owner of this file). A null return value means that the creation has failed.
 
-Each time, everytime the file */proc/helloworld* is read, the function procfs_read is called. Two parameters of this function are very important: the buffer (the first parameter) and the offset (the third one). The content of the buffer will be returned to the application which read it (for example the cat command). The offset is the current position in the file. If the return value of the function isn't null, then this function is called again. So be careful with this function, if it never returns zero, the read function is called endlessly.
+Each time, everytime the file */proc/helloworld* is read, the function *procfile_read* is called. Two parameters of this function are very important: the buffer (the first parameter) and the offset (the third one). The content of the buffer will be returned to the application which read it (for example the cat command). The offset is the current position in the file. If the return value of the function isn't null, then this function is called again. So be careful with this function, if it never returns zero, the read function is called endlessly.
 
 #+BEGIN_SRC txt
 # cat /proc/helloworld
