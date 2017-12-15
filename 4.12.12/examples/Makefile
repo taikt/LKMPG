@@ -36,4 +36,4 @@ all:
 
 clean:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
-	rm other/ioctl other/cat_noblock *.plist
+	rm -f other/ioctl other/cat_noblock *.plist
