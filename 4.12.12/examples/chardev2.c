@@ -5,7 +5,15 @@
 #include <linux/kernel.h>       /* We're doing kernel work */
 #include <linux/module.h>       /* Specifically, a module */
 #include <linux/fs.h>
-#include <linux/uaccess.h>        /* for get_user and put_user */
+#include <linux/init.h>
+#include <linux/delay.h>
+#include <linux/device.h>
+#include <linux/irq.h>
+#include <asm/uaccess.h>
+#include <asm/irq.h>
+#include <asm/io.h>
+#include <linux/poll.h>
+#include <linux/cdev.h>
 
 #include "chardev.h"
 #define SUCCESS 0
@@ -29,6 +37,9 @@ static char Message[BUF_LEN];
  * buffer we get to fill in device_read.
  */
 static char *Message_Ptr;
+
+static int Major;               /* Major number assigned to our device driver */
+static struct class *cls;
 
 /*
  * This is called whenever a process attempts to open the device file
@@ -251,15 +262,12 @@ int init_module()
         return ret_val;
     }
 
-    pr_info("%s The major device number is %d.\n",
-           "Registeration is a success", MAJOR_NUM);
-    pr_info("If you want to talk to the device driver,\n");
-    pr_info("you'll have to create a device file. \n");
-    pr_info("We suggest you use:\n");
-    pr_info("mknod %s c %d 0\n", DEVICE_FILE_NAME, MAJOR_NUM);
-    pr_info("The device file name is important, because\n");
-    pr_info("the ioctl program assumes that's the\n");
-    pr_info("file you'll use.\n");
+    Major = ret_val;
+
+    cls = class_create(THIS_MODULE, DEVICE_FILE_NAME);
+    device_create(cls, NULL, MKDEV(Major, MAJOR_NUM), NULL, DEVICE_FILE_NAME);
+
+    pr_info("Device created on /dev/%s\n", DEVICE_FILE_NAME);
 
     return 0;
 }
@@ -269,8 +277,11 @@ int init_module()
  */
 void cleanup_module()
 {
+    device_destroy(cls, MKDEV(Major, 0));
+    class_destroy(cls);
+
     /*
      * Unregister the device
      */
-    unregister_chrdev(MAJOR_NUM, DEVICE_NAME);
+    unregister_chrdev(Major, DEVICE_NAME);
 }

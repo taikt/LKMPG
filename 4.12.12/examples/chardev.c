@@ -6,7 +6,15 @@
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/fs.h>
-#include <linux/uaccess.h>        /* for put_user */
+#include <linux/init.h>
+#include <linux/delay.h>
+#include <linux/device.h>
+#include <linux/irq.h>
+#include <asm/uaccess.h>
+#include <asm/irq.h>
+#include <asm/io.h>
+#include <linux/poll.h>
+#include <linux/cdev.h>
 
 /*
  *  Prototypes - this would normally go in a .h file
@@ -32,7 +40,9 @@ static int Device_Open = 0;     /* Is device open?
 static char msg[BUF_LEN];       /* The msg the device will give when asked */
 static char *msg_Ptr;
 
-static struct file_operations fops = {
+static struct class *cls;
+
+static struct file_operations chardev_fops = {
     .read = device_read,
     .write = device_write,
     .open = device_open,
@@ -44,19 +54,19 @@ static struct file_operations fops = {
  */
 int init_module(void)
 {
-    Major = register_chrdev(0, DEVICE_NAME, &fops);
+    Major = register_chrdev(0, DEVICE_NAME, &chardev_fops);
 
     if (Major < 0) {
         pr_alert("Registering char device failed with %d\n", Major);
         return Major;
     }
 
-    pr_info("I was assigned major number %d. To talk to\n", Major);
-    pr_info("the driver, create a dev file with\n");
-    pr_info("'mknod /dev/%s c %d 0'.\n", DEVICE_NAME, Major);
-    pr_info("Try various minor numbers. Try to cat and echo to\n");
-    pr_info("the device file.\n");
-    pr_info("Remove the device file and module when done.\n");
+    pr_info("I was assigned major number %d.\n", Major);
+
+    cls = class_create(THIS_MODULE, DEVICE_NAME);
+    device_create(cls, NULL, MKDEV(Major, 0), NULL, DEVICE_NAME);
+
+    pr_info("Device created on /dev/%s\n", DEVICE_NAME);
 
     return SUCCESS;
 }
@@ -66,6 +76,9 @@ int init_module(void)
  */
 void cleanup_module(void)
 {
+    device_destroy(cls, MKDEV(Major, 0));
+    class_destroy(cls);
+
     /*
      * Unregister the device
      */

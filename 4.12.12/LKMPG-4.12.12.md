@@ -8,83 +8,83 @@ Table of Contents
 -----------------
 
 ::: {#text-table-of-contents}
--   [Introduction](#org32fcb39)
-    -   [Authorship](#org70042fe)
-    -   [Versioning and Notes](#org6bc9d50)
-    -   [Acknowledgements](#orgaf14f92)
-    -   [What Is A Kernel Module?](#orge8302b7)
-    -   [Kernel module package](#org018252e)
-    -   [What Modules are in my Kernel?](#org86a2fb0)
-    -   [Do I need to download and compile the kernel?](#orgab5e696)
-    -   [Before We Begin](#org6362ee1)
--   [Headers](#orga551762)
--   [Examples](#org9ab6de9)
--   [Hello World](#org2bf67ab)
-    -   [The Simplest Module](#orgaf987a8)
-    -   [Hello and Goodbye](#org8ffa823)
-    -   [The \_\_init and \_\_exit Macros](#org11cceb2)
-    -   [Licensing and Module Documentation](#org34d76ad)
-    -   [Passing Command Line Arguments to a Module](#org3605080)
-    -   [Modules Spanning Multiple Files](#orga436d2b)
-    -   [Building modules for a precompiled kernel](#org1f65f5b)
--   [Preliminaries](#org6957bc4)
-    -   [How modules begin and end](#org0ed644c)
-    -   [Functions available to modules](#org760b84a)
-    -   [User Space vs Kernel Space](#orgd704758)
-    -   [Name Space](#org361db02)
-    -   [Code space](#org3ce918a)
-    -   [Device Drivers](#org1b87707)
--   [Character Device drivers](#org052dca4)
-    -   [The file\_operations Structure](#org0989cfb)
-    -   [The file structure](#org9d35c9c)
-    -   [Registering A Device](#orgc230f23)
-    -   [Unregistering A Device](#org45f597a)
-    -   [chardev.c](#org729a75c)
-    -   [Writing Modules for Multiple Kernel Versions](#org44075a2)
--   [The /proc File System](#org53ca54d)
-    -   [Read and Write a /proc File](#orgc55fc6d)
-    -   [Manage /proc file with standard filesystem](#orga012908)
-    -   [Manage /proc file with seq\_file](#org69ee08a)
--   [sysfs: Interacting with your module](#orgae3eef1)
--   [Talking To Device Files](#orgfeee7e2)
--   [System Calls](#orgc32321d)
--   [Blocking Processes and threads](#org07d7e8d)
-    -   [Sleep](#org300bd6d)
-    -   [Completions](#org35f83b6)
--   [Avoiding Collisions and Deadlocks](#orgb21233a)
-    -   [Mutex](#org17205de)
-    -   [Spinlocks](#orgba24119)
-    -   [Read and write locks](#org64419a2)
-    -   [Atomic operations](#org733e7c8)
--   [Replacing Print Macros](#orgf9cdbb8)
-    -   [Replacement](#org5532536)
-    -   [Flashing keyboard LEDs](#org7fd3ed8)
--   [Scheduling Tasks](#org69766c1)
-    -   [Tasklets](#orgac851dc)
-    -   [Work queues](#org726ddfc)
--   [Interrupt Handlers](#orgee935a8)
-    -   [Interrupt Handlers](#org7540085)
-    -   [Detecting button presses](#org0b9ea11)
-    -   [Bottom Half](#org9238405)
--   [Crypto](#org4bb15e9)
-    -   [Hash functions](#org493047f)
-    -   [Symmetric key encryption](#orgfeffc67)
--   [Standardising the interfaces: The Device Model](#org928676a)
--   [Optimisations](#org794b483)
-    -   [Likely and Unlikely conditions](#org3cf58b1)
--   [Common Pitfalls](#org054ce97)
-    -   [Using standard libraries](#org2e88bab)
-    -   [Disabling interrupts](#org5dbf3ea)
-    -   [Sticking your head inside a large carnivore](#org7469865)
--   [Where To Go From Here?](#org13b2a09)
+-   [Introduction](#org8109f2d)
+    -   [Authorship](#org9c42cbd)
+    -   [Versioning and Notes](#orgfb5c10c)
+    -   [Acknowledgements](#org1ca202c)
+    -   [What Is A Kernel Module?](#org5747166)
+    -   [Kernel module package](#org13aaf49)
+    -   [What Modules are in my Kernel?](#org32b9977)
+    -   [Do I need to download and compile the kernel?](#orga73e0f0)
+    -   [Before We Begin](#orgc3985d3)
+-   [Headers](#org5d1b0d9)
+-   [Examples](#org0c6dad0)
+-   [Hello World](#orga94c681)
+    -   [The Simplest Module](#orgf7fef59)
+    -   [Hello and Goodbye](#org92b45d5)
+    -   [The \_\_init and \_\_exit Macros](#org1bfa18e)
+    -   [Licensing and Module Documentation](#org82276f4)
+    -   [Passing Command Line Arguments to a Module](#orge14733b)
+    -   [Modules Spanning Multiple Files](#org15bc43d)
+    -   [Building modules for a precompiled kernel](#orgd5ee25d)
+-   [Preliminaries](#org93db19c)
+    -   [How modules begin and end](#orgfa2eca4)
+    -   [Functions available to modules](#orgf8a274b)
+    -   [User Space vs Kernel Space](#org6d1a8e2)
+    -   [Name Space](#org6aaf8dd)
+    -   [Code space](#orgbf6043c)
+    -   [Device Drivers](#org35013aa)
+-   [Character Device drivers](#org95b7e50)
+    -   [The file\_operations Structure](#org912203e)
+    -   [The file structure](#orgc3f437e)
+    -   [Registering A Device](#org2105684)
+    -   [Unregistering A Device](#orgd672b69)
+    -   [chardev.c](#org0fe351e)
+    -   [Writing Modules for Multiple Kernel Versions](#orgaa13723)
+-   [The /proc File System](#org78194dc)
+    -   [Read and Write a /proc File](#org5d232ad)
+    -   [Manage /proc file with standard filesystem](#orgf918b99)
+    -   [Manage /proc file with seq\_file](#org4c4f646)
+-   [sysfs: Interacting with your module](#org30eb8bf)
+-   [Talking To Device Files](#orgb3b5532)
+-   [System Calls](#org0e1baaf)
+-   [Blocking Processes and threads](#org06cc64b)
+    -   [Sleep](#org9b512d6)
+    -   [Completions](#orgc330b80)
+-   [Avoiding Collisions and Deadlocks](#orga6e1dd6)
+    -   [Mutex](#org793fca9)
+    -   [Spinlocks](#org725ffbb)
+    -   [Read and write locks](#org4890337)
+    -   [Atomic operations](#org15ea1f6)
+-   [Replacing Print Macros](#orgf762ab7)
+    -   [Replacement](#org5681eb9)
+    -   [Flashing keyboard LEDs](#orgd052bde)
+-   [Scheduling Tasks](#org3320952)
+    -   [Tasklets](#org8743433)
+    -   [Work queues](#org9113631)
+-   [Interrupt Handlers](#org7ef9562)
+    -   [Interrupt Handlers](#orge6ca883)
+    -   [Detecting button presses](#org5a62636)
+    -   [Bottom Half](#orgb4deed3)
+-   [Crypto](#orge0e6336)
+    -   [Hash functions](#org0a5ac97)
+    -   [Symmetric key encryption](#org44ee933)
+-   [Standardising the interfaces: The Device Model](#orga6368a0)
+-   [Optimisations](#org2933656)
+    -   [Likely and Unlikely conditions](#orgc8b3cae)
+-   [Common Pitfalls](#org6f5c18d)
+    -   [Using standard libraries](#org1774b47)
+    -   [Disabling interrupts](#org961e759)
+    -   [Sticking your head inside a large carnivore](#org340a748)
+-   [Where To Go From Here?](#orge4e872f)
 :::
 :::
 
-::: {#outline-container-org32fcb39 .outline-2}
-Introduction {#org32fcb39}
+::: {#outline-container-org8109f2d .outline-2}
+Introduction {#org8109f2d}
 ------------
 
-::: {#text-org32fcb39 .outline-text-2}
+::: {#text-org8109f2d .outline-text-2}
 The Linux Kernel Module Programming Guide is a free book; you may
 reproduce and/or modify it under the terms of the Open Software License,
 version 3.0.
@@ -116,10 +116,10 @@ LDP. If you have questions or comments, please contact the address
 above.
 :::
 
-::: {#outline-container-org70042fe .outline-3}
-### Authorship {#org70042fe}
+::: {#outline-container-org9c42cbd .outline-3}
+### Authorship {#org9c42cbd}
 
-::: {#text-org70042fe .outline-text-3}
+::: {#text-org9c42cbd .outline-text-3}
 The Linux Kernel Module Programming Guide was originally written for the
 2.2 kernels by Ori Pomerantz. Eventually, Ori no longer had time to
 maintain the document. After all, the Linux kernel is a fast moving
@@ -132,10 +132,10 @@ other chapters.
 :::
 :::
 
-::: {#outline-container-org6bc9d50 .outline-3}
-### Versioning and Notes {#org6bc9d50}
+::: {#outline-container-orgfb5c10c .outline-3}
+### Versioning and Notes {#orgfb5c10c}
 
-::: {#text-org6bc9d50 .outline-text-3}
+::: {#text-orgfb5c10c .outline-text-3}
 The Linux kernel is a moving target. There has always been a question
 whether the LKMPG should remove deprecated information or keep it around
 for historical sake. Michael Burian and I decided to create a new branch
@@ -150,20 +150,20 @@ I can\'t promise anything.
 :::
 :::
 
-::: {#outline-container-orgaf14f92 .outline-3}
-### Acknowledgements {#orgaf14f92}
+::: {#outline-container-org1ca202c .outline-3}
+### Acknowledgements {#org1ca202c}
 
-::: {#text-orgaf14f92 .outline-text-3}
+::: {#text-org1ca202c .outline-text-3}
 The following people have contributed corrections or good suggestions:
 Ignacio Martin, David Porter, Daniele Paolo Scarpazza, Dimo Velev,
 Francois Audeon, Horst Schirmeier, Bob Mottram and Roman Lakeev.
 :::
 :::
 
-::: {#outline-container-orge8302b7 .outline-3}
-### What Is A Kernel Module? {#orge8302b7}
+::: {#outline-container-org5747166 .outline-3}
+### What Is A Kernel Module? {#org5747166}
 
-::: {#text-orge8302b7 .outline-text-3}
+::: {#text-org5747166 .outline-text-3}
 So, you want to write a kernel module. You know C, you\'ve written a few
 normal programs to run as processes, and now you want to get to where
 the real action is, to where a single wild pointer can wipe out your
@@ -181,10 +181,10 @@ time we want new functionality.
 :::
 :::
 
-::: {#outline-container-org018252e .outline-3}
-### Kernel module package {#org018252e}
+::: {#outline-container-org13aaf49 .outline-3}
+### Kernel module package {#org13aaf49}
 
-::: {#text-org018252e .outline-text-3}
+::: {#text-org13aaf49 .outline-text-3}
 Linux distros provide the commands *modprobe*, *insmod* and *depmod*
 within a package.
 
@@ -206,10 +206,10 @@ sudo pacman -S gcc kmod
 :::
 :::
 
-::: {#outline-container-org86a2fb0 .outline-3}
-### What Modules are in my Kernel? {#org86a2fb0}
+::: {#outline-container-org32b9977 .outline-3}
+### What Modules are in my Kernel? {#org32b9977}
 
-::: {#text-org86a2fb0 .outline-text-3}
+::: {#text-org32b9977 .outline-text-3}
 To discover what modules are already loaded within your current kernel
 use the command **lsmod**.
 
@@ -239,10 +239,10 @@ sudo lsmod | grep fat
 :::
 :::
 
-::: {#outline-container-orgab5e696 .outline-3}
-### Do I need to download and compile the kernel? {#orgab5e696}
+::: {#outline-container-orga73e0f0 .outline-3}
+### Do I need to download and compile the kernel? {#orga73e0f0}
 
-::: {#text-orgab5e696 .outline-text-3}
+::: {#text-orga73e0f0 .outline-text-3}
 For the purposes of following this guide you don\'t necessarily need to
 do that. However, it would be wise to run the examples within a test
 distro running on a virtual machine in order to avoid any possibility of
@@ -250,10 +250,10 @@ messing up your system.
 :::
 :::
 
-::: {#outline-container-org6362ee1 .outline-3}
-### Before We Begin {#org6362ee1}
+::: {#outline-container-orgc3985d3 .outline-3}
+### Before We Begin {#orgc3985d3}
 
-::: {#text-org6362ee1 .outline-text-3}
+::: {#text-orgc3985d3 .outline-text-3}
 Before we delve into code, there are a few issues we need to cover.
 Everyone\'s system is different and everyone has their own groove.
 Getting your first \"hello world\" program to compile and load correctly
@@ -262,8 +262,8 @@ hurdle of doing it for the first time, it will be smooth sailing
 thereafter.
 :::
 
--   []{#org40a7d83}Modversioning\
-    ::: {#text-org40a7d83 .outline-text-5}
+-   []{#org3d48667}Modversioning\
+    ::: {#text-org3d48667 .outline-text-5}
     A module compiled for one kernel won\'t load if you boot a different
     kernel unless you enable CONFIG\_MODVERSIONS in the kernel. We
     won\'t go into module versioning until later in this guide. Until we
@@ -274,8 +274,8 @@ thereafter.
     kernel with modversioning turned off.
     :::
 
--   []{#org25fc457}Using X\
-    ::: {#text-org25fc457 .outline-text-5}
+-   []{#org75e63eb}Using X\
+    ::: {#text-org75e63eb .outline-text-5}
     It is highly recommended that you type in, compile and load all the
     examples this guide discusses. It\'s also highly recommended you do
     this from a console. You should not be working on this stuff in X.
@@ -291,11 +291,11 @@ thereafter.
 :::
 :::
 
-::: {#outline-container-orga551762 .outline-2}
-Headers {#orga551762}
+::: {#outline-container-org5d1b0d9 .outline-2}
+Headers {#org5d1b0d9}
 -------
 
-::: {#text-orga551762 .outline-text-2}
+::: {#text-org5d1b0d9 .outline-text-2}
 Before you can build anything you\'ll need to install the header files
 for your kernel. On Parabola GNU/Linux:
 
@@ -325,11 +325,11 @@ sudo apt-get install kmod linux-headers-4.12.12-1-amd64
 :::
 :::
 
-::: {#outline-container-org9ab6de9 .outline-2}
-Examples {#org9ab6de9}
+::: {#outline-container-org0c6dad0 .outline-2}
+Examples {#org0c6dad0}
 --------
 
-::: {#text-org9ab6de9 .outline-text-2}
+::: {#text-org0c6dad0 .outline-text-2}
 All the examples from this document are available within the *examples*
 subdirectory. To test that they compile:
 
@@ -345,17 +345,17 @@ version or need to install the corresponding kernel header files.
 :::
 :::
 
-::: {#outline-container-org2bf67ab .outline-2}
-Hello World {#org2bf67ab}
+::: {#outline-container-orga94c681 .outline-2}
+Hello World {#orga94c681}
 -----------
 
-::: {#text-org2bf67ab .outline-text-2}
+::: {#text-orga94c681 .outline-text-2}
 :::
 
-::: {#outline-container-orgaf987a8 .outline-3}
-### The Simplest Module {#orgaf987a8}
+::: {#outline-container-orgf7fef59 .outline-3}
+### The Simplest Module {#orgf7fef59}
 
-::: {#text-orgaf987a8 .outline-text-3}
+::: {#text-orgf7fef59 .outline-text-3}
 Most people learning programming start out with some sort of \"*hello
 world*\" example. I don\'t know what happens to people who break with
 this tradition, but I think it\'s safer not to find out. We\'ll start
@@ -498,8 +498,8 @@ to include **linux/kernel.h** only for the macro expansion for the
 pr\_alert() log level, which you\'ll learn about in Section 2.1.1.
 :::
 
--   []{#org7647c25}A point about coding style\
-    ::: {#text-org7647c25 .outline-text-5}
+-   []{#org8a2027e}A point about coding style\
+    ::: {#text-org8a2027e .outline-text-5}
     Another thing which may not be immediately obvious to anyone getting
     started with kernel programming is that indentation within your code
     should be using **tabs** and **not spaces**. It\'s one of the coding
@@ -507,8 +507,8 @@ pr\_alert() log level, which you\'ll learn about in Section 2.1.1.
     get used to it if you ever submit a patch upstream.
     :::
 
--   []{#org81205a7}Introducing print macros\
-    ::: {#text-org81205a7 .outline-text-5}
+-   []{#orgf86ec38}Introducing print macros\
+    ::: {#text-orgf86ec38 .outline-text-5}
     In the beginning there was **printk**, usually followed by a
     priority such as KERN\_INFO or KERN\_DEBUG. More recently this can
     also be expressed in abbreviated form using a set of print macros,
@@ -518,8 +518,8 @@ pr\_alert() log level, which you\'ll learn about in Section 2.1.1.
     priority macros.
     :::
 
--   []{#orgcf4532f}About Compiling\
-    ::: {#text-orgcf4532f .outline-text-5}
+-   []{#org8dfdffe}About Compiling\
+    ::: {#text-org8dfdffe .outline-text-5}
     Kernel modules need to be compiled a bit differently from regular
     userspace apps. Former kernel versions required us to care much
     about these settings, which are usually stored in Makefiles.
@@ -545,10 +545,10 @@ pr\_alert() log level, which you\'ll learn about in Section 2.1.1.
     :::
 :::
 
-::: {#outline-container-org8ffa823 .outline-3}
-### Hello and Goodbye {#org8ffa823}
+::: {#outline-container-org92b45d5 .outline-3}
+### Hello and Goodbye {#org92b45d5}
 
-::: {#text-org8ffa823 .outline-text-3}
+::: {#text-org92b45d5 .outline-text-3}
 In early kernel versions you had to use the **init\_module** and
 **cleanup\_module** functions, as in the first hello world example, but
 these days you can name those anything you want by using the
@@ -611,10 +611,10 @@ something like that.
 :::
 :::
 
-::: {#outline-container-org11cceb2 .outline-3}
-### The \_\_init and \_\_exit Macros {#org11cceb2}
+::: {#outline-container-org1bfa18e .outline-3}
+### The \_\_init and \_\_exit Macros {#org1bfa18e}
 
-::: {#text-org11cceb2 .outline-text-3}
+::: {#text-org1bfa18e .outline-text-3}
 This demonstrates a feature of kernel 2.2 and later. Notice the change
 in the definitions of the init and cleanup functions. The **\_\_init**
 macro causes the init function to be discarded and its memory freed once
@@ -664,10 +664,10 @@ module_exit(hello_3_exit);
 :::
 :::
 
-::: {#outline-container-org34d76ad .outline-3}
-### Licensing and Module Documentation {#org34d76ad}
+::: {#outline-container-org82276f4 .outline-3}
+### Licensing and Module Documentation {#org82276f4}
 
-::: {#text-org34d76ad .outline-text-3}
+::: {#text-org82276f4 .outline-text-3}
 Honestly, who loads or even cares about proprietary modules? If you do
 then you might have seen something like this:
 
@@ -721,10 +721,10 @@ module_exit(cleanup_hello_4);
 :::
 :::
 
-::: {#outline-container-org3605080 .outline-3}
-### Passing Command Line Arguments to a Module {#org3605080}
+::: {#outline-container-orge14733b .outline-3}
+### Passing Command Line Arguments to a Module {#orge14733b}
 
-::: {#text-org3605080 .outline-text-3}
+::: {#text-orge14733b .outline-text-3}
 Modules can take command line arguments, but not with the argc/argv you
 might be used to.
 
@@ -886,10 +886,10 @@ hello-5.o: invalid argument syntax for mylong: 'h'
 :::
 :::
 
-::: {#outline-container-orga436d2b .outline-3}
-### Modules Spanning Multiple Files {#orga436d2b}
+::: {#outline-container-org15bc43d .outline-3}
+### Modules Spanning Multiple Files {#org15bc43d}
 
-::: {#text-orga436d2b .outline-text-3}
+::: {#text-org15bc43d .outline-text-3}
 Sometimes it makes sense to divide a kernel module between several
 source files.
 
@@ -957,10 +957,10 @@ module, second we tell make what object files are part of that module.
 :::
 :::
 
-::: {#outline-container-org1f65f5b .outline-3}
-### Building modules for a precompiled kernel {#org1f65f5b}
+::: {#outline-container-orgd5ee25d .outline-3}
+### Building modules for a precompiled kernel {#orgd5ee25d}
 
-::: {#text-org1f65f5b .outline-text-3}
+::: {#text-orgd5ee25d .outline-text-3}
 Obviously, we strongly suggest you to recompile your kernel, so that you
 can enable a number of useful debugging features, such as forced module
 unloading (**MODULE\_FORCE\_UNLOAD**): when this option is enabled, you
@@ -1094,17 +1094,17 @@ any errors.
 :::
 :::
 
-::: {#outline-container-org6957bc4 .outline-2}
-Preliminaries {#org6957bc4}
+::: {#outline-container-org93db19c .outline-2}
+Preliminaries {#org93db19c}
 -------------
 
-::: {#text-org6957bc4 .outline-text-2}
+::: {#text-org93db19c .outline-text-2}
 :::
 
-::: {#outline-container-org0ed644c .outline-3}
-### How modules begin and end {#org0ed644c}
+::: {#outline-container-orgfa2eca4 .outline-3}
+### How modules begin and end {#orgfa2eca4}
 
-::: {#text-org0ed644c .outline-text-3}
+::: {#text-orgfa2eca4 .outline-text-3}
 A program usually begins with a **main()** function, executes a bunch of
 instructions and terminates upon completion of those instructions.
 Kernel modules work a bit differently. A module always begin with either
@@ -1128,10 +1128,10 @@ cleanup\_module, I think you\'ll know what I mean.
 :::
 :::
 
-::: {#outline-container-org760b84a .outline-3}
-### Functions available to modules {#org760b84a}
+::: {#outline-container-orgf8a274b .outline-3}
+### Functions available to modules {#orgf8a274b}
 
-::: {#text-org760b84a .outline-text-3}
+::: {#text-orgf8a274b .outline-text-3}
 Programmers use functions they don\'t define all the time. A prime
 example of this is **printf()**. You use these library functions which
 are provided by the standard C library, libc. The definitions for these
@@ -1196,10 +1196,10 @@ everytime someone tries to delete a file on your system.
 :::
 :::
 
-::: {#outline-container-orgd704758 .outline-3}
-### User Space vs Kernel Space {#orgd704758}
+::: {#outline-container-org6d1a8e2 .outline-3}
+### User Space vs Kernel Space {#org6d1a8e2}
 
-::: {#text-orgd704758 .outline-text-3}
+::: {#text-org6d1a8e2 .outline-text-3}
 A kernel is all about access to resources, whether the resource in
 question happens to be a video card, a hard drive or even memory.
 Programs often compete for the same resource. As I just saved this
@@ -1222,10 +1222,10 @@ returns and execution gets transfered back to user mode.
 :::
 :::
 
-::: {#outline-container-org361db02 .outline-3}
-### Name Space {#org361db02}
+::: {#outline-container-org6aaf8dd .outline-3}
+### Name Space {#org6aaf8dd}
 
-::: {#text-org361db02 .outline-text-3}
+::: {#text-org6aaf8dd .outline-text-3}
 When you write a small C program, you use variables which are convenient
 and make sense to the reader. If, on the other hand, you\'re writing
 routines which will be part of a bigger problem, any global variables
@@ -1250,10 +1250,10 @@ share the kernel\'s codespace.
 :::
 :::
 
-::: {#outline-container-org3ce918a .outline-3}
-### Code space {#org3ce918a}
+::: {#outline-container-orgbf6043c .outline-3}
+### Code space {#orgbf6043c}
 
-::: {#text-org3ce918a .outline-text-3}
+::: {#text-orgbf6043c .outline-text-3}
 Memory management is a very complicated subject and the majority of
 O\'Reilly\'s \"*Understanding The Linux Kernel*\" exclusively covers
 memory management! We\'re not setting out to be experts on memory
@@ -1292,10 +1292,10 @@ Magenta kernel of Google Fuchsia are two examples of a microkernel.
 :::
 :::
 
-::: {#outline-container-org1b87707 .outline-3}
-### Device Drivers {#org1b87707}
+::: {#outline-container-org35013aa .outline-3}
+### Device Drivers {#org35013aa}
 
-::: {#text-org1b87707 .outline-text-3}
+::: {#text-org35013aa .outline-text-3}
 One class of module is the device driver, which provides functionality
 for hardware like a serial port. On unix, each piece of hardware is
 represented by a file located in /dev named a device file which provides
@@ -1306,8 +1306,8 @@ Ensoniq IS1370 sound card. A userspace program like mp3blaster can use
 /dev/sound without ever knowing what kind of sound card is installed.
 :::
 
--   []{#orge0103b3}Major and Minor Numbers\
-    ::: {#text-orge0103b3 .outline-text-5}
+-   []{#orge66dbba}Major and Minor Numbers\
+    ::: {#text-orge66dbba .outline-text-5}
     Let\'s look at some device files. Here are device files which
     represent the first three partitions on the primary master IDE hard
     drive:
@@ -1411,17 +1411,17 @@ Ensoniq IS1370 sound card. A userspace program like mp3blaster can use
 :::
 :::
 
-::: {#outline-container-org052dca4 .outline-2}
-Character Device drivers {#org052dca4}
+::: {#outline-container-org95b7e50 .outline-2}
+Character Device drivers {#org95b7e50}
 ------------------------
 
-::: {#text-org052dca4 .outline-text-2}
+::: {#text-org95b7e50 .outline-text-2}
 :::
 
-::: {#outline-container-org0989cfb .outline-3}
-### The file\_operations Structure {#org0989cfb}
+::: {#outline-container-org912203e .outline-3}
+### The file\_operations Structure {#org912203e}
 
-::: {#text-org0989cfb .outline-text-3}
+::: {#text-org912203e .outline-text-3}
 The file\_operations structure is defined in
 **/usr/include/linux/fs.h**, and holds pointers to functions defined by
 the driver that perform various operations on the device. Each field of
@@ -1516,10 +1516,10 @@ named fops.
 :::
 :::
 
-::: {#outline-container-org9d35c9c .outline-3}
-### The file structure {#org9d35c9c}
+::: {#outline-container-orgc3f437e .outline-3}
+### The file structure {#orgc3f437e}
 
-::: {#text-org9d35c9c .outline-text-3}
+::: {#text-orgc3f437e .outline-text-3}
 Each device is represented in the kernel by a file structure, which is
 defined in **linux/fs.h**. Be aware that a file is a kernel level
 structure and never appears in a user space program. It\'s not the same
@@ -1538,10 +1538,10 @@ only use structures contained in file which are created elsewhere.
 :::
 :::
 
-::: {#outline-container-orgc230f23 .outline-3}
-### Registering A Device {#orgc230f23}
+::: {#outline-container-org2105684 .outline-3}
+### Registering A Device {#org2105684}
 
-::: {#text-orgc230f23 .outline-text-3}
+::: {#text-org2105684 .outline-text-3}
 As discussed earlier, char devices are accessed through device files,
 usually located in /dev. This is by convention. When writing a driver,
 it\'s OK to put the device file in your current directory. Just make
@@ -1585,15 +1585,15 @@ device file by hand. Second, the newly registered device will have an
 entry in **/proc/devices**, and we can either make the device file by
 hand or write a shell script to read the file in and make the device
 file. The third method is we can have our driver make the the device
-file using the mknod system call after a successful registration and rm
-during the call to cleanup\_module.
+file using the **device\_create** function after a successful
+registration and **device\_destroy** during the call to cleanup\_module.
 :::
 :::
 
-::: {#outline-container-org45f597a .outline-3}
-### Unregistering A Device {#org45f597a}
+::: {#outline-container-orgd672b69 .outline-3}
+### Unregistering A Device {#orgd672b69}
 
-::: {#text-org45f597a .outline-text-3}
+::: {#text-orgd672b69 .outline-text-3}
 We can\'t allow the kernel module to be rmmod\'ed whenever root feels
 like it. If the device file is opened by a process and then we remove
 the kernel module, using the file would cause a call to the memory
@@ -1627,10 +1627,10 @@ sooner or later during a module\'s development.
 :::
 :::
 
-::: {#outline-container-org729a75c .outline-3}
-### chardev.c {#org729a75c}
+::: {#outline-container-org0fe351e .outline-3}
+### chardev.c {#org0fe351e}
 
-::: {#text-org729a75c .outline-text-3}
+::: {#text-org0fe351e .outline-text-3}
 The next code sample creates a char driver named chardev. You can cat
 its device file.
 
@@ -1658,7 +1658,15 @@ data and print a message acknowledging that we received it.
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/fs.h>
-#include <linux/uaccess.h>        /* for put_user */
+#include <linux/init.h>
+#include <linux/delay.h>
+#include <linux/device.h>
+#include <linux/irq.h>
+#include <asm/uaccess.h>
+#include <asm/irq.h>
+#include <asm/io.h>
+#include <linux/poll.h>
+#include <linux/cdev.h>
 
 /*
  *  Prototypes - this would normally go in a .h file
@@ -1684,11 +1692,13 @@ static int Device_Open = 0;     /* Is device open?
 static char msg[BUF_LEN];       /* The msg the device will give when asked */
 static char *msg_Ptr;
 
-static struct file_operations fops = {
-        .read = device_read,
-        .write = device_write,
-        .open = device_open,
-        .release = device_release
+static struct class *cls;
+
+static struct file_operations chardev_fops = {
+    .read = device_read,
+    .write = device_write,
+    .open = device_open,
+    .release = device_release
 };
 
 /*
@@ -1696,21 +1706,21 @@ static struct file_operations fops = {
  */
 int init_module(void)
 {
-        Major = register_chrdev(0, DEVICE_NAME, &fops);
+    Major = register_chrdev(0, DEVICE_NAME, &chardev_fops);
 
-        if (Major < 0) {
-          pr_alert("Registering char device failed with %d\n", Major);
-          return Major;
-        }
+    if (Major < 0) {
+        pr_alert("Registering char device failed with %d\n", Major);
+        return Major;
+    }
 
-        pr_info("I was assigned major number %d. To talk to\n", Major);
-        pr_info("the driver, create a dev file with\n");
-        pr_info("'mknod /dev/%s c %d 0'.\n", DEVICE_NAME, Major);
-        pr_info("Try various minor numbers. Try to cat and echo to\n");
-        pr_info("the device file.\n");
-        pr_info("Remove the device file and module when done.\n");
+    pr_info("I was assigned major number %d.\n", Major);
 
-        return SUCCESS;
+    cls = class_create(THIS_MODULE, DEVICE_NAME);
+    device_create(cls, NULL, MKDEV(Major, 0), NULL, DEVICE_NAME);
+
+    pr_info("Device created on /dev/%s\n", DEVICE_NAME);
+
+    return SUCCESS;
 }
 
 /*
@@ -1718,10 +1728,13 @@ int init_module(void)
  */
 void cleanup_module(void)
 {
-        /*
-         * Unregister the device
-         */
-        unregister_chrdev(Major, DEVICE_NAME);
+    device_destroy(cls, MKDEV(Major, 0));
+    class_destroy(cls);
+
+    /*
+     * Unregister the device
+     */
+    unregister_chrdev(Major, DEVICE_NAME);
 }
 
 /*
@@ -1734,17 +1747,17 @@ void cleanup_module(void)
  */
 static int device_open(struct inode *inode, struct file *file)
 {
-        static int counter = 0;
+    static int counter = 0;
 
-        if (Device_Open)
-                return -EBUSY;
+    if (Device_Open)
+        return -EBUSY;
 
-        Device_Open++;
-        sprintf(msg, "I already told you %d times Hello world!\n", counter++);
-        msg_Ptr = msg;
-        try_module_get(THIS_MODULE);
+    Device_Open++;
+    sprintf(msg, "I already told you %d times Hello world!\n", counter++);
+    msg_Ptr = msg;
+    try_module_get(THIS_MODULE);
 
-        return SUCCESS;
+    return SUCCESS;
 }
 
 /*
@@ -1752,15 +1765,15 @@ static int device_open(struct inode *inode, struct file *file)
  */
 static int device_release(struct inode *inode, struct file *file)
 {
-        Device_Open--;          /* We're now ready for our next caller */
+    Device_Open--;          /* We're now ready for our next caller */
 
-        /*
-         * Decrement the usage count, or else once you opened the file, you'll
-         * never get get rid of the module.
-         */
-        module_put(THIS_MODULE);
+    /*
+     * Decrement the usage count, or else once you opened the file, you'll
+     * never get get rid of the module.
+     */
+    module_put(THIS_MODULE);
 
-        return SUCCESS;
+    return SUCCESS;
 }
 
 /*
@@ -1772,39 +1785,39 @@ static ssize_t device_read(struct file *filp,   /* see include/linux/fs.h   */
                            size_t length,       /* length of the buffer     */
                            loff_t * offset)
 {
-        /*
-         * Number of bytes actually written to the buffer
-         */
-        int bytes_read = 0;
+    /*
+     * Number of bytes actually written to the buffer
+     */
+    int bytes_read = 0;
+
+    /*
+     * If we're at the end of the message,
+     * return 0 signifying end of file
+     */
+    if (*msg_Ptr == 0)
+        return 0;
+
+    /*
+     * Actually put the data into the buffer
+     */
+    while (length && *msg_Ptr) {
 
         /*
-         * If we're at the end of the message,
-         * return 0 signifying end of file
+         * The buffer is in the user data segment, not the kernel
+         * segment so "*" assignment won't work.  We have to use
+         * put_user which copies data from the kernel data segment to
+         * the user data segment.
          */
-        if (*msg_Ptr == 0)
-                return 0;
+        put_user(*(msg_Ptr++), buffer++);
 
-        /*
-         * Actually put the data into the buffer
-         */
-        while (length && *msg_Ptr) {
+        length--;
+        bytes_read++;
+    }
 
-                /*
-                 * The buffer is in the user data segment, not the kernel
-                 * segment so "*" assignment won't work.  We have to use
-                 * put_user which copies data from the kernel data segment to
-                 * the user data segment.
-                 */
-                put_user(*(msg_Ptr++), buffer++);
-
-                length--;
-                bytes_read++;
-        }
-
-        /*
-         * Most read functions return the number of bytes put into the buffer
-         */
-        return bytes_read;
+    /*
+     * Most read functions return the number of bytes put into the buffer
+     */
+    return bytes_read;
 }
 
 /*
@@ -1812,21 +1825,21 @@ static ssize_t device_read(struct file *filp,   /* see include/linux/fs.h   */
  */
 static ssize_t device_write(struct file *filp,
                             const char *buff,
-                size_t len,
-                loff_t * off)
+                            size_t len,
+                            loff_t * off)
 {
-        pr_alert("Sorry, this operation isn't supported.\n");
-        return -EINVAL;
+    pr_alert("Sorry, this operation isn't supported.\n");
+    return -EINVAL;
 }
 ```
 :::
 :::
 :::
 
-::: {#outline-container-org44075a2 .outline-3}
-### Writing Modules for Multiple Kernel Versions {#org44075a2}
+::: {#outline-container-orgaa13723 .outline-3}
+### Writing Modules for Multiple Kernel Versions {#orgaa13723}
 
-::: {#text-org44075a2 .outline-text-3}
+::: {#text-orgaa13723 .outline-text-3}
 The system calls, which are the major interface the kernel shows to the
 processes, generally stay the same across versions. A new system call
 may be added, but usually the old ones will behave exactly like they
@@ -1874,11 +1887,11 @@ archives if you\'re interested in the full story.
 :::
 :::
 
-::: {#outline-container-org53ca54d .outline-2}
-The /proc File System {#org53ca54d}
+::: {#outline-container-org78194dc .outline-2}
+The /proc File System {#org78194dc}
 ---------------------
 
-::: {#text-org53ca54d .outline-text-2}
+::: {#text-org78194dc .outline-text-2}
 In Linux, there is an additional mechanism for the kernel and kernel
 modules to send information to processes --- the **/proc** file system.
 Originally designed to allow easy access to information about processes
@@ -1991,10 +2004,10 @@ void cleanup_module()
 :::
 :::
 
-::: {#outline-container-orgc55fc6d .outline-3}
-### Read and Write a /proc File {#orgc55fc6d}
+::: {#outline-container-org5d232ad .outline-3}
+### Read and Write a /proc File {#org5d232ad}
 
-::: {#text-orgc55fc6d .outline-text-3}
+::: {#text-org5d232ad .outline-text-3}
 We have seen a very simple example for a /proc file where we only read
 the file /proc/helloworld. It\'s also possible to write in a /proc file.
 It works the same way as read, a function is called when the /proc file
@@ -2128,10 +2141,10 @@ void cleanup_module()
 :::
 :::
 
-::: {#outline-container-orga012908 .outline-3}
-### Manage /proc file with standard filesystem {#orga012908}
+::: {#outline-container-orgf918b99 .outline-3}
+### Manage /proc file with standard filesystem {#orgf918b99}
 
-::: {#text-orga012908 .outline-text-3}
+::: {#text-orgf918b99 .outline-text-3}
 We have seen how to read and write a /proc file with the /proc
 interface. But it\'s also possible to manage /proc file with inodes. The
 main concern is to use advanced functions, like permissions.
@@ -2268,10 +2281,10 @@ you want to document something kernel related yourself.
 :::
 :::
 
-::: {#outline-container-org69ee08a .outline-3}
-### Manage /proc file with seq\_file {#org69ee08a}
+::: {#outline-container-org4c4f646 .outline-3}
+### Manage /proc file with seq\_file {#org4c4f646}
 
-::: {#text-org69ee08a .outline-text-3}
+::: {#text-org4c4f646 .outline-text-3}
 As we have seen, writing a /proc file may be quite \"complex\". So to
 help people writting /proc file, there is an API named seq\_file that
 helps formating a /proc file for output. It\'s based on sequence, which
@@ -2448,11 +2461,11 @@ You can also read the code of fs/seq\_file.c in the linux kernel.
 :::
 :::
 
-::: {#outline-container-orgae3eef1 .outline-2}
-sysfs: Interacting with your module {#orgae3eef1}
+::: {#outline-container-org30eb8bf .outline-2}
+sysfs: Interacting with your module {#org30eb8bf}
 -----------------------------------
 
-::: {#text-orgae3eef1 .outline-text-2}
+::: {#text-org30eb8bf .outline-text-2}
 *sysfs* allows you to interact with the running kernel from userspace by
 reading or setting variables inside of modules. This can be useful for
 debugging purposes, or just as an interface for applications or scripts.
@@ -2584,11 +2597,11 @@ sudo rmmod hello_sysfs
 :::
 :::
 
-::: {#outline-container-orgfeee7e2 .outline-2}
-Talking To Device Files {#orgfeee7e2}
+::: {#outline-container-orgb3b5532 .outline-2}
+Talking To Device Files {#orgb3b5532}
 -----------------------
 
-::: {#text-orgfeee7e2 .outline-text-2}
+::: {#text-orgb3b5532 .outline-text-2}
 Device files are supposed to represent physical devices. Most physical
 devices are used for output as well as input, so there has to be some
 mechanism for device drivers in the kernel to get the output to send to
@@ -2645,7 +2658,15 @@ Documentation/ioctl-number.txt.
 #include <linux/kernel.h>       /* We're doing kernel work */
 #include <linux/module.h>       /* Specifically, a module */
 #include <linux/fs.h>
-#include <linux/uaccess.h>        /* for get_user and put_user */
+#include <linux/init.h>
+#include <linux/delay.h>
+#include <linux/device.h>
+#include <linux/irq.h>
+#include <asm/uaccess.h>
+#include <asm/irq.h>
+#include <asm/io.h>
+#include <linux/poll.h>
+#include <linux/cdev.h>
 
 #include "chardev.h"
 #define SUCCESS 0
@@ -2669,6 +2690,9 @@ static char Message[BUF_LEN];
  * buffer we get to fill in device_read.
  */
 static char *Message_Ptr;
+
+static int Major;               /* Major number assigned to our device driver */
+static struct class *cls;
 
 /*
  * This is called whenever a process attempts to open the device file
@@ -2887,19 +2911,16 @@ int init_module()
      */
     if (ret_val < 0) {
         pr_alert("%s failed with %d\n",
-               "Sorry, registering the character device ", ret_val);
+                 "Sorry, registering the character device ", ret_val);
         return ret_val;
     }
 
-    pr_info("%s The major device number is %d.\n",
-           "Registeration is a success", MAJOR_NUM);
-    pr_info("If you want to talk to the device driver,\n");
-    pr_info("you'll have to create a device file. \n");
-    pr_info("We suggest you use:\n");
-    pr_info("mknod %s c %d 0\n", DEVICE_FILE_NAME, MAJOR_NUM);
-    pr_info("The device file name is important, because\n");
-    pr_info("the ioctl program assumes that's the\n");
-    pr_info("file you'll use.\n");
+    Major = ret_val;
+
+    cls = class_create(THIS_MODULE, DEVICE_FILE_NAME);
+    device_create(cls, NULL, MKDEV(Major, MAJOR_NUM), NULL, DEVICE_FILE_NAME);
+
+    pr_info("Device created on /dev/%s\n", DEVICE_FILE_NAME);
 
     return 0;
 }
@@ -2909,10 +2930,13 @@ int init_module()
  */
 void cleanup_module()
 {
+    device_destroy(cls, MKDEV(Major, 0));
+    class_destroy(cls);
+
     /*
      * Unregister the device
      */
-    unregister_chrdev(MAJOR_NUM, DEVICE_NAME);
+    unregister_chrdev(Major, DEVICE_NAME);
 }
 ```
 :::
@@ -3099,11 +3123,11 @@ int main()
 :::
 :::
 
-::: {#outline-container-orgc32321d .outline-2}
-System Calls {#orgc32321d}
+::: {#outline-container-org0e1baaf .outline-2}
+System Calls {#org0e1baaf}
 ------------
 
-::: {#text-orgc32321d .outline-text-2}
+::: {#text-org0e1baaf .outline-text-2}
 So far, the only thing we\'ve done was to use well defined kernel
 mechanisms to register **/proc** files and device handlers. This is fine
 if you want to do something the kernel programmers thought you\'d want,
@@ -3377,17 +3401,17 @@ MODULE_LICENSE("GPL");
 :::
 :::
 
-::: {#outline-container-org07d7e8d .outline-2}
-Blocking Processes and threads {#org07d7e8d}
+::: {#outline-container-org06cc64b .outline-2}
+Blocking Processes and threads {#org06cc64b}
 ------------------------------
 
-::: {#text-org07d7e8d .outline-text-2}
+::: {#text-org06cc64b .outline-text-2}
 :::
 
-::: {#outline-container-org300bd6d .outline-3}
-### Sleep {#org300bd6d}
+::: {#outline-container-org9b512d6 .outline-3}
+### Sleep {#org9b512d6}
 
-::: {#text-org300bd6d .outline-text-3}
+::: {#text-org9b512d6 .outline-text-3}
 What do you do when somebody asks you for something you can\'t do right
 away? If you\'re a human being and you\'re bothered by a human being,
 the only thing you can say is: \"*Not right now, I\'m busy. Go away!*\".
@@ -3831,10 +3855,10 @@ int main(int argc, char *argv[])
 :::
 :::
 
-::: {#outline-container-org35f83b6 .outline-3}
-### Completions {#org35f83b6}
+::: {#outline-container-orgc330b80 .outline-3}
+### Completions {#orgc330b80}
 
-::: {#text-org35f83b6 .outline-text-3}
+::: {#text-orgc330b80 .outline-text-3}
 Sometimes one thing should happen before another within a module having
 multiple threads. Rather than using **/proc/sleep** commands the kernel
 has another way to do this which allows timeouts or interrupts to also
@@ -3941,11 +3965,11 @@ enough for many common situations without adding a lot of complexity.
 :::
 :::
 
-::: {#outline-container-orgb21233a .outline-2}
-Avoiding Collisions and Deadlocks {#orgb21233a}
+::: {#outline-container-orga6e1dd6 .outline-2}
+Avoiding Collisions and Deadlocks {#orga6e1dd6}
 ---------------------------------
 
-::: {#text-orgb21233a .outline-text-2}
+::: {#text-orga6e1dd6 .outline-text-2}
 If processes running on different CPUs or in different threads try to
 access the same memory then it\'s possible that strange things can
 happen or your system can lock up. To avoid this various types of mutual
@@ -3954,10 +3978,10 @@ code is \"locked\" or \"unlocked\" so that simultaneous attempts to run
 it can\'t happen.
 :::
 
-::: {#outline-container-org17205de .outline-3}
-### Mutex {#org17205de}
+::: {#outline-container-org793fca9 .outline-3}
+### Mutex {#org793fca9}
 
-::: {#text-org17205de .outline-text-3}
+::: {#text-org793fca9 .outline-text-3}
 You can use kernel mutexes (mutual exclusions) in much the same manner
 that you might deploy them in userland. This may be all that\'s needed
 to avoid collisions in most cases.
@@ -4009,10 +4033,10 @@ MODULE_LICENSE("GPL");
 :::
 :::
 
-::: {#outline-container-orgba24119 .outline-3}
-### Spinlocks {#orgba24119}
+::: {#outline-container-org725ffbb .outline-3}
+### Spinlocks {#org725ffbb}
 
-::: {#text-orgba24119 .outline-text-3}
+::: {#text-org725ffbb .outline-text-3}
 As the name suggests, spinlocks lock up the CPU that the code is running
 on, taking 100% of its resources. Because of this you should only use
 the spinlock mechanism around code which is likely to take no more than
@@ -4093,10 +4117,10 @@ MODULE_LICENSE("GPL");
 :::
 :::
 
-::: {#outline-container-org64419a2 .outline-3}
-### Read and write locks {#org64419a2}
+::: {#outline-container-org4890337 .outline-3}
+### Read and write locks {#org4890337}
 
-::: {#text-org64419a2 .outline-text-3}
+::: {#text-org4890337 .outline-text-3}
 Read and write locks are specialised kinds of spinlocks so that you can
 exclusively read from something or write to something. Like the earlier
 spinlocks example the one below shows an \"irq safe\" situation in which
@@ -4171,10 +4195,10 @@ corresponding write functions.
 :::
 :::
 
-::: {#outline-container-org733e7c8 .outline-3}
-### Atomic operations {#org733e7c8}
+::: {#outline-container-org15ea1f6 .outline-3}
+### Atomic operations {#org15ea1f6}
 
-::: {#text-org733e7c8 .outline-text-3}
+::: {#text-org15ea1f6 .outline-text-3}
 If you\'re doing simple arithmetic: adding, subtracting or bitwise
 operations then there\'s another way in the multi-CPU and
 multi-hyperthreaded world to stop other parts of the system from messing
@@ -4266,17 +4290,17 @@ MODULE_LICENSE("GPL");
 :::
 :::
 
-::: {#outline-container-orgf9cdbb8 .outline-2}
-Replacing Print Macros {#orgf9cdbb8}
+::: {#outline-container-orgf762ab7 .outline-2}
+Replacing Print Macros {#orgf762ab7}
 ----------------------
 
-::: {#text-orgf9cdbb8 .outline-text-2}
+::: {#text-orgf762ab7 .outline-text-2}
 :::
 
-::: {#outline-container-org5532536 .outline-3}
-### Replacement {#org5532536}
+::: {#outline-container-org5681eb9 .outline-3}
+### Replacement {#org5681eb9}
 
-::: {#text-org5532536 .outline-text-3}
+::: {#text-org5681eb9 .outline-text-3}
 In Section 1.2.1.2, I said that X and kernel module programming don\'t
 mix. That\'s true for developing kernel modules, but in actual use, you
 want to be able to send messages to whichever tty the command to load
@@ -4408,10 +4432,10 @@ module_exit(print_string_exit);
 :::
 :::
 
-::: {#outline-container-org7fd3ed8 .outline-3}
-### Flashing keyboard LEDs {#org7fd3ed8}
+::: {#outline-container-orgd052bde .outline-3}
+### Flashing keyboard LEDs {#orgd052bde}
 
-::: {#text-org7fd3ed8 .outline-text-3}
+::: {#text-orgd052bde .outline-text-3}
 In certain conditions, you may desire a simpler and more direct way to
 communicate to the external world. Flashing keyboard LEDs can be such a
 solution: It is an immediate way to attract attention or to display a
@@ -4542,11 +4566,11 @@ minimum and make sure it does not show up in production code.
 :::
 :::
 
-::: {#outline-container-org69766c1 .outline-2}
-Scheduling Tasks {#org69766c1}
+::: {#outline-container-org3320952 .outline-2}
+Scheduling Tasks {#org3320952}
 ----------------
 
-::: {#text-org69766c1 .outline-text-2}
+::: {#text-org3320952 .outline-text-2}
 There are two main ways of running tasks: tasklets and work queues.
 Tasklets are a quick and easy way of scheduling a single function to be
 run, for example when triggered from an interrupt, whereas work queues
@@ -4554,10 +4578,10 @@ are more complicated but also better suited to running multiple things
 in a sequence.
 :::
 
-::: {#outline-container-orgac851dc .outline-3}
-### Tasklets {#orgac851dc}
+::: {#outline-container-org8743433 .outline-3}
+### Tasklets {#org8743433}
 
-::: {#text-orgac851dc .outline-text-3}
+::: {#text-org8743433 .outline-text-3}
 Here\'s an example tasklet module. The *tasklet\_fn* function runs for a
 few seconds and in the mean time execution of the
 *example\_tasklet\_init* function continues to the exit point.
@@ -4615,10 +4639,10 @@ Example tasklet ends
 :::
 :::
 
-::: {#outline-container-org726ddfc .outline-3}
-### Work queues {#org726ddfc}
+::: {#outline-container-org9113631 .outline-3}
+### Work queues {#org9113631}
 
-::: {#text-org726ddfc .outline-text-3}
+::: {#text-org9113631 .outline-text-3}
 Very often, we have \"housekeeping\" tasks which have to be done at a
 certain time, or every so often. If the task is to be done by a process,
 we do it by putting it in the crontab file. If the task is to be done by
@@ -4816,17 +4840,17 @@ void __exit cleanup_module()
 :::
 :::
 
-::: {#outline-container-orgee935a8 .outline-2}
-Interrupt Handlers {#orgee935a8}
+::: {#outline-container-org7ef9562 .outline-2}
+Interrupt Handlers {#org7ef9562}
 ------------------
 
-::: {#text-orgee935a8 .outline-text-2}
+::: {#text-org7ef9562 .outline-text-2}
 :::
 
-::: {#outline-container-org7540085 .outline-3}
-### Interrupt Handlers {#org7540085}
+::: {#outline-container-orge6ca883 .outline-3}
+### Interrupt Handlers {#orge6ca883}
 
-::: {#text-org7540085 .outline-text-3}
+::: {#text-orge6ca883 .outline-text-3}
 Except for the last chapter, everything we did in the kernel so far
 we\'ve done as a response to a process asking for it, either by dealing
 with a special file, sending an ioctl(), or issuing a system call. But
@@ -4893,10 +4917,10 @@ you\'re both willing to share.
 :::
 :::
 
-::: {#outline-container-org0b9ea11 .outline-3}
-### Detecting button presses {#org0b9ea11}
+::: {#outline-container-org5a62636 .outline-3}
+### Detecting button presses {#org5a62636}
 
-::: {#text-org0b9ea11 .outline-text-3}
+::: {#text-org5a62636 .outline-text-3}
 Many popular single board computers, such as Raspberry Pis or
 Beagleboards, have a bunch of GPIO pins. Attaching buttons to those and
 then having a button press do something is a classic case in which you
@@ -5067,10 +5091,10 @@ MODULE_DESCRIPTION("Handle some GPIO interrupts");
 :::
 :::
 
-::: {#outline-container-org9238405 .outline-3}
-### Bottom Half {#org9238405}
+::: {#outline-container-orgb4deed3 .outline-3}
+### Bottom Half {#orgb4deed3}
 
-::: {#text-org9238405 .outline-text-3}
+::: {#text-orgb4deed3 .outline-text-3}
 Suppose you want to do a bunch of stuff inside of an interrupt routine.
 A common way to do that without rendering the interrupt unavailable for
 a significant duration is to combine it with a tasklet. This pushes the
@@ -5252,11 +5276,11 @@ MODULE_DESCRIPTION("Interrupt with top and bottom half");
 :::
 :::
 
-::: {#outline-container-org4bb15e9 .outline-2}
-Crypto {#org4bb15e9}
+::: {#outline-container-orge0e6336 .outline-2}
+Crypto {#orge0e6336}
 ------
 
-::: {#text-org4bb15e9 .outline-text-2}
+::: {#text-orge0e6336 .outline-text-2}
 At the dawn of the internet everybody trusted everybody completely...but
 that didn\'t work out so well. When this guide was originally written it
 was a more innocent era in which almost nobody actually gave a damn
@@ -5266,10 +5290,10 @@ enabling common methods of encryption, decryption and your favourite
 hash functions.
 :::
 
-::: {#outline-container-org493047f .outline-3}
-### Hash functions {#org493047f}
+::: {#outline-container-org0a5ac97 .outline-3}
+### Hash functions {#org0a5ac97}
 
-::: {#text-org493047f .outline-text-3}
+::: {#text-org0a5ac97 .outline-text-3}
 Calculating and checking the hashes of things is a common operation.
 Here is a demonstration of how to calculate a sha256 hash within a
 kernel module.
@@ -5365,10 +5389,10 @@ sudo rmmod cryptosha256
 :::
 :::
 
-::: {#outline-container-orgfeffc67 .outline-3}
-### Symmetric key encryption {#orgfeffc67}
+::: {#outline-container-org44ee933 .outline-3}
+### Symmetric key encryption {#org44ee933}
 
-::: {#text-orgfeffc67 .outline-text-3}
+::: {#text-org44ee933 .outline-text-3}
 Here is an example of symmetrically encrypting a string using the AES
 algorithm and a password.
 
@@ -5560,11 +5584,11 @@ MODULE_LICENSE("GPL");
 :::
 :::
 
-::: {#outline-container-org928676a .outline-2}
-Standardising the interfaces: The Device Model {#org928676a}
+::: {#outline-container-orga6368a0 .outline-2}
+Standardising the interfaces: The Device Model {#orga6368a0}
 ----------------------------------------------
 
-::: {#text-org928676a .outline-text-2}
+::: {#text-orga6368a0 .outline-text-2}
 Up to this point we\'ve seen all kinds of modules doing all kinds of
 things, but there was no consistency in their interfaces with the rest
 of the kernel. To impose some consistency such that there is at minimum
@@ -5675,17 +5699,17 @@ module_exit(devicemodel_exit);
 :::
 :::
 
-::: {#outline-container-org794b483 .outline-2}
-Optimisations {#org794b483}
+::: {#outline-container-org2933656 .outline-2}
+Optimisations {#org2933656}
 -------------
 
-::: {#text-org794b483 .outline-text-2}
+::: {#text-org2933656 .outline-text-2}
 :::
 
-::: {#outline-container-org3cf58b1 .outline-3}
-### Likely and Unlikely conditions {#org3cf58b1}
+::: {#outline-container-orgc8b3cae .outline-3}
+### Likely and Unlikely conditions {#orgc8b3cae}
 
-::: {#text-org3cf58b1 .outline-text-3}
+::: {#text-orgc8b3cae .outline-text-3}
 Sometimes you might want your code to run as quickly as possible,
 especially if it\'s handling an interrupt or doing something which might
 cause noticible latency. If your code contains boolean conditions and if
@@ -5715,51 +5739,51 @@ pipeline. The opposite happens if you use the *likely* macro.
 :::
 :::
 
-::: {#outline-container-org054ce97 .outline-2}
-Common Pitfalls {#org054ce97}
+::: {#outline-container-org6f5c18d .outline-2}
+Common Pitfalls {#org6f5c18d}
 ---------------
 
-::: {#text-org054ce97 .outline-text-2}
+::: {#text-org6f5c18d .outline-text-2}
 Before I send you on your way to go out into the world and write kernel
 modules, there are a few things I need to warn you about. If I fail to
 warn you and something bad happens, please report the problem to me for
 a full refund of the amount I was paid for your copy of the book.
 :::
 
-::: {#outline-container-org2e88bab .outline-3}
-### Using standard libraries {#org2e88bab}
+::: {#outline-container-org1774b47 .outline-3}
+### Using standard libraries {#org1774b47}
 
-::: {#text-org2e88bab .outline-text-3}
+::: {#text-org1774b47 .outline-text-3}
 You can\'t do that. In a kernel module you can only use kernel
 functions, which are the functions you can see in /proc/kallsyms.
 :::
 :::
 
-::: {#outline-container-org5dbf3ea .outline-3}
-### Disabling interrupts {#org5dbf3ea}
+::: {#outline-container-org961e759 .outline-3}
+### Disabling interrupts {#org961e759}
 
-::: {#text-org5dbf3ea .outline-text-3}
+::: {#text-org961e759 .outline-text-3}
 You might need to do this for a short time and that is OK, but if you
 don\'t enable them afterwards, your system will be stuck and you\'ll
 have to power it off.
 :::
 :::
 
-::: {#outline-container-org7469865 .outline-3}
-### Sticking your head inside a large carnivore {#org7469865}
+::: {#outline-container-org340a748 .outline-3}
+### Sticking your head inside a large carnivore {#org340a748}
 
-::: {#text-org7469865 .outline-text-3}
+::: {#text-org340a748 .outline-text-3}
 I probably don\'t have to warn you about this, but I figured I will
 anyway, just in case.
 :::
 :::
 :::
 
-::: {#outline-container-org13b2a09 .outline-2}
-Where To Go From Here? {#org13b2a09}
+::: {#outline-container-orge4e872f .outline-2}
+Where To Go From Here? {#orge4e872f}
 ----------------------
 
-::: {#text-org13b2a09 .outline-text-2}
+::: {#text-orge4e872f .outline-text-2}
 I could easily have squeezed a few more chapters into this book. I could
 have added a chapter about creating new file systems, or about adding
 new protocol stacks (as if there\'s a need for that -- you\'d have to
