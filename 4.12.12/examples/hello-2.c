@@ -8,13 +8,13 @@
 
 static int __init hello_2_init(void)
 {
-    printk(KERN_INFO "Hello, world 2\n");
+    pr_info("Hello, world 2\n");
     return 0;
 }
 
 static void __exit hello_2_exit(void)
 {
-    printk(KERN_INFO "Goodbye, world 2\n");
+    pr_info("Goodbye, world 2\n");
 }
 
 module_init(hello_2_init);

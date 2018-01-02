@@ -11,7 +11,7 @@ static struct {
 
 static int machine_crank_thread(void* arg)
 {
-    printk("Turn the crank\n");
+    pr_info("Turn the crank\n");
 
     complete_all(&machine.crank_comp);
     complete_and_exit(&machine.crank_comp, 0);
@@ -21,7 +21,7 @@ static int machine_flywheel_spinup_thread(void* arg)
 {
     wait_for_completion(&machine.crank_comp);
 
-    printk("Flywheel spins up\n");
+    pr_info("Flywheel spins up\n");
 
     complete_all(&machine.flywheel_comp);
     complete_and_exit(&machine.flywheel_comp, 0);
@@ -32,7 +32,7 @@ static int completions_init(void)
     struct task_struct* crank_thread;
     struct task_struct* flywheel_thread;
 
-    printk("completions example\n");
+    pr_info("completions example\n");
 
     init_completion(&machine.crank_comp);
     init_completion(&machine.flywheel_comp);
@@ -66,7 +66,7 @@ void completions_exit(void)
     wait_for_completion(&machine.crank_comp);
     wait_for_completion(&machine.flywheel_comp);
 
-    printk("completions exit\n");
+    pr_info("completions exit\n");
 }
 
 module_init(completions_init);

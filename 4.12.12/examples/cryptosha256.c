@@ -8,11 +8,11 @@ static void show_hash_result(char * plaintext, char * hash_sha256)
     int i;
     char str[SHA256_LENGTH*2 + 1];
 
-    printk("sha256 test for string: \"%s\"\n", plaintext);
+    pr_info("sha256 test for string: \"%s\"\n", plaintext);
     for (i = 0; i < SHA256_LENGTH ; i++)
         sprintf(&str[i*2],"%02x", (unsigned char)hash_sha256[i]);
     str[i*2] = 0;
-    printk("%s\n", str);
+    pr_info("%s\n", str);
 }
 
 int cryptosha256_init(void)

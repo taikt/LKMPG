@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-09-14 Thu 10:09 -->
+<!-- 2018-01-02 Tue 21:37 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Linux Kernel Module Programming Guide</title>
@@ -265,121 +265,121 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org98c97cb">Introduction</a>
+<li><a href="#orgcfc88e3">Introduction</a>
 <ul>
-<li><a href="#org2782b14">Authorship</a></li>
-<li><a href="#org0b6d633">Versioning and Notes</a></li>
-<li><a href="#orge57cf6b">Acknowledgements</a></li>
-<li><a href="#org37341bc">What Is A Kernel Module?</a></li>
-<li><a href="#orge9612fa">Kernel module package</a></li>
-<li><a href="#orgb6ce832">What Modules are in my Kernel?</a></li>
-<li><a href="#orge1ec8b5">Do I need to download and compile the kernel?</a></li>
-<li><a href="#org87661f2">Before We Begin</a></li>
+<li><a href="#orgb35992a">Authorship</a></li>
+<li><a href="#org1e701d7">Versioning and Notes</a></li>
+<li><a href="#orgff412d1">Acknowledgements</a></li>
+<li><a href="#org85e5d05">What Is A Kernel Module?</a></li>
+<li><a href="#org8138753">Kernel module package</a></li>
+<li><a href="#org5f1fe9f">What Modules are in my Kernel?</a></li>
+<li><a href="#orge267f2b">Do I need to download and compile the kernel?</a></li>
+<li><a href="#orge21c8f9">Before We Begin</a></li>
 </ul>
 </li>
-<li><a href="#org52fbd37">Headers</a></li>
-<li><a href="#org628945f">Examples</a></li>
-<li><a href="#org0d455c0">Hello World</a>
+<li><a href="#org020fd9b">Headers</a></li>
+<li><a href="#org3fb7793">Examples</a></li>
+<li><a href="#org8065caf">Hello World</a>
 <ul>
-<li><a href="#orgba22fe1">The Simplest Module</a></li>
-<li><a href="#org56fc79a">Hello and Goodbye</a></li>
-<li><a href="#org86bfdb6">The __init and __exit Macros</a></li>
-<li><a href="#org11aaf91">Licensing and Module Documentation</a></li>
-<li><a href="#org9e1dd8d">Passing Command Line Arguments to a Module</a></li>
-<li><a href="#orgcd10981">Modules Spanning Multiple Files</a></li>
-<li><a href="#orga65faca">Building modules for a precompiled kernel</a></li>
+<li><a href="#orgbda9acd">The Simplest Module</a></li>
+<li><a href="#org761c702">Hello and Goodbye</a></li>
+<li><a href="#orgf583ec5">The __init and __exit Macros</a></li>
+<li><a href="#orgcf0f915">Licensing and Module Documentation</a></li>
+<li><a href="#orgc88a626">Passing Command Line Arguments to a Module</a></li>
+<li><a href="#orgcac6115">Modules Spanning Multiple Files</a></li>
+<li><a href="#orgd8499f9">Building modules for a precompiled kernel</a></li>
 </ul>
 </li>
-<li><a href="#orgdeef601">Preliminaries</a>
+<li><a href="#orgb6633e2">Preliminaries</a>
 <ul>
-<li><a href="#orgc8eceb0">How modules begin and end</a></li>
-<li><a href="#org290f3df">Functions available to modules</a></li>
-<li><a href="#orga7850df">User Space vs Kernel Space</a></li>
-<li><a href="#org4b4877b">Name Space</a></li>
-<li><a href="#org7e3a491">Code space</a></li>
-<li><a href="#org6c0b122">Device Drivers</a></li>
+<li><a href="#org7f4891d">How modules begin and end</a></li>
+<li><a href="#org8021b97">Functions available to modules</a></li>
+<li><a href="#org2487a6b">User Space vs Kernel Space</a></li>
+<li><a href="#orgd5dd329">Name Space</a></li>
+<li><a href="#org3cb9562">Code space</a></li>
+<li><a href="#orgb4dc531">Device Drivers</a></li>
 </ul>
 </li>
-<li><a href="#org016c39a">Character Device drivers</a>
+<li><a href="#org952d427">Character Device drivers</a>
 <ul>
-<li><a href="#org31d952e">The file_operations Structure</a></li>
-<li><a href="#org607b208">The file structure</a></li>
-<li><a href="#orgf96ab85">Registering A Device</a></li>
-<li><a href="#org452ea75">Unregistering A Device</a></li>
-<li><a href="#orgdd49880">chardev.c</a></li>
-<li><a href="#org903f5d5">Writing Modules for Multiple Kernel Versions</a></li>
+<li><a href="#org1f70982">The file_operations Structure</a></li>
+<li><a href="#org7c65651">The file structure</a></li>
+<li><a href="#org88f75aa">Registering A Device</a></li>
+<li><a href="#org33e8c4e">Unregistering A Device</a></li>
+<li><a href="#org4a28a33">chardev.c</a></li>
+<li><a href="#orgbcf1c83">Writing Modules for Multiple Kernel Versions</a></li>
 </ul>
 </li>
-<li><a href="#org6400501">The /proc File System</a>
+<li><a href="#orgf6ba9df">The /proc File System</a>
 <ul>
-<li><a href="#orga906618">Read and Write a /proc File</a></li>
-<li><a href="#org561d817">Manage /proc file with standard filesystem</a></li>
-<li><a href="#org38ea52f">Manage /proc file with seq_file</a></li>
+<li><a href="#org43d4889">Read and Write a /proc File</a></li>
+<li><a href="#org1607657">Manage /proc file with standard filesystem</a></li>
+<li><a href="#org1f457d2">Manage /proc file with seq_file</a></li>
 </ul>
 </li>
-<li><a href="#org954957f">sysfs: Interacting with your module</a></li>
-<li><a href="#org438f37b">Talking To Device Files</a></li>
-<li><a href="#org8de5924">System Calls</a></li>
-<li><a href="#org13e2c0e">Blocking Processes and threads</a>
+<li><a href="#orgf71ef7e">sysfs: Interacting with your module</a></li>
+<li><a href="#org18e4279">Talking To Device Files</a></li>
+<li><a href="#org57619bf">System Calls</a></li>
+<li><a href="#org2c54a9a">Blocking Processes and threads</a>
 <ul>
-<li><a href="#org9cbc7d3">Sleep</a></li>
-<li><a href="#org89cb410">Completions</a></li>
+<li><a href="#org8e98b07">Sleep</a></li>
+<li><a href="#orgc9f3884">Completions</a></li>
 </ul>
 </li>
-<li><a href="#org949949f">Avoiding Collisions and Deadlocks</a>
+<li><a href="#orgbc36b97">Avoiding Collisions and Deadlocks</a>
 <ul>
-<li><a href="#org10f05c2">Mutex</a></li>
-<li><a href="#org5d633fc">Spinlocks</a></li>
-<li><a href="#orgaa517c3">Read and write locks</a></li>
-<li><a href="#orgadbf448">Atomic operations</a></li>
+<li><a href="#org08abf74">Mutex</a></li>
+<li><a href="#org8abef7b">Spinlocks</a></li>
+<li><a href="#org0a55320">Read and write locks</a></li>
+<li><a href="#org2652f4e">Atomic operations</a></li>
 </ul>
 </li>
-<li><a href="#org7974c60">Replacing Printks</a>
+<li><a href="#orgf928ddc">Replacing Print Macros</a>
 <ul>
-<li><a href="#org1c8b17b">Replacing printk</a></li>
-<li><a href="#org418d823">Flashing keyboard LEDs</a></li>
+<li><a href="#org79d2e43">Replacement</a></li>
+<li><a href="#org006f60c">Flashing keyboard LEDs</a></li>
 </ul>
 </li>
-<li><a href="#orgf37d73f">Scheduling Tasks</a>
+<li><a href="#orgcab6a64">Scheduling Tasks</a>
 <ul>
-<li><a href="#org32525a8">Tasklets</a></li>
-<li><a href="#orge8a2d87">Work queues</a></li>
+<li><a href="#orga758af1">Tasklets</a></li>
+<li><a href="#org5e7cad8">Work queues</a></li>
 </ul>
 </li>
-<li><a href="#orgbc0cdf8">Interrupt Handlers</a>
+<li><a href="#org991944f">Interrupt Handlers</a>
 <ul>
-<li><a href="#org93511bb">Interrupt Handlers</a></li>
-<li><a href="#org77533ca">Detecting button presses</a></li>
-<li><a href="#orgdb452ba">Bottom Half</a></li>
+<li><a href="#orgdc4fa66">Interrupt Handlers</a></li>
+<li><a href="#org170473f">Detecting button presses</a></li>
+<li><a href="#org58210bf">Bottom Half</a></li>
 </ul>
 </li>
-<li><a href="#org627e987">Crypto</a>
+<li><a href="#org95671c1">Crypto</a>
 <ul>
-<li><a href="#org0d560c3">Hash functions</a></li>
-<li><a href="#org4e331ef">Symmetric key encryption</a></li>
+<li><a href="#org5702461">Hash functions</a></li>
+<li><a href="#orgdca7f0b">Symmetric key encryption</a></li>
 </ul>
 </li>
-<li><a href="#org01d6493">Standardising the interfaces: The Device Model</a></li>
-<li><a href="#org87293ce">Optimisations</a>
+<li><a href="#org7ee71e2">Standardising the interfaces: The Device Model</a></li>
+<li><a href="#org6dcd6c8">Optimisations</a>
 <ul>
-<li><a href="#org87e8223">Likely and Unlikely conditions</a></li>
+<li><a href="#org9398c78">Likely and Unlikely conditions</a></li>
 </ul>
 </li>
-<li><a href="#org79dea20">Common Pitfalls</a>
+<li><a href="#org7813eb9">Common Pitfalls</a>
 <ul>
-<li><a href="#org86275d7">Using standard libraries</a></li>
-<li><a href="#org8646229">Disabling interrupts</a></li>
-<li><a href="#org58c8bc4">Sticking your head inside a large carnivore</a></li>
+<li><a href="#orgcbd6cad">Using standard libraries</a></li>
+<li><a href="#orgf96d0f1">Disabling interrupts</a></li>
+<li><a href="#orga703bab">Sticking your head inside a large carnivore</a></li>
 </ul>
 </li>
-<li><a href="#org2307e11">Where To Go From Here?</a></li>
+<li><a href="#orge615b39">Where To Go From Here?</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org98c97cb" class="outline-2">
-<h2 id="org98c97cb">Introduction</h2>
-<div class="outline-text-2" id="text-org98c97cb">
+<div id="outline-container-orgcfc88e3" class="outline-2">
+<h2 id="orgcfc88e3">Introduction</h2>
+<div class="outline-text-2" id="text-orgcfc88e3">
 <p>
 The Linux Kernel Module Programming Guide is a free book; you may reproduce and/or modify it under the terms of the Open Software License, version 3.0.
 </p>
@@ -401,18 +401,18 @@ If you publish or distribute this book commercially, donations, royalties, and/o
 </p>
 </div>
 
-<div id="outline-container-org2782b14" class="outline-3">
-<h3 id="org2782b14">Authorship</h3>
-<div class="outline-text-3" id="text-org2782b14">
+<div id="outline-container-orgb35992a" class="outline-3">
+<h3 id="orgb35992a">Authorship</h3>
+<div class="outline-text-3" id="text-orgb35992a">
 <p>
 The Linux Kernel Module Programming Guide was originally written for the 2.2 kernels by Ori Pomerantz. Eventually, Ori no longer had time to maintain the document. After all, the Linux kernel is a fast moving target. Peter Jay Salzman took over maintenance and updated it for the 2.4 kernels. Eventually, Peter no longer had time to follow developments with the 2.6 kernel, so Michael Burian became a co-maintainer to update the document for the 2.6 kernels.  Bob Mottram updated the examples for 3.8 and later kernels, added the sysfs chapter and modified or updated other chapters.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org0b6d633" class="outline-3">
-<h3 id="org0b6d633">Versioning and Notes</h3>
-<div class="outline-text-3" id="text-org0b6d633">
+<div id="outline-container-org1e701d7" class="outline-3">
+<h3 id="org1e701d7">Versioning and Notes</h3>
+<div class="outline-text-3" id="text-org1e701d7">
 <p>
 The Linux kernel is a moving target. There has always been a question whether the LKMPG should remove deprecated information or keep it around for historical sake. Michael Burian and I decided to create a new branch of the LKMPG for each new stable kernel version. So version LKMPG 4.12.x will address Linux kernel 4.12.x and LKMPG 2.6.x will address Linux kernel 2.6. No attempt will be made to archive historical information; a person wishing this information should read the appropriately versioned LKMPG.
 </p>
@@ -423,18 +423,18 @@ The source code and discussions should apply to most architectures, but I can't 
 </div>
 </div>
 
-<div id="outline-container-orge57cf6b" class="outline-3">
-<h3 id="orge57cf6b">Acknowledgements</h3>
-<div class="outline-text-3" id="text-orge57cf6b">
+<div id="outline-container-orgff412d1" class="outline-3">
+<h3 id="orgff412d1">Acknowledgements</h3>
+<div class="outline-text-3" id="text-orgff412d1">
 <p>
 The following people have contributed corrections or good suggestions: Ignacio Martin, David Porter, Daniele Paolo Scarpazza, Dimo Velev, Francois Audeon, Horst Schirmeier, Bob Mottram and Roman Lakeev.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org37341bc" class="outline-3">
-<h3 id="org37341bc">What Is A Kernel Module?</h3>
-<div class="outline-text-3" id="text-org37341bc">
+<div id="outline-container-org85e5d05" class="outline-3">
+<h3 id="org85e5d05">What Is A Kernel Module?</h3>
+<div class="outline-text-3" id="text-org85e5d05">
 <p>
 So, you want to write a kernel module. You know C, you've written a few normal programs to run as processes, and now you want to get to where the real action is, to where a single wild pointer can wipe out your file system and a core dump means a reboot.
 </p>
@@ -445,9 +445,9 @@ What exactly is a kernel module? Modules are pieces of code that can be loaded a
 </div>
 </div>
 
-<div id="outline-container-orge9612fa" class="outline-3">
-<h3 id="orge9612fa">Kernel module package</h3>
-<div class="outline-text-3" id="text-orge9612fa">
+<div id="outline-container-org8138753" class="outline-3">
+<h3 id="org8138753">Kernel module package</h3>
+<div class="outline-text-3" id="text-org8138753">
 <p>
 Linux distros provide the commands <i>modprobe</i>, <i>insmod</i> and <i>depmod</i> within a package.
 </p>
@@ -457,8 +457,8 @@ On Debian:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo apt-get install build-essential kmod
-</code></pre>
+<pre class="src src-sh">sudo apt-get install build-essential kmod
+</pre>
 </div>
 
 <p>
@@ -466,22 +466,22 @@ On Parabola:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo pacman -S gcc kmod
-</code></pre>
+<pre class="src src-sh">sudo pacman -S gcc kmod
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgb6ce832" class="outline-3">
-<h3 id="orgb6ce832">What Modules are in my Kernel?</h3>
-<div class="outline-text-3" id="text-orgb6ce832">
+<div id="outline-container-org5f1fe9f" class="outline-3">
+<h3 id="org5f1fe9f">What Modules are in my Kernel?</h3>
+<div class="outline-text-3" id="text-org5f1fe9f">
 <p>
 To discover what modules are already loaded within your current kernel use the command <b>lsmod</b>.
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo lsmod
-</code></pre>
+<pre class="src src-sh">sudo lsmod
+</pre>
 </div>
 
 <p>
@@ -489,8 +489,8 @@ Modules are stored within the file /proc/modules, so you can also see them with:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo cat /proc/modules
-</code></pre>
+<pre class="src src-sh">sudo cat /proc/modules
+</pre>
 </div>
 
 <p>
@@ -498,39 +498,39 @@ This can be a long list, and you might prefer to search for something particular
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo lsmod | grep fat
-</code></pre>
+<pre class="src src-sh">sudo lsmod | grep fat
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orge1ec8b5" class="outline-3">
-<h3 id="orge1ec8b5">Do I need to download and compile the kernel?</h3>
-<div class="outline-text-3" id="text-orge1ec8b5">
+<div id="outline-container-orge267f2b" class="outline-3">
+<h3 id="orge267f2b">Do I need to download and compile the kernel?</h3>
+<div class="outline-text-3" id="text-orge267f2b">
 <p>
 For the purposes of following this guide you don't necessarily need to do that. However, it would be wise to run the examples within a test distro running on a virtual machine in order to avoid any possibility of messing up your system.
 </p>
 </div>
 </div>
-<div id="outline-container-org87661f2" class="outline-3">
-<h3 id="org87661f2">Before We Begin</h3>
-<div class="outline-text-3" id="text-org87661f2">
+<div id="outline-container-orge21c8f9" class="outline-3">
+<h3 id="orge21c8f9">Before We Begin</h3>
+<div class="outline-text-3" id="text-orge21c8f9">
 <p>
 Before we delve into code, there are a few issues we need to cover. Everyone's system is different and everyone has their own groove. Getting your first "hello world" program to compile and load correctly can sometimes be a trick. Rest assured, after you get over the initial hurdle of doing it for the first time, it will be smooth sailing thereafter.
 </p>
 </div>
 
 <ul class="org-ul">
-<li><a id="org551d822"></a>Modversioning<br />
-<div class="outline-text-5" id="text-org551d822">
+<li><a id="org8987615"></a>Modversioning<br />
+<div class="outline-text-5" id="text-org8987615">
 <p>
 A module compiled for one kernel won't load if you boot a different kernel unless you enable CONFIG_MODVERSIONS in the kernel. We won't go into module versioning until later in this guide. Until we cover modversions, the examples in the guide may not work if you're running a kernel with modversioning turned on. However, most stock Linux distro kernels come with it turned on. If you're having trouble loading the modules because of versioning errors, compile a kernel with modversioning turned off.
 </p>
 </div>
 </li>
 
-<li><a id="orgaf2a17b"></a>Using X<br />
-<div class="outline-text-5" id="text-orgaf2a17b">
+<li><a id="org2132e29"></a>Using X<br />
+<div class="outline-text-5" id="text-org2132e29">
 <p>
 It is highly recommended that you type in, compile and load all the examples this guide discusses. It's also highly recommended you do this from a console. You should not be working on this stuff in X.
 </p>
@@ -544,16 +544,16 @@ Modules can't print to the screen like printf() can, but they can log informatio
 </div>
 </div>
 
-<div id="outline-container-org52fbd37" class="outline-2">
-<h2 id="org52fbd37">Headers</h2>
-<div class="outline-text-2" id="text-org52fbd37">
+<div id="outline-container-org020fd9b" class="outline-2">
+<h2 id="org020fd9b">Headers</h2>
+<div class="outline-text-2" id="text-org020fd9b">
 <p>
 Before you can build anything you'll need to install the header files for your kernel. On Parabola GNU/Linux:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo pacman -S linux-libre-headers
-</code></pre>
+<pre class="src src-sh">sudo pacman -S linux-libre-headers
+</pre>
 </div>
 
 <p>
@@ -561,9 +561,9 @@ On Debian:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo apt-get update
+<pre class="src src-sh">sudo apt-get update
 apt-cache search linux-headers-$(<span class="org-sh-quoted-exec">uname</span> -r)
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -571,22 +571,22 @@ This will tell you what kernel header files are available. Then for example:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo apt-get install kmod linux-headers-4.12.12-1-amd64
-</code></pre>
+<pre class="src src-sh">sudo apt-get install kmod linux-headers-4.12.12-1-amd64
+</pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org628945f" class="outline-2">
-<h2 id="org628945f">Examples</h2>
-<div class="outline-text-2" id="text-org628945f">
+<div id="outline-container-org3fb7793" class="outline-2">
+<h2 id="org3fb7793">Examples</h2>
+<div class="outline-text-2" id="text-org3fb7793">
 <p>
 All the examples from this document are available within the <i>examples</i> subdirectory. To test that they compile:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh"><span class="org-builtin">cd</span> examples
+<pre class="src src-sh"><span class="org-builtin">cd</span> examples
 make
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -594,13 +594,13 @@ If there are any compile errors then you might have a more recent kernel version
 </p>
 </div>
 </div>
-<div id="outline-container-org0d455c0" class="outline-2">
-<h2 id="org0d455c0">Hello World</h2>
-<div class="outline-text-2" id="text-org0d455c0">
+<div id="outline-container-org8065caf" class="outline-2">
+<h2 id="org8065caf">Hello World</h2>
+<div class="outline-text-2" id="text-org8065caf">
 </div>
-<div id="outline-container-orgba22fe1" class="outline-3">
-<h3 id="orgba22fe1">The Simplest Module</h3>
-<div class="outline-text-3" id="text-orgba22fe1">
+<div id="outline-container-orgbda9acd" class="outline-3">
+<h3 id="orgbda9acd">The Simplest Module</h3>
+<div class="outline-text-3" id="text-orgbda9acd">
 <p>
 Most people learning programming start out with some sort of "<i>hello world</i>" example. I don't know what happens to people who break with this tradition, but I think it's safer not to find out. We'll start with a series of hello world programs that demonstrate the different aspects of the basics of writing a kernel module.
 </p>
@@ -614,9 +614,9 @@ Make a test directory:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">mkdir -p ~/develop/kernel/hello-1
+<pre class="src src-sh">mkdir -p ~/develop/kernel/hello-1
 <span class="org-builtin">cd</span> ~/develop/kernel/hello-1
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -624,7 +624,7 @@ Paste this into you favourite editor and save it as <b>hello-1.c</b>:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  hello-1.c - The simplest kernel module.</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>       <span class="org-comment-delimiter">/* </span><span class="org-comment">Needed by all modules </span><span class="org-comment-delimiter">*/</span>
@@ -632,7 +632,7 @@ Paste this into you favourite editor and save it as <b>hello-1.c</b>:
 
 <span class="org-type">int</span> <span class="org-function-name">init_module</span>(<span class="org-type">void</span>)
 {
-    printk(KERN_INFO <span class="org-string">"Hello world 1.\n"</span>);
+    pr_info(<span class="org-string">"Hello world 1.\n"</span>);
 
     <span class="org-comment-delimiter">/*</span>
 <span class="org-comment">     * A non 0 return means init_module failed; module can't be loaded.</span>
@@ -642,9 +642,9 @@ Paste this into you favourite editor and save it as <b>hello-1.c</b>:
 
 <span class="org-type">void</span> <span class="org-function-name">cleanup_module</span>(<span class="org-type">void</span>)
 {
-    printk(KERN_INFO <span class="org-string">"Goodbye world 1.\n"</span>);
+    pr_info(<span class="org-string">"Goodbye world 1.\n"</span>);
 }
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -652,14 +652,14 @@ Now you'll need a Makefile. If you copy and paste this change the indentation to
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-makefile"><span class="org-variable-name">obj-m</span> += hello-1.o
+<pre class="src src-makefile"><span class="org-variable-name">obj-m</span> += hello-1.o
 
 <span class="org-makefile-targets">all</span>:
         make -C /lib/modules/$(<span class="org-variable-name">shell</span> uname -r)/build M=$(<span class="org-variable-name">PWD</span>) modules
 
 <span class="org-makefile-targets">clean</span>:
         make -C /lib/modules/$(<span class="org-variable-name">shell</span> uname -r)/build M=$(<span class="org-variable-name">PWD</span>) clean
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -667,8 +667,8 @@ And finally just:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">make
-</code></pre>
+<pre class="src src-sh">make
+</pre>
 </div>
 
 <p>
@@ -676,8 +676,8 @@ If all goes smoothly you should then find that you have a compiled <b>hello-1.ko
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo modinfo hello-1.ko
-</code></pre>
+<pre class="src src-sh">sudo modinfo hello-1.ko
+</pre>
 </div>
 
 <p>
@@ -685,8 +685,8 @@ At this point the command:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo lsmod | grep hello
-</code></pre>
+<pre class="src src-sh">sudo lsmod | grep hello
+</pre>
 </div>
 
 <p>
@@ -694,8 +694,8 @@ should return nothing. You can try loading your shiny new module with:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo insmod hello-1.ko
-</code></pre>
+<pre class="src src-sh">sudo insmod hello-1.ko
+</pre>
 </div>
 
 <p>
@@ -703,8 +703,8 @@ The dash character will get converted to an underscore, so when you again try:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo lsmod | grep hello
-</code></pre>
+<pre class="src src-sh">sudo lsmod | grep hello
+</pre>
 </div>
 
 <p>
@@ -712,8 +712,8 @@ you should now see your loaded module. It can be removed again with:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo rmmod hello_1
-</code></pre>
+<pre class="src src-sh">sudo rmmod hello_1
+</pre>
 </div>
 
 <p>
@@ -721,8 +721,8 @@ Notice that the dash was replaced by an underscore. To see what just happened in
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">journalctl --since <span class="org-string">"1 hour ago"</span> | grep kernel
-</code></pre>
+<pre class="src src-sh">journalctl --since <span class="org-string">"1 hour ago"</span> | grep kernel
+</pre>
 </div>
 
 <p>
@@ -739,36 +739,28 @@ Typically, init_module() either registers a handler for something with the kerne
 </p>
 
 <p>
-Lastly, every kernel module needs to include linux/module.h. We needed to include <b>linux/kernel.h</b> only for the macro expansion for the printk() log level, KERN_ALERT, which you'll learn about in Section 2.1.1.
+Lastly, every kernel module needs to include linux/module.h. We needed to include <b>linux/kernel.h</b> only for the macro expansion for the pr_alert() log level, which you'll learn about in Section 2.1.1.
 </p>
 </div>
 
 <ul class="org-ul">
-<li><a id="orgab018f5"></a>A point about coding style<br />
-<div class="outline-text-5" id="text-orgab018f5">
+<li><a id="orga9c315b"></a>A point about coding style<br />
+<div class="outline-text-5" id="text-orga9c315b">
 <p>
 Another thing which may not be immediately obvious to anyone getting started with kernel programming is that indentation within your code should be using <b>tabs</b> and <b>not spaces</b>. It's one of the coding conventions of the kernel. You may not like it, but you'll need to get used to it if you ever submit a patch upstream.
 </p>
 </div>
 </li>
-<li><a id="org176ca3e"></a>Introducing printk()<br />
-<div class="outline-text-5" id="text-org176ca3e">
+<li><a id="org5fc9d61"></a>Introducing print functions<br />
+<div class="outline-text-5" id="text-org5fc9d61">
 <p>
-Despite what you might think, <b>printk()</b> was not meant to communicate information to the user, even though we used it for exactly this purpose in hello-1! It happens to be a logging mechanism for the kernel, and is used to log information or give warnings. Therefore, each printk() statement comes with a priority, which is the &lt;1&gt; and KERN_ALERT you see. There are 8 priorities and the kernel has macros for them, so you don't have to use cryptic numbers, and you can view them (and their meanings) in <b>linux/kernel.h</b>. If you don't specify a priority level, the default priority, DEFAULT_MESSAGE_LOGLEVEL, will be used.
-</p>
-
-<p>
-Take time to read through the priority macros. The header file also describes what each priority means. In practise, don't use number, like &lt;4&gt;. Always use the macro, like KERN_WARNING.
-</p>
-
-<p>
-If the priority is less than int console_loglevel, the message is printed on your current terminal. If both syslogd and klogd are running, then the message will also get appended to the systemd journal, whether it got printed to the console or not. We use a high priority, like KERN_ALERT, to make sure the printk() messages get printed to your console rather than just logged to the journal. When you write real modules, you'll want to use priorities that are meaningful for the situation at hand.
+In the beginning there was <b>printk</b>, usually followed by a priority such as KERN_INFO or KERN_DEBUG. More recently this can also be expressed in abbreviated form using a set of print macros, such as <b>pr_info</b> and <b>pr_debug</b>. This just saves some mindless keyboard bashing and looks a bit neater. They can be found within <b>linux/printk.h</b>. Take time to read through the available priority macros.
 </p>
 </div>
 </li>
 
-<li><a id="orgc8049ab"></a>About Compiling<br />
-<div class="outline-text-5" id="text-orgc8049ab">
+<li><a id="org8c070df"></a>About Compiling<br />
+<div class="outline-text-5" id="text-org8c070df">
 <p>
 Kernel modules need to be compiled a bit differently from regular userspace apps. Former kernel versions required us to care much about these settings, which are usually stored in Makefiles. Although hierarchically organized, many redundant settings accumulated in sublevel Makefiles and made them large and rather difficult to maintain. Fortunately, there is a new way of doing these things, called kbuild, and the build process for external loadable modules is now fully integrated into the standard kernel build mechanism. To learn more on how to compile modules which are not part of the official kernel (such as all the examples you'll find in this guide), see file <b>linux/Documentation/kbuild/modules.txt</b>.
 </p>
@@ -787,15 +779,15 @@ Here's another exercise for the reader. See that comment above the return statem
 </ul>
 </div>
 
-<div id="outline-container-org56fc79a" class="outline-3">
-<h3 id="org56fc79a">Hello and Goodbye</h3>
-<div class="outline-text-3" id="text-org56fc79a">
+<div id="outline-container-org761c702" class="outline-3">
+<h3 id="org761c702">Hello and Goodbye</h3>
+<div class="outline-text-3" id="text-org761c702">
 <p>
 In early kernel versions you had to use the <b>init_module</b> and <b>cleanup_module</b> functions, as in the first hello world example, but these days you can name those anything you want by using the <b>module_init</b> and <b>module_exit</b> macros. These macros are defined in <b>linux/init.h</b>. The only requirement is that your init and cleanup functions must be defined before calling the those macros, otherwise you'll get compilation errors. Here's an example of this technique:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  hello-2.c - Demonstrating the module_init() and module_exit() macros.</span>
 <span class="org-comment"> *  This is preferred over using init_module() and cleanup_module().</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
@@ -805,18 +797,18 @@ In early kernel versions you had to use the <b>init_module</b> and <b>cleanup_mo
 
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">__init</span> hello_2_init(<span class="org-type">void</span>)
 {
-    printk(KERN_INFO <span class="org-string">"Hello, world 2\n"</span>);
+    pr_info(<span class="org-string">"Hello, world 2\n"</span>);
     <span class="org-keyword">return</span> 0;
 }
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">__exit</span> hello_2_exit(<span class="org-type">void</span>)
 {
-    printk(KERN_INFO <span class="org-string">"Goodbye, world 2\n"</span>);
+    pr_info(<span class="org-string">"Goodbye, world 2\n"</span>);
 }
 
 module_init(hello_2_init);
 module_exit(hello_2_exit);
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -824,7 +816,7 @@ So now we have two real kernel modules under our belt. Adding another module is 
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-makefile"><span class="org-variable-name">obj-m</span> += hello-1.o
+<pre class="src src-makefile"><span class="org-variable-name">obj-m</span> += hello-1.o
 <span class="org-variable-name">obj-m</span> += hello-2.o
 
 <span class="org-makefile-targets">all</span>:
@@ -832,7 +824,7 @@ So now we have two real kernel modules under our belt. Adding another module is 
 
 <span class="org-makefile-targets">clean</span>:
     make -C /lib/modules/$(<span class="org-variable-name">shell</span> uname -r)/build M=$(<span class="org-variable-name">PWD</span>) clean
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -841,9 +833,9 @@ Now have a look at linux/drivers/char/Makefile for a real world example. As you 
 </div>
 </div>
 
-<div id="outline-container-org86bfdb6" class="outline-3">
-<h3 id="org86bfdb6">The __init and __exit Macros</h3>
-<div class="outline-text-3" id="text-org86bfdb6">
+<div id="outline-container-orgf583ec5" class="outline-3">
+<h3 id="orgf583ec5">The __init and __exit Macros</h3>
+<div class="outline-text-3" id="text-orgf583ec5">
 <p>
 This demonstrates a feature of kernel 2.2 and later. Notice the change in the definitions of the init and cleanup functions. The <b>__init</b> macro causes the init function to be discarded and its memory freed once the init function finishes for built-in drivers, but not loadable modules. If you think about when the init function is invoked, this makes perfect sense.
 </p>
@@ -861,7 +853,7 @@ These macros are defined in <b>linux/init.h</b> and serve to free up kernel memo
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  hello-3.c - Illustrating the __init, __initdata and __exit macros.</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>       <span class="org-comment-delimiter">/* </span><span class="org-comment">Needed by all modules </span><span class="org-comment-delimiter">*/</span>
@@ -872,35 +864,35 @@ These macros are defined in <b>linux/init.h</b> and serve to free up kernel memo
 
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">__init</span> hello_3_init(<span class="org-type">void</span>)
 {
-    printk(KERN_INFO <span class="org-string">"Hello, world %d\n"</span>, hello3_data);
+    pr_info(<span class="org-string">"Hello, world %d\n"</span>, hello3_data);
     <span class="org-keyword">return</span> 0;
 }
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">__exit</span> hello_3_exit(<span class="org-type">void</span>)
 {
-    printk(KERN_INFO <span class="org-string">"Goodbye, world 3\n"</span>);
+    pr_info(<span class="org-string">"Goodbye, world 3\n"</span>);
 }
 
 module_init(hello_3_init);
 module_exit(hello_3_exit);
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org11aaf91" class="outline-3">
-<h3 id="org11aaf91">Licensing and Module Documentation</h3>
-<div class="outline-text-3" id="text-org11aaf91">
+<div id="outline-container-orgcf0f915" class="outline-3">
+<h3 id="orgcf0f915">Licensing and Module Documentation</h3>
+<div class="outline-text-3" id="text-orgcf0f915">
 <p>
 Honestly, who loads or even cares about proprietary modules? If you do then you might have seen something like this:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-txt"># insmod xxxxxx.o
+<pre class="src src-txt"># insmod xxxxxx.o
 Warning: loading xxxxxx.ko will taint the kernel: no license
   See http://www.tux.org/lkml/#export-tainted for information about tainted modules
 Module xxxxxx loaded, with warnings
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -912,7 +904,7 @@ To reference what license you're using a macro is available called <b>MODULE_LIC
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  hello-4.c - Demonstrates module documentation.</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>       <span class="org-comment-delimiter">/* </span><span class="org-comment">Needed by all modules </span><span class="org-comment-delimiter">*/</span>
@@ -926,25 +918,25 @@ MODULE_SUPPORTED_DEVICE(<span class="org-string">"testdevice"</span>);
 
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">__init</span> init_hello_4(<span class="org-type">void</span>)
 {
-        printk(KERN_INFO <span class="org-string">"Hello, world 4\n"</span>);
+        pr_info(<span class="org-string">"Hello, world 4\n"</span>);
         <span class="org-keyword">return</span> 0;
 }
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">__exit</span> cleanup_hello_4(<span class="org-type">void</span>)
 {
-        printk(KERN_INFO <span class="org-string">"Goodbye, world 4\n"</span>);
+        pr_info(<span class="org-string">"Goodbye, world 4\n"</span>);
 }
 
 module_init(init_hello_4);
 module_exit(cleanup_hello_4);
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org9e1dd8d" class="outline-3">
-<h3 id="org9e1dd8d">Passing Command Line Arguments to a Module</h3>
-<div class="outline-text-3" id="text-org9e1dd8d">
+<div id="outline-container-orgc88a626" class="outline-3">
+<h3 id="orgc88a626">Passing Command Line Arguments to a Module</h3>
+<div class="outline-text-3" id="text-orgc88a626">
 <p>
 Modules can take command line arguments, but not with the argc/argv you might be used to.
 </p>
@@ -958,9 +950,9 @@ The module_param() macro takes 3 arguments: the name of the variable, its type a
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-type">int</span> <span class="org-variable-name">myint</span> = 3;
+<pre class="src src-c"><span class="org-type">int</span> <span class="org-variable-name">myint</span> = 3;
 module_param(myint, <span class="org-type">int</span>, 0);
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -968,13 +960,13 @@ Arrays are supported too, but things are a bit different now than they were in t
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-type">int</span> <span class="org-variable-name">myintarray</span>[2];
+<pre class="src src-c"><span class="org-type">int</span> <span class="org-variable-name">myintarray</span>[2];
 module_param_array(myintarray, <span class="org-type">int</span>, <span class="org-constant">NULL</span>, 0); <span class="org-comment-delimiter">/* </span><span class="org-comment">not interested in count </span><span class="org-comment-delimiter">*/</span>
 
 <span class="org-type">short</span> <span class="org-variable-name">myshortarray</span>[4];
 <span class="org-type">int</span> <span class="org-variable-name">count</span>;
 module_parm_array(myshortarray, <span class="org-type">short</span>, &amp;count, 0); <span class="org-comment-delimiter">/* </span><span class="org-comment">put count into "count" variable </span><span class="org-comment-delimiter">*/</span>
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -986,7 +978,7 @@ Lastly, there's a macro function, <b>MODULE_PARM_DESC()</b>, that is used to doc
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  hello-5.c - Demonstrates command line argument passing to a module.</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>
@@ -1036,27 +1028,27 @@ MODULE_PARM_DESC(myintArray, <span class="org-string">"An array of integers"</sp
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">__init</span> hello_5_init(<span class="org-type">void</span>)
 {
     <span class="org-type">int</span> <span class="org-variable-name">i</span>;
-    printk(KERN_INFO <span class="org-string">"Hello, world 5\n=============\n"</span>);
-    printk(KERN_INFO <span class="org-string">"myshort is a short integer: %hd\n"</span>, myshort);
-    printk(KERN_INFO <span class="org-string">"myint is an integer: %d\n"</span>, myint);
-    printk(KERN_INFO <span class="org-string">"mylong is a long integer: %ld\n"</span>, mylong);
-    printk(KERN_INFO <span class="org-string">"mystring is a string: %s\n"</span>, mystring);
+    pr_info(<span class="org-string">"Hello, world 5\n=============\n"</span>);
+    pr_info(<span class="org-string">"myshort is a short integer: %hd\n"</span>, myshort);
+    pr_info(<span class="org-string">"myint is an integer: %d\n"</span>, myint);
+    pr_info(<span class="org-string">"mylong is a long integer: %ld\n"</span>, mylong);
+    pr_info(<span class="org-string">"mystring is a string: %s\n"</span>, mystring);
     <span class="org-keyword">for</span> (i = 0; i &lt; (<span class="org-keyword">sizeof</span> myintArray / <span class="org-keyword">sizeof</span> (<span class="org-type">int</span>)); i++)
     {
-        printk(KERN_INFO <span class="org-string">"myintArray[%d] = %d\n"</span>, i, myintArray[i]);
+        pr_info(<span class="org-string">"myintArray[%d] = %d\n"</span>, i, myintArray[i]);
     }
-    printk(KERN_INFO <span class="org-string">"got %d arguments for myintArray.\n"</span>, arr_argc);
+    pr_info(<span class="org-string">"got %d arguments for myintArray.\n"</span>, arr_argc);
     <span class="org-keyword">return</span> 0;
 }
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">__exit</span> hello_5_exit(<span class="org-type">void</span>)
 {
-    printk(KERN_INFO <span class="org-string">"Goodbye, world 5\n"</span>);
+    pr_info(<span class="org-string">"Goodbye, world 5\n"</span>);
 }
 
 module_init(hello_5_init);
 module_exit(hello_5_exit);
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -1064,7 +1056,7 @@ I would recommend playing around with this code:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-txt"># sudo insmod hello-5.ko mystring="bebop" mybyte=255 myintArray=-1
+<pre class="src src-txt"># sudo insmod hello-5.ko mystring="bebop" mybyte=255 myintArray=-1
 mybyte is an 8 bit integer: 255
 myshort is a short integer: 1
 myint is an integer: 20
@@ -1089,14 +1081,14 @@ Goodbye, world 5
 
 # sudo insmod hello-5.ko mylong=hello
 hello-5.o: invalid argument syntax for mylong: 'h'
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgcd10981" class="outline-3">
-<h3 id="orgcd10981">Modules Spanning Multiple Files</h3>
-<div class="outline-text-3" id="text-orgcd10981">
+<div id="outline-container-orgcac6115" class="outline-3">
+<h3 id="orgcac6115">Modules Spanning Multiple Files</h3>
+<div class="outline-text-3" id="text-orgcac6115">
 <p>
 Sometimes it makes sense to divide a kernel module between several source files.
 </p>
@@ -1106,7 +1098,7 @@ Here's an example of such a kernel module.
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  start.c - Illustration of multi filed modules</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
 
@@ -1115,10 +1107,10 @@ Here's an example of such a kernel module.
 
 <span class="org-type">int</span> <span class="org-function-name">init_module</span>(<span class="org-type">void</span>)
 {
-    printk(KERN_INFO <span class="org-string">"Hello, world - this is the kernel speaking\n"</span>);
+    pr_info(<span class="org-string">"Hello, world - this is the kernel speaking\n"</span>);
     <span class="org-keyword">return</span> 0;
 }
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -1126,7 +1118,7 @@ The next file:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  stop.c - Illustration of multi filed modules</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
 
@@ -1135,9 +1127,9 @@ The next file:
 
 <span class="org-type">void</span> <span class="org-function-name">cleanup_module</span>()
 {
-    printk(KERN_INFO <span class="org-string">"Short is the life of a kernel module\n"</span>);
+    pr_info(<span class="org-string">"Short is the life of a kernel module\n"</span>);
 }
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -1145,7 +1137,7 @@ And finally, the makefile:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-makefile"><span class="org-variable-name">obj-m</span> += hello-1.o
+<pre class="src src-makefile"><span class="org-variable-name">obj-m</span> += hello-1.o
 <span class="org-variable-name">obj-m</span> += hello-2.o
 <span class="org-variable-name">obj-m</span> += hello-3.o
 <span class="org-variable-name">obj-m</span> += hello-4.o
@@ -1158,7 +1150,7 @@ And finally, the makefile:
 
 <span class="org-makefile-targets">clean</span>:
     make -C /lib/modules/$(<span class="org-variable-name">shell</span> uname -r)/build M=$(<span class="org-variable-name">PWD</span>) clean
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -1167,9 +1159,9 @@ This is the complete makefile for all the examples we've seen so far. The first 
 </div>
 </div>
 
-<div id="outline-container-orga65faca" class="outline-3">
-<h3 id="orga65faca">Building modules for a precompiled kernel</h3>
-<div class="outline-text-3" id="text-orga65faca">
+<div id="outline-container-orgd8499f9" class="outline-3">
+<h3 id="orgd8499f9">Building modules for a precompiled kernel</h3>
+<div class="outline-text-3" id="text-orgd8499f9">
 <p>
 Obviously, we strongly suggest you to recompile your kernel, so that you can enable a number of useful debugging features, such as forced module unloading (<b>MODULE_FORCE_UNLOAD</b>): when this option is enabled, you can force the kernel to unload a module even when it believes it is unsafe, via a <b>sudo rmmod -f module</b> command. This option can save you a lot of time and a number of reboots during the development of a module. If you don't want to recompile your kernel then you should consider running the examples within a test distro on a virtual machine. If you mess anything up then you can easily reboot or restore the VM.
 </p>
@@ -1183,8 +1175,8 @@ Now, if you just install a kernel source tree, use it to compile your kernel mod
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-txt">insmod: error inserting 'poet_atkm.ko': -1 Invalid module format
-</code></pre>
+<pre class="src src-txt">insmod: error inserting 'poet_atkm.ko': -1 Invalid module format
+</pre>
 </div>
 
 <p>
@@ -1192,9 +1184,9 @@ Less cryptical information are logged to the systemd journal:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-txt">Jun  4 22:07:54 localhost kernel: poet_atkm: version magic '2.6.5-1.358custom 686
+<pre class="src src-txt">Jun  4 22:07:54 localhost kernel: poet_atkm: version magic '2.6.5-1.358custom 686
 REGPARM 4KSTACKS gcc-3.3' should be '2.6.5-1.358 686 REGPARM 4KSTACKS gcc-3.3'
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -1202,13 +1194,13 @@ In other words, your kernel refuses to accept your module because version string
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-txt"># sudo modinfo hello-4.ko
+<pre class="src src-txt"># sudo modinfo hello-4.ko
 license:        GPL
 author:         Bob Mottram &lt;bob@freedombone.net&gt;
 description:    A sample driver
 vermagic:       4.12.12-1.358 amd64 REGPARM 4KSTACKS gcc-4.9.2
 depends:
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -1224,11 +1216,11 @@ Let's focus again on the previous error message: a closer look at the version ma
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-makefile"><span class="org-variable-name">VERSION</span> = 4
+<pre class="src src-makefile"><span class="org-variable-name">VERSION</span> = 4
 <span class="org-variable-name">PATCHLEVEL</span> = 7
 <span class="org-variable-name">SUBLEVEL</span> = 4
 <span class="org-variable-name">EXTRAVERSION</span> = -1.358custom
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -1240,7 +1232,7 @@ Now, please run make to update configuration and version headers and objects:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-txt"># make
+<pre class="src src-txt"># make
 CHK     include/linux/version.h
 UPD     include/linux/version.h
 SYMLINK include/asm -&gt; include/asm-i386
@@ -1251,7 +1243,7 @@ HOSTCC  scripts/basic/docproc
 HOSTCC  scripts/conmakehash
 HOSTCC  scripts/kallsyms
 CC      scripts/empty.o
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -1261,13 +1253,13 @@ If you do not desire to actually compile the kernel, you can interrupt the build
 </div>
 </div>
 
-<div id="outline-container-orgdeef601" class="outline-2">
-<h2 id="orgdeef601">Preliminaries</h2>
-<div class="outline-text-2" id="text-orgdeef601">
+<div id="outline-container-orgb6633e2" class="outline-2">
+<h2 id="orgb6633e2">Preliminaries</h2>
+<div class="outline-text-2" id="text-orgb6633e2">
 </div>
-<div id="outline-container-orgc8eceb0" class="outline-3">
-<h3 id="orgc8eceb0">How modules begin and end</h3>
-<div class="outline-text-3" id="text-orgc8eceb0">
+<div id="outline-container-org7f4891d" class="outline-3">
+<h3 id="org7f4891d">How modules begin and end</h3>
+<div class="outline-text-3" id="text-org7f4891d">
 <p>
 A program usually begins with a <b>main()</b> function, executes a bunch of instructions and terminates upon completion of those instructions. Kernel modules work a bit differently. A module always begin with either the init_module or the function you specify with module_init call. This is the entry function for modules; it tells the kernel what functionality the module provides and sets up the kernel to run the module's functions when they're needed. Once it does this, entry function returns and the module does nothing until the kernel wants to do something with the code that the module provides.
 </p>
@@ -1282,15 +1274,15 @@ Every module must have an entry function and an exit function. Since there's mor
 </div>
 </div>
 
-<div id="outline-container-org290f3df" class="outline-3">
-<h3 id="org290f3df">Functions available to modules</h3>
-<div class="outline-text-3" id="text-org290f3df">
+<div id="outline-container-org8021b97" class="outline-3">
+<h3 id="org8021b97">Functions available to modules</h3>
+<div class="outline-text-3" id="text-org8021b97">
 <p>
 Programmers use functions they don't define all the time. A prime example of this is <b>printf()</b>. You use these library functions which are provided by the standard C library, libc. The definitions for these functions don't actually enter your program until the linking stage, which insures that the code (for printf() for example) is available, and fixes the call instruction to point to that code.
 </p>
 
 <p>
-Kernel modules are different here, too. In the hello world example, you might have noticed that we used a function, <b>printk()</b> but didn't include a standard I/O library. That's because modules are object files whose symbols get resolved upon insmod'ing. The definition for the symbols comes from the kernel itself; the only external functions you can use are the ones provided by the kernel. If you're curious about what symbols have been exported by your kernel, take a look at <b>/proc/kallsyms</b>.
+Kernel modules are different here, too. In the hello world example, you might have noticed that we used a function, <b>pr_info()</b> but didn't include a standard I/O library. That's because modules are object files whose symbols get resolved upon insmod'ing. The definition for the symbols comes from the kernel itself; the only external functions you can use are the ones provided by the kernel. If you're curious about what symbols have been exported by your kernel, take a look at <b>/proc/kallsyms</b>.
 </p>
 
 <p>
@@ -1302,14 +1294,14 @@ Would you like to see what system calls are made by printf()? It's easy! Compile
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
 
 <span class="org-type">int</span> <span class="org-function-name">main</span>(<span class="org-type">void</span>)
 {
     printf(<span class="org-string">"hello"</span>);
     <span class="org-keyword">return</span> 0;
 }
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -1322,9 +1314,9 @@ You can even write modules to replace the kernel's system calls, which we'll do 
 </div>
 </div>
 
-<div id="outline-container-orga7850df" class="outline-3">
-<h3 id="orga7850df">User Space vs Kernel Space</h3>
-<div class="outline-text-3" id="text-orga7850df">
+<div id="outline-container-org2487a6b" class="outline-3">
+<h3 id="org2487a6b">User Space vs Kernel Space</h3>
+<div class="outline-text-3" id="text-org2487a6b">
 <p>
 A kernel is all about access to resources, whether the resource in question happens to be a video card, a hard drive or even memory. Programs often compete for the same resource. As I just saved this document, updatedb started updating the locate database. My vim session and updatedb are both using the hard drive concurrently. The kernel needs to keep things orderly, and not give users access to resources whenever they feel like it. To this end, a CPU can run in different modes. Each mode gives a different level of freedom to do what you want on the system. The Intel 80386 architecture had 4 of these modes, which were called rings. Unix uses only two rings; the highest ring (ring 0, also known as `supervisor mode' where everything is allowed to happen) and the lowest ring, which is called `user mode'.
 </p>
@@ -1335,9 +1327,9 @@ Recall the discussion about library functions vs system calls. Typically, you us
 </div>
 </div>
 
-<div id="outline-container-org4b4877b" class="outline-3">
-<h3 id="org4b4877b">Name Space</h3>
-<div class="outline-text-3" id="text-org4b4877b">
+<div id="outline-container-orgd5dd329" class="outline-3">
+<h3 id="orgd5dd329">Name Space</h3>
+<div class="outline-text-3" id="text-orgd5dd329">
 <p>
 When you write a small C program, you use variables which are convenient and make sense to the reader. If, on the other hand, you're writing routines which will be part of a bigger problem, any global variables you have are part of a community of other peoples' global variables; some of the variable names can clash. When a program has lots of global variables which aren't meaningful enough to be distinguished, you get namespace pollution. In large projects, effort must be made to remember reserved names, and to find ways to develop a scheme for naming unique variable names and symbols.
 </p>
@@ -1352,9 +1344,9 @@ The file <b>/proc/kallsyms</b> holds all the symbols that the kernel knows about
 </div>
 </div>
 
-<div id="outline-container-org7e3a491" class="outline-3">
-<h3 id="org7e3a491">Code space</h3>
-<div class="outline-text-3" id="text-org7e3a491">
+<div id="outline-container-org3cb9562" class="outline-3">
+<h3 id="org3cb9562">Code space</h3>
+<div class="outline-text-3" id="text-org3cb9562">
 <p>
 Memory management is a very complicated subject and the majority of O'Reilly's "<i>Understanding The Linux Kernel</i>" exclusively covers memory management! We're not setting out to be experts on memory managements, but we do need to know a couple of facts to even begin worrying about writing real modules.
 </p>
@@ -1373,27 +1365,27 @@ By the way, I would like to point out that the above discussion is true for any 
 </div>
 </div>
 
-<div id="outline-container-org6c0b122" class="outline-3">
-<h3 id="org6c0b122">Device Drivers</h3>
-<div class="outline-text-3" id="text-org6c0b122">
+<div id="outline-container-orgb4dc531" class="outline-3">
+<h3 id="orgb4dc531">Device Drivers</h3>
+<div class="outline-text-3" id="text-orgb4dc531">
 <p>
 One class of module is the device driver, which provides functionality for hardware like a serial port. On unix, each piece of hardware is represented by a file located in /dev named a device file which provides the means to communicate with the hardware. The device driver provides the communication on behalf of a user program. So the es1370.o sound card device driver might connect the /dev/sound device file to the Ensoniq IS1370 sound card. A userspace program like mp3blaster can use /dev/sound without ever knowing what kind of sound card is installed.
 </p>
 </div>
 
 <ul class="org-ul">
-<li><a id="orga17bef9"></a>Major and Minor Numbers<br />
-<div class="outline-text-5" id="text-orga17bef9">
+<li><a id="org5036a9c"></a>Major and Minor Numbers<br />
+<div class="outline-text-5" id="text-org5036a9c">
 <p>
 Let's look at some device files. Here are device files which represent the first three partitions on the primary master IDE hard drive:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">ls -l /dev/hda[1-3]</span>
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">ls -l /dev/hda[1-3]</span>
 brw-rw----  1 root  disk  3, 1 Jul  5  2000 /dev/hda1
 brw-rw----  1 root  disk  3, 2 Jul  5  2000 /dev/hda2
 brw-rw----  1 root  disk  3, 3 Jul  5  2000 /dev/hda3
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -1409,11 +1401,11 @@ Devices are divided into two types: character devices and block devices. The dif
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">crw-rw----  1 root  dial 4, 64 Feb 18 23:34 /dev/ttyS0
+<pre class="src src-sh">crw-rw----  1 root  dial 4, 64 Feb 18 23:34 /dev/ttyS0
 crw-r-----  1 root  dial 4, 65 Nov 17 10:26 /dev/ttyS1
 crw-rw----  1 root  dial 4, 66 Jul  5  2000 /dev/ttyS2
 crw-rw----  1 root  dial 4, 67 Jul  5  2000 /dev/ttyS3
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -1433,10 +1425,10 @@ By the way, when I say `hardware', I mean something a bit more abstract than a P
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">% ls -l /dev/fd0 /dev/fd0u1680
+<pre class="src src-sh">% ls -l /dev/fd0 /dev/fd0u1680
 brwxrwxrwx   1 root  floppy   2,  0 Jul  5  2000 /dev/fd0
 brw-rw----   1 root  floppy   2, 44 Jul  5  2000 /dev/fd0u1680
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -1448,13 +1440,13 @@ By now you can look at these two device files and know instantly that they are b
 </div>
 </div>
 
-<div id="outline-container-org016c39a" class="outline-2">
-<h2 id="org016c39a">Character Device drivers</h2>
-<div class="outline-text-2" id="text-org016c39a">
+<div id="outline-container-org952d427" class="outline-2">
+<h2 id="org952d427">Character Device drivers</h2>
+<div class="outline-text-2" id="text-org952d427">
 </div>
-<div id="outline-container-org31d952e" class="outline-3">
-<h3 id="org31d952e">The file_operations Structure</h3>
-<div class="outline-text-3" id="text-org31d952e">
+<div id="outline-container-org1f70982" class="outline-3">
+<h3 id="org1f70982">The file_operations Structure</h3>
+<div class="outline-text-3" id="text-org1f70982">
 <p>
 The file_operations structure is defined in <b>/usr/include/linux/fs.h</b>, and holds pointers to functions defined by the driver that perform various operations on the device. Each field of the structure corresponds to the address of some function defined by the driver to handle a requested operation.
 </p>
@@ -1464,7 +1456,7 @@ For example, every character driver needs to define a function that reads from t
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-keyword">struct</span> <span class="org-type">file_operations</span> {
+<pre class="src src-c"><span class="org-keyword">struct</span> <span class="org-type">file_operations</span> {
     <span class="org-keyword">struct</span> <span class="org-type">module</span> *<span class="org-variable-name">owner</span>;
     <span class="org-type">loff_t</span> (*<span class="org-function-name">llseek</span>) (<span class="org-keyword">struct</span> <span class="org-type">file</span> *, <span class="org-type">loff_t</span>, <span class="org-type">int</span>);
     <span class="org-type">ssize_t</span> (*<span class="org-function-name">read</span>) (<span class="org-keyword">struct</span> <span class="org-type">file</span> *, <span class="org-type">char</span> <span class="org-variable-name">__user</span> *, <span class="org-type">size_t</span>, <span class="org-type">loff_t</span> *);
@@ -1494,7 +1486,7 @@ For example, every character driver needs to define a function that reads from t
               <span class="org-type">loff_t</span> <span class="org-variable-name">len</span>);
     <span class="org-type">int</span> (*<span class="org-function-name">show_fdinfo</span>)(<span class="org-keyword">struct</span> <span class="org-type">seq_file</span> *<span class="org-variable-name">m</span>, <span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">f</span>);
 };
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -1506,13 +1498,13 @@ There is a gcc extension that makes assigning to this structure more convenient.
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-keyword">struct</span> <span class="org-type">file_operations</span> <span class="org-variable-name">fops</span> = {
+<pre class="src src-c"><span class="org-keyword">struct</span> <span class="org-type">file_operations</span> <span class="org-variable-name">fops</span> = {
         read: device_read,
         write: device_write,
         open: device_open,
         release: device_release
 };
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -1520,13 +1512,13 @@ However, there's also a C99 way of assigning to elements of a structure, and thi
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-keyword">struct</span> <span class="org-type">file_operations</span> <span class="org-variable-name">fops</span> = {
+<pre class="src src-c"><span class="org-keyword">struct</span> <span class="org-type">file_operations</span> <span class="org-variable-name">fops</span> = {
         .read = device_read,
         .write = device_write,
         .open = device_open,
         .release = device_release
 };
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -1539,9 +1531,9 @@ An instance of struct file_operations containing pointers to functions that are 
 </div>
 </div>
 
-<div id="outline-container-org607b208" class="outline-3">
-<h3 id="org607b208">The file structure</h3>
-<div class="outline-text-3" id="text-org607b208">
+<div id="outline-container-org7c65651" class="outline-3">
+<h3 id="org7c65651">The file structure</h3>
+<div class="outline-text-3" id="text-org7c65651">
 <p>
 Each device is represented in the kernel by a file structure, which is defined in <b>linux/fs.h</b>. Be aware that a file is a kernel level structure and never appears in a user space program. It's not the same thing as a <b>FILE</b>, which is defined by glibc and would never appear in a kernel space function. Also, its name is a bit misleading; it represents an abstract open `file', not a file on a disk, which is represented by a structure named inode.
 </p>
@@ -1556,9 +1548,9 @@ Go ahead and look at the definition of file. Most of the entries you see, like s
 </div>
 </div>
 
-<div id="outline-container-orgf96ab85" class="outline-3">
-<h3 id="orgf96ab85">Registering A Device</h3>
-<div class="outline-text-3" id="text-orgf96ab85">
+<div id="outline-container-org88f75aa" class="outline-3">
+<h3 id="org88f75aa">Registering A Device</h3>
+<div class="outline-text-3" id="text-org88f75aa">
 <p>
 As discussed earlier, char devices are accessed through device files, usually located in /dev. This is by convention. When writing a driver, it's OK to put the device file in your current directory. Just make sure you place it in /dev for a production driver. The major number tells you which driver handles which device file. The minor number is used only by the driver itself to differentiate which device it's operating on, just in case the driver handles more than one device.
 </p>
@@ -1568,8 +1560,8 @@ Adding a driver to your system means registering it with the kernel. This is syn
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-type">int</span> <span class="org-function-name">register_chrdev</span>(<span class="org-type">unsigned</span> <span class="org-type">int</span> <span class="org-variable-name">major</span>, <span class="org-keyword">const</span> <span class="org-type">char</span> *<span class="org-variable-name">name</span>, <span class="org-keyword">struct</span> <span class="org-type">file_operations</span> *<span class="org-variable-name">fops</span>);
-</code></pre>
+<pre class="src src-c"><span class="org-type">int</span> <span class="org-function-name">register_chrdev</span>(<span class="org-type">unsigned</span> <span class="org-type">int</span> <span class="org-variable-name">major</span>, <span class="org-keyword">const</span> <span class="org-type">char</span> *<span class="org-variable-name">name</span>, <span class="org-keyword">struct</span> <span class="org-type">file_operations</span> *<span class="org-variable-name">fops</span>);
+</pre>
 </div>
 
 <p>
@@ -1586,9 +1578,9 @@ If you pass a major number of 0 to register_chrdev, the return value will be the
 </div>
 </div>
 
-<div id="outline-container-org452ea75" class="outline-3">
-<h3 id="org452ea75">Unregistering A Device</h3>
-<div class="outline-text-3" id="text-org452ea75">
+<div id="outline-container-org33e8c4e" class="outline-3">
+<h3 id="org33e8c4e">Unregistering A Device</h3>
+<div class="outline-text-3" id="text-org33e8c4e">
 <p>
 We can't allow the kernel module to be rmmod'ed whenever root feels like it. If the device file is opened by a process and then we remove the kernel module, using the file would cause a call to the memory location where the appropriate function (read/write) used to be. If we're lucky, no other code was loaded there, and we'll get an ugly error message. If we're unlucky, another kernel module was loaded into the same location, which means a jump into the middle of another function within the kernel. The results of this would be impossible to predict, but they can't be very positive.
 </p>
@@ -1608,16 +1600,16 @@ It's important to keep the counter accurate; if you ever do lose track of the co
 </div>
 </div>
 
-<div id="outline-container-orgdd49880" class="outline-3">
-<h3 id="orgdd49880">chardev.c</h3>
-<div class="outline-text-3" id="text-orgdd49880">
+<div id="outline-container-org4a28a33" class="outline-3">
+<h3 id="org4a28a33">chardev.c</h3>
+<div class="outline-text-3" id="text-org4a28a33">
 <p>
 The next code sample creates a char driver named chardev. You can cat its device file.
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-bash">cat /proc/devices
-</code></pre>
+<pre class="src src-bash">cat /proc/devices
+</pre>
 </div>
 
 <p>
@@ -1625,7 +1617,7 @@ The next code sample creates a char driver named chardev. You can cat its device
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  chardev.c: Creates a read-only char device that says how many times</span>
 <span class="org-comment"> *  you've read from the dev file</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
@@ -1674,16 +1666,16 @@ The next code sample creates a char driver named chardev. You can cat its device
         Major = register_chrdev(0, DEVICE_NAME, &amp;fops);
 
         <span class="org-keyword">if</span> (Major &lt; 0) {
-          printk(KERN_ALERT <span class="org-string">"Registering char device failed with %d\n"</span>, Major);
+          pr_alert(<span class="org-string">"Registering char device failed with %d\n"</span>, Major);
           <span class="org-keyword">return</span> Major;
         }
 
-        printk(KERN_INFO <span class="org-string">"I was assigned major number %d. To talk to\n"</span>, Major);
-        printk(KERN_INFO <span class="org-string">"the driver, create a dev file with\n"</span>);
-        printk(KERN_INFO <span class="org-string">"'mknod /dev/%s c %d 0'.\n"</span>, DEVICE_NAME, Major);
-        printk(KERN_INFO <span class="org-string">"Try various minor numbers. Try to cat and echo to\n"</span>);
-        printk(KERN_INFO <span class="org-string">"the device file.\n"</span>);
-        printk(KERN_INFO <span class="org-string">"Remove the device file and module when done.\n"</span>);
+        pr_info(<span class="org-string">"I was assigned major number %d. To talk to\n"</span>, Major);
+        pr_info(<span class="org-string">"the driver, create a dev file with\n"</span>);
+        pr_info(<span class="org-string">"'mknod /dev/%s c %d 0'.\n"</span>, DEVICE_NAME, Major);
+        pr_info(<span class="org-string">"Try various minor numbers. Try to cat and echo to\n"</span>);
+        pr_info(<span class="org-string">"the device file.\n"</span>);
+        pr_info(<span class="org-string">"Remove the device file and module when done.\n"</span>);
 
         <span class="org-keyword">return</span> SUCCESS;
 }
@@ -1790,17 +1782,17 @@ The next code sample creates a char driver named chardev. You can cat its device
                 <span class="org-type">size_t</span> <span class="org-variable-name">len</span>,
                 <span class="org-type">loff_t</span> * <span class="org-variable-name">off</span>)
 {
-        printk(KERN_ALERT <span class="org-string">"Sorry, this operation isn't supported.\n"</span>);
+        pr_alert(<span class="org-string">"Sorry, this operation isn't supported.\n"</span>);
         <span class="org-keyword">return</span> -EINVAL;
 }
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org903f5d5" class="outline-3">
-<h3 id="org903f5d5">Writing Modules for Multiple Kernel Versions</h3>
-<div class="outline-text-3" id="text-org903f5d5">
+<div id="outline-container-orgbcf1c83" class="outline-3">
+<h3 id="orgbcf1c83">Writing Modules for Multiple Kernel Versions</h3>
+<div class="outline-text-3" id="text-orgbcf1c83">
 <p>
 The system calls, which are the major interface the kernel shows to the processes, generally stay the same across versions. A new system call may be added, but usually the old ones will behave exactly like they used to. This is necessary for backward compatibility &#x2013; a new kernel version is not supposed to break regular processes. In most cases, the device files will also remain the same. On the other hand, the internal interfaces within the kernel can and do change between versions.
 </p>
@@ -1824,9 +1816,9 @@ You might already have noticed that recent kernels look different. In case you h
 </div>
 </div>
 
-<div id="outline-container-org6400501" class="outline-2">
-<h2 id="org6400501">The /proc File System</h2>
-<div class="outline-text-2" id="text-org6400501">
+<div id="outline-container-orgf6ba9df" class="outline-2">
+<h2 id="orgf6ba9df">The /proc File System</h2>
+<div class="outline-text-2" id="text-orgf6ba9df">
 <p>
 In Linux, there is an additional mechanism for the kernel and kernel modules to send information to processes &#x2014; the <b>/proc</b> file system. Originally designed to allow easy access to information about processes (hence the name), it is now used by every bit of the kernel which has something interesting to report, such as <b>/proc/modules</b> which provides the list of modules and <b>/proc/meminfo</b> which stats memory usage statistics.
 </p>
@@ -1856,13 +1848,13 @@ Each time, everytime the file <b>/proc/helloworld</b> is read, the function <b>p
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-txt"># cat /proc/helloworld
+<pre class="src src-txt"># cat /proc/helloworld
 HelloWorld!
-</code></pre>
+</pre>
 </div>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> procfs1.c</span>
 <span class="org-comment-delimiter">*/</span>
 
@@ -1881,7 +1873,7 @@ HelloWorld!
 {
     <span class="org-type">int</span> <span class="org-variable-name">ret</span>=0;
     <span class="org-keyword">if</span>(strlen(buffer) ==0) {
-        printk(KERN_INFO <span class="org-string">"procfile read %s\n"</span>,filePointer-&gt;f_path.dentry-&gt;d_name.name);
+        pr_info(<span class="org-string">"procfile read %s\n"</span>,filePointer-&gt;f_path.dentry-&gt;d_name.name);
         ret=copy_to_user(buffer,<span class="org-string">"HelloWorld!\n"</span>,<span class="org-keyword">sizeof</span>(<span class="org-string">"HelloWorld!\n"</span>));
         ret=<span class="org-keyword">sizeof</span>(<span class="org-string">"HelloWorld!\n"</span>);
     }
@@ -1899,26 +1891,26 @@ HelloWorld!
     Our_Proc_File = proc_create(procfs_name,0644,<span class="org-constant">NULL</span>,&amp;proc_file_fops);
     <span class="org-keyword">if</span>(<span class="org-constant">NULL</span>==Our_Proc_File) {
         proc_remove(Our_Proc_File);
-        printk(KERN_ALERT <span class="org-string">"Error:Could not initialize /proc/%s\n"</span>,procfs_name);
+        pr_alert(<span class="org-string">"Error:Could not initialize /proc/%s\n"</span>,procfs_name);
         <span class="org-keyword">return</span> -ENOMEM;
     }
 
-    printk(KERN_INFO <span class="org-string">"/proc/%s created\n"</span>, procfs_name);
+    pr_info(<span class="org-string">"/proc/%s created\n"</span>, procfs_name);
     <span class="org-keyword">return</span> 0;
 }
 
 <span class="org-type">void</span> <span class="org-function-name">cleanup_module</span>()
 {
     proc_remove(Our_Proc_File);
-    printk(KERN_INFO <span class="org-string">"/proc/%s removed\n"</span>, procfs_name);
+    pr_info(<span class="org-string">"/proc/%s removed\n"</span>, procfs_name);
 }
-</code></pre>
+</pre>
 </div>
 </div>
 
-<div id="outline-container-orga906618" class="outline-3">
-<h3 id="orga906618">Read and Write a /proc File</h3>
-<div class="outline-text-3" id="text-orga906618">
+<div id="outline-container-org43d4889" class="outline-3">
+<h3 id="org43d4889">Read and Write a /proc File</h3>
+<div class="outline-text-3" id="text-org43d4889">
 <p>
 We have seen a very simple example for a /proc file where we only read the file /proc/helloworld. It's also possible to write in a /proc file. It works the same way as read, a function is called when the /proc file is written. But there is a little difference with read, data comes from user, so you have to import data from user space to kernel space (with copy_from_user or get_user)
 </p>
@@ -1932,7 +1924,7 @@ The only memory segment accessible to a process is its own, so when writing regu
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-doc">/**</span>
+<pre class="src src-c"><span class="org-doc">/**</span>
 <span class="org-doc"> *  procfs2.c -  create a "file" in /proc</span>
 <span class="org-doc"> *</span>
 <span class="org-doc"> */</span>
@@ -1972,7 +1964,7 @@ The only memory segment accessible to a process is its own, so when writing regu
 {
     <span class="org-type">int</span> <span class="org-variable-name">ret</span>=0;
     <span class="org-keyword">if</span>(strlen(buffer) ==0) {
-        printk(KERN_INFO <span class="org-string">"procfile read %s\n"</span>,filePointer-&gt;f_path.dentry-&gt;d_name.name);
+        pr_info(<span class="org-string">"procfile read %s\n"</span>,filePointer-&gt;f_path.dentry-&gt;d_name.name);
         ret=copy_to_user(buffer,<span class="org-string">"HelloWorld!\n"</span>,<span class="org-keyword">sizeof</span>(<span class="org-string">"HelloWorld!\n"</span>));
         ret=<span class="org-keyword">sizeof</span>(<span class="org-string">"HelloWorld!\n"</span>);
     }
@@ -2013,11 +2005,11 @@ The only memory segment accessible to a process is its own, so when writing regu
     Our_Proc_File = proc_create(PROCFS_NAME,0644,<span class="org-constant">NULL</span>,&amp;proc_file_fops);
     <span class="org-keyword">if</span>(<span class="org-constant">NULL</span>==Our_Proc_File) {
         proc_remove(Our_Proc_File);
-        printk(KERN_ALERT <span class="org-string">"Error:Could not initialize /proc/%s\n"</span>,PROCFS_NAME);
+        pr_alert(<span class="org-string">"Error:Could not initialize /proc/%s\n"</span>,PROCFS_NAME);
         <span class="org-keyword">return</span> -ENOMEM;
     }
 
-    printk(KERN_INFO <span class="org-string">"/proc/%s created\n"</span>, PROCFS_NAME);
+    pr_info(<span class="org-string">"/proc/%s created\n"</span>, PROCFS_NAME);
     <span class="org-keyword">return</span> 0;
 }
 
@@ -2028,16 +2020,16 @@ The only memory segment accessible to a process is its own, so when writing regu
 <span class="org-type">void</span> <span class="org-function-name">cleanup_module</span>()
 {
     proc_remove(Our_Proc_File);
-    printk(KERN_INFO <span class="org-string">"/proc/%s removed\n"</span>, PROCFS_NAME);
+    pr_info(<span class="org-string">"/proc/%s removed\n"</span>, PROCFS_NAME);
 }
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org561d817" class="outline-3">
-<h3 id="org561d817">Manage /proc file with standard filesystem</h3>
-<div class="outline-text-3" id="text-org561d817">
+<div id="outline-container-org1607657" class="outline-3">
+<h3 id="org1607657">Manage /proc file with standard filesystem</h3>
+<div class="outline-text-3" id="text-org1607657">
 <p>
 We have seen how to read and write a /proc file with the /proc interface. But it's also possible to manage /proc file with inodes. The main concern is to use advanced functions, like permissions.
 </p>
@@ -2063,7 +2055,7 @@ It's important to note that the standard roles of read and write are reversed in
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment">    procfs3.c</span>
 <span class="org-comment-delimiter">*/</span>
 
@@ -2086,14 +2078,14 @@ It's important to note that the standard roles of read and write are reversed in
     <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-variable-name">finished</span> = 0;
     <span class="org-keyword">if</span>(finished)
     {
-        printk(KERN_DEBUG <span class="org-string">"procfs_read: END\n"</span>);
+        pr_debug(<span class="org-string">"procfs_read: END\n"</span>);
         finished = 0;
         <span class="org-keyword">return</span> 0;
     }
     finished = 1;
     <span class="org-keyword">if</span>(copy_to_user(buffer, procfs_buffer, procfs_buffer_size))
         <span class="org-keyword">return</span> -EFAULT;
-    printk(KERN_DEBUG <span class="org-string">"procfs_read: read %lu bytes\n"</span>, procfs_buffer_size);
+    pr_debug(<span class="org-string">"procfs_read: read %lu bytes\n"</span>, procfs_buffer_size);
     <span class="org-keyword">return</span> procfs_buffer_size;
 }
 <span class="org-keyword">static</span> <span class="org-type">ssize_t</span> <span class="org-function-name">procfs_write</span>(<span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">file</span>,  <span class="org-keyword">const</span> <span class="org-type">char</span> *<span class="org-variable-name">buffer</span>,
@@ -2105,7 +2097,7 @@ It's important to note that the standard roles of read and write are reversed in
         procfs_buffer_size = len;
     <span class="org-keyword">if</span>(copy_from_user(procfs_buffer, buffer, procfs_buffer_size))
         <span class="org-keyword">return</span> -EFAULT;
-    printk(KERN_DEBUG <span class="org-string">"procfs_write: write %lu bytes\n"</span>, procfs_buffer_size);
+    pr_debug(<span class="org-string">"procfs_write: write %lu bytes\n"</span>, procfs_buffer_size);
     <span class="org-keyword">return</span> procfs_buffer_size;
 }
 <span class="org-type">int</span> <span class="org-function-name">procfs_open</span>(<span class="org-keyword">struct</span> <span class="org-type">inode</span> *<span class="org-variable-name">inode</span>, <span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">file</span>)
@@ -2132,21 +2124,21 @@ It's important to note that the standard roles of read and write are reversed in
     <span class="org-keyword">if</span>(Our_Proc_File == <span class="org-constant">NULL</span>)
     {
         remove_proc_entry(PROCFS_ENTRY_FILENAME, <span class="org-constant">NULL</span>);
-        printk(KERN_DEBUG <span class="org-string">"Error: Could not initialize /proc/%s\n"</span>, PROCFS_ENTRY_FILENAME);
+        pr_debug(<span class="org-string">"Error: Could not initialize /proc/%s\n"</span>, PROCFS_ENTRY_FILENAME);
         <span class="org-keyword">return</span> -ENOMEM;
     }
     proc_set_size(Our_Proc_File, 80);
     proc_set_user(Our_Proc_File,  GLOBAL_ROOT_UID, GLOBAL_ROOT_GID);
 
-    printk(KERN_DEBUG <span class="org-string">"/proc/%s created\n"</span>, PROCFS_ENTRY_FILENAME);
+    pr_debug(<span class="org-string">"/proc/%s created\n"</span>, PROCFS_ENTRY_FILENAME);
     <span class="org-keyword">return</span> 0;
 }
 <span class="org-type">void</span> <span class="org-function-name">cleanup_module</span>()
 {
     remove_proc_entry(PROCFS_ENTRY_FILENAME, <span class="org-constant">NULL</span>);
-    printk(KERN_DEBUG <span class="org-string">"/proc/%s removed\n"</span>, PROCFS_ENTRY_FILENAME);
+    pr_debug(<span class="org-string">"/proc/%s removed\n"</span>, PROCFS_ENTRY_FILENAME);
 }
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -2155,9 +2147,9 @@ Still hungry for procfs examples? Well, first of all keep in mind, there are rum
 </div>
 </div>
 
-<div id="outline-container-org38ea52f" class="outline-3">
-<h3 id="org38ea52f">Manage /proc file with seq_file</h3>
-<div class="outline-text-3" id="text-org38ea52f">
+<div id="outline-container-org1f457d2" class="outline-3">
+<h3 id="org1f457d2">Manage /proc file with seq_file</h3>
+<div class="outline-text-3" id="text-org1f457d2">
 <p>
 As we have seen, writing a /proc file may be quite "complex". So to help
 people writting /proc file, there is an API named seq_file that helps
@@ -2192,7 +2184,7 @@ Seq_file provides basic functions for file_operations, as seq_read, seq_lseek, a
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-doc">/**</span>
+<pre class="src src-c"><span class="org-doc">/**</span>
 <span class="org-doc"> *  procfs4.c -  create a "file" in /proc</span>
 <span class="org-doc"> *      This program uses the seq_file library to manage the /proc file.</span>
 <span class="org-doc"> *</span>
@@ -2310,7 +2302,7 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
     <span class="org-keyword">if</span>(entry == <span class="org-constant">NULL</span>)
     {
         remove_proc_entry(PROC_NAME, <span class="org-constant">NULL</span>);
-        printk(KERN_DEBUG <span class="org-string">"Error: Could not initialize /proc/%s\n"</span>, PROC_NAME);
+        pr_debug(<span class="org-string">"Error: Could not initialize /proc/%s\n"</span>, PROC_NAME);
         <span class="org-keyword">return</span> -ENOMEM;
     }
 
@@ -2324,9 +2316,9 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 <span class="org-type">void</span> <span class="org-function-name">cleanup_module</span>(<span class="org-type">void</span>)
 {
     remove_proc_entry(PROC_NAME, <span class="org-constant">NULL</span>);
-    printk(KERN_DEBUG <span class="org-string">"/proc/%s removed\n"</span>, PROC_NAME);
+    pr_debug(<span class="org-string">"/proc/%s removed\n"</span>, PROC_NAME);
 }
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -2347,16 +2339,16 @@ You can also read the code of fs/seq_file.c in the linux kernel.
 </div>
 </div>
 
-<div id="outline-container-org954957f" class="outline-2">
-<h2 id="org954957f">sysfs: Interacting with your module</h2>
-<div class="outline-text-2" id="text-org954957f">
+<div id="outline-container-orgf71ef7e" class="outline-2">
+<h2 id="orgf71ef7e">sysfs: Interacting with your module</h2>
+<div class="outline-text-2" id="text-orgf71ef7e">
 <p>
 <i>sysfs</i> allows you to interact with the running kernel from userspace by reading or setting variables inside of modules. This can be useful for debugging purposes, or just as an interface for applications or scripts. You can find sysfs directories and files under the <i>sys</i> directory on your system.
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-bash">ls -l /sys
-</code></pre>
+<pre class="src src-bash">ls -l /sys
+</pre>
 </div>
 
 <p>
@@ -2364,12 +2356,11 @@ An example of a hello world module which includes the creation of a variable acc
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> * hello-sysfs.c sysfs example</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
 
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>
-<span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/printk.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kobject.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/sysfs.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/init.h&gt;</span>
@@ -2408,7 +2399,7 @@ MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 {
     <span class="org-type">int</span> <span class="org-variable-name">error</span> = 0;
 
-    printk(KERN_INFO <span class="org-string">"mymodule: initialised\n"</span>);
+    pr_info(<span class="org-string">"mymodule: initialised\n"</span>);
 
     mymodule =
         kobject_create_and_add(<span class="org-string">"mymodule"</span>, kernel_kobj);
@@ -2417,7 +2408,7 @@ MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 
     error = sysfs_create_file(mymodule, &amp;myvariable_attribute.attr);
     <span class="org-keyword">if</span> (error) {
-        printk(KERN_INFO <span class="org-string">"failed to create the myvariable file "</span> \
+        pr_info(<span class="org-string">"failed to create the myvariable file "</span> \
                <span class="org-string">"in /sys/kernel/mymodule\n"</span>);
     }
 
@@ -2426,13 +2417,13 @@ MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">__exit</span> mymodule_exit (<span class="org-type">void</span>)
 {
-    printk(KERN_INFO <span class="org-string">"mymodule: Exit success\n"</span>);
+    pr_info(<span class="org-string">"mymodule: Exit success\n"</span>);
     kobject_put(mymodule);
 }
 
 module_init(mymodule_init);
 module_exit(mymodule_exit);
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -2440,9 +2431,9 @@ Make and install the module:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">make
+<pre class="src src-sh">make
 sudo insmod hello-sysfs.ko
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -2450,8 +2441,8 @@ Check that it exists:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo lsmod | grep hello_sysfs
-</code></pre>
+<pre class="src src-sh">sudo lsmod | grep hello_sysfs
+</pre>
 </div>
 
 <p>
@@ -2459,8 +2450,8 @@ What is the current value of <i>myvariable</i> ?
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">cat /sys/kernel/mymodule/myvariable
-</code></pre>
+<pre class="src src-sh">cat /sys/kernel/mymodule/myvariable
+</pre>
 </div>
 
 <p>
@@ -2468,9 +2459,9 @@ Set the value of <i>myvariable</i> and check that it changed.
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh"><span class="org-builtin">echo</span> <span class="org-string">"32"</span> &gt; /sys/kernel/mymodule/myvariable
+<pre class="src src-sh"><span class="org-builtin">echo</span> <span class="org-string">"32"</span> &gt; /sys/kernel/mymodule/myvariable
 cat /sys/kernel/mymodule/myvariable
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -2478,15 +2469,15 @@ Finally, remove the test module:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo rmmod hello_sysfs
-</code></pre>
+<pre class="src src-sh">sudo rmmod hello_sysfs
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org438f37b" class="outline-2">
-<h2 id="org438f37b">Talking To Device Files</h2>
-<div class="outline-text-2" id="text-org438f37b">
+<div id="outline-container-org18e4279" class="outline-2">
+<h2 id="org18e4279">Talking To Device Files</h2>
+<div class="outline-text-2" id="text-org18e4279">
 <p>
 Device files are supposed to represent physical devices. Most physical devices are used for output as well as input, so there has to be some mechanism for device drivers in the kernel to get the output to send to the device from processes. This is done by opening the device file for output and writing to it, just like writing to a file. In the following example, this is implemented by device_write.
 </p>
@@ -2512,7 +2503,7 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  chardev2.c - Create an input/output character device</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
 
@@ -2550,7 +2541,7 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">device_open</span>(<span class="org-keyword">struct</span> <span class="org-type">inode</span> *<span class="org-variable-name">inode</span>, <span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">file</span>)
 {
 <span class="org-preprocessor">#ifdef</span> DEBUG
-        printk(KERN_INFO <span class="org-string">"device_open(%p)\n"</span>, file);
+        pr_info(<span class="org-string">"device_open(%p)\n"</span>, file);
 <span class="org-preprocessor">#endif</span>
 
     <span class="org-comment-delimiter">/*</span>
@@ -2571,7 +2562,7 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">device_release</span>(<span class="org-keyword">struct</span> <span class="org-type">inode</span> *<span class="org-variable-name">inode</span>, <span class="org-keyword">struct</span> <span class="org-type">file</span> *<span class="org-variable-name">file</span>)
 {
 <span class="org-preprocessor">#ifdef</span> DEBUG
-    printk(KERN_INFO <span class="org-string">"device_release(%p,%p)\n"</span>, inode, file);
+    pr_info(<span class="org-string">"device_release(%p,%p)\n"</span>, inode, file);
 <span class="org-preprocessor">#endif</span>
 
     <span class="org-comment-delimiter">/*</span>
@@ -2599,7 +2590,7 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
     <span class="org-type">int</span> <span class="org-variable-name">bytes_read</span> = 0;
 
 <span class="org-preprocessor">#ifdef</span> DEBUG
-    printk(KERN_INFO <span class="org-string">"device_read(%p,%p,%d)\n"</span>, file, buffer, length);
+    pr_info(<span class="org-string">"device_read(%p,%p,%d)\n"</span>, file, buffer, length);
 <span class="org-preprocessor">#endif</span>
 
     <span class="org-comment-delimiter">/*</span>
@@ -2627,7 +2618,7 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
 }
 
 <span class="org-preprocessor">#ifdef</span> DEBUG
-    printk(KERN_INFO <span class="org-string">"Read %d bytes, %d left\n"</span>, bytes_read, length);
+    pr_info(<span class="org-string">"Read %d bytes, %d left\n"</span>, bytes_read, length);
 <span class="org-preprocessor">#endif</span>
 
     <span class="org-comment-delimiter">/*</span>
@@ -2648,7 +2639,7 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
     <span class="org-type">int</span> <span class="org-variable-name">i</span>;
 
 <span class="org-preprocessor">#ifdef</span> DEBUG
-    printk(KERN_INFO <span class="org-string">"device_write(%p,%s,%d)"</span>, file, buffer, length);
+    pr_info(<span class="org-string">"device_write(%p,%s,%d)"</span>, file, buffer, length);
 <span class="org-preprocessor">#endif</span>
 
     <span class="org-keyword">for</span> (i = 0; i &lt; length &amp;&amp; i &lt; BUF_LEN; i++)
@@ -2760,20 +2751,20 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
 <span class="org-comment">     * Negative values signify an error</span>
 <span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
     <span class="org-keyword">if</span> (ret_val &lt; 0) {
-        printk(KERN_ALERT <span class="org-string">"%s failed with %d\n"</span>,
+        pr_alert(<span class="org-string">"%s failed with %d\n"</span>,
                <span class="org-string">"Sorry, registering the character device "</span>, ret_val);
         <span class="org-keyword">return</span> ret_val;
     }
 
-    printk(KERN_INFO <span class="org-string">"%s The major device number is %d.\n"</span>,
+    pr_info(<span class="org-string">"%s The major device number is %d.\n"</span>,
            <span class="org-string">"Registeration is a success"</span>, MAJOR_NUM);
-    printk(KERN_INFO <span class="org-string">"If you want to talk to the device driver,\n"</span>);
-    printk(KERN_INFO <span class="org-string">"you'll have to create a device file. \n"</span>);
-    printk(KERN_INFO <span class="org-string">"We suggest you use:\n"</span>);
-    printk(KERN_INFO <span class="org-string">"mknod %s c %d 0\n"</span>, DEVICE_FILE_NAME, MAJOR_NUM);
-    printk(KERN_INFO <span class="org-string">"The device file name is important, because\n"</span>);
-    printk(KERN_INFO <span class="org-string">"the ioctl program assumes that's the\n"</span>);
-    printk(KERN_INFO <span class="org-string">"file you'll use.\n"</span>);
+    pr_info(<span class="org-string">"If you want to talk to the device driver,\n"</span>);
+    pr_info(<span class="org-string">"you'll have to create a device file. \n"</span>);
+    pr_info(<span class="org-string">"We suggest you use:\n"</span>);
+    pr_info(<span class="org-string">"mknod %s c %d 0\n"</span>, DEVICE_FILE_NAME, MAJOR_NUM);
+    pr_info(<span class="org-string">"The device file name is important, because\n"</span>);
+    pr_info(<span class="org-string">"the ioctl program assumes that's the\n"</span>);
+    pr_info(<span class="org-string">"file you'll use.\n"</span>);
 
     <span class="org-keyword">return</span> 0;
 }
@@ -2788,11 +2779,11 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
 <span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
     unregister_chrdev(MAJOR_NUM, DEVICE_NAME);
 }
-</code></pre>
+</pre>
 </div>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  chardev.h - the header file with the ioctl definitions.</span>
 <span class="org-comment"> *</span>
 <span class="org-comment"> *  The declarations here have to be in a header file, because</span>
@@ -2858,11 +2849,11 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
 <span class="org-preprocessor">#define</span> <span class="org-variable-name">DEVICE_FILE_NAME</span> <span class="org-string">"char_dev"</span>
 
 <span class="org-preprocessor">#endif</span>
-</code></pre>
+</pre>
 </div>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  ioctl.c - the process to use ioctl's to control the kernel module</span>
 <span class="org-comment"> *</span>
 <span class="org-comment"> *  Until now we could have used cat for input and output.  But now</span>
@@ -2966,14 +2957,14 @@ If you want to use ioctls in your own kernel modules, it is best to receive an o
     close(file_desc);
     <span class="org-keyword">return</span> 0;
 }
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org8de5924" class="outline-2">
-<h2 id="org8de5924">System Calls</h2>
-<div class="outline-text-2" id="text-org8de5924">
+<div id="outline-container-org57619bf" class="outline-2">
+<h2 id="org57619bf">System Calls</h2>
+<div class="outline-text-2" id="text-org57619bf">
 <p>
 So far, the only thing we've done was to use well defined kernel mechanisms to register <b>/proc</b> files and device handlers. This is fine if you want to do something the kernel programmers thought you'd want, such as write a device driver. But what if you want to do something unusual, to change the behavior of the system in some way? Then, you're mostly on your own.
 </p>
@@ -3003,7 +2994,7 @@ So, if we want to change the way a certain system call works, what we need to do
 </p>
 
 <p>
-The source code here is an example of such a kernel module. We want to "spy" on a certain user, and to printk() a message whenever that user opens a file. Towards this end, we replace the system call to open a file with our own function, called <b>our_sys_open</b>. This function checks the uid (user's id) of the current process, and if it's equal to the uid we spy on, it calls printk() to display the name of the file to be opened. Then, either way, it calls the original open() function with the same parameters, to actually open the file.
+The source code here is an example of such a kernel module. We want to "spy" on a certain user, and to <b>pr_info()</b> a message whenever that user opens a file. Towards this end, we replace the system call to open a file with our own function, called <b>our_sys_open</b>. This function checks the uid (user's id) of the current process, and if it's equal to the uid we spy on, it calls pr_info() to display the name of the file to be opened. Then, either way, it calls the original open() function with the same parameters, to actually open the file.
 </p>
 
 <p>
@@ -3019,7 +3010,7 @@ Note that all the related problems make syscall stealing unfeasiable for product
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  syscall.c</span>
 <span class="org-comment"> *</span>
 <span class="org-comment"> *  System call "stealing" sample.</span>
@@ -3093,13 +3084,13 @@ asmlinkage <span class="org-type">int</span> <span class="org-function-name">our
     <span class="org-comment-delimiter">/*</span>
 <span class="org-comment">     * Report the file, if relevant</span>
 <span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
-    printk(<span class="org-string">"Opened file by %d: "</span>, uid);
+    pr_info(<span class="org-string">"Opened file by %d: "</span>, uid);
     <span class="org-keyword">do</span> {
         get_user(ch, filename + i);
         i++;
-        printk(<span class="org-string">"%c"</span>, ch);
+        pr_info(<span class="org-string">"%c"</span>, ch);
     } <span class="org-keyword">while</span> (ch != 0);
-    printk(<span class="org-string">"\n"</span>);
+    pr_info(<span class="org-string">"\n"</span>);
 
     <span class="org-comment-delimiter">/*</span>
 <span class="org-comment">     * Call the original sys_open - otherwise, we lose</span>
@@ -3142,7 +3133,7 @@ asmlinkage <span class="org-type">int</span> <span class="org-function-name">our
 
     write_cr0(original_cr0);
 
-    printk(KERN_INFO <span class="org-string">"Spying on UID:%d\n"</span>, uid);
+    pr_info(<span class="org-string">"Spying on UID:%d\n"</span>, uid);
 
     <span class="org-keyword">return</span> 0;
 }
@@ -3157,10 +3148,10 @@ asmlinkage <span class="org-type">int</span> <span class="org-function-name">our
 <span class="org-comment">     * Return the system call back to normal</span>
 <span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
     <span class="org-keyword">if</span> (sys_call_table[__NR_open] != (<span class="org-type">unsigned</span> <span class="org-type">long</span> *)our_sys_open) {
-        printk(KERN_ALERT <span class="org-string">"Somebody else also played with the "</span>);
-        printk(KERN_ALERT <span class="org-string">"open system call\n"</span>);
-        printk(KERN_ALERT <span class="org-string">"The system may be left in "</span>);
-        printk(KERN_ALERT <span class="org-string">"an unstable state.\n"</span>);
+        pr_alert(<span class="org-string">"Somebody else also played with the "</span>);
+        pr_alert(<span class="org-string">"open system call\n"</span>);
+        pr_alert(<span class="org-string">"The system may be left in "</span>);
+        pr_alert(<span class="org-string">"an unstable state.\n"</span>);
     }
 
     write_cr0(original_cr0 &amp; ~0x00010000);
@@ -3174,18 +3165,18 @@ module_init(syscall_start);
 module_exit(syscall_end);
 
 MODULE_LICENSE(<span class="org-string">"GPL"</span>);
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org13e2c0e" class="outline-2">
-<h2 id="org13e2c0e">Blocking Processes and threads</h2>
-<div class="outline-text-2" id="text-org13e2c0e">
+<div id="outline-container-org2c54a9a" class="outline-2">
+<h2 id="org2c54a9a">Blocking Processes and threads</h2>
+<div class="outline-text-2" id="text-org2c54a9a">
 </div>
-<div id="outline-container-org9cbc7d3" class="outline-3">
-<h3 id="org9cbc7d3">Sleep</h3>
-<div class="outline-text-3" id="text-org9cbc7d3">
+<div id="outline-container-org8e98b07" class="outline-3">
+<h3 id="org8e98b07">Sleep</h3>
+<div class="outline-text-3" id="text-org8e98b07">
 <p>
 What do you do when somebody asks you for something you can't do right away? If you're a human being and you're bothered by a human being, the only thing you can say is: "<i>Not right now, I'm busy. Go away!</i>". But if you're a kernel module and you're bothered by a process, you have another possibility. You can put the process to sleep until you can service it. After all, processes are being put to sleep by the kernel and woken up all the time (that's the way multiple processes appear to run on the same time on a single CPU).
 </p>
@@ -3195,8 +3186,8 @@ This kernel module is an example of this. The file (called <b>/proc/sleep</b>) c
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-bash">tail -f
-</code></pre>
+<pre class="src src-bash">tail -f
+</pre>
 </div>
 
 <p>
@@ -3232,7 +3223,7 @@ There is one more point to remember. Some times processes don't want to sleep, t
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">hostname:~/lkmpg-examples/09-BlockingProcesses# insmod sleep.ko
+<pre class="src src-sh">hostname:~/lkmpg-examples/09-BlockingProcesses# insmod sleep.ko
 hostname:~/lkmpg-examples/09-BlockingProcesses# cat_noblock /proc/sleep
 Last input:
 hostname:~/lkmpg-examples/09-BlockingProcesses# tail -f /proc/sleep &amp;
@@ -3252,11 +3243,11 @@ hostname:~/lkmpg-examples/09-BlockingProcesses# kill %1
 hostname:~/lkmpg-examples/09-BlockingProcesses# cat_noblock /proc/sleep
 Last input:
 hostname:~/lkmpg-examples/09-BlockingProcesses#
-</code></pre>
+</pre>
 </div>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  sleep.c - create a /proc file, and if several processes try to open it at</span>
 <span class="org-comment"> *  the same time, put all but one to sleep</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
@@ -3499,13 +3490,13 @@ DECLARE_WAIT_QUEUE_HEAD(WaitQ);
     <span class="org-keyword">if</span>(Our_Proc_File == <span class="org-constant">NULL</span>)
     {
         remove_proc_entry(PROC_ENTRY_FILENAME, <span class="org-constant">NULL</span>);
-        printk(KERN_DEBUG <span class="org-string">"Error: Could not initialize /proc/%s\n"</span>, PROC_ENTRY_FILENAME);
+        pr_debug(<span class="org-string">"Error: Could not initialize /proc/%s\n"</span>, PROC_ENTRY_FILENAME);
         <span class="org-keyword">return</span> -ENOMEM;
     }
     proc_set_size(Our_Proc_File, 80);
     proc_set_user(Our_Proc_File,  GLOBAL_ROOT_UID, GLOBAL_ROOT_GID);
 
-    printk(KERN_INFO <span class="org-string">"/proc/test created\n"</span>);
+    pr_info(<span class="org-string">"/proc/test created\n"</span>);
 
     <span class="org-keyword">return</span> 0;
 }
@@ -3519,13 +3510,13 @@ DECLARE_WAIT_QUEUE_HEAD(WaitQ);
 <span class="org-type">void</span> <span class="org-function-name">cleanup_module</span>()
 {
     remove_proc_entry(PROC_ENTRY_FILENAME, <span class="org-constant">NULL</span>);
-    printk(KERN_DEBUG <span class="org-string">"/proc/%s removed\n"</span>, PROC_ENTRY_FILENAME);
+    pr_debug(<span class="org-string">"/proc/%s removed\n"</span>, PROC_ENTRY_FILENAME);
 }
-</code></pre>
+</pre>
 </div>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/* </span><span class="org-comment">cat_noblock.c - open a file and display its contents, but exit rather than</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/* </span><span class="org-comment">cat_noblock.c - open a file and display its contents, but exit rather than</span>
 <span class="org-comment"> * wait for input </span><span class="org-comment-delimiter">*/</span>
 <span class="org-comment-delimiter">/* </span><span class="org-comment">Copyright (C) 1998 by Ori Pomerantz </span><span class="org-comment-delimiter">*/</span>
 
@@ -3590,14 +3581,14 @@ DECLARE_WAIT_QUEUE_HEAD(WaitQ);
     } <span class="org-keyword">while</span> (bytes &gt; 0);
     <span class="org-keyword">return</span> 0;
 }
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org89cb410" class="outline-3">
-<h3 id="org89cb410">Completions</h3>
-<div class="outline-text-3" id="text-org89cb410">
+<div id="outline-container-orgc9f3884" class="outline-3">
+<h3 id="orgc9f3884">Completions</h3>
+<div class="outline-text-3" id="text-orgc9f3884">
 <p>
 Sometimes one thing should happen before another within a module having multiple threads. Rather than using <b>/proc/sleep</b> commands the kernel has another way to do this which allows timeouts or interrupts to also happen.
 </p>
@@ -3607,7 +3598,7 @@ In the following example two threads are started, but one needs to start before 
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/init.h&gt;</span>
+<pre class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/init.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kthread.h&gt;</span>
@@ -3620,7 +3611,7 @@ In the following example two threads are started, but one needs to start before 
 
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">machine_crank_thread</span>(<span class="org-type">void</span>* <span class="org-variable-name">arg</span>)
 {
-    printk(<span class="org-string">"Turn the crank\n"</span>);
+    pr_info(<span class="org-string">"Turn the crank\n"</span>);
 
     complete_all(&amp;machine.crank_comp);
     complete_and_exit(&amp;machine.crank_comp, 0);
@@ -3630,7 +3621,7 @@ In the following example two threads are started, but one needs to start before 
 {
     wait_for_completion(&amp;machine.crank_comp);
 
-    printk(<span class="org-string">"Flywheel spins up\n"</span>);
+    pr_info(<span class="org-string">"Flywheel spins up\n"</span>);
 
     complete_all(&amp;machine.flywheel_comp);
     complete_and_exit(&amp;machine.flywheel_comp, 0);
@@ -3641,7 +3632,7 @@ In the following example two threads are started, but one needs to start before 
     <span class="org-keyword">struct</span> <span class="org-type">task_struct</span>* <span class="org-variable-name">crank_thread</span>;
     <span class="org-keyword">struct</span> <span class="org-type">task_struct</span>* <span class="org-variable-name">flywheel_thread</span>;
 
-    printk(<span class="org-string">"completions example\n"</span>);
+    pr_info(<span class="org-string">"completions example\n"</span>);
 
     init_completion(&amp;machine.crank_comp);
     init_completion(&amp;machine.flywheel_comp);
@@ -3675,7 +3666,7 @@ In the following example two threads are started, but one needs to start before 
     wait_for_completion(&amp;machine.crank_comp);
     wait_for_completion(&amp;machine.flywheel_comp);
 
-    printk(<span class="org-string">"completions exit\n"</span>);
+    pr_info(<span class="org-string">"completions exit\n"</span>);
 }
 
 module_init(completions_init);
@@ -3684,7 +3675,7 @@ module_exit(completions_exit);
 MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 MODULE_DESCRIPTION(<span class="org-string">"Completions example"</span>);
 MODULE_LICENSE(<span class="org-string">"GPL"</span>);
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -3702,22 +3693,22 @@ There are other variations upon the <i>wait_for_completion</i> function, which i
 </div>
 </div>
 
-<div id="outline-container-org949949f" class="outline-2">
-<h2 id="org949949f">Avoiding Collisions and Deadlocks</h2>
-<div class="outline-text-2" id="text-org949949f">
+<div id="outline-container-orgbc36b97" class="outline-2">
+<h2 id="orgbc36b97">Avoiding Collisions and Deadlocks</h2>
+<div class="outline-text-2" id="text-orgbc36b97">
 <p>
 If processes running on different CPUs or in different threads try to access the same memory then it's possible that strange things can happen or your system can lock up. To avoid this various types of mutual exclusion kernel functions are available. These indicate if a section of code is "locked" or "unlocked" so that simultaneous attempts to run it can't happen.
 </p>
 </div>
-<div id="outline-container-org10f05c2" class="outline-3">
-<h3 id="org10f05c2">Mutex</h3>
-<div class="outline-text-3" id="text-org10f05c2">
+<div id="outline-container-org08abf74" class="outline-3">
+<h3 id="org08abf74">Mutex</h3>
+<div class="outline-text-3" id="text-org08abf74">
 <p>
 You can use kernel mutexes (mutual exclusions) in much the same manner that you might deploy them in userland. This may be all that's needed to avoid collisions in most cases.
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
+<pre class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/init.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/mutex.h&gt;</span>
@@ -3728,27 +3719,27 @@ DEFINE_MUTEX(mymutex);
 {
     <span class="org-type">int</span> <span class="org-variable-name">ret</span>;
 
-    printk(<span class="org-string">"example_mutex init\n"</span>);
+    pr_info(<span class="org-string">"example_mutex init\n"</span>);
 
     ret = mutex_trylock(&amp;mymutex);
     <span class="org-keyword">if</span> (ret != 0) {
-        printk(<span class="org-string">"mutex is locked\n"</span>);
+        pr_info(<span class="org-string">"mutex is locked\n"</span>);
 
         <span class="org-keyword">if</span> (mutex_is_locked(&amp;mymutex) == 0)
-            printk(<span class="org-string">"The mutex failed to lock!\n"</span>);
+            pr_info(<span class="org-string">"The mutex failed to lock!\n"</span>);
 
         mutex_unlock(&amp;mymutex);
-        printk(<span class="org-string">"mutex is unlocked\n"</span>);
+        pr_info(<span class="org-string">"mutex is unlocked\n"</span>);
     }
     <span class="org-keyword">else</span>
-        printk(<span class="org-string">"Failed to lock\n"</span>);
+        pr_info(<span class="org-string">"Failed to lock\n"</span>);
 
     <span class="org-keyword">return</span> 0;
 }
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">example_mutex_exit</span>(<span class="org-type">void</span>)
 {
-    printk(<span class="org-string">"example_mutex exit\n"</span>);
+    pr_info(<span class="org-string">"example_mutex exit\n"</span>);
 }
 
 module_init(example_mutex_init);
@@ -3757,13 +3748,13 @@ module_exit(example_mutex_exit);
 MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 MODULE_DESCRIPTION(<span class="org-string">"Mutex example"</span>);
 MODULE_LICENSE(<span class="org-string">"GPL"</span>);
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org5d633fc" class="outline-3">
-<h3 id="org5d633fc">Spinlocks</h3>
-<div class="outline-text-3" id="text-org5d633fc">
+<div id="outline-container-org8abef7b" class="outline-3">
+<h3 id="org8abef7b">Spinlocks</h3>
+<div class="outline-text-3" id="text-org8abef7b">
 <p>
 As the name suggests, spinlocks lock up the CPU that the code is running on, taking 100% of its resources. Because of this you should only use the spinlock mechanism around code which is likely to take no more than a few milliseconds to run and so won't noticably slow anything down from the user's point of view.
 </p>
@@ -3773,7 +3764,7 @@ The example here is <i>"irq safe"</i> in that if interrupts happen during the lo
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
+<pre class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/init.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/spinlock.h&gt;</span>
@@ -3787,7 +3778,7 @@ DEFINE_SPINLOCK(sl_static);
     <span class="org-type">unsigned</span> <span class="org-type">long</span> <span class="org-variable-name">flags</span>;
 
     spin_lock_irqsave(&amp;sl_static, flags);
-    printk(<span class="org-string">"Locked static spinlock\n"</span>);
+    pr_info(<span class="org-string">"Locked static spinlock\n"</span>);
 
     <span class="org-comment-delimiter">/* </span><span class="org-comment">Do something or other safely.</span>
 <span class="org-comment">       Because this uses 100% CPU time this</span>
@@ -3795,7 +3786,7 @@ DEFINE_SPINLOCK(sl_static);
 <span class="org-comment">       milliseconds to run </span><span class="org-comment-delimiter">*/</span>
 
     spin_unlock_irqrestore(&amp;sl_static, flags);
-    printk(<span class="org-string">"Unlocked static spinlock\n"</span>);
+    pr_info(<span class="org-string">"Unlocked static spinlock\n"</span>);
 }
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">example_spinlock_dynamic</span>(<span class="org-type">void</span>)
@@ -3804,7 +3795,7 @@ DEFINE_SPINLOCK(sl_static);
 
     spin_lock_init(&amp;sl_dynamic);
     spin_lock_irqsave(&amp;sl_dynamic, flags);
-    printk(<span class="org-string">"Locked dynamic spinlock\n"</span>);
+    pr_info(<span class="org-string">"Locked dynamic spinlock\n"</span>);
 
     <span class="org-comment-delimiter">/* </span><span class="org-comment">Do something or other safely.</span>
 <span class="org-comment">       Because this uses 100% CPU time this</span>
@@ -3812,12 +3803,12 @@ DEFINE_SPINLOCK(sl_static);
 <span class="org-comment">       milliseconds to run </span><span class="org-comment-delimiter">*/</span>
 
     spin_unlock_irqrestore(&amp;sl_dynamic, flags);
-    printk(<span class="org-string">"Unlocked dynamic spinlock\n"</span>);
+    pr_info(<span class="org-string">"Unlocked dynamic spinlock\n"</span>);
 }
 
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">example_spinlock_init</span>(<span class="org-type">void</span>)
 {
-    printk(<span class="org-string">"example spinlock started\n"</span>);
+    pr_info(<span class="org-string">"example spinlock started\n"</span>);
 
     example_spinlock_static();
     example_spinlock_dynamic();
@@ -3827,7 +3818,7 @@ DEFINE_SPINLOCK(sl_static);
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">example_spinlock_exit</span>(<span class="org-type">void</span>)
 {
-    printk(<span class="org-string">"example spinlock exit\n"</span>);
+    pr_info(<span class="org-string">"example spinlock exit\n"</span>);
 }
 
 module_init(example_spinlock_init);
@@ -3836,20 +3827,20 @@ module_exit(example_spinlock_exit);
 MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 MODULE_DESCRIPTION(<span class="org-string">"Spinlock example"</span>);
 MODULE_LICENSE(<span class="org-string">"GPL"</span>);
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgaa517c3" class="outline-3">
-<h3 id="orgaa517c3">Read and write locks</h3>
-<div class="outline-text-3" id="text-orgaa517c3">
+<div id="outline-container-org0a55320" class="outline-3">
+<h3 id="org0a55320">Read and write locks</h3>
+<div class="outline-text-3" id="text-org0a55320">
 <p>
 Read and write locks are specialised kinds of spinlocks so that you can exclusively read from something or write to something. Like the earlier spinlocks example the one below shows an "irq safe" situation in which if other functions were triggered from irqs which might also read and write to whatever you are concerned with then they wouldn't disrupt the logic. As before it's a good idea to keep anything done within the lock as short as possible so that it doesn't hang up the system and cause users to start revolting against the tyranny of your module.
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
+<pre class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/interrupt.h&gt;</span>
 
@@ -3860,12 +3851,12 @@ DEFINE_RWLOCK(myrwlock);
     <span class="org-type">unsigned</span> <span class="org-type">long</span> <span class="org-variable-name">flags</span>;
 
     read_lock_irqsave(&amp;myrwlock, flags);
-    printk(<span class="org-string">"Read Locked\n"</span>);
+    pr_info(<span class="org-string">"Read Locked\n"</span>);
 
     <span class="org-comment-delimiter">/* </span><span class="org-comment">Read from something </span><span class="org-comment-delimiter">*/</span>
 
     read_unlock_irqrestore(&amp;myrwlock, flags);
-    printk(<span class="org-string">"Read Unlocked\n"</span>);
+    pr_info(<span class="org-string">"Read Unlocked\n"</span>);
 }
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">example_write_lock</span>(<span class="org-type">void</span>)
@@ -3873,17 +3864,17 @@ DEFINE_RWLOCK(myrwlock);
     <span class="org-type">unsigned</span> <span class="org-type">long</span> <span class="org-variable-name">flags</span>;
 
     write_lock_irqsave(&amp;myrwlock, flags);
-    printk(<span class="org-string">"Write Locked\n"</span>);
+    pr_info(<span class="org-string">"Write Locked\n"</span>);
 
     <span class="org-comment-delimiter">/* </span><span class="org-comment">Write to something </span><span class="org-comment-delimiter">*/</span>
 
     write_unlock_irqrestore(&amp;myrwlock, flags);
-    printk(<span class="org-string">"Write Unlocked\n"</span>);
+    pr_info(<span class="org-string">"Write Unlocked\n"</span>);
 }
 
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">example_rwlock_init</span>(<span class="org-type">void</span>)
 {
-    printk(<span class="org-string">"example_rwlock started\n"</span>);
+    pr_info(<span class="org-string">"example_rwlock started\n"</span>);
 
     example_read_lock();
     example_write_lock();
@@ -3893,7 +3884,7 @@ DEFINE_RWLOCK(myrwlock);
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">example_rwlock_exit</span>(<span class="org-type">void</span>)
 {
-    printk(<span class="org-string">"example_rwlock exit\n"</span>);
+    pr_info(<span class="org-string">"example_rwlock exit\n"</span>);
 }
 
 module_init(example_rwlock_init);
@@ -3902,7 +3893,7 @@ module_exit(example_rwlock_exit);
 MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 MODULE_DESCRIPTION(<span class="org-string">"Read/Write locks example"</span>);
 MODULE_LICENSE(<span class="org-string">"GPL"</span>);
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -3910,15 +3901,15 @@ Of course if you know for sure that there are no functions triggered by irqs whi
 </p>
 </div>
 </div>
-<div id="outline-container-orgadbf448" class="outline-3">
-<h3 id="orgadbf448">Atomic operations</h3>
-<div class="outline-text-3" id="text-orgadbf448">
+<div id="outline-container-org2652f4e" class="outline-3">
+<h3 id="org2652f4e">Atomic operations</h3>
+<div class="outline-text-3" id="text-org2652f4e">
 <p>
 If you're doing simple arithmetic: adding, subtracting or bitwise operations then there's another way in the multi-CPU and multi-hyperthreaded world to stop other parts of the system from messing with your mojo. By using atomic operations you can be confident that your addition, subtraction or bit flip did actually happen and wasn't overwritten by some other shenanigans. An example is shown below.
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
+<pre class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/interrupt.h&gt;</span>
 
@@ -3948,7 +3939,7 @@ If you're doing simple arithmetic: adding, subtracting or bitwise operations the
     <span class="org-comment-delimiter">/* </span><span class="org-comment">add one </span><span class="org-comment-delimiter">*/</span>
     atomic_inc(&amp;debbie);
 
-    printk(<span class="org-string">"chris: %d, debbie: %d\n"</span>,
+    pr_info(<span class="org-string">"chris: %d, debbie: %d\n"</span>,
            atomic_read(&amp;chris), atomic_read(&amp;debbie));
 }
 
@@ -3956,26 +3947,26 @@ If you're doing simple arithmetic: adding, subtracting or bitwise operations the
 {
     <span class="org-type">unsigned</span> <span class="org-type">long</span> <span class="org-variable-name">word</span> = 0;
 
-    printk(<span class="org-string">"Bits 0: "</span>BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info(<span class="org-string">"Bits 0: "</span>BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     set_bit(3, &amp;word);
     set_bit(5, &amp;word);
-    printk(<span class="org-string">"Bits 1: "</span>BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info(<span class="org-string">"Bits 1: "</span>BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     clear_bit(5, &amp;word);
-    printk(<span class="org-string">"Bits 2: "</span>BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info(<span class="org-string">"Bits 2: "</span>BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     change_bit(3, &amp;word);
 
-    printk(<span class="org-string">"Bits 3: "</span>BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info(<span class="org-string">"Bits 3: "</span>BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     <span class="org-keyword">if</span> (test_and_set_bit(3, &amp;word))
-        printk(<span class="org-string">"wrong\n"</span>);
-    printk(<span class="org-string">"Bits 4: "</span>BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+        pr_info(<span class="org-string">"wrong\n"</span>);
+    pr_info(<span class="org-string">"Bits 4: "</span>BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
 
     word = 255;
-    printk(<span class="org-string">"Bits 5: "</span>BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info(<span class="org-string">"Bits 5: "</span>BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
 }
 
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">example_atomic_init</span>(<span class="org-type">void</span>)
 {
-    printk(<span class="org-string">"example_atomic started\n"</span>);
+    pr_info(<span class="org-string">"example_atomic started\n"</span>);
 
     atomic_add_subtract();
     atomic_bitwise();
@@ -3985,7 +3976,7 @@ If you're doing simple arithmetic: adding, subtracting or bitwise operations the
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">example_atomic_exit</span>(<span class="org-type">void</span>)
 {
-    printk(<span class="org-string">"example_atomic exit\n"</span>);
+    pr_info(<span class="org-string">"example_atomic exit\n"</span>);
 }
 
 module_init(example_atomic_init);
@@ -3994,18 +3985,18 @@ module_exit(example_atomic_exit);
 MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 MODULE_DESCRIPTION(<span class="org-string">"Atomic operations example"</span>);
 MODULE_LICENSE(<span class="org-string">"GPL"</span>);
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-org7974c60" class="outline-2">
-<h2 id="org7974c60">Replacing Printks</h2>
-<div class="outline-text-2" id="text-org7974c60">
+<div id="outline-container-orgf928ddc" class="outline-2">
+<h2 id="orgf928ddc">Replacing Print Macros</h2>
+<div class="outline-text-2" id="text-orgf928ddc">
 </div>
-<div id="outline-container-org1c8b17b" class="outline-3">
-<h3 id="org1c8b17b">Replacing printk</h3>
-<div class="outline-text-3" id="text-org1c8b17b">
+<div id="outline-container-org79d2e43" class="outline-3">
+<h3 id="org79d2e43">Replacement</h3>
+<div class="outline-text-3" id="text-org79d2e43">
 <p>
 In Section 1.2.1.2, I said that X and kernel module programming don't mix. That's true for developing kernel modules, but in actual use, you want to be able to send messages to whichever tty the command to load the module came from.
 </p>
@@ -4019,7 +4010,7 @@ The way this is done is by using current, a pointer to the currently running tas
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  print_string.c - Send output to the tty we're running on, regardless if it's</span>
 <span class="org-comment"> *  through X11, telnet, etc.  We do this by printing the string to the tty</span>
 <span class="org-comment"> *  associated with the current task.</span>
@@ -4127,14 +4118,14 @@ MODULE_AUTHOR(<span class="org-string">"Peter Jay Salzman"</span>);
 
 module_init(print_string_init);
 module_exit(print_string_exit);
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org418d823" class="outline-3">
-<h3 id="org418d823">Flashing keyboard LEDs</h3>
-<div class="outline-text-3" id="text-org418d823">
+<div id="outline-container-org006f60c" class="outline-3">
+<h3 id="org006f60c">Flashing keyboard LEDs</h3>
+<div class="outline-text-3" id="text-org006f60c">
 <p>
 In certain conditions, you may desire a simpler and more direct way to communicate to the external world. Flashing keyboard LEDs can be such a solution: It is an immediate way to attract attention or to display a status condition. Keyboard LEDs are present on every hardware, they are always visible, they do not need any setup, and their use is rather simple and non-intrusive, compared to writing to a tty or a file.
 </p>
@@ -4144,7 +4135,7 @@ The following source code illustrates a minimal kernel module which, when loaded
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  kbleds.c - Blink keyboard leds until the module is unloaded.</span>
 <span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
 
@@ -4203,19 +4194,19 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 {
     <span class="org-type">int</span> <span class="org-variable-name">i</span>;
 
-    printk(KERN_INFO <span class="org-string">"kbleds: loading\n"</span>);
-    printk(KERN_INFO <span class="org-string">"kbleds: fgconsole is %x\n"</span>, fg_console);
+    pr_info(<span class="org-string">"kbleds: loading\n"</span>);
+    pr_info(<span class="org-string">"kbleds: fgconsole is %x\n"</span>, fg_console);
     <span class="org-keyword">for</span> (i = 0; i &lt; MAX_NR_CONSOLES; i++) {
         <span class="org-keyword">if</span> (<span class="org-negation-char">!</span>vc_cons[i].d)
             <span class="org-keyword">break</span>;
-        printk(KERN_INFO <span class="org-string">"poet_atkm: console[%i/%i] #%i, tty %lx\n"</span>, i,
+        pr_info(<span class="org-string">"poet_atkm: console[%i/%i] #%i, tty %lx\n"</span>, i,
                MAX_NR_CONSOLES, vc_cons[i].d-&gt;vc_num,
                (<span class="org-type">unsigned</span> <span class="org-type">long</span>)vc_cons[i].d-&gt;port.tty);
     }
-    printk(KERN_INFO <span class="org-string">"kbleds: finished scanning consoles\n"</span>);
+    pr_info(<span class="org-string">"kbleds: finished scanning consoles\n"</span>);
 
     my_driver = vc_cons[fg_console].d-&gt;port.tty-&gt;driver;
-    printk(KERN_INFO <span class="org-string">"kbleds: tty driver magic %x\n"</span>, my_driver-&gt;magic);
+    pr_info(<span class="org-string">"kbleds: tty driver magic %x\n"</span>, my_driver-&gt;magic);
 
     <span class="org-comment-delimiter">/*</span>
 <span class="org-comment">     * Set up the LED blink timer the first time</span>
@@ -4231,7 +4222,7 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">__exit</span> kbleds_cleanup(<span class="org-type">void</span>)
 {
-    printk(KERN_INFO <span class="org-string">"kbleds: unloading...\n"</span>);
+    pr_info(<span class="org-string">"kbleds: unloading...\n"</span>);
     del_timer(&amp;my_timer);
     (my_driver-&gt;ops-&gt;ioctl) (vc_cons[fg_console].d-&gt;port.tty,
                              KDSETLED, RESTORE_LEDS);
@@ -4239,11 +4230,11 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 
 module_init(kbleds_init);
 module_exit(kbleds_cleanup);
-</code></pre>
+</pre>
 </div>
 
 <p>
-If none of the examples in this chapter fit your debugging needs there might yet be some other tricks to try. Ever wondered what CONFIG_LL_DEBUG in make menuconfig is good for? If you activate that you get low level access to the serial port. While this might not sound very powerful by itself, you can patch kernel/printk.c or any other essential syscall to use printascii, thus makeing it possible to trace virtually everything what your code does over a serial line. If you find yourself porting the kernel to some new and former unsupported architecture this is usually amongst the first things that should be implemented. Logging over a netconsole might also be worth a try.
+If none of the examples in this chapter fit your debugging needs there might yet be some other tricks to try. Ever wondered what CONFIG_LL_DEBUG in make menuconfig is good for? If you activate that you get low level access to the serial port. While this might not sound very powerful by itself, you can patch <b>kernel/printk.c</b> or any other essential syscall to use printascii, thus makeing it possible to trace virtually everything what your code does over a serial line. If you find yourself porting the kernel to some new and former unsupported architecture this is usually amongst the first things that should be implemented. Logging over a netconsole might also be worth a try.
 </p>
 
 <p>
@@ -4253,48 +4244,48 @@ While you have seen lots of stuff that can be used to aid debugging here, there 
 </div>
 </div>
 
-<div id="outline-container-orgf37d73f" class="outline-2">
-<h2 id="orgf37d73f">Scheduling Tasks</h2>
-<div class="outline-text-2" id="text-orgf37d73f">
+<div id="outline-container-orgcab6a64" class="outline-2">
+<h2 id="orgcab6a64">Scheduling Tasks</h2>
+<div class="outline-text-2" id="text-orgcab6a64">
 <p>
 There are two main ways of running tasks: tasklets and work queues. Tasklets are a quick and easy way of scheduling a single function to be run, for example when triggered from an interrupt, whereas work queues are more complicated but also better suited to running multiple things in a sequence.
 </p>
 </div>
 
-<div id="outline-container-org32525a8" class="outline-3">
-<h3 id="org32525a8">Tasklets</h3>
-<div class="outline-text-3" id="text-org32525a8">
+<div id="outline-container-orga758af1" class="outline-3">
+<h3 id="orga758af1">Tasklets</h3>
+<div class="outline-text-3" id="text-orga758af1">
 <p>
 Here's an example tasklet module. The <i>tasklet_fn</i> function runs for a few seconds and in the mean time execution of the <i>example_tasklet_init</i> function continues to the exit point.
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
+<pre class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/delay.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/interrupt.h&gt;</span>
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">tasklet_fn</span>(<span class="org-type">unsigned</span> <span class="org-type">long</span> <span class="org-variable-name">data</span>)
 {
-    printk(<span class="org-string">"Example tasklet starts\n"</span>);
+    pr_info(<span class="org-string">"Example tasklet starts\n"</span>);
     mdelay(5000);
-    printk(<span class="org-string">"Example tasklet ends\n"</span>);
+    pr_info(<span class="org-string">"Example tasklet ends\n"</span>);
 }
 
 DECLARE_TASKLET(mytask, tasklet_fn, 0L);
 
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">example_tasklet_init</span>(<span class="org-type">void</span>)
 {
-    printk(<span class="org-string">"tasklet example init\n"</span>);
+    pr_info(<span class="org-string">"tasklet example init\n"</span>);
     tasklet_schedule(&amp;mytask);
     mdelay(200);
-    printk(<span class="org-string">"Example tasklet init continues...\n"</span>);
+    pr_info(<span class="org-string">"Example tasklet init continues...\n"</span>);
     <span class="org-keyword">return</span> 0;
 }
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">example_tasklet_exit</span>(<span class="org-type">void</span>)
 {
-    printk(<span class="org-string">"tasklet example exit\n"</span>);
+    pr_info(<span class="org-string">"tasklet example exit\n"</span>);
     tasklet_kill(&amp;mytask);
 }
 
@@ -4304,7 +4295,7 @@ module_exit(example_tasklet_exit);
 MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 MODULE_DESCRIPTION(<span class="org-string">"Tasklet example"</span>);
 MODULE_LICENSE(<span class="org-string">"GPL"</span>);
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -4312,17 +4303,17 @@ So with this example loaded <i>dmesg</i> should show:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-bash">tasklet example init
+<pre class="src src-bash">tasklet example init
 Example tasklet starts
 Example tasklet init continues...
 Example tasklet ends
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orge8a2d87" class="outline-3">
-<h3 id="orge8a2d87">Work queues</h3>
-<div class="outline-text-3" id="text-orge8a2d87">
+<div id="outline-container-org5e7cad8" class="outline-3">
+<h3 id="org5e7cad8">Work queues</h3>
+<div class="outline-text-3" id="text-org5e7cad8">
 <p>
 Very often, we have "housekeeping" tasks which have to be done at a certain time, or every so often. If the task is to be done by a process, we do it by putting it in the crontab file. If the task is to be done by a kernel module, we have two possibilities. The first is to put a process in the crontab file which will wake up the module by a system call when necessary, for example by opening a file. This is terribly inefficient, however &#x2013; we run a new process off of crontab, read a new executable to memory, and all this just to wake up a kernel module which is in memory anyway.
 </p>
@@ -4336,7 +4327,7 @@ There's one more point we need to remember here. When a module is removed by rmm
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  sched.c - schedule a function to be called on every timer interrupt.</span>
 <span class="org-comment"> *</span>
 <span class="org-comment"> *  Copyright (C) 2001 by Peter Jay Salzman</span>
@@ -4455,8 +4446,8 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 
     <span class="org-keyword">if</span> (Our_Proc_File == <span class="org-constant">NULL</span>) {
         remove_proc_entry(PROC_ENTRY_FILENAME, <span class="org-constant">NULL</span>);
-        printk(KERN_ALERT <span class="org-string">"Error: Could not initialize /proc/%s\n"</span>,
-               PROC_ENTRY_FILENAME);
+        pr_alert(<span class="org-string">"Error: Could not initialize /proc/%s\n"</span>,
+                 PROC_ENTRY_FILENAME);
         <span class="org-keyword">return</span> -ENOMEM;
     }
     proc_set_size(Our_Proc_File, 80);
@@ -4469,7 +4460,7 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
     my_workqueue = create_workqueue(MY_WORK_QUEUE_NAME);
     queue_delayed_work(my_workqueue, &amp;Task, 100);
 
-    printk(KERN_INFO <span class="org-string">"/proc/%s created\n"</span>, PROC_ENTRY_FILENAME);
+    pr_info(<span class="org-string">"/proc/%s created\n"</span>, PROC_ENTRY_FILENAME);
 
     <span class="org-keyword">return</span> 0;
 }
@@ -4483,7 +4474,7 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 <span class="org-comment">     * Unregister our /proc file</span>
 <span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
     remove_proc_entry(PROC_ENTRY_FILENAME, <span class="org-constant">NULL</span>);
-    printk(KERN_INFO <span class="org-string">"/proc/%s removed\n"</span>, PROC_ENTRY_FILENAME);
+    pr_info(<span class="org-string">"/proc/%s removed\n"</span>, PROC_ENTRY_FILENAME);
 
     die = 1;                <span class="org-comment-delimiter">/* </span><span class="org-comment">keep intrp_routine from queueing itself </span><span class="org-comment-delimiter">*/</span>
     cancel_delayed_work(&amp;Task);     <span class="org-comment-delimiter">/* </span><span class="org-comment">no "new ones" </span><span class="org-comment-delimiter">*/</span>
@@ -4500,19 +4491,19 @@ MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 <span class="org-comment">     * routine it's time to die.</span>
 <span class="org-comment">     </span><span class="org-comment-delimiter">*/</span>
 }
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgbc0cdf8" class="outline-2">
-<h2 id="orgbc0cdf8">Interrupt Handlers</h2>
-<div class="outline-text-2" id="text-orgbc0cdf8">
+<div id="outline-container-org991944f" class="outline-2">
+<h2 id="org991944f">Interrupt Handlers</h2>
+<div class="outline-text-2" id="text-org991944f">
 </div>
-<div id="outline-container-org93511bb" class="outline-3">
-<h3 id="org93511bb">Interrupt Handlers</h3>
-<div class="outline-text-3" id="text-org93511bb">
+<div id="outline-container-orgdc4fa66" class="outline-3">
+<h3 id="orgdc4fa66">Interrupt Handlers</h3>
+<div class="outline-text-3" id="text-orgdc4fa66">
 <p>
 Except for the last chapter, everything we did in the kernel so far we've done as a response to a process asking for it, either by dealing with a special file, sending an ioctl(), or issuing a system call. But the job of the kernel isn't just to respond to process requests. Another job, which is every bit as important, is to speak to the hardware connected to the machine.
 </p>
@@ -4543,9 +4534,9 @@ This function receives the IRQ number, the name of the function, flags, a name f
 </div>
 </div>
 
-<div id="outline-container-org77533ca" class="outline-3">
-<h3 id="org77533ca">Detecting button presses</h3>
-<div class="outline-text-3" id="text-org77533ca">
+<div id="outline-container-org170473f" class="outline-3">
+<h3 id="org170473f">Detecting button presses</h3>
+<div class="outline-text-3" id="text-org170473f">
 <p>
 Many popular single board computers, such as Raspberry Pis or Beagleboards, have a bunch of GPIO pins. Attaching buttons to those and then having a button press do something is a classic case in which you might need to use interrupts so that instead of having the CPU waste time and battery power polling for a change in input state it's better for the input to trigger the CPU to then run a particular handling function.
 </p>
@@ -4555,7 +4546,7 @@ Here's an example where buttons are connected to GPIO numbers 17 and 18 and an L
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-c"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> *  intrpt.c - Handling GPIO with interrupts</span>
 <span class="org-comment"> *</span>
 <span class="org-comment"> *  Copyright (C) 2017 by Bob Mottram</span>
@@ -4605,13 +4596,13 @@ Here's an example where buttons are connected to GPIO numbers 17 and 18 and an L
 {
     <span class="org-type">int</span> <span class="org-variable-name">ret</span> = 0;
 
-    printk(KERN_INFO <span class="org-string">"%s\n"</span>, __func__);
+    pr_info(<span class="org-string">"%s\n"</span>, __func__);
 
     <span class="org-comment-delimiter">/* </span><span class="org-comment">register LED gpios </span><span class="org-comment-delimiter">*/</span>
     ret = gpio_request_array(leds, ARRAY_SIZE(leds));
 
     <span class="org-keyword">if</span> (ret) {
-        printk(KERN_ERR <span class="org-string">"Unable to request GPIOs for LEDs: %d\n"</span>, ret);
+        pr_err(<span class="org-string">"Unable to request GPIOs for LEDs: %d\n"</span>, ret);
         <span class="org-keyword">return</span> ret;
     }
 
@@ -4619,23 +4610,23 @@ Here's an example where buttons are connected to GPIO numbers 17 and 18 and an L
     ret = gpio_request_array(buttons, ARRAY_SIZE(buttons));
 
     <span class="org-keyword">if</span> (ret) {
-        printk(KERN_ERR <span class="org-string">"Unable to request GPIOs for BUTTONs: %d\n"</span>, ret);
+        pr_err(<span class="org-string">"Unable to request GPIOs for BUTTONs: %d\n"</span>, ret);
         <span class="org-keyword">goto</span> <span class="org-constant">fail1</span>;
     }
 
-    printk(KERN_INFO <span class="org-string">"Current button1 value: %d\n"</span>,
+    pr_info(<span class="org-string">"Current button1 value: %d\n"</span>,
            gpio_get_value(buttons[0].gpio));
 
     ret = gpio_to_irq(buttons[0].gpio);
 
     <span class="org-keyword">if</span> (ret &lt; 0) {
-        printk(KERN_ERR <span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
+        pr_err(<span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
         <span class="org-keyword">goto</span> <span class="org-constant">fail2</span>;
     }
 
     button_irqs[0] = ret;
 
-    printk(KERN_INFO <span class="org-string">"Successfully requested BUTTON1 IRQ # %d\n"</span>,
+    pr_info(<span class="org-string">"Successfully requested BUTTON1 IRQ # %d\n"</span>,
            button_irqs[0]);
 
     ret = request_irq(button_irqs[0], button_isr,
@@ -4643,7 +4634,7 @@ Here's an example where buttons are connected to GPIO numbers 17 and 18 and an L
                       <span class="org-string">"gpiomod#button1"</span>, <span class="org-constant">NULL</span>);
 
     <span class="org-keyword">if</span> (ret) {
-        printk(KERN_ERR <span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
+        pr_err(<span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
         <span class="org-keyword">goto</span> <span class="org-constant">fail2</span>;
     }
 
@@ -4651,13 +4642,13 @@ Here's an example where buttons are connected to GPIO numbers 17 and 18 and an L
     ret = gpio_to_irq(buttons[1].gpio);
 
     <span class="org-keyword">if</span> (ret &lt; 0) {
-        printk(KERN_ERR <span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
+        pr_err(<span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
         <span class="org-keyword">goto</span> <span class="org-constant">fail2</span>;
     }
 
     button_irqs[1] = ret;
 
-    printk(KERN_INFO <span class="org-string">"Successfully requested BUTTON2 IRQ # %d\n"</span>,
+    pr_info(<span class="org-string">"Successfully requested BUTTON2 IRQ # %d\n"</span>,
            button_irqs[1]);
 
     ret = request_irq(button_irqs[1], button_isr,
@@ -4665,7 +4656,7 @@ Here's an example where buttons are connected to GPIO numbers 17 and 18 and an L
                       <span class="org-string">"gpiomod#button2"</span>, <span class="org-constant">NULL</span>);
 
     <span class="org-keyword">if</span> (ret) {
-        printk(KERN_ERR <span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
+        pr_err(<span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
         <span class="org-keyword">goto</span> <span class="org-constant">fail3</span>;
     }
 
@@ -4688,7 +4679,7 @@ Here's an example where buttons are connected to GPIO numbers 17 and 18 and an L
 {
     <span class="org-type">int</span> <span class="org-variable-name">i</span>;
 
-    printk(KERN_INFO <span class="org-string">"%s\n"</span>, __func__);
+    pr_info(<span class="org-string">"%s\n"</span>, __func__);
 
     <span class="org-comment-delimiter">/* </span><span class="org-comment">free irqs </span><span class="org-comment-delimiter">*/</span>
     free_irq(button_irqs[0], <span class="org-constant">NULL</span>);
@@ -4706,14 +4697,14 @@ Here's an example where buttons are connected to GPIO numbers 17 and 18 and an L
 MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 MODULE_DESCRIPTION(<span class="org-string">"Handle some GPIO interrupts"</span>);
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgdb452ba" class="outline-3">
-<h3 id="orgdb452ba">Bottom Half</h3>
-<div class="outline-text-3" id="text-orgdb452ba">
+<div id="outline-container-org58210bf" class="outline-3">
+<h3 id="org58210bf">Bottom Half</h3>
+<div class="outline-text-3" id="text-org58210bf">
 <p>
 Suppose you want to do a bunch of stuff inside of an interrupt routine. A common way to do that without rendering the interrupt unavailable for a significant duration is to combine it with a tasklet. This pushes the bulk of the work off into the scheduler.
 </p>
@@ -4723,7 +4714,7 @@ The example below modifies the previous example to also run an additional task w
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-C"><span class="org-comment-delimiter">/*</span>
+<pre class="src src-C"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> * bottomhalf.c - Top and bottom half interrupt handling</span>
 <span class="org-comment"> *</span>
 <span class="org-comment"> *  Copyright (C) 2017 by Bob Mottram</span>
@@ -4758,10 +4749,10 @@ The example below modifies the previous example to also run an additional task w
 <span class="org-comment-delimiter">/* </span><span class="org-comment">Tasklet containing some non-trivial amount of processing </span><span class="org-comment-delimiter">*/</span>
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">bottomhalf_tasklet_fn</span>(<span class="org-type">unsigned</span> <span class="org-type">long</span> <span class="org-variable-name">data</span>)
 {
-    printk(<span class="org-string">"Bottom half tasklet starts\n"</span>);
+    pr_info(<span class="org-string">"Bottom half tasklet starts\n"</span>);
     <span class="org-comment-delimiter">/* </span><span class="org-comment">do something which takes a while </span><span class="org-comment-delimiter">*/</span>
     mdelay(500);
-    printk(<span class="org-string">"Bottom half tasklet ends\n"</span>);
+    pr_info(<span class="org-string">"Bottom half tasklet ends\n"</span>);
 }
 
 DECLARE_TASKLET(buttontask, bottomhalf_tasklet_fn, 0L);
@@ -4787,13 +4778,13 @@ DECLARE_TASKLET(buttontask, bottomhalf_tasklet_fn, 0L);
 {
     <span class="org-type">int</span> <span class="org-variable-name">ret</span> = 0;
 
-    printk(KERN_INFO <span class="org-string">"%s\n"</span>, __func__);
+    pr_info(<span class="org-string">"%s\n"</span>, __func__);
 
     <span class="org-comment-delimiter">/* </span><span class="org-comment">register LED gpios </span><span class="org-comment-delimiter">*/</span>
     ret = gpio_request_array(leds, ARRAY_SIZE(leds));
 
     <span class="org-keyword">if</span> (ret) {
-        printk(KERN_ERR <span class="org-string">"Unable to request GPIOs for LEDs: %d\n"</span>, ret);
+        pr_err(<span class="org-string">"Unable to request GPIOs for LEDs: %d\n"</span>, ret);
         <span class="org-keyword">return</span> ret;
     }
 
@@ -4801,23 +4792,23 @@ DECLARE_TASKLET(buttontask, bottomhalf_tasklet_fn, 0L);
     ret = gpio_request_array(buttons, ARRAY_SIZE(buttons));
 
     <span class="org-keyword">if</span> (ret) {
-        printk(KERN_ERR <span class="org-string">"Unable to request GPIOs for BUTTONs: %d\n"</span>, ret);
+        pr_err(<span class="org-string">"Unable to request GPIOs for BUTTONs: %d\n"</span>, ret);
         <span class="org-keyword">goto</span> <span class="org-constant">fail1</span>;
     }
 
-    printk(KERN_INFO <span class="org-string">"Current button1 value: %d\n"</span>,
+    pr_info(<span class="org-string">"Current button1 value: %d\n"</span>,
            gpio_get_value(buttons[0].gpio));
 
     ret = gpio_to_irq(buttons[0].gpio);
 
     <span class="org-keyword">if</span> (ret &lt; 0) {
-        printk(KERN_ERR <span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
+        pr_err(<span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
         <span class="org-keyword">goto</span> <span class="org-constant">fail2</span>;
     }
 
     button_irqs[0] = ret;
 
-    printk(KERN_INFO <span class="org-string">"Successfully requested BUTTON1 IRQ # %d\n"</span>,
+    pr_info(<span class="org-string">"Successfully requested BUTTON1 IRQ # %d\n"</span>,
            button_irqs[0]);
 
     ret = request_irq(button_irqs[0], button_isr,
@@ -4825,7 +4816,7 @@ DECLARE_TASKLET(buttontask, bottomhalf_tasklet_fn, 0L);
                       <span class="org-string">"gpiomod#button1"</span>, <span class="org-constant">NULL</span>);
 
     <span class="org-keyword">if</span> (ret) {
-        printk(KERN_ERR <span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
+        pr_err(<span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
         <span class="org-keyword">goto</span> <span class="org-constant">fail2</span>;
     }
 
@@ -4833,13 +4824,13 @@ DECLARE_TASKLET(buttontask, bottomhalf_tasklet_fn, 0L);
     ret = gpio_to_irq(buttons[1].gpio);
 
     <span class="org-keyword">if</span> (ret &lt; 0) {
-        printk(KERN_ERR <span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
+        pr_err(<span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
         <span class="org-keyword">goto</span> <span class="org-constant">fail2</span>;
     }
 
     button_irqs[1] = ret;
 
-    printk(KERN_INFO <span class="org-string">"Successfully requested BUTTON2 IRQ # %d\n"</span>,
+    pr_info(<span class="org-string">"Successfully requested BUTTON2 IRQ # %d\n"</span>,
            button_irqs[1]);
 
     ret = request_irq(button_irqs[1], button_isr,
@@ -4847,7 +4838,7 @@ DECLARE_TASKLET(buttontask, bottomhalf_tasklet_fn, 0L);
                       <span class="org-string">"gpiomod#button2"</span>, <span class="org-constant">NULL</span>);
 
     <span class="org-keyword">if</span> (ret) {
-        printk(KERN_ERR <span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
+        pr_err(<span class="org-string">"Unable to request IRQ: %d\n"</span>, ret);
         <span class="org-keyword">goto</span> <span class="org-constant">fail3</span>;
     }
 
@@ -4870,7 +4861,7 @@ DECLARE_TASKLET(buttontask, bottomhalf_tasklet_fn, 0L);
 {
     <span class="org-type">int</span> <span class="org-variable-name">i</span>;
 
-    printk(KERN_INFO <span class="org-string">"%s\n"</span>, __func__);
+    pr_info(<span class="org-string">"%s\n"</span>, __func__);
 
     <span class="org-comment-delimiter">/* </span><span class="org-comment">free irqs </span><span class="org-comment-delimiter">*/</span>
     free_irq(button_irqs[0], <span class="org-constant">NULL</span>);
@@ -4888,28 +4879,28 @@ DECLARE_TASKLET(buttontask, bottomhalf_tasklet_fn, 0L);
 MODULE_LICENSE(<span class="org-string">"GPL"</span>);
 MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 MODULE_DESCRIPTION(<span class="org-string">"Interrupt with top and bottom half"</span>);
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-org627e987" class="outline-2">
-<h2 id="org627e987">Crypto</h2>
-<div class="outline-text-2" id="text-org627e987">
+<div id="outline-container-org95671c1" class="outline-2">
+<h2 id="org95671c1">Crypto</h2>
+<div class="outline-text-2" id="text-org95671c1">
 <p>
 At the dawn of the internet everybody trusted everybody completely&#x2026;but that didn't work out so well. When this guide was originally written it was a more innocent era in which almost nobody actually gave a damn about crypto - least of all kernel developers. That's certainly no longer the case now. To handle crypto stuff the kernel has its own API enabling common methods of encryption, decryption and your favourite hash functions.
 </p>
 </div>
 
-<div id="outline-container-org0d560c3" class="outline-3">
-<h3 id="org0d560c3">Hash functions</h3>
-<div class="outline-text-3" id="text-org0d560c3">
+<div id="outline-container-org5702461" class="outline-3">
+<h3 id="org5702461">Hash functions</h3>
+<div class="outline-text-3" id="text-org5702461">
 <p>
 Calculating and checking the hashes of things is a common operation. Here is a demonstration of how to calculate a sha256 hash within a kernel module.
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>
+<pre class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;crypto/internal/hash.h&gt;</span>
 
 <span class="org-preprocessor">#define</span> <span class="org-variable-name">SHA256_LENGTH</span> (256/8)
@@ -4919,11 +4910,11 @@ Calculating and checking the hashes of things is a common operation. Here is a d
     <span class="org-type">int</span> <span class="org-variable-name">i</span>;
     <span class="org-type">char</span> <span class="org-variable-name">str</span>[SHA256_LENGTH*2 + 1];
 
-    printk(<span class="org-string">"sha256 test for string: \"%s\"\n"</span>, plaintext);
+    pr_info(<span class="org-string">"sha256 test for string: \"%s\"\n"</span>, plaintext);
     <span class="org-keyword">for</span> (i = 0; i &lt; SHA256_LENGTH ; i++)
         sprintf(&amp;str[i*2],<span class="org-string">"%02x"</span>, (<span class="org-type">unsigned</span> <span class="org-type">char</span>)hash_sha256[i]);
     str[i*2] = 0;
-    printk(<span class="org-string">"%s\n"</span>, str);
+    pr_info(<span class="org-string">"%s\n"</span>, str);
 }
 
 <span class="org-type">int</span> <span class="org-function-name">cryptosha256_init</span>(<span class="org-type">void</span>)
@@ -4973,7 +4964,7 @@ module_exit(cryptosha256_exit);
 MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 MODULE_DESCRIPTION(<span class="org-string">"sha256 hash test"</span>);
 MODULE_LICENSE(<span class="org-string">"GPL"</span>);
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -4981,10 +4972,10 @@ Make and install the module:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">make
+<pre class="src src-sh">make
 sudo insmod cryptosha256.ko
 dmesg
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -4996,20 +4987,20 @@ Finally, remove the test module:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">sudo rmmod cryptosha256
-</code></pre>
+<pre class="src src-sh">sudo rmmod cryptosha256
+</pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org4e331ef" class="outline-3">
-<h3 id="org4e331ef">Symmetric key encryption</h3>
-<div class="outline-text-3" id="text-org4e331ef">
+<div id="outline-container-orgdca7f0b" class="outline-3">
+<h3 id="orgdca7f0b">Symmetric key encryption</h3>
+<div class="outline-text-3" id="text-orgdca7f0b">
 <p>
 Here is an example of symmetrically encrypting a string using the AES algorithm and a password.
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;crypto/internal/skcipher.h&gt;</span>
+<pre class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;crypto/internal/skcipher.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/crypto.h&gt;</span>
 
@@ -5061,7 +5052,7 @@ Here is an example of symmetrically encrypting a string using the AES algorithm 
             <span class="org-keyword">break</span>;
         }
     <span class="org-keyword">default</span>:
-        printk(<span class="org-string">"skcipher encrypt returned with %d result %d\n"</span>,
+        pr_info(<span class="org-string">"skcipher encrypt returned with %d result %d\n"</span>,
             rc, sk-&gt;result.err);
         <span class="org-keyword">break</span>;
     }
@@ -5081,7 +5072,7 @@ Here is an example of symmetrically encrypting a string using the AES algorithm 
 
     result-&gt;err = error;
     complete(&amp;result-&gt;completion);
-    printk(<span class="org-string">"Encryption finished successfully\n"</span>);
+    pr_info(<span class="org-string">"Encryption finished successfully\n"</span>);
 }
 
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">test_skcipher_encrypt</span>(<span class="org-type">char</span> * <span class="org-variable-name">plaintext</span>, <span class="org-type">char</span> * <span class="org-variable-name">password</span>,
@@ -5093,7 +5084,7 @@ Here is an example of symmetrically encrypting a string using the AES algorithm 
     <span class="org-keyword">if</span> (<span class="org-negation-char">!</span>sk-&gt;tfm) {
         sk-&gt;tfm = crypto_alloc_skcipher(<span class="org-string">"cbc-aes-aesni"</span>, 0, 0);
         <span class="org-keyword">if</span> (IS_ERR(sk-&gt;tfm)) {
-            printk(<span class="org-string">"could not allocate skcipher handle\n"</span>);
+            pr_info(<span class="org-string">"could not allocate skcipher handle\n"</span>);
             <span class="org-keyword">return</span> PTR_ERR(sk-&gt;tfm);
         }
     }
@@ -5101,7 +5092,7 @@ Here is an example of symmetrically encrypting a string using the AES algorithm 
     <span class="org-keyword">if</span> (<span class="org-negation-char">!</span>sk-&gt;req) {
         sk-&gt;req = skcipher_request_alloc(sk-&gt;tfm, GFP_KERNEL);
         <span class="org-keyword">if</span> (<span class="org-negation-char">!</span>sk-&gt;req) {
-            printk(<span class="org-string">"could not allocate skcipher request\n"</span>);
+            pr_info(<span class="org-string">"could not allocate skcipher request\n"</span>);
             ret = -ENOMEM;
             <span class="org-keyword">goto</span> <span class="org-constant">out</span>;
         }
@@ -5119,18 +5110,18 @@ Here is an example of symmetrically encrypting a string using the AES algorithm 
 
     <span class="org-comment-delimiter">/* </span><span class="org-comment">AES 256 with given symmetric key </span><span class="org-comment-delimiter">*/</span>
     <span class="org-keyword">if</span> (crypto_skcipher_setkey(sk-&gt;tfm, key, SYMMETRIC_KEY_LENGTH)) {
-        printk(<span class="org-string">"key could not be set\n"</span>);
+        pr_info(<span class="org-string">"key could not be set\n"</span>);
         ret = -EAGAIN;
         <span class="org-keyword">goto</span> <span class="org-constant">out</span>;
     }
-    printk(<span class="org-string">"Symmetric key: %s\n"</span>, key);
-    printk(<span class="org-string">"Plaintext: %s\n"</span>, plaintext);
+    pr_info(<span class="org-string">"Symmetric key: %s\n"</span>, key);
+    pr_info(<span class="org-string">"Plaintext: %s\n"</span>, plaintext);
 
     <span class="org-keyword">if</span> (<span class="org-negation-char">!</span>sk-&gt;ivdata) {
         <span class="org-comment-delimiter">/* </span><span class="org-comment">see https://en.wikipedia.org/wiki/Initialization_vector </span><span class="org-comment-delimiter">*/</span>
         sk-&gt;ivdata = kmalloc(CIPHER_BLOCK_SIZE, GFP_KERNEL);
         <span class="org-keyword">if</span> (<span class="org-negation-char">!</span>sk-&gt;ivdata) {
-            printk(<span class="org-string">"could not allocate ivdata\n"</span>);
+            pr_info(<span class="org-string">"could not allocate ivdata\n"</span>);
             <span class="org-keyword">goto</span> <span class="org-constant">out</span>;
         }
         get_random_bytes(sk-&gt;ivdata, CIPHER_BLOCK_SIZE);
@@ -5140,7 +5131,7 @@ Here is an example of symmetrically encrypting a string using the AES algorithm 
         <span class="org-comment-delimiter">/* </span><span class="org-comment">The text to be encrypted </span><span class="org-comment-delimiter">*/</span>
         sk-&gt;scratchpad = kmalloc(CIPHER_BLOCK_SIZE, GFP_KERNEL);
         <span class="org-keyword">if</span> (<span class="org-negation-char">!</span>sk-&gt;scratchpad) {
-            printk(<span class="org-string">"could not allocate scratchpad\n"</span>);
+            pr_info(<span class="org-string">"could not allocate scratchpad\n"</span>);
             <span class="org-keyword">goto</span> <span class="org-constant">out</span>;
         }
     }
@@ -5157,7 +5148,7 @@ Here is an example of symmetrically encrypting a string using the AES algorithm 
     <span class="org-keyword">if</span> (ret)
         <span class="org-keyword">goto</span> <span class="org-constant">out</span>;
 
-    printk(<span class="org-string">"Encryption request successful\n"</span>);
+    pr_info(<span class="org-string">"Encryption request successful\n"</span>);
 
 <span class="org-constant">out</span>:
     <span class="org-keyword">return</span> ret;
@@ -5189,20 +5180,20 @@ module_exit(cryptoapi_exit);
 MODULE_AUTHOR(<span class="org-string">"Bob Mottram"</span>);
 MODULE_DESCRIPTION(<span class="org-string">"Symmetric key encryption example"</span>);
 MODULE_LICENSE(<span class="org-string">"GPL"</span>);
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-org01d6493" class="outline-2">
-<h2 id="org01d6493">Standardising the interfaces: The Device Model</h2>
-<div class="outline-text-2" id="text-org01d6493">
+<div id="outline-container-org7ee71e2" class="outline-2">
+<h2 id="org7ee71e2">Standardising the interfaces: The Device Model</h2>
+<div class="outline-text-2" id="text-org7ee71e2">
 <p>
 Up to this point we've seen all kinds of modules doing all kinds of things, but there was no consistency in their interfaces with the rest of the kernel. To impose some consistency such that there is at minimum a standardised way to start, suspend and resume a device a device model was added. An example is show below, and you can use this as a template to add your own suspend, resume or other interface functions.
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
+<pre class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/kernel.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/module.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;linux/platform_device.h&gt;</span>
 
@@ -5215,8 +5206,8 @@ Up to this point we've seen all kinds of modules doing all kinds of things, but 
 {
     <span class="org-keyword">struct</span> <span class="org-type">devicemodel_data</span> *<span class="org-variable-name">pd</span> = (<span class="org-keyword">struct</span> <span class="org-type">devicemodel_data</span> *)(dev-&gt;dev.platform_data);
 
-    printk(<span class="org-string">"devicemodel probe\n"</span>);
-    printk(<span class="org-string">"devicemodel greeting: %s; %d\n"</span>, pd-&gt;greeting, pd-&gt;number);
+    pr_info(<span class="org-string">"devicemodel probe\n"</span>);
+    pr_info(<span class="org-string">"devicemodel greeting: %s; %d\n"</span>, pd-&gt;greeting, pd-&gt;number);
 
     <span class="org-comment-delimiter">/* </span><span class="org-comment">Your device initialisation code </span><span class="org-comment-delimiter">*/</span>
 
@@ -5225,7 +5216,7 @@ Up to this point we've seen all kinds of modules doing all kinds of things, but 
 
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">devicemodel_remove</span>(<span class="org-keyword">struct</span> <span class="org-type">platform_device</span> *<span class="org-variable-name">dev</span>)
 {
-    printk(<span class="org-string">"devicemodel example removed\n"</span>);
+    pr_info(<span class="org-string">"devicemodel example removed\n"</span>);
 
     <span class="org-comment-delimiter">/* </span><span class="org-comment">Your device removal code </span><span class="org-comment-delimiter">*/</span>
 
@@ -5234,7 +5225,7 @@ Up to this point we've seen all kinds of modules doing all kinds of things, but 
 
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">devicemodel_suspend</span>(<span class="org-keyword">struct</span> <span class="org-type">device</span> *<span class="org-variable-name">dev</span>)
 {
-    printk(<span class="org-string">"devicemodel example suspend\n"</span>);
+    pr_info(<span class="org-string">"devicemodel example suspend\n"</span>);
 
     <span class="org-comment-delimiter">/* </span><span class="org-comment">Your device suspend code </span><span class="org-comment-delimiter">*/</span>
 
@@ -5243,7 +5234,7 @@ Up to this point we've seen all kinds of modules doing all kinds of things, but 
 
 <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">devicemodel_resume</span>(<span class="org-keyword">struct</span> <span class="org-type">device</span> *<span class="org-variable-name">dev</span>)
 {
-    printk(<span class="org-string">"devicemodel example resume\n"</span>);
+    pr_info(<span class="org-string">"devicemodel example resume\n"</span>);
 
     <span class="org-comment-delimiter">/* </span><span class="org-comment">Your device resume code </span><span class="org-comment-delimiter">*/</span>
 
@@ -5274,12 +5265,12 @@ Up to this point we've seen all kinds of modules doing all kinds of things, but 
 {
     <span class="org-type">int</span> <span class="org-variable-name">ret</span>;
 
-    printk(<span class="org-string">"devicemodel init\n"</span>);
+    pr_info(<span class="org-string">"devicemodel init\n"</span>);
 
     ret = platform_driver_register(&amp;devicemodel_driver);
 
     <span class="org-keyword">if</span> (ret) {
-        printk(KERN_ERR <span class="org-string">"Unable to register driver\n"</span>);
+        pr_err(<span class="org-string">"Unable to register driver\n"</span>);
         <span class="org-keyword">return</span> ret;
     }
 
@@ -5288,7 +5279,7 @@ Up to this point we've seen all kinds of modules doing all kinds of things, but 
 
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">devicemodel_exit</span>(<span class="org-type">void</span>)
 {
-    printk(<span class="org-string">"devicemodel exit\n"</span>);
+    pr_info(<span class="org-string">"devicemodel exit\n"</span>);
     platform_driver_unregister(&amp;devicemodel_driver);
 }
 
@@ -5298,17 +5289,17 @@ MODULE_DESCRIPTION(<span class="org-string">"Linux Device Model example"</span>)
 
 module_init(devicemodel_init);
 module_exit(devicemodel_exit);
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org87293ce" class="outline-2">
-<h2 id="org87293ce">Optimisations</h2>
-<div class="outline-text-2" id="text-org87293ce">
+<div id="outline-container-org6dcd6c8" class="outline-2">
+<h2 id="org6dcd6c8">Optimisations</h2>
+<div class="outline-text-2" id="text-org6dcd6c8">
 </div>
-<div id="outline-container-org87e8223" class="outline-3">
-<h3 id="org87e8223">Likely and Unlikely conditions</h3>
-<div class="outline-text-3" id="text-org87e8223">
+<div id="outline-container-org9398c78" class="outline-3">
+<h3 id="org9398c78">Likely and Unlikely conditions</h3>
+<div class="outline-text-3" id="text-org9398c78">
 <p>
 Sometimes you might want your code to run as quickly as possible, especially if it's handling an interrupt or doing something which might cause noticible latency. If your code contains boolean conditions and if you know that the conditions are almost always likely to evaluate as either <i>true</i> or <i>false</i>, then you can allow the compiler to optimise for this using the <i>likely</i> and <i>unlikely</i> macros.
 </p>
@@ -5318,13 +5309,13 @@ For example, when allocating memory you're almost always expecting this to succe
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-C">bvl = bvec_alloc(gfp_mask, nr_iovecs, &amp;idx);
+<pre class="src src-C">bvl = bvec_alloc(gfp_mask, nr_iovecs, &amp;idx);
 <span class="org-keyword">if</span> (unlikely(<span class="org-negation-char">!</span>bvl)) {
   mempool_free(bio, bio_pool);
   bio = <span class="org-constant">NULL</span>;
   <span class="org-keyword">goto</span> <span class="org-constant">out</span>;
 }
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -5333,35 +5324,35 @@ When the <i>unlikely</i> macro is used the compiler alters its machine instructi
 </div>
 </div>
 </div>
-<div id="outline-container-org79dea20" class="outline-2">
-<h2 id="org79dea20">Common Pitfalls</h2>
-<div class="outline-text-2" id="text-org79dea20">
+<div id="outline-container-org7813eb9" class="outline-2">
+<h2 id="org7813eb9">Common Pitfalls</h2>
+<div class="outline-text-2" id="text-org7813eb9">
 <p>
 Before I send you on your way to go out into the world and write kernel modules, there are a few things I need to warn you about. If I fail to warn you and something bad happens, please report the problem to me for a full refund of the amount I was paid for your copy of the book.
 </p>
 </div>
 
-<div id="outline-container-org86275d7" class="outline-3">
-<h3 id="org86275d7">Using standard libraries</h3>
-<div class="outline-text-3" id="text-org86275d7">
+<div id="outline-container-orgcbd6cad" class="outline-3">
+<h3 id="orgcbd6cad">Using standard libraries</h3>
+<div class="outline-text-3" id="text-orgcbd6cad">
 <p>
 You can't do that. In a kernel module you can only use kernel functions, which are the functions you can see in /proc/kallsyms.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org8646229" class="outline-3">
-<h3 id="org8646229">Disabling interrupts</h3>
-<div class="outline-text-3" id="text-org8646229">
+<div id="outline-container-orgf96d0f1" class="outline-3">
+<h3 id="orgf96d0f1">Disabling interrupts</h3>
+<div class="outline-text-3" id="text-orgf96d0f1">
 <p>
 You might need to do this for a short time and that is OK, but if you don't enable them afterwards, your system will be stuck and you'll have to power it off.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org58c8bc4" class="outline-3">
-<h3 id="org58c8bc4">Sticking your head inside a large carnivore</h3>
-<div class="outline-text-3" id="text-org58c8bc4">
+<div id="outline-container-orga703bab" class="outline-3">
+<h3 id="orga703bab">Sticking your head inside a large carnivore</h3>
+<div class="outline-text-3" id="text-orga703bab">
 <p>
 I probably don't have to warn you about this, but I figured I will anyway, just in case.
 </p>
@@ -5369,9 +5360,9 @@ I probably don't have to warn you about this, but I figured I will anyway, just 
 </div>
 </div>
 
-<div id="outline-container-org2307e11" class="outline-2">
-<h2 id="org2307e11">Where To Go From Here?</h2>
-<div class="outline-text-2" id="text-org2307e11">
+<div id="outline-container-orge615b39" class="outline-2">
+<h2 id="orge615b39">Where To Go From Here?</h2>
+<div class="outline-text-2" id="text-orge615b39">
 <p>
 I could easily have squeezed a few more chapters into this book. I could have added a chapter about creating new file systems, or about adding new protocol stacks (as if there's a need for that &#x2013; you'd have to dig underground to find a protocol stack not supported by Linux). I could have added explanations of the kernel mechanisms we haven't touched upon, such as bootstrapping or the disk interface.
 </p>

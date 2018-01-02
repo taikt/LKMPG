@@ -48,22 +48,22 @@ MODULE_PARM_DESC(myintArray, "An array of integers");
 static int __init hello_5_init(void)
 {
     int i;
-    printk(KERN_INFO "Hello, world 5\n=============\n");
-    printk(KERN_INFO "myshort is a short integer: %hd\n", myshort);
-    printk(KERN_INFO "myint is an integer: %d\n", myint);
-    printk(KERN_INFO "mylong is a long integer: %ld\n", mylong);
-    printk(KERN_INFO "mystring is a string: %s\n", mystring);
+    pr_info("Hello, world 5\n=============\n");
+    pr_info("myshort is a short integer: %hd\n", myshort);
+    pr_info("myint is an integer: %d\n", myint);
+    pr_info("mylong is a long integer: %ld\n", mylong);
+    pr_info("mystring is a string: %s\n", mystring);
+
     for (i = 0; i < (sizeof myintArray / sizeof (int)); i++)
-    {
-        printk(KERN_INFO "myintArray[%d] = %d\n", i, myintArray[i]);
-    }
-    printk(KERN_INFO "got %d arguments for myintArray.\n", arr_argc);
+        pr_info("myintArray[%d] = %d\n", i, myintArray[i]);
+
+    pr_info("got %d arguments for myintArray.\n", arr_argc);
     return 0;
 }
 
 static void __exit hello_5_exit(void)
 {
-    printk(KERN_INFO "Goodbye, world 5\n");
+    pr_info("Goodbye, world 5\n");
 }
 
 module_init(hello_5_init);

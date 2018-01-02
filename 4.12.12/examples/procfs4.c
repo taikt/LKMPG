@@ -116,7 +116,7 @@ int init_module(void)
     if(entry == NULL)
     {
         remove_proc_entry(PROC_NAME, NULL);
-        printk(KERN_DEBUG "Error: Could not initialize /proc/%s\n", PROC_NAME);
+        pr_debug("Error: Could not initialize /proc/%s\n", PROC_NAME);
         return -ENOMEM;
     }
 
@@ -130,5 +130,5 @@ int init_module(void)
 void cleanup_module(void)
 {
     remove_proc_entry(PROC_NAME, NULL);
-    printk(KERN_DEBUG "/proc/%s removed\n", PROC_NAME);
+    pr_debug("/proc/%s removed\n", PROC_NAME);
 }

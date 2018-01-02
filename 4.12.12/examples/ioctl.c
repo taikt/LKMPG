@@ -58,7 +58,7 @@ static long test_ioctl_ioctl(struct file* filp, unsigned int cmd, unsigned long 
             goto done;
         }
 
-        printk(KERN_ALERT "IOCTL set val:%x .\n", data.val);
+        pr_alert("IOCTL set val:%x .\n", data.val);
         write_lock(&ioctl_data->lock);
         ioctl_data->val = data.val;
         write_unlock(&ioctl_data->lock);
@@ -125,7 +125,7 @@ out:
 }
 
 static int test_ioctl_close(struct inode* inode, struct file* filp) {
-    printk(KERN_ALERT "%s call.\n", __func__);
+    pr_alert("%s call.\n", __func__);
 
     if (filp->private_data) {
         kfree(filp->private_data);
@@ -137,7 +137,7 @@ static int test_ioctl_close(struct inode* inode, struct file* filp) {
 
 static int test_ioctl_open(struct inode* inode, struct file* filp) {
     struct test_ioctl_data* ioctl_data;
-    printk(KERN_ALERT "%s call.\n", __func__);
+    pr_alert("%s call.\n", __func__);
     ioctl_data = kmalloc(sizeof(struct test_ioctl_data), GFP_KERNEL);
 
     if (ioctl_data == NULL) {
@@ -176,7 +176,7 @@ static int ioctl_init(void) {
         goto error;
     }
 
-    printk(KERN_ALERT "%s driver(major: %d) installed.\n", DRIVER_NAME, test_ioctl_major);
+    pr_alert("%s driver(major: %d) installed.\n", DRIVER_NAME, test_ioctl_major);
     return 0;
 error:
 
@@ -195,7 +195,7 @@ static void ioctl_exit(void) {
     dev_t dev = MKDEV(test_ioctl_major, 0);
     cdev_del(&test_ioctl_cdev);
     unregister_chrdev_region(dev, num_of_dev);
-    printk(KERN_ALERT "%s driver removed.\n", DRIVER_NAME);
+    pr_alert("%s driver removed.\n", DRIVER_NAME);
 }
 
 module_init(ioctl_init);

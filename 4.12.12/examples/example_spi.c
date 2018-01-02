@@ -6,7 +6,7 @@ static int spi_probe(struct spi_device *spi)
 {
     int ret;
 
-    printk("spi example probe\n");
+    pr_info("spi example probe\n");
 
     spi->bits_per_word = 8;
     spi->mode = SPI_MODE_0;
@@ -14,18 +14,18 @@ static int spi_probe(struct spi_device *spi)
     if (ret < 0)
         return ret;
 
-    printk("spi device name = %s \n", spi->modalias);
-    printk("spi device freq = %d \n", spi->max_speed_hz);
-    printk("spi device's bus_num = %d \n", spi->master->bus_num);
-    printk("spi device cs  = %d \n", spi->chip_select);
-    printk("spi device mode = %d \n\n", spi->mode);
+    pr_info("spi device name = %s \n", spi->modalias);
+    pr_info("spi device freq = %d \n", spi->max_speed_hz);
+    pr_info("spi device's bus_num = %d \n", spi->master->bus_num);
+    pr_info("spi device cs  = %d \n", spi->chip_select);
+    pr_info("spi device mode = %d \n\n", spi->mode);
 
     return 0;
 }
 
 static int spi_remove(struct spi_device *spi)
 {
-    printk("spi example remove\n");
+    pr_info("spi example remove\n");
 
     /* Your spi remove code */
 

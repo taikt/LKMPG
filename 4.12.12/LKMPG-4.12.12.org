@@ -138,7 +138,7 @@ Paste this into you favourite editor and save it as *hello-1.c*:
 
 int init_module(void)
 {
-    printk(KERN_INFO "Hello world 1.\n");
+    pr_info("Hello world 1.\n");
 
     /*
      * A non 0 return means init_module failed; module can't be loaded.
@@ -148,7 +148,7 @@ int init_module(void)
 
 void cleanup_module(void)
 {
-    printk(KERN_INFO "Goodbye world 1.\n");
+    pr_info("Goodbye world 1.\n");
 }
 #+END_SRC
 
@@ -213,17 +213,13 @@ start and end functions of a module, and you'll learn how to do this in Section 
 
 Typically, init_module() either registers a handler for something with the kernel, or it replaces one of the kernel functions with its own code (usually code to do something and then call the original function). The cleanup_module() function is supposed to undo whatever init_module() did, so the module can be unloaded safely.
 
-Lastly, every kernel module needs to include linux/module.h. We needed to include *linux/kernel.h* only for the macro expansion for the printk() log level, KERN_ALERT, which you'll learn about in Section 2.1.1.
+Lastly, every kernel module needs to include linux/module.h. We needed to include *linux/kernel.h* only for the macro expansion for the pr_alert() log level, which you'll learn about in Section 2.1.1.
 
 **** A point about coding style
 Another thing which may not be immediately obvious to anyone getting started with kernel programming is that indentation within your code should be using *tabs* and *not spaces*. It's one of the coding conventions of the kernel. You may not like it, but you'll need to get used to it if you ever submit a patch upstream.
-**** Introducing printk()
+**** Introducing print functions
 
-Despite what you might think, *printk()* was not meant to communicate information to the user, even though we used it for exactly this purpose in hello-1! It happens to be a logging mechanism for the kernel, and is used to log information or give warnings. Therefore, each printk() statement comes with a priority, which is the <1> and KERN_ALERT you see. There are 8 priorities and the kernel has macros for them, so you don't have to use cryptic numbers, and you can view them (and their meanings) in *linux/kernel.h*. If you don't specify a priority level, the default priority, DEFAULT_MESSAGE_LOGLEVEL, will be used.
-
-Take time to read through the priority macros. The header file also describes what each priority means. In practise, don't use number, like <4>. Always use the macro, like KERN_WARNING.
-
-If the priority is less than int console_loglevel, the message is printed on your current terminal. If both syslogd and klogd are running, then the message will also get appended to the systemd journal, whether it got printed to the console or not. We use a high priority, like KERN_ALERT, to make sure the printk() messages get printed to your console rather than just logged to the journal. When you write real modules, you'll want to use priorities that are meaningful for the situation at hand.
+In the beginning there was *printk*, usually followed by a priority such as KERN_INFO or KERN_DEBUG. More recently this can also be expressed in abbreviated form using a set of print macros, such as *pr_info* and *pr_debug*. This just saves some mindless keyboard bashing and looks a bit neater. They can be found within *linux/printk.h*. Take time to read through the available priority macros.
 
 **** About Compiling
 
@@ -249,13 +245,13 @@ In early kernel versions you had to use the *init_module* and *cleanup_module* f
 
 static int __init hello_2_init(void)
 {
-    printk(KERN_INFO "Hello, world 2\n");
+    pr_info("Hello, world 2\n");
     return 0;
 }
 
 static void __exit hello_2_exit(void)
 {
-    printk(KERN_INFO "Goodbye, world 2\n");
+    pr_info("Goodbye, world 2\n");
 }
 
 module_init(hello_2_init);
@@ -298,13 +294,13 @@ static int hello3_data __initdata = 3;
 
 static int __init hello_3_init(void)
 {
-    printk(KERN_INFO "Hello, world %d\n", hello3_data);
+    pr_info("Hello, world %d\n", hello3_data);
     return 0;
 }
 
 static void __exit hello_3_exit(void)
 {
-    printk(KERN_INFO "Goodbye, world 3\n");
+    pr_info("Goodbye, world 3\n");
 }
 
 module_init(hello_3_init);
@@ -340,13 +336,13 @@ MODULE_SUPPORTED_DEVICE("testdevice");
 
 static int __init init_hello_4(void)
 {
-        printk(KERN_INFO "Hello, world 4\n");
+        pr_info("Hello, world 4\n");
         return 0;
 }
 
 static void __exit cleanup_hello_4(void)
 {
-        printk(KERN_INFO "Goodbye, world 4\n");
+        pr_info("Goodbye, world 4\n");
 }
 
 module_init(init_hello_4);
@@ -431,22 +427,22 @@ MODULE_PARM_DESC(myintArray, "An array of integers");
 static int __init hello_5_init(void)
 {
     int i;
-    printk(KERN_INFO "Hello, world 5\n=============\n");
-    printk(KERN_INFO "myshort is a short integer: %hd\n", myshort);
-    printk(KERN_INFO "myint is an integer: %d\n", myint);
-    printk(KERN_INFO "mylong is a long integer: %ld\n", mylong);
-    printk(KERN_INFO "mystring is a string: %s\n", mystring);
+    pr_info("Hello, world 5\n=============\n");
+    pr_info("myshort is a short integer: %hd\n", myshort);
+    pr_info("myint is an integer: %d\n", myint);
+    pr_info("mylong is a long integer: %ld\n", mylong);
+    pr_info("mystring is a string: %s\n", mystring);
     for (i = 0; i < (sizeof myintArray / sizeof (int)); i++)
     {
-        printk(KERN_INFO "myintArray[%d] = %d\n", i, myintArray[i]);
+        pr_info("myintArray[%d] = %d\n", i, myintArray[i]);
     }
-    printk(KERN_INFO "got %d arguments for myintArray.\n", arr_argc);
+    pr_info("got %d arguments for myintArray.\n", arr_argc);
     return 0;
 }
 
 static void __exit hello_5_exit(void)
 {
-    printk(KERN_INFO "Goodbye, world 5\n");
+    pr_info("Goodbye, world 5\n");
 }
 
 module_init(hello_5_init);
@@ -498,7 +494,7 @@ Here's an example of such a kernel module.
 
 int init_module(void)
 {
-    printk(KERN_INFO "Hello, world - this is the kernel speaking\n");
+    pr_info("Hello, world - this is the kernel speaking\n");
     return 0;
 }
 #+END_SRC
@@ -515,7 +511,7 @@ The next file:
 
 void cleanup_module()
 {
-    printk(KERN_INFO "Short is the life of a kernel module\n");
+    pr_info("Short is the life of a kernel module\n");
 }
 #+END_SRC
 
@@ -612,7 +608,7 @@ Every module must have an entry function and an exit function. Since there's mor
 ** Functions available to modules
 Programmers use functions they don't define all the time. A prime example of this is *printf()*. You use these library functions which are provided by the standard C library, libc. The definitions for these functions don't actually enter your program until the linking stage, which insures that the code (for printf() for example) is available, and fixes the call instruction to point to that code.
 
-Kernel modules are different here, too. In the hello world example, you might have noticed that we used a function, *printk()* but didn't include a standard I/O library. That's because modules are object files whose symbols get resolved upon insmod'ing. The definition for the symbols comes from the kernel itself; the only external functions you can use are the ones provided by the kernel. If you're curious about what symbols have been exported by your kernel, take a look at */proc/kallsyms*.
+Kernel modules are different here, too. In the hello world example, you might have noticed that we used a function, *pr_info()* but didn't include a standard I/O library. That's because modules are object files whose symbols get resolved upon insmod'ing. The definition for the symbols comes from the kernel itself; the only external functions you can use are the ones provided by the kernel. If you're curious about what symbols have been exported by your kernel, take a look at */proc/kallsyms*.
 
 One point to keep in mind is the difference between library functions and system calls. Library functions are higher level, run completely in user space and provide a more convenient interface for the programmer to the functions that do the real work --- system calls. System calls run in kernel mode on the user's behalf and are provided by the kernel itself. The library function printf() may look like a very general printing function, but all it really does is format the data into strings and write the string data using the low-level system call write(), which then sends the data to standard output.
 
@@ -855,16 +851,16 @@ int init_module(void)
         Major = register_chrdev(0, DEVICE_NAME, &fops);
 
         if (Major < 0) {
-          printk(KERN_ALERT "Registering char device failed with %d\n", Major);
+          pr_alert("Registering char device failed with %d\n", Major);
           return Major;
         }
 
-        printk(KERN_INFO "I was assigned major number %d. To talk to\n", Major);
-        printk(KERN_INFO "the driver, create a dev file with\n");
-        printk(KERN_INFO "'mknod /dev/%s c %d 0'.\n", DEVICE_NAME, Major);
-        printk(KERN_INFO "Try various minor numbers. Try to cat and echo to\n");
-        printk(KERN_INFO "the device file.\n");
-        printk(KERN_INFO "Remove the device file and module when done.\n");
+        pr_info("I was assigned major number %d. To talk to\n", Major);
+        pr_info("the driver, create a dev file with\n");
+        pr_info("'mknod /dev/%s c %d 0'.\n", DEVICE_NAME, Major);
+        pr_info("Try various minor numbers. Try to cat and echo to\n");
+        pr_info("the device file.\n");
+        pr_info("Remove the device file and module when done.\n");
 
         return SUCCESS;
 }
@@ -971,7 +967,7 @@ static ssize_t device_write(struct file *filp,
                 size_t len,
                 loff_t * off)
 {
-        printk(KERN_ALERT "Sorry, this operation isn't supported.\n");
+        pr_alert("Sorry, this operation isn't supported.\n");
         return -EINVAL;
 }
 #+END_SRC
@@ -1027,7 +1023,7 @@ ssize_t procfile_read(struct file *filePointer,char *buffer,
 {
     int ret=0;
     if(strlen(buffer) ==0) {
-        printk(KERN_INFO "procfile read %s\n",filePointer->f_path.dentry->d_name.name);
+        pr_info("procfile read %s\n",filePointer->f_path.dentry->d_name.name);
         ret=copy_to_user(buffer,"HelloWorld!\n",sizeof("HelloWorld!\n"));
         ret=sizeof("HelloWorld!\n");
     }
@@ -1045,18 +1041,18 @@ int init_module()
     Our_Proc_File = proc_create(procfs_name,0644,NULL,&proc_file_fops);
     if(NULL==Our_Proc_File) {
         proc_remove(Our_Proc_File);
-        printk(KERN_ALERT "Error:Could not initialize /proc/%s\n",procfs_name);
+        pr_alert("Error:Could not initialize /proc/%s\n",procfs_name);
         return -ENOMEM;
     }
 
-    printk(KERN_INFO "/proc/%s created\n", procfs_name);
+    pr_info("/proc/%s created\n", procfs_name);
     return 0;
 }
 
 void cleanup_module()
 {
     proc_remove(Our_Proc_File);
-    printk(KERN_INFO "/proc/%s removed\n", procfs_name);
+    pr_info("/proc/%s removed\n", procfs_name);
 }
 #+END_SRC
 
@@ -1108,7 +1104,7 @@ ssize_t procfile_read(struct file *filePointer,char *buffer,
 {
     int ret=0;
     if(strlen(buffer) ==0) {
-        printk(KERN_INFO "procfile read %s\n",filePointer->f_path.dentry->d_name.name);
+        pr_info("procfile read %s\n",filePointer->f_path.dentry->d_name.name);
         ret=copy_to_user(buffer,"HelloWorld!\n",sizeof("HelloWorld!\n"));
         ret=sizeof("HelloWorld!\n");
     }
@@ -1149,11 +1145,11 @@ int init_module()
     Our_Proc_File = proc_create(PROCFS_NAME,0644,NULL,&proc_file_fops);
     if(NULL==Our_Proc_File) {
         proc_remove(Our_Proc_File);
-        printk(KERN_ALERT "Error:Could not initialize /proc/%s\n",PROCFS_NAME);
+        pr_alert("Error:Could not initialize /proc/%s\n",PROCFS_NAME);
         return -ENOMEM;
     }
 
-    printk(KERN_INFO "/proc/%s created\n", PROCFS_NAME);
+    pr_info("/proc/%s created\n", PROCFS_NAME);
     return 0;
 }
 
@@ -1164,7 +1160,7 @@ int init_module()
 void cleanup_module()
 {
     proc_remove(Our_Proc_File);
-    printk(KERN_INFO "/proc/%s removed\n", PROCFS_NAME);
+    pr_info("/proc/%s removed\n", PROCFS_NAME);
 }
 #+END_SRC
 
@@ -1205,14 +1201,14 @@ static ssize_t procfs_read(struct file *filp, char *buffer,
     static int finished = 0;
     if(finished)
     {
-        printk(KERN_DEBUG "procfs_read: END\n");
+        pr_debug("procfs_read: END\n");
         finished = 0;
         return 0;
     }
     finished = 1;
     if(copy_to_user(buffer, procfs_buffer, procfs_buffer_size))
         return -EFAULT;
-    printk(KERN_DEBUG "procfs_read: read %lu bytes\n", procfs_buffer_size);
+    pr_debug("procfs_read: read %lu bytes\n", procfs_buffer_size);
     return procfs_buffer_size;
 }
 static ssize_t procfs_write(struct file *file,  const char *buffer,
@@ -1224,7 +1220,7 @@ static ssize_t procfs_write(struct file *file,  const char *buffer,
         procfs_buffer_size = len;
     if(copy_from_user(procfs_buffer, buffer, procfs_buffer_size))
         return -EFAULT;
-    printk(KERN_DEBUG "procfs_write: write %lu bytes\n", procfs_buffer_size);
+    pr_debug("procfs_write: write %lu bytes\n", procfs_buffer_size);
     return procfs_buffer_size;
 }
 int procfs_open(struct inode *inode, struct file *file)
@@ -1251,19 +1247,19 @@ int init_module()
     if(Our_Proc_File == NULL)
     {
         remove_proc_entry(PROCFS_ENTRY_FILENAME, NULL);
-        printk(KERN_DEBUG "Error: Could not initialize /proc/%s\n", PROCFS_ENTRY_FILENAME);
+        pr_debug("Error: Could not initialize /proc/%s\n", PROCFS_ENTRY_FILENAME);
         return -ENOMEM;
     }
     proc_set_size(Our_Proc_File, 80);
     proc_set_user(Our_Proc_File,  GLOBAL_ROOT_UID, GLOBAL_ROOT_GID);
 
-    printk(KERN_DEBUG "/proc/%s created\n", PROCFS_ENTRY_FILENAME);
+    pr_debug("/proc/%s created\n", PROCFS_ENTRY_FILENAME);
     return 0;
 }
 void cleanup_module()
 {
     remove_proc_entry(PROCFS_ENTRY_FILENAME, NULL);
-    printk(KERN_DEBUG "/proc/%s removed\n", PROCFS_ENTRY_FILENAME);
+    pr_debug("/proc/%s removed\n", PROCFS_ENTRY_FILENAME);
 }
 #+END_SRC
 
@@ -1425,7 +1421,7 @@ int init_module(void)
     if(entry == NULL)
     {
         remove_proc_entry(PROC_NAME, NULL);
-        printk(KERN_DEBUG "Error: Could not initialize /proc/%s\n", PROC_NAME);
+        pr_debug("Error: Could not initialize /proc/%s\n", PROC_NAME);
         return -ENOMEM;
     }
 
@@ -1439,7 +1435,7 @@ int init_module(void)
 void cleanup_module(void)
 {
     remove_proc_entry(PROC_NAME, NULL);
-    printk(KERN_DEBUG "/proc/%s removed\n", PROC_NAME);
+    pr_debug("/proc/%s removed\n", PROC_NAME);
 }
 #+END_SRC
 
@@ -1467,7 +1463,6 @@ An example of a hello world module which includes the creation of a variable acc
  */
 
 #include <linux/module.h>
-#include <linux/printk.h>
 #include <linux/kobject.h>
 #include <linux/sysfs.h>
 #include <linux/init.h>
@@ -1506,7 +1501,7 @@ static int __init mymodule_init (void)
 {
     int error = 0;
 
-    printk(KERN_INFO "mymodule: initialised\n");
+    pr_info("mymodule: initialised\n");
 
     mymodule =
         kobject_create_and_add("mymodule", kernel_kobj);
@@ -1515,7 +1510,7 @@ static int __init mymodule_init (void)
 
     error = sysfs_create_file(mymodule, &myvariable_attribute.attr);
     if (error) {
-        printk(KERN_INFO "failed to create the myvariable file " \
+        pr_info("failed to create the myvariable file " \
                "in /sys/kernel/mymodule\n");
     }
 
@@ -1524,7 +1519,7 @@ static int __init mymodule_init (void)
 
 static void __exit mymodule_exit (void)
 {
-    printk(KERN_INFO "mymodule: Exit success\n");
+    pr_info("mymodule: Exit success\n");
     kobject_put(mymodule);
 }
 
@@ -1616,7 +1611,7 @@ static char *Message_Ptr;
 static int device_open(struct inode *inode, struct file *file)
 {
 #ifdef DEBUG
-        printk(KERN_INFO "device_open(%p)\n", file);
+        pr_info("device_open(%p)\n", file);
 #endif
 
     /*
@@ -1637,7 +1632,7 @@ static int device_open(struct inode *inode, struct file *file)
 static int device_release(struct inode *inode, struct file *file)
 {
 #ifdef DEBUG
-    printk(KERN_INFO "device_release(%p,%p)\n", inode, file);
+    pr_info("device_release(%p,%p)\n", inode, file);
 #endif
 
     /*
@@ -1665,7 +1660,7 @@ static ssize_t device_read(struct file *file,   /* see include/linux/fs.h   */
     int bytes_read = 0;
 
 #ifdef DEBUG
-    printk(KERN_INFO "device_read(%p,%p,%d)\n", file, buffer, length);
+    pr_info("device_read(%p,%p,%d)\n", file, buffer, length);
 #endif
 
     /*
@@ -1693,7 +1688,7 @@ static ssize_t device_read(struct file *file,   /* see include/linux/fs.h   */
 }
 
 #ifdef DEBUG
-    printk(KERN_INFO "Read %d bytes, %d left\n", bytes_read, length);
+    pr_info("Read %d bytes, %d left\n", bytes_read, length);
 #endif
 
     /*
@@ -1714,7 +1709,7 @@ device_write(struct file *file,
     int i;
 
 #ifdef DEBUG
-    printk(KERN_INFO "device_write(%p,%s,%d)", file, buffer, length);
+    pr_info("device_write(%p,%s,%d)", file, buffer, length);
 #endif
 
     for (i = 0; i < length && i < BUF_LEN; i++)
@@ -1826,20 +1821,20 @@ int init_module()
      * Negative values signify an error
      */
     if (ret_val < 0) {
-        printk(KERN_ALERT "%s failed with %d\n",
+        pr_alert("%s failed with %d\n",
                "Sorry, registering the character device ", ret_val);
         return ret_val;
     }
 
-    printk(KERN_INFO "%s The major device number is %d.\n",
+    pr_info("%s The major device number is %d.\n",
            "Registeration is a success", MAJOR_NUM);
-    printk(KERN_INFO "If you want to talk to the device driver,\n");
-    printk(KERN_INFO "you'll have to create a device file. \n");
-    printk(KERN_INFO "We suggest you use:\n");
-    printk(KERN_INFO "mknod %s c %d 0\n", DEVICE_FILE_NAME, MAJOR_NUM);
-    printk(KERN_INFO "The device file name is important, because\n");
-    printk(KERN_INFO "the ioctl program assumes that's the\n");
-    printk(KERN_INFO "file you'll use.\n");
+    pr_info("If you want to talk to the device driver,\n");
+    pr_info("you'll have to create a device file. \n");
+    pr_info("We suggest you use:\n");
+    pr_info("mknod %s c %d 0\n", DEVICE_FILE_NAME, MAJOR_NUM);
+    pr_info("The device file name is important, because\n");
+    pr_info("the ioctl program assumes that's the\n");
+    pr_info("file you'll use.\n");
 
     return 0;
 }
@@ -2047,7 +2042,7 @@ The location in the kernel a process can jump to is called system_call. The proc
 
 So, if we want to change the way a certain system call works, what we need to do is to write our own function to implement it (usually by adding a bit of our own code, and then calling the original function) and then change the pointer at sys_call_table to point to our function. Because we might be removed later and we don't want to leave the system in an unstable state, it's important for cleanup_module to restore the table to its original state.
 
-The source code here is an example of such a kernel module. We want to "spy" on a certain user, and to printk() a message whenever that user opens a file. Towards this end, we replace the system call to open a file with our own function, called *our_sys_open*. This function checks the uid (user's id) of the current process, and if it's equal to the uid we spy on, it calls printk() to display the name of the file to be opened. Then, either way, it calls the original open() function with the same parameters, to actually open the file.
+The source code here is an example of such a kernel module. We want to "spy" on a certain user, and to *pr_info()* a message whenever that user opens a file. Towards this end, we replace the system call to open a file with our own function, called *our_sys_open*. This function checks the uid (user's id) of the current process, and if it's equal to the uid we spy on, it calls pr_info() to display the name of the file to be opened. Then, either way, it calls the original open() function with the same parameters, to actually open the file.
 
 The *init_module* function replaces the appropriate location in *sys_call_table* and keeps the original pointer in a variable. The cleanup_module function uses that variable to restore everything back to normal. This approach is dangerous, because of the possibility of two kernel modules changing the same system call. Imagine we have two kernel modules, A and B. A's open system call will be A_open and B's will be B_open. Now, when A is inserted into the kernel, the system call is replaced with A_open, which will call the original sys_open when it's done. Next, B is inserted into the kernel, which replaces the system call with B_open, which will call what it thinks is the original system call, A_open, when it's done.
 
@@ -2130,13 +2125,13 @@ asmlinkage int our_sys_open(const char *filename, int flags, int mode)
     /*
      * Report the file, if relevant
      */
-    printk("Opened file by %d: ", uid);
+    pr_info("Opened file by %d: ", uid);
     do {
         get_user(ch, filename + i);
         i++;
-        printk("%c", ch);
+        pr_info("%c", ch);
     } while (ch != 0);
-    printk("\n");
+    pr_info("\n");
 
     /*
      * Call the original sys_open - otherwise, we lose
@@ -2179,7 +2174,7 @@ static int __init syscall_start(void)
 
     write_cr0(original_cr0);
 
-    printk(KERN_INFO "Spying on UID:%d\n", uid);
+    pr_info("Spying on UID:%d\n", uid);
 
     return 0;
 }
@@ -2194,10 +2189,10 @@ static void __exit syscall_end(void)
      * Return the system call back to normal
      */
     if (sys_call_table[__NR_open] != (unsigned long *)our_sys_open) {
-        printk(KERN_ALERT "Somebody else also played with the ");
-        printk(KERN_ALERT "open system call\n");
-        printk(KERN_ALERT "The system may be left in ");
-        printk(KERN_ALERT "an unstable state.\n");
+        pr_alert("Somebody else also played with the ");
+        pr_alert("open system call\n");
+        pr_alert("The system may be left in ");
+        pr_alert("an unstable state.\n");
     }
 
     write_cr0(original_cr0 & ~0x00010000);
@@ -2506,13 +2501,13 @@ int init_module()
     if(Our_Proc_File == NULL)
     {
         remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-        printk(KERN_DEBUG "Error: Could not initialize /proc/%s\n", PROC_ENTRY_FILENAME);
+        pr_debug("Error: Could not initialize /proc/%s\n", PROC_ENTRY_FILENAME);
         return -ENOMEM;
     }
     proc_set_size(Our_Proc_File, 80);
     proc_set_user(Our_Proc_File,  GLOBAL_ROOT_UID, GLOBAL_ROOT_GID);
 
-    printk(KERN_INFO "/proc/test created\n");
+    pr_info("/proc/test created\n");
 
     return 0;
 }
@@ -2526,7 +2521,7 @@ int init_module()
 void cleanup_module()
 {
     remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-    printk(KERN_DEBUG "/proc/%s removed\n", PROC_ENTRY_FILENAME);
+    pr_debug("/proc/%s removed\n", PROC_ENTRY_FILENAME);
 }
 #+END_SRC
 
@@ -2617,7 +2612,7 @@ static struct {
 
 static int machine_crank_thread(void* arg)
 {
-    printk("Turn the crank\n");
+    pr_info("Turn the crank\n");
 
     complete_all(&machine.crank_comp);
     complete_and_exit(&machine.crank_comp, 0);
@@ -2627,7 +2622,7 @@ static int machine_flywheel_spinup_thread(void* arg)
 {
     wait_for_completion(&machine.crank_comp);
 
-    printk("Flywheel spins up\n");
+    pr_info("Flywheel spins up\n");
 
     complete_all(&machine.flywheel_comp);
     complete_and_exit(&machine.flywheel_comp, 0);
@@ -2638,7 +2633,7 @@ static int completions_init(void)
     struct task_struct* crank_thread;
     struct task_struct* flywheel_thread;
 
-    printk("completions example\n");
+    pr_info("completions example\n");
 
     init_completion(&machine.crank_comp);
     init_completion(&machine.flywheel_comp);
@@ -2672,7 +2667,7 @@ void completions_exit(void)
     wait_for_completion(&machine.crank_comp);
     wait_for_completion(&machine.flywheel_comp);
 
-    printk("completions exit\n");
+    pr_info("completions exit\n");
 }
 
 module_init(completions_init);
@@ -2706,27 +2701,27 @@ static int example_mutex_init(void)
 {
     int ret;
 
-    printk("example_mutex init\n");
+    pr_info("example_mutex init\n");
 
     ret = mutex_trylock(&mymutex);
     if (ret != 0) {
-        printk("mutex is locked\n");
+        pr_info("mutex is locked\n");
 
         if (mutex_is_locked(&mymutex) == 0)
-            printk("The mutex failed to lock!\n");
+            pr_info("The mutex failed to lock!\n");
 
         mutex_unlock(&mymutex);
-        printk("mutex is unlocked\n");
+        pr_info("mutex is unlocked\n");
     }
     else
-        printk("Failed to lock\n");
+        pr_info("Failed to lock\n");
 
     return 0;
 }
 
 static void example_mutex_exit(void)
 {
-    printk("example_mutex exit\n");
+    pr_info("example_mutex exit\n");
 }
 
 module_init(example_mutex_init);
@@ -2756,7 +2751,7 @@ static void example_spinlock_static(void)
     unsigned long flags;
 
     spin_lock_irqsave(&sl_static, flags);
-    printk("Locked static spinlock\n");
+    pr_info("Locked static spinlock\n");
 
     /* Do something or other safely.
        Because this uses 100% CPU time this
@@ -2764,7 +2759,7 @@ static void example_spinlock_static(void)
        milliseconds to run */
 
     spin_unlock_irqrestore(&sl_static, flags);
-    printk("Unlocked static spinlock\n");
+    pr_info("Unlocked static spinlock\n");
 }
 
 static void example_spinlock_dynamic(void)
@@ -2773,7 +2768,7 @@ static void example_spinlock_dynamic(void)
 
     spin_lock_init(&sl_dynamic);
     spin_lock_irqsave(&sl_dynamic, flags);
-    printk("Locked dynamic spinlock\n");
+    pr_info("Locked dynamic spinlock\n");
 
     /* Do something or other safely.
        Because this uses 100% CPU time this
@@ -2781,12 +2776,12 @@ static void example_spinlock_dynamic(void)
        milliseconds to run */
 
     spin_unlock_irqrestore(&sl_dynamic, flags);
-    printk("Unlocked dynamic spinlock\n");
+    pr_info("Unlocked dynamic spinlock\n");
 }
 
 static int example_spinlock_init(void)
 {
-    printk("example spinlock started\n");
+    pr_info("example spinlock started\n");
 
     example_spinlock_static();
     example_spinlock_dynamic();
@@ -2796,7 +2791,7 @@ static int example_spinlock_init(void)
 
 static void example_spinlock_exit(void)
 {
-    printk("example spinlock exit\n");
+    pr_info("example spinlock exit\n");
 }
 
 module_init(example_spinlock_init);
@@ -2822,12 +2817,12 @@ static void example_read_lock(void)
     unsigned long flags;
 
     read_lock_irqsave(&myrwlock, flags);
-    printk("Read Locked\n");
+    pr_info("Read Locked\n");
 
     /* Read from something */
 
     read_unlock_irqrestore(&myrwlock, flags);
-    printk("Read Unlocked\n");
+    pr_info("Read Unlocked\n");
 }
 
 static void example_write_lock(void)
@@ -2835,17 +2830,17 @@ static void example_write_lock(void)
     unsigned long flags;
 
     write_lock_irqsave(&myrwlock, flags);
-    printk("Write Locked\n");
+    pr_info("Write Locked\n");
 
     /* Write to something */
 
     write_unlock_irqrestore(&myrwlock, flags);
-    printk("Write Unlocked\n");
+    pr_info("Write Unlocked\n");
 }
 
 static int example_rwlock_init(void)
 {
-    printk("example_rwlock started\n");
+    pr_info("example_rwlock started\n");
 
     example_read_lock();
     example_write_lock();
@@ -2855,7 +2850,7 @@ static int example_rwlock_init(void)
 
 static void example_rwlock_exit(void)
 {
-    printk("example_rwlock exit\n");
+    pr_info("example_rwlock exit\n");
 }
 
 module_init(example_rwlock_init);
@@ -2901,7 +2896,7 @@ static void atomic_add_subtract(void)
     /* add one */
     atomic_inc(&debbie);
 
-    printk("chris: %d, debbie: %d\n",
+    pr_info("chris: %d, debbie: %d\n",
            atomic_read(&chris), atomic_read(&debbie));
 }
 
@@ -2909,26 +2904,26 @@ static void atomic_bitwise(void)
 {
     unsigned long word = 0;
 
-    printk("Bits 0: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info("Bits 0: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     set_bit(3, &word);
     set_bit(5, &word);
-    printk("Bits 1: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info("Bits 1: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     clear_bit(5, &word);
-    printk("Bits 2: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info("Bits 2: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     change_bit(3, &word);
 
-    printk("Bits 3: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info("Bits 3: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     if (test_and_set_bit(3, &word))
-        printk("wrong\n");
-    printk("Bits 4: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+        pr_info("wrong\n");
+    pr_info("Bits 4: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
 
     word = 255;
-    printk("Bits 5: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info("Bits 5: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
 }
 
 static int example_atomic_init(void)
 {
-    printk("example_atomic started\n");
+    pr_info("example_atomic started\n");
 
     atomic_add_subtract();
     atomic_bitwise();
@@ -2938,7 +2933,7 @@ static int example_atomic_init(void)
 
 static void example_atomic_exit(void)
 {
-    printk("example_atomic exit\n");
+    pr_info("example_atomic exit\n");
 }
 
 module_init(example_atomic_init);
@@ -2948,8 +2943,8 @@ MODULE_AUTHOR("Bob Mottram");
 MODULE_DESCRIPTION("Atomic operations example");
 MODULE_LICENSE("GPL");
 #+end_src
-* Replacing Printks
-** Replacing printk
+* Replacing Print Macros
+** Replacement
 In Section 1.2.1.2, I said that X and kernel module programming don't mix. That's true for developing kernel modules, but in actual use, you want to be able to send messages to whichever tty the command to load the module came from.
 
 "tty" is an abbreviation of /teletype/: originally a combination keyboard-printer used to communicate with a Unix system, and today an abstraction for the text stream used for a Unix program, whether it's a physical terminal, an xterm on an X display, a network connection used with ssh, etc.
@@ -3132,19 +3127,19 @@ static int __init kbleds_init(void)
 {
     int i;
 
-    printk(KERN_INFO "kbleds: loading\n");
-    printk(KERN_INFO "kbleds: fgconsole is %x\n", fg_console);
+    pr_info("kbleds: loading\n");
+    pr_info("kbleds: fgconsole is %x\n", fg_console);
     for (i = 0; i < MAX_NR_CONSOLES; i++) {
         if (!vc_cons[i].d)
             break;
-        printk(KERN_INFO "poet_atkm: console[%i/%i] #%i, tty %lx\n", i,
+        pr_info("poet_atkm: console[%i/%i] #%i, tty %lx\n", i,
                MAX_NR_CONSOLES, vc_cons[i].d->vc_num,
                (unsigned long)vc_cons[i].d->port.tty);
     }
-    printk(KERN_INFO "kbleds: finished scanning consoles\n");
+    pr_info("kbleds: finished scanning consoles\n");
 
     my_driver = vc_cons[fg_console].d->port.tty->driver;
-    printk(KERN_INFO "kbleds: tty driver magic %x\n", my_driver->magic);
+    pr_info("kbleds: tty driver magic %x\n", my_driver->magic);
 
     /*
      * Set up the LED blink timer the first time
@@ -3160,7 +3155,7 @@ static int __init kbleds_init(void)
 
 static void __exit kbleds_cleanup(void)
 {
-    printk(KERN_INFO "kbleds: unloading...\n");
+    pr_info("kbleds: unloading...\n");
     del_timer(&my_timer);
     (my_driver->ops->ioctl) (vc_cons[fg_console].d->port.tty,
                              KDSETLED, RESTORE_LEDS);
@@ -3170,7 +3165,7 @@ module_init(kbleds_init);
 module_exit(kbleds_cleanup);
 #+END_SRC
 
-If none of the examples in this chapter fit your debugging needs there might yet be some other tricks to try. Ever wondered what CONFIG_LL_DEBUG in make menuconfig is good for? If you activate that you get low level access to the serial port. While this might not sound very powerful by itself, you can patch kernel/printk.c or any other essential syscall to use printascii, thus makeing it possible to trace virtually everything what your code does over a serial line. If you find yourself porting the kernel to some new and former unsupported architecture this is usually amongst the first things that should be implemented. Logging over a netconsole might also be worth a try.
+If none of the examples in this chapter fit your debugging needs there might yet be some other tricks to try. Ever wondered what CONFIG_LL_DEBUG in make menuconfig is good for? If you activate that you get low level access to the serial port. While this might not sound very powerful by itself, you can patch *kernel/printk.c* or any other essential syscall to use printascii, thus makeing it possible to trace virtually everything what your code does over a serial line. If you find yourself porting the kernel to some new and former unsupported architecture this is usually amongst the first things that should be implemented. Logging over a netconsole might also be worth a try.
 
 While you have seen lots of stuff that can be used to aid debugging here, there are some things to be aware of. Debugging is almost always intrusive. Adding debug code can change the situation enough to make the bug seem to dissappear. Thus you should try to keep debug code to a minimum and make sure it does not show up in production code.
 
@@ -3188,25 +3183,25 @@ Here's an example tasklet module. The /tasklet_fn/ function runs for a few secon
 
 static void tasklet_fn(unsigned long data)
 {
-    printk("Example tasklet starts\n");
+    pr_info("Example tasklet starts\n");
     mdelay(5000);
-    printk("Example tasklet ends\n");
+    pr_info("Example tasklet ends\n");
 }
 
 DECLARE_TASKLET(mytask, tasklet_fn, 0L);
 
 static int example_tasklet_init(void)
 {
-    printk("tasklet example init\n");
+    pr_info("tasklet example init\n");
     tasklet_schedule(&mytask);
     mdelay(200);
-    printk("Example tasklet init continues...\n");
+    pr_info("Example tasklet init continues...\n");
     return 0;
 }
 
 static void example_tasklet_exit(void)
 {
-    printk("tasklet example exit\n");
+    pr_info("tasklet example exit\n");
     tasklet_kill(&mytask);
 }
 
@@ -3353,8 +3348,8 @@ int __init init_module()
 
     if (Our_Proc_File == NULL) {
         remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-        printk(KERN_ALERT "Error: Could not initialize /proc/%s\n",
-               PROC_ENTRY_FILENAME);
+        pr_alert("Error: Could not initialize /proc/%s\n",
+                 PROC_ENTRY_FILENAME);
         return -ENOMEM;
     }
     proc_set_size(Our_Proc_File, 80);
@@ -3367,7 +3362,7 @@ int __init init_module()
     my_workqueue = create_workqueue(MY_WORK_QUEUE_NAME);
     queue_delayed_work(my_workqueue, &Task, 100);
 
-    printk(KERN_INFO "/proc/%s created\n", PROC_ENTRY_FILENAME);
+    pr_info("/proc/%s created\n", PROC_ENTRY_FILENAME);
 
     return 0;
 }
@@ -3381,7 +3376,7 @@ void __exit cleanup_module()
      * Unregister our /proc file
      */
     remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-    printk(KERN_INFO "/proc/%s removed\n", PROC_ENTRY_FILENAME);
+    pr_info("/proc/%s removed\n", PROC_ENTRY_FILENAME);
 
     die = 1;                /* keep intrp_routine from queueing itself */
     cancel_delayed_work(&Task);     /* no "new ones" */
@@ -3472,13 +3467,13 @@ int init_module()
 {
     int ret = 0;
 
-    printk(KERN_INFO "%s\n", __func__);
+    pr_info("%s\n", __func__);
 
     /* register LED gpios */
     ret = gpio_request_array(leds, ARRAY_SIZE(leds));
 
     if (ret) {
-        printk(KERN_ERR "Unable to request GPIOs for LEDs: %d\n", ret);
+        pr_err("Unable to request GPIOs for LEDs: %d\n", ret);
         return ret;
     }
 
@@ -3486,23 +3481,23 @@ int init_module()
     ret = gpio_request_array(buttons, ARRAY_SIZE(buttons));
 
     if (ret) {
-        printk(KERN_ERR "Unable to request GPIOs for BUTTONs: %d\n", ret);
+        pr_err("Unable to request GPIOs for BUTTONs: %d\n", ret);
         goto fail1;
     }
 
-    printk(KERN_INFO "Current button1 value: %d\n",
+    pr_info("Current button1 value: %d\n",
            gpio_get_value(buttons[0].gpio));
 
     ret = gpio_to_irq(buttons[0].gpio);
 
     if (ret < 0) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail2;
     }
 
     button_irqs[0] = ret;
 
-    printk(KERN_INFO "Successfully requested BUTTON1 IRQ # %d\n",
+    pr_info("Successfully requested BUTTON1 IRQ # %d\n",
            button_irqs[0]);
 
     ret = request_irq(button_irqs[0], button_isr,
@@ -3510,7 +3505,7 @@ int init_module()
                       "gpiomod#button1", NULL);
 
     if (ret) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail2;
     }
 
@@ -3518,13 +3513,13 @@ int init_module()
     ret = gpio_to_irq(buttons[1].gpio);
 
     if (ret < 0) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail2;
     }
 
     button_irqs[1] = ret;
 
-    printk(KERN_INFO "Successfully requested BUTTON2 IRQ # %d\n",
+    pr_info("Successfully requested BUTTON2 IRQ # %d\n",
            button_irqs[1]);
 
     ret = request_irq(button_irqs[1], button_isr,
@@ -3532,7 +3527,7 @@ int init_module()
                       "gpiomod#button2", NULL);
 
     if (ret) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail3;
     }
 
@@ -3555,7 +3550,7 @@ void cleanup_module()
 {
     int i;
 
-    printk(KERN_INFO "%s\n", __func__);
+    pr_info("%s\n", __func__);
 
     /* free irqs */
     free_irq(button_irqs[0], NULL);
@@ -3616,10 +3611,10 @@ static struct gpio buttons[] = {
 /* Tasklet containing some non-trivial amount of processing */
 static void bottomhalf_tasklet_fn(unsigned long data)
 {
-    printk("Bottom half tasklet starts\n");
+    pr_info("Bottom half tasklet starts\n");
     /* do something which takes a while */
     mdelay(500);
-    printk("Bottom half tasklet ends\n");
+    pr_info("Bottom half tasklet ends\n");
 }
 
 DECLARE_TASKLET(buttontask, bottomhalf_tasklet_fn, 0L);
@@ -3645,13 +3640,13 @@ int init_module()
 {
     int ret = 0;
 
-    printk(KERN_INFO "%s\n", __func__);
+    pr_info("%s\n", __func__);
 
     /* register LED gpios */
     ret = gpio_request_array(leds, ARRAY_SIZE(leds));
 
     if (ret) {
-        printk(KERN_ERR "Unable to request GPIOs for LEDs: %d\n", ret);
+        pr_err("Unable to request GPIOs for LEDs: %d\n", ret);
         return ret;
     }
 
@@ -3659,23 +3654,23 @@ int init_module()
     ret = gpio_request_array(buttons, ARRAY_SIZE(buttons));
 
     if (ret) {
-        printk(KERN_ERR "Unable to request GPIOs for BUTTONs: %d\n", ret);
+        pr_err("Unable to request GPIOs for BUTTONs: %d\n", ret);
         goto fail1;
     }
 
-    printk(KERN_INFO "Current button1 value: %d\n",
+    pr_info("Current button1 value: %d\n",
            gpio_get_value(buttons[0].gpio));
 
     ret = gpio_to_irq(buttons[0].gpio);
 
     if (ret < 0) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail2;
     }
 
     button_irqs[0] = ret;
 
-    printk(KERN_INFO "Successfully requested BUTTON1 IRQ # %d\n",
+    pr_info("Successfully requested BUTTON1 IRQ # %d\n",
            button_irqs[0]);
 
     ret = request_irq(button_irqs[0], button_isr,
@@ -3683,7 +3678,7 @@ int init_module()
                       "gpiomod#button1", NULL);
 
     if (ret) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail2;
     }
 
@@ -3691,13 +3686,13 @@ int init_module()
     ret = gpio_to_irq(buttons[1].gpio);
 
     if (ret < 0) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail2;
     }
 
     button_irqs[1] = ret;
 
-    printk(KERN_INFO "Successfully requested BUTTON2 IRQ # %d\n",
+    pr_info("Successfully requested BUTTON2 IRQ # %d\n",
            button_irqs[1]);
 
     ret = request_irq(button_irqs[1], button_isr,
@@ -3705,7 +3700,7 @@ int init_module()
                       "gpiomod#button2", NULL);
 
     if (ret) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail3;
     }
 
@@ -3728,7 +3723,7 @@ void cleanup_module()
 {
     int i;
 
-    printk(KERN_INFO "%s\n", __func__);
+    pr_info("%s\n", __func__);
 
     /* free irqs */
     free_irq(button_irqs[0], NULL);
@@ -3765,11 +3760,11 @@ static void show_hash_result(char * plaintext, char * hash_sha256)
     int i;
     char str[SHA256_LENGTH*2 + 1];
 
-    printk("sha256 test for string: \"%s\"\n", plaintext);
+    pr_info("sha256 test for string: \"%s\"\n", plaintext);
     for (i = 0; i < SHA256_LENGTH ; i++)
         sprintf(&str[i*2],"%02x", (unsigned char)hash_sha256[i]);
     str[i*2] = 0;
-    printk("%s\n", str);
+    pr_info("%s\n", str);
 }
 
 int cryptosha256_init(void)
@@ -3892,7 +3887,7 @@ static int test_skcipher_result(struct skcipher_def * sk, int rc)
             break;
         }
     default:
-        printk("skcipher encrypt returned with %d result %d\n",
+        pr_info("skcipher encrypt returned with %d result %d\n",
             rc, sk->result.err);
         break;
     }
@@ -3912,7 +3907,7 @@ static void test_skcipher_callback(struct crypto_async_request *req, int error)
 
     result->err = error;
     complete(&result->completion);
-    printk("Encryption finished successfully\n");
+    pr_info("Encryption finished successfully\n");
 }
 
 static int test_skcipher_encrypt(char * plaintext, char * password,
@@ -3924,7 +3919,7 @@ static int test_skcipher_encrypt(char * plaintext, char * password,
     if (!sk->tfm) {
         sk->tfm = crypto_alloc_skcipher("cbc-aes-aesni", 0, 0);
         if (IS_ERR(sk->tfm)) {
-            printk("could not allocate skcipher handle\n");
+            pr_info("could not allocate skcipher handle\n");
             return PTR_ERR(sk->tfm);
         }
     }
@@ -3932,7 +3927,7 @@ static int test_skcipher_encrypt(char * plaintext, char * password,
     if (!sk->req) {
         sk->req = skcipher_request_alloc(sk->tfm, GFP_KERNEL);
         if (!sk->req) {
-            printk("could not allocate skcipher request\n");
+            pr_info("could not allocate skcipher request\n");
             ret = -ENOMEM;
             goto out;
         }
@@ -3950,18 +3945,18 @@ static int test_skcipher_encrypt(char * plaintext, char * password,
 
     /* AES 256 with given symmetric key */
     if (crypto_skcipher_setkey(sk->tfm, key, SYMMETRIC_KEY_LENGTH)) {
-        printk("key could not be set\n");
+        pr_info("key could not be set\n");
         ret = -EAGAIN;
         goto out;
     }
-    printk("Symmetric key: %s\n", key);
-    printk("Plaintext: %s\n", plaintext);
+    pr_info("Symmetric key: %s\n", key);
+    pr_info("Plaintext: %s\n", plaintext);
 
     if (!sk->ivdata) {
         /* see https://en.wikipedia.org/wiki/Initialization_vector */
         sk->ivdata = kmalloc(CIPHER_BLOCK_SIZE, GFP_KERNEL);
         if (!sk->ivdata) {
-            printk("could not allocate ivdata\n");
+            pr_info("could not allocate ivdata\n");
             goto out;
         }
         get_random_bytes(sk->ivdata, CIPHER_BLOCK_SIZE);
@@ -3971,7 +3966,7 @@ static int test_skcipher_encrypt(char * plaintext, char * password,
         /* The text to be encrypted */
         sk->scratchpad = kmalloc(CIPHER_BLOCK_SIZE, GFP_KERNEL);
         if (!sk->scratchpad) {
-            printk("could not allocate scratchpad\n");
+            pr_info("could not allocate scratchpad\n");
             goto out;
         }
     }
@@ -3988,7 +3983,7 @@ static int test_skcipher_encrypt(char * plaintext, char * password,
     if (ret)
         goto out;
 
-    printk("Encryption request successful\n");
+    pr_info("Encryption request successful\n");
 
 out:
     return ret;
@@ -4038,8 +4033,8 @@ static int devicemodel_probe(struct platform_device *dev)
 {
     struct devicemodel_data *pd = (struct devicemodel_data *)(dev->dev.platform_data);
 
-    printk("devicemodel probe\n");
-    printk("devicemodel greeting: %s; %d\n", pd->greeting, pd->number);
+    pr_info("devicemodel probe\n");
+    pr_info("devicemodel greeting: %s; %d\n", pd->greeting, pd->number);
 
     /* Your device initialisation code */
 
@@ -4048,7 +4043,7 @@ static int devicemodel_probe(struct platform_device *dev)
 
 static int devicemodel_remove(struct platform_device *dev)
 {
-    printk("devicemodel example removed\n");
+    pr_info("devicemodel example removed\n");
 
     /* Your device removal code */
 
@@ -4057,7 +4052,7 @@ static int devicemodel_remove(struct platform_device *dev)
 
 static int devicemodel_suspend(struct device *dev)
 {
-    printk("devicemodel example suspend\n");
+    pr_info("devicemodel example suspend\n");
 
     /* Your device suspend code */
 
@@ -4066,7 +4061,7 @@ static int devicemodel_suspend(struct device *dev)
 
 static int devicemodel_resume(struct device *dev)
 {
-    printk("devicemodel example resume\n");
+    pr_info("devicemodel example resume\n");
 
     /* Your device resume code */
 
@@ -4097,12 +4092,12 @@ static int devicemodel_init(void)
 {
     int ret;
 
-    printk("devicemodel init\n");
+    pr_info("devicemodel init\n");
 
     ret = platform_driver_register(&devicemodel_driver);
 
     if (ret) {
-        printk(KERN_ERR "Unable to register driver\n");
+        pr_err("Unable to register driver\n");
         return ret;
     }
 
@@ -4111,7 +4106,7 @@ static int devicemodel_init(void)
 
 static void devicemodel_exit(void)
 {
-    printk("devicemodel exit\n");
+    pr_info("devicemodel exit\n");
     platform_driver_unregister(&devicemodel_driver);
 }
 

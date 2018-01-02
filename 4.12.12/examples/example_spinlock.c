@@ -12,7 +12,7 @@ static void example_spinlock_static(void)
     unsigned long flags;
 
     spin_lock_irqsave(&sl_static, flags);
-    printk("Locked static spinlock\n");
+    pr_info("Locked static spinlock\n");
 
     /* Do something or other safely.
        Because this uses 100% CPU time this
@@ -20,7 +20,7 @@ static void example_spinlock_static(void)
        milliseconds to run */
 
     spin_unlock_irqrestore(&sl_static, flags);
-    printk("Unlocked static spinlock\n");
+    pr_info("Unlocked static spinlock\n");
 }
 
 static void example_spinlock_dynamic(void)
@@ -29,7 +29,7 @@ static void example_spinlock_dynamic(void)
 
     spin_lock_init(&sl_dynamic);
     spin_lock_irqsave(&sl_dynamic, flags);
-    printk("Locked dynamic spinlock\n");
+    pr_info("Locked dynamic spinlock\n");
 
     /* Do something or other safely.
        Because this uses 100% CPU time this
@@ -37,12 +37,12 @@ static void example_spinlock_dynamic(void)
        milliseconds to run */
 
     spin_unlock_irqrestore(&sl_dynamic, flags);
-    printk("Unlocked dynamic spinlock\n");
+    pr_info("Unlocked dynamic spinlock\n");
 }
 
 static int example_spinlock_init(void)
 {
-    printk("example spinlock started\n");
+    pr_info("example spinlock started\n");
 
     example_spinlock_static();
     example_spinlock_dynamic();
@@ -52,7 +52,7 @@ static int example_spinlock_init(void)
 
 static void example_spinlock_exit(void)
 {
-    printk("example spinlock exit\n");
+    pr_info("example spinlock exit\n");
 }
 
 module_init(example_spinlock_init);

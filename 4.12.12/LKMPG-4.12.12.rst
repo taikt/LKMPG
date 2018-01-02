@@ -21,105 +21,101 @@
 
    <div id="text-table-of-contents">
 
--  `Introduction <#org98c97cb>`__
+-  `Introduction <#orgcfc88e3>`__
 
-   -  `Authorship <#org2782b14>`__
-   -  `Versioning and Notes <#org0b6d633>`__
-   -  `Acknowledgements <#orge57cf6b>`__
-   -  `What Is A Kernel Module? <#org37341bc>`__
-   -  `Kernel module package <#orge9612fa>`__
-   -  `What Modules are in my Kernel? <#orgb6ce832>`__
-   -  `Do I need to download and compile the kernel? <#orge1ec8b5>`__
-   -  `Before We Begin <#org87661f2>`__
+   -  `Authorship <#orgb35992a>`__
+   -  `Versioning and Notes <#org1e701d7>`__
+   -  `Acknowledgements <#orgff412d1>`__
+   -  `What Is A Kernel Module? <#org85e5d05>`__
+   -  `Kernel module package <#org8138753>`__
+   -  `What Modules are in my Kernel? <#org5f1fe9f>`__
+   -  `Do I need to download and compile the kernel? <#orge267f2b>`__
+   -  `Before We Begin <#orge21c8f9>`__
 
--  `Headers <#org52fbd37>`__
--  `Examples <#org628945f>`__
--  `Hello World <#org0d455c0>`__
+-  `Headers <#org020fd9b>`__
+-  `Examples <#org3fb7793>`__
+-  `Hello World <#org8065caf>`__
 
-   -  `The Simplest Module <#orgba22fe1>`__
-   -  `Hello and Goodbye <#org56fc79a>`__
-   -  `The \__init and \__exit Macros <#org86bfdb6>`__
-   -  `Licensing and Module Documentation <#org11aaf91>`__
-   -  `Passing Command Line Arguments to a Module <#org9e1dd8d>`__
-   -  `Modules Spanning Multiple Files <#orgcd10981>`__
-   -  `Building modules for a precompiled kernel <#orga65faca>`__
+   -  `The Simplest Module <#orgbda9acd>`__
+   -  `Hello and Goodbye <#org761c702>`__
+   -  `The \__init and \__exit Macros <#orgf583ec5>`__
+   -  `Licensing and Module Documentation <#orgcf0f915>`__
+   -  `Passing Command Line Arguments to a Module <#orgc88a626>`__
+   -  `Modules Spanning Multiple Files <#orgcac6115>`__
+   -  `Building modules for a precompiled kernel <#orgd8499f9>`__
 
--  `Preliminaries <#orgdeef601>`__
+-  `Preliminaries <#orgb6633e2>`__
 
-   -  `How modules begin and end <#orgc8eceb0>`__
-   -  `Functions available to modules <#org290f3df>`__
-   -  `User Space vs Kernel Space <#orga7850df>`__
-   -  `Name Space <#org4b4877b>`__
-   -  `Code space <#org7e3a491>`__
-   -  `Device Drivers <#org6c0b122>`__
+   -  `How modules begin and end <#org7f4891d>`__
+   -  `Functions available to modules <#org8021b97>`__
+   -  `User Space vs Kernel Space <#org2487a6b>`__
+   -  `Name Space <#orgd5dd329>`__
+   -  `Code space <#org3cb9562>`__
+   -  `Device Drivers <#orgb4dc531>`__
 
--  `Character Device drivers <#org016c39a>`__
+-  `Character Device drivers <#org952d427>`__
 
-   -  `The file_operations Structure <#org31d952e>`__
-   -  `The file structure <#org607b208>`__
-   -  `Registering A Device <#orgf96ab85>`__
-   -  `Unregistering A Device <#org452ea75>`__
-   -  `chardev.c <#orgdd49880>`__
-   -  `Writing Modules for Multiple Kernel Versions <#org903f5d5>`__
+   -  `The file_operations Structure <#org1f70982>`__
+   -  `The file structure <#org7c65651>`__
+   -  `Registering A Device <#org88f75aa>`__
+   -  `Unregistering A Device <#org33e8c4e>`__
+   -  `chardev.c <#org4a28a33>`__
+   -  `Writing Modules for Multiple Kernel Versions <#orgbcf1c83>`__
 
--  `The /proc File System <#org6400501>`__
+-  `The /proc File System <#orgf6ba9df>`__
 
-   -  `Read and Write a /proc File <#orga906618>`__
-   -  `Manage /proc file with standard filesystem <#org561d817>`__
-   -  `Manage /proc file with seq_file <#org38ea52f>`__
+   -  `Read and Write a /proc File <#org43d4889>`__
+   -  `Manage /proc file with standard filesystem <#org1607657>`__
+   -  `Manage /proc file with seq_file <#org1f457d2>`__
 
--  `sysfs: Interacting with your module <#org954957f>`__
--  `Talking To Device Files <#org438f37b>`__
--  `System Calls <#org8de5924>`__
--  `Blocking Processes and threads <#org13e2c0e>`__
+-  `sysfs: Interacting with your module <#orgf71ef7e>`__
+-  `Talking To Device Files <#org18e4279>`__
+-  `System Calls <#org57619bf>`__
+-  `Blocking Processes and threads <#org2c54a9a>`__
 
-   -  `Sleep <#org9cbc7d3>`__
-   -  `Completions <#org89cb410>`__
+   -  `Sleep <#org8e98b07>`__
+   -  `Completions <#orgc9f3884>`__
 
--  `Avoiding Collisions and Deadlocks <#org949949f>`__
+-  `Avoiding Collisions and Deadlocks <#orgbc36b97>`__
 
-   -  `Mutex <#org10f05c2>`__
-   -  `Spinlocks <#org5d633fc>`__
-   -  `Read and write locks <#orgaa517c3>`__
-   -  `Atomic operations <#orgadbf448>`__
+   -  `Mutex <#org08abf74>`__
+   -  `Spinlocks <#org8abef7b>`__
+   -  `Read and write locks <#org0a55320>`__
+   -  `Atomic operations <#org2652f4e>`__
 
--  `Replacing Printks <#org7974c60>`__
+-  `Replacing Print Macros <#orgf928ddc>`__
 
-   -  `Replacing printk <#org1c8b17b>`__
-   -  `Flashing keyboard LEDs <#org418d823>`__
+   -  `Replacement <#org79d2e43>`__
+   -  `Flashing keyboard LEDs <#org006f60c>`__
 
--  `Scheduling Tasks <#orgf37d73f>`__
+-  `Scheduling Tasks <#orgcab6a64>`__
 
-   -  `Tasklets <#org32525a8>`__
-   -  `Work queues <#orge8a2d87>`__
+   -  `Tasklets <#orga758af1>`__
+   -  `Work queues <#org5e7cad8>`__
 
--  `Interrupt Handlers <#orgbc0cdf8>`__
+-  `Interrupt Handlers <#org991944f>`__
 
-   -  `Interrupt Handlers <#org93511bb>`__
-   -  `Detecting button presses <#org77533ca>`__
-   -  `Bottom Half <#orgdb452ba>`__
+   -  `Interrupt Handlers <#orgdc4fa66>`__
+   -  `Detecting button presses <#org170473f>`__
+   -  `Bottom Half <#org58210bf>`__
 
--  `Crypto <#org627e987>`__
+-  `Crypto <#org95671c1>`__
 
-   -  `Hash functions <#org0d560c3>`__
-   -  `Symmetric key encryption <#org4e331ef>`__
+   -  `Hash functions <#org5702461>`__
+   -  `Symmetric key encryption <#orgdca7f0b>`__
 
--  `Standardising the interfaces: The Device Model <#org01d6493>`__
--  `Optimisations <#org87293ce>`__
+-  `Standardising the interfaces: The Device Model <#org7ee71e2>`__
+-  `Optimisations <#org6dcd6c8>`__
 
-   -  `Likely and Unlikely conditions <#org87e8223>`__
+   -  `Likely and Unlikely conditions <#org9398c78>`__
 
--  `Common Pitfalls <#org79dea20>`__
+-  `Common Pitfalls <#org7813eb9>`__
 
-   -  `Using standard libraries <#org86275d7>`__
-   -  `Disabling interrupts <#org8646229>`__
-   -  `Sticking your head inside a large carnivore <#org58c8bc4>`__
+   -  `Using standard libraries <#orgcbd6cad>`__
+   -  `Disabling interrupts <#orgf96d0f1>`__
+   -  `Sticking your head inside a large carnivore <#orga703bab>`__
 
--  `Where To Go From Here? <#org2307e11>`__
-
-.. raw:: html
-
-   </div>
+-  `Where To Go From Here? <#orge615b39>`__
 
 .. raw:: html
 
@@ -127,14 +123,18 @@
 
 .. raw:: html
 
-   <div id="outline-container-org98c97cb" class="outline-2">
+   </div>
+
+.. raw:: html
+
+   <div id="outline-container-orgcfc88e3" class="outline-2">
 
 .. rubric:: Introduction
-   :name: org98c97cb
+   :name: orgcfc88e3
 
 .. raw:: html
 
-   <div id="text-org98c97cb" class="outline-text-2">
+   <div id="text-orgcfc88e3" class="outline-text-2">
 
 The Linux Kernel Module Programming Guide is a free book; you may
 reproduce and/or modify it under the terms of the Open Software License,
@@ -172,14 +172,14 @@ above.
 
 .. raw:: html
 
-   <div id="outline-container-org2782b14" class="outline-3">
+   <div id="outline-container-orgb35992a" class="outline-3">
 
 .. rubric:: Authorship
-   :name: org2782b14
+   :name: orgb35992a
 
 .. raw:: html
 
-   <div id="text-org2782b14" class="outline-text-3">
+   <div id="text-orgb35992a" class="outline-text-3">
 
 The Linux Kernel Module Programming Guide was originally written for the
 2.2 kernels by Ori Pomerantz. Eventually, Ori no longer had time to
@@ -201,14 +201,14 @@ other chapters.
 
 .. raw:: html
 
-   <div id="outline-container-org0b6d633" class="outline-3">
+   <div id="outline-container-org1e701d7" class="outline-3">
 
 .. rubric:: Versioning and Notes
-   :name: org0b6d633
+   :name: org1e701d7
 
 .. raw:: html
 
-   <div id="text-org0b6d633" class="outline-text-3">
+   <div id="text-org1e701d7" class="outline-text-3">
 
 The Linux kernel is a moving target. There has always been a question
 whether the LKMPG should remove deprecated information or keep it around
@@ -232,14 +232,14 @@ I can't promise anything.
 
 .. raw:: html
 
-   <div id="outline-container-orge57cf6b" class="outline-3">
+   <div id="outline-container-orgff412d1" class="outline-3">
 
 .. rubric:: Acknowledgements
-   :name: orge57cf6b
+   :name: orgff412d1
 
 .. raw:: html
 
-   <div id="text-orge57cf6b" class="outline-text-3">
+   <div id="text-orgff412d1" class="outline-text-3">
 
 The following people have contributed corrections or good suggestions:
 Ignacio Martin, David Porter, Daniele Paolo Scarpazza, Dimo Velev,
@@ -255,14 +255,14 @@ Francois Audeon, Horst Schirmeier, Bob Mottram and Roman Lakeev.
 
 .. raw:: html
 
-   <div id="outline-container-org37341bc" class="outline-3">
+   <div id="outline-container-org85e5d05" class="outline-3">
 
 .. rubric:: What Is A Kernel Module?
-   :name: org37341bc
+   :name: org85e5d05
 
 .. raw:: html
 
-   <div id="text-org37341bc" class="outline-text-3">
+   <div id="text-org85e5d05" class="outline-text-3">
 
 So, you want to write a kernel module. You know C, you've written a few
 normal programs to run as processes, and now you want to get to where
@@ -289,14 +289,14 @@ time we want new functionality.
 
 .. raw:: html
 
-   <div id="outline-container-orge9612fa" class="outline-3">
+   <div id="outline-container-org8138753" class="outline-3">
 
 .. rubric:: Kernel module package
-   :name: orge9612fa
+   :name: org8138753
 
 .. raw:: html
 
-   <div id="text-orge9612fa" class="outline-text-3">
+   <div id="text-org8138753" class="outline-text-3">
 
 Linux distros provide the commands *modprobe*, *insmod* and *depmod*
 within a package.
@@ -307,7 +307,7 @@ On Debian:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo apt-get install build-essential kmod
 
@@ -321,7 +321,7 @@ On Parabola:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo pacman -S gcc kmod
 
@@ -339,14 +339,14 @@ On Parabola:
 
 .. raw:: html
 
-   <div id="outline-container-orgb6ce832" class="outline-3">
+   <div id="outline-container-org5f1fe9f" class="outline-3">
 
 .. rubric:: What Modules are in my Kernel?
-   :name: orgb6ce832
+   :name: org5f1fe9f
 
 .. raw:: html
 
-   <div id="text-orgb6ce832" class="outline-text-3">
+   <div id="text-org5f1fe9f" class="outline-text-3">
 
 To discover what modules are already loaded within your current kernel
 use the command **lsmod**.
@@ -355,7 +355,7 @@ use the command **lsmod**.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo lsmod
 
@@ -370,7 +370,7 @@ them with:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo cat /proc/modules
 
@@ -385,7 +385,7 @@ particular. To search for the *fat* module:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo lsmod | grep fat
 
@@ -403,14 +403,14 @@ particular. To search for the *fat* module:
 
 .. raw:: html
 
-   <div id="outline-container-orge1ec8b5" class="outline-3">
+   <div id="outline-container-orge267f2b" class="outline-3">
 
 .. rubric:: Do I need to download and compile the kernel?
-   :name: orge1ec8b5
+   :name: orge267f2b
 
 .. raw:: html
 
-   <div id="text-orge1ec8b5" class="outline-text-3">
+   <div id="text-orge267f2b" class="outline-text-3">
 
 For the purposes of following this guide you don't necessarily need to
 do that. However, it would be wise to run the examples within a test
@@ -427,14 +427,14 @@ messing up your system.
 
 .. raw:: html
 
-   <div id="outline-container-org87661f2" class="outline-3">
+   <div id="outline-container-orge21c8f9" class="outline-3">
 
 .. rubric:: Before We Begin
-   :name: org87661f2
+   :name: orge21c8f9
 
 .. raw:: html
 
-   <div id="text-org87661f2" class="outline-text-3">
+   <div id="text-orge21c8f9" class="outline-text-3">
 
 Before we delve into code, there are a few issues we need to cover.
 Everyone's system is different and everyone has their own groove.
@@ -448,7 +448,7 @@ thereafter.
    </div>
 
 -  | Modversioning
-   | ::: {#text-org551d822 .outline-text-5} A module compiled for one
+   | ::: {#text-org8987615 .outline-text-5} A module compiled for one
      kernel won't load if you boot a different kernel unless you enable
      CONFIG_MODVERSIONS in the kernel. We won't go into module
      versioning until later in this guide. Until we cover modversions,
@@ -461,7 +461,7 @@ thereafter.
    :::
 
 -  | Using X
-   | ::: {#text-orgaf2a17b .outline-text-5} It is highly recommended
+   | ::: {#text-org2132e29 .outline-text-5} It is highly recommended
      that you type in, compile and load all the examples this guide
      discusses. It's also highly recommended you do this from a console.
      You should not be working on this stuff in X.
@@ -486,14 +486,14 @@ thereafter.
 
 .. raw:: html
 
-   <div id="outline-container-org52fbd37" class="outline-2">
+   <div id="outline-container-org020fd9b" class="outline-2">
 
 .. rubric:: Headers
-   :name: org52fbd37
+   :name: org020fd9b
 
 .. raw:: html
 
-   <div id="text-org52fbd37" class="outline-text-2">
+   <div id="text-org020fd9b" class="outline-text-2">
 
 Before you can build anything you'll need to install the header files
 for your kernel. On Parabola GNU/Linux:
@@ -502,7 +502,7 @@ for your kernel. On Parabola GNU/Linux:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo pacman -S linux-libre-headers
 
@@ -516,7 +516,7 @@ On Debian:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo apt-get update
     apt-cache search linux-headers-$(uname -r)
@@ -532,7 +532,7 @@ example:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo apt-get install kmod linux-headers-4.12.12-1-amd64
 
@@ -550,14 +550,14 @@ example:
 
 .. raw:: html
 
-   <div id="outline-container-org628945f" class="outline-2">
+   <div id="outline-container-org3fb7793" class="outline-2">
 
 .. rubric:: Examples
-   :name: org628945f
+   :name: org3fb7793
 
 .. raw:: html
 
-   <div id="text-org628945f" class="outline-text-2">
+   <div id="text-org3fb7793" class="outline-text-2">
 
 All the examples from this document are available within the *examples*
 subdirectory. To test that they compile:
@@ -566,7 +566,7 @@ subdirectory. To test that they compile:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     cd examples
     make
@@ -588,14 +588,14 @@ version or need to install the corresponding kernel header files.
 
 .. raw:: html
 
-   <div id="outline-container-org0d455c0" class="outline-2">
+   <div id="outline-container-org8065caf" class="outline-2">
 
 .. rubric:: Hello World
-   :name: org0d455c0
+   :name: org8065caf
 
 .. raw:: html
 
-   <div id="text-org0d455c0" class="outline-text-2">
+   <div id="text-org8065caf" class="outline-text-2">
 
 .. raw:: html
 
@@ -603,14 +603,14 @@ version or need to install the corresponding kernel header files.
 
 .. raw:: html
 
-   <div id="outline-container-orgba22fe1" class="outline-3">
+   <div id="outline-container-orgbda9acd" class="outline-3">
 
 .. rubric:: The Simplest Module
-   :name: orgba22fe1
+   :name: orgbda9acd
 
 .. raw:: html
 
-   <div id="text-orgba22fe1" class="outline-text-3">
+   <div id="text-orgbda9acd" class="outline-text-3">
 
 Most people learning programming start out with some sort of "*hello
 world*" example. I don't know what happens to people who break with this
@@ -626,7 +626,7 @@ Make a test directory:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     mkdir -p ~/develop/kernel/hello-1
     cd ~/develop/kernel/hello-1
@@ -641,7 +641,7 @@ Paste this into you favourite editor and save it as **hello-1.c**:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  hello-1.c - The simplest kernel module.
@@ -651,7 +651,7 @@ Paste this into you favourite editor and save it as **hello-1.c**:
 
     int init_module(void)
     {
-        printk(KERN_INFO "Hello world 1.\n");
+        pr_info("Hello world 1.\n");
 
         /*
          * A non 0 return means init_module failed; module can't be loaded.
@@ -661,7 +661,7 @@ Paste this into you favourite editor and save it as **hello-1.c**:
 
     void cleanup_module(void)
     {
-        printk(KERN_INFO "Goodbye world 1.\n");
+        pr_info("Goodbye world 1.\n");
     }
 
 .. raw:: html
@@ -675,7 +675,7 @@ indentation to use tabs, not spaces.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     obj-m += hello-1.o
 
@@ -695,7 +695,7 @@ And finally just:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     make
 
@@ -710,7 +710,7 @@ If all goes smoothly you should then find that you have a compiled
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo modinfo hello-1.ko
 
@@ -724,7 +724,7 @@ At this point the command:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo lsmod | grep hello
 
@@ -738,7 +738,7 @@ should return nothing. You can try loading your shiny new module with:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo insmod hello-1.ko
 
@@ -753,7 +753,7 @@ again try:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo lsmod | grep hello
 
@@ -767,7 +767,7 @@ you should now see your loaded module. It can be removed again with:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo rmmod hello_1
 
@@ -782,7 +782,7 @@ happened in the logs:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     journalctl --since "1 hour ago" | grep kernel
 
@@ -811,15 +811,14 @@ did, so the module can be unloaded safely.
 
 Lastly, every kernel module needs to include linux/module.h. We needed
 to include **linux/kernel.h** only for the macro expansion for the
-printk() log level, KERN_ALERT, which you'll learn about in Section
-2.1.1.
+pr_alert() log level, which you'll learn about in Section 2.1.1.
 
 .. raw:: html
 
    </div>
 
 -  | A point about coding style
-   | ::: {#text-orgab018f5 .outline-text-5} Another thing which may not
+   | ::: {#text-orga9c315b .outline-text-5} Another thing which may not
      be immediately obvious to anyone getting started with kernel
      programming is that indentation within your code should be using
      **tabs** and **not spaces**. It's one of the coding conventions of
@@ -828,36 +827,19 @@ printk() log level, KERN_ALERT, which you'll learn about in Section
 
    :::
 
--  | Introducing printk()
-   | ::: {#text-org176ca3e .outline-text-5} Despite what you might
-     think, **printk()** was not meant to communicate information to the
-     user, even though we used it for exactly this purpose in hello-1!
-     It happens to be a logging mechanism for the kernel, and is used to
-     log information or give warnings. Therefore, each printk()
-     statement comes with a priority, which is the <1> and KERN_ALERT
-     you see. There are 8 priorities and the kernel has macros for them,
-     so you don't have to use cryptic numbers, and you can view them
-     (and their meanings) in **linux/kernel.h**. If you don't specify a
-     priority level, the default priority, DEFAULT_MESSAGE_LOGLEVEL,
-     will be used.
-
-   Take time to read through the priority macros. The header file also
-   describes what each priority means. In practise, don't use number,
-   like <4>. Always use the macro, like KERN_WARNING.
-
-   If the priority is less than int console_loglevel, the message is
-   printed on your current terminal. If both syslogd and klogd are
-   running, then the message will also get appended to the systemd
-   journal, whether it got printed to the console or not. We use a high
-   priority, like KERN_ALERT, to make sure the printk() messages get
-   printed to your console rather than just logged to the journal. When
-   you write real modules, you'll want to use priorities that are
-   meaningful for the situation at hand.
+-  | Introducing print functions
+   | ::: {#text-org5fc9d61 .outline-text-5} In the beginning there was
+     **printk**, usually followed by a priority such as KERN_INFO or
+     KERN_DEBUG. More recently this can also be expressed in abbreviated
+     form using a set of print macros, such as **pr_info** and
+     **pr_debug**. This just saves some mindless keyboard bashing and
+     looks a bit neater. They can be found within **linux/printk.h**.
+     Take time to read through the available priority macros.
 
    :::
 
 -  | About Compiling
-   | ::: {#text-orgc8049ab .outline-text-5} Kernel modules need to be
+   | ::: {#text-org8c070df .outline-text-5} Kernel modules need to be
      compiled a bit differently from regular userspace apps. Former
      kernel versions required us to care much about these settings,
      which are usually stored in Makefiles. Although hierarchically
@@ -888,14 +870,14 @@ printk() log level, KERN_ALERT, which you'll learn about in Section
 
 .. raw:: html
 
-   <div id="outline-container-org56fc79a" class="outline-3">
+   <div id="outline-container-org761c702" class="outline-3">
 
 .. rubric:: Hello and Goodbye
-   :name: org56fc79a
+   :name: org761c702
 
 .. raw:: html
 
-   <div id="text-org56fc79a" class="outline-text-3">
+   <div id="text-org761c702" class="outline-text-3">
 
 In early kernel versions you had to use the **init_module** and
 **cleanup_module** functions, as in the first hello world example, but
@@ -909,7 +891,7 @@ you'll get compilation errors. Here's an example of this technique:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  hello-2.c - Demonstrating the module_init() and module_exit() macros.
@@ -921,13 +903,13 @@ you'll get compilation errors. Here's an example of this technique:
 
     static int __init hello_2_init(void)
     {
-        printk(KERN_INFO "Hello, world 2\n");
+        pr_info("Hello, world 2\n");
         return 0;
     }
 
     static void __exit hello_2_exit(void)
     {
-        printk(KERN_INFO "Goodbye, world 2\n");
+        pr_info("Goodbye, world 2\n");
     }
 
     module_init(hello_2_init);
@@ -944,7 +926,7 @@ module is as simple as this:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     obj-m += hello-1.o
     obj-m += hello-2.o
@@ -979,14 +961,14 @@ something like that.
 
 .. raw:: html
 
-   <div id="outline-container-org86bfdb6" class="outline-3">
+   <div id="outline-container-orgf583ec5" class="outline-3">
 
 .. rubric:: The \__init and \__exit Macros
-   :name: org86bfdb6
+   :name: orgf583ec5
 
 .. raw:: html
 
-   <div id="text-org86bfdb6" class="outline-text-3">
+   <div id="text-orgf583ec5" class="outline-text-3">
 
 This demonstrates a feature of kernel 2.2 and later. Notice the change
 in the definitions of the init and cleanup functions. The **\__init**
@@ -1012,7 +994,7 @@ kernel memory: 236k freed, this is precisely what the kernel is freeing.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  hello-3.c - Illustrating the __init, __initdata and __exit macros.
@@ -1025,13 +1007,13 @@ kernel memory: 236k freed, this is precisely what the kernel is freeing.
 
     static int __init hello_3_init(void)
     {
-        printk(KERN_INFO "Hello, world %d\n", hello3_data);
+        pr_info("Hello, world %d\n", hello3_data);
         return 0;
     }
 
     static void __exit hello_3_exit(void)
     {
-        printk(KERN_INFO "Goodbye, world 3\n");
+        pr_info("Goodbye, world 3\n");
     }
 
     module_init(hello_3_init);
@@ -1051,14 +1033,14 @@ kernel memory: 236k freed, this is precisely what the kernel is freeing.
 
 .. raw:: html
 
-   <div id="outline-container-org11aaf91" class="outline-3">
+   <div id="outline-container-orgcf0f915" class="outline-3">
 
 .. rubric:: Licensing and Module Documentation
-   :name: org11aaf91
+   :name: orgcf0f915
 
 .. raw:: html
 
-   <div id="text-org11aaf91" class="outline-text-3">
+   <div id="text-orgcf0f915" class="outline-text-3">
 
 Honestly, who loads or even cares about proprietary modules? If you do
 then you might have seen something like this:
@@ -1067,7 +1049,7 @@ then you might have seen something like this:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     # insmod xxxxxx.o
     Warning: loading xxxxxx.ko will taint the kernel: no license
@@ -1091,7 +1073,7 @@ are illustrated in the below example.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  hello-4.c - Demonstrates module documentation.
@@ -1107,13 +1089,13 @@ are illustrated in the below example.
 
     static int __init init_hello_4(void)
     {
-            printk(KERN_INFO "Hello, world 4\n");
+            pr_info("Hello, world 4\n");
             return 0;
     }
 
     static void __exit cleanup_hello_4(void)
     {
-            printk(KERN_INFO "Goodbye, world 4\n");
+            pr_info("Goodbye, world 4\n");
     }
 
     module_init(init_hello_4);
@@ -1133,14 +1115,14 @@ are illustrated in the below example.
 
 .. raw:: html
 
-   <div id="outline-container-org9e1dd8d" class="outline-3">
+   <div id="outline-container-orgc88a626" class="outline-3">
 
 .. rubric:: Passing Command Line Arguments to a Module
-   :name: org9e1dd8d
+   :name: orgc88a626
 
 .. raw:: html
 
-   <div id="text-org9e1dd8d" class="outline-text-3">
+   <div id="text-orgc88a626" class="outline-text-3">
 
 Modules can take command line arguments, but not with the argc/argv you
 might be used to.
@@ -1163,7 +1145,7 @@ integers or strings see module_param_array() and module_param_string().
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     int myint = 3;
     module_param(myint, int, 0);
@@ -1182,7 +1164,7 @@ both possibilities here:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     int myintarray[2];
     module_param_array(myintarray, int, NULL, 0); /* not interested in count */
@@ -1208,7 +1190,7 @@ a variable name and a free form string describing that variable.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  hello-5.c - Demonstrates command line argument passing to a module.
@@ -1260,22 +1242,22 @@ a variable name and a free form string describing that variable.
     static int __init hello_5_init(void)
     {
         int i;
-        printk(KERN_INFO "Hello, world 5\n=============\n");
-        printk(KERN_INFO "myshort is a short integer: %hd\n", myshort);
-        printk(KERN_INFO "myint is an integer: %d\n", myint);
-        printk(KERN_INFO "mylong is a long integer: %ld\n", mylong);
-        printk(KERN_INFO "mystring is a string: %s\n", mystring);
+        pr_info("Hello, world 5\n=============\n");
+        pr_info("myshort is a short integer: %hd\n", myshort);
+        pr_info("myint is an integer: %d\n", myint);
+        pr_info("mylong is a long integer: %ld\n", mylong);
+        pr_info("mystring is a string: %s\n", mystring);
         for (i = 0; i < (sizeof myintArray / sizeof (int)); i++)
         {
-            printk(KERN_INFO "myintArray[%d] = %d\n", i, myintArray[i]);
+            pr_info("myintArray[%d] = %d\n", i, myintArray[i]);
         }
-        printk(KERN_INFO "got %d arguments for myintArray.\n", arr_argc);
+        pr_info("got %d arguments for myintArray.\n", arr_argc);
         return 0;
     }
 
     static void __exit hello_5_exit(void)
     {
-        printk(KERN_INFO "Goodbye, world 5\n");
+        pr_info("Goodbye, world 5\n");
     }
 
     module_init(hello_5_init);
@@ -1291,7 +1273,7 @@ I would recommend playing around with this code:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     # sudo insmod hello-5.ko mystring="bebop" mybyte=255 myintArray=-1
     mybyte is an 8 bit integer: 255
@@ -1333,14 +1315,14 @@ I would recommend playing around with this code:
 
 .. raw:: html
 
-   <div id="outline-container-orgcd10981" class="outline-3">
+   <div id="outline-container-orgcac6115" class="outline-3">
 
 .. rubric:: Modules Spanning Multiple Files
-   :name: orgcd10981
+   :name: orgcac6115
 
 .. raw:: html
 
-   <div id="text-orgcd10981" class="outline-text-3">
+   <div id="text-orgcac6115" class="outline-text-3">
 
 Sometimes it makes sense to divide a kernel module between several
 source files.
@@ -1351,7 +1333,7 @@ Here's an example of such a kernel module.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  start.c - Illustration of multi filed modules
@@ -1362,7 +1344,7 @@ Here's an example of such a kernel module.
 
     int init_module(void)
     {
-        printk(KERN_INFO "Hello, world - this is the kernel speaking\n");
+        pr_info("Hello, world - this is the kernel speaking\n");
         return 0;
     }
 
@@ -1376,7 +1358,7 @@ The next file:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  stop.c - Illustration of multi filed modules
@@ -1387,7 +1369,7 @@ The next file:
 
     void cleanup_module()
     {
-        printk(KERN_INFO "Short is the life of a kernel module\n");
+        pr_info("Short is the life of a kernel module\n");
     }
 
 .. raw:: html
@@ -1400,7 +1382,7 @@ And finally, the makefile:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     obj-m += hello-1.o
     obj-m += hello-2.o
@@ -1435,14 +1417,14 @@ second we tell make what object files are part of that module.
 
 .. raw:: html
 
-   <div id="outline-container-orga65faca" class="outline-3">
+   <div id="outline-container-orgd8499f9" class="outline-3">
 
 .. rubric:: Building modules for a precompiled kernel
-   :name: orga65faca
+   :name: orgd8499f9
 
 .. raw:: html
 
-   <div id="text-orga65faca" class="outline-text-3">
+   <div id="text-orgd8499f9" class="outline-text-3">
 
 Obviously, we strongly suggest you to recompile your kernel, so that you
 can enable a number of useful debugging features, such as forced module
@@ -1471,7 +1453,7 @@ cases you would obtain an error as follows:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     insmod: error inserting 'poet_atkm.ko': -1 Invalid module format
 
@@ -1485,7 +1467,7 @@ Less cryptical information are logged to the systemd journal:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     Jun  4 22:07:54 localhost kernel: poet_atkm: version magic '2.6.5-1.358custom 686
     REGPARM 4KSTACKS gcc-3.3' should be '2.6.5-1.358 686 REGPARM 4KSTACKS gcc-3.3'
@@ -1506,7 +1488,7 @@ issue the modinfo module.ko command:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     # sudo modinfo hello-4.ko
     license:        GPL
@@ -1549,7 +1531,7 @@ example, you makefile could start as follows:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     VERSION = 4
     PATCHLEVEL = 7
@@ -1578,7 +1560,7 @@ objects:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     # make
     CHK     include/linux/version.h
@@ -1617,14 +1599,14 @@ any errors.
 
 .. raw:: html
 
-   <div id="outline-container-orgdeef601" class="outline-2">
+   <div id="outline-container-orgb6633e2" class="outline-2">
 
 .. rubric:: Preliminaries
-   :name: orgdeef601
+   :name: orgb6633e2
 
 .. raw:: html
 
-   <div id="text-orgdeef601" class="outline-text-2">
+   <div id="text-orgb6633e2" class="outline-text-2">
 
 .. raw:: html
 
@@ -1632,14 +1614,14 @@ any errors.
 
 .. raw:: html
 
-   <div id="outline-container-orgc8eceb0" class="outline-3">
+   <div id="outline-container-org7f4891d" class="outline-3">
 
 .. rubric:: How modules begin and end
-   :name: orgc8eceb0
+   :name: org7f4891d
 
 .. raw:: html
 
-   <div id="text-orgc8eceb0" class="outline-text-3">
+   <div id="text-org7f4891d" class="outline-text-3">
 
 A program usually begins with a **main()** function, executes a bunch of
 instructions and terminates upon completion of those instructions.
@@ -1672,14 +1654,14 @@ think you'll know what I mean.
 
 .. raw:: html
 
-   <div id="outline-container-org290f3df" class="outline-3">
+   <div id="outline-container-org8021b97" class="outline-3">
 
 .. rubric:: Functions available to modules
-   :name: org290f3df
+   :name: org8021b97
 
 .. raw:: html
 
-   <div id="text-org290f3df" class="outline-text-3">
+   <div id="text-org8021b97" class="outline-text-3">
 
 Programmers use functions they don't define all the time. A prime
 example of this is **printf()**. You use these library functions which
@@ -1689,7 +1671,7 @@ which insures that the code (for printf() for example) is available, and
 fixes the call instruction to point to that code.
 
 Kernel modules are different here, too. In the hello world example, you
-might have noticed that we used a function, **printk()** but didn't
+might have noticed that we used a function, **pr_info()** but didn't
 include a standard I/O library. That's because modules are object files
 whose symbols get resolved upon insmod'ing. The definition for the
 symbols comes from the kernel itself; the only external functions you
@@ -1714,7 +1696,7 @@ Compile the following program:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     #include <stdio.h>
 
@@ -1759,14 +1741,14 @@ everytime someone tries to delete a file on your system.
 
 .. raw:: html
 
-   <div id="outline-container-orga7850df" class="outline-3">
+   <div id="outline-container-org2487a6b" class="outline-3">
 
 .. rubric:: User Space vs Kernel Space
-   :name: orga7850df
+   :name: org2487a6b
 
 .. raw:: html
 
-   <div id="text-orga7850df" class="outline-text-3">
+   <div id="text-org2487a6b" class="outline-text-3">
 
 A kernel is all about access to resources, whether the resource in
 question happens to be a video card, a hard drive or even memory.
@@ -1798,14 +1780,14 @@ returns and execution gets transfered back to user mode.
 
 .. raw:: html
 
-   <div id="outline-container-org4b4877b" class="outline-3">
+   <div id="outline-container-orgd5dd329" class="outline-3">
 
 .. rubric:: Name Space
-   :name: org4b4877b
+   :name: orgd5dd329
 
 .. raw:: html
 
-   <div id="text-org4b4877b" class="outline-text-3">
+   <div id="text-orgd5dd329" class="outline-text-3">
 
 When you write a small C program, you use variables which are convenient
 and make sense to the reader. If, on the other hand, you're writing
@@ -1839,14 +1821,14 @@ share the kernel's codespace.
 
 .. raw:: html
 
-   <div id="outline-container-org7e3a491" class="outline-3">
+   <div id="outline-container-org3cb9562" class="outline-3">
 
 .. rubric:: Code space
-   :name: org7e3a491
+   :name: org3cb9562
 
 .. raw:: html
 
-   <div id="text-org7e3a491" class="outline-text-3">
+   <div id="text-org3cb9562" class="outline-text-3">
 
 Memory management is a very complicated subject and the majority of
 O'Reilly's "*Understanding The Linux Kernel*" exclusively covers memory
@@ -1894,14 +1876,14 @@ Magenta kernel of Google Fuchsia are two examples of a microkernel.
 
 .. raw:: html
 
-   <div id="outline-container-org6c0b122" class="outline-3">
+   <div id="outline-container-orgb4dc531" class="outline-3">
 
 .. rubric:: Device Drivers
-   :name: org6c0b122
+   :name: orgb4dc531
 
 .. raw:: html
 
-   <div id="text-org6c0b122" class="outline-text-3">
+   <div id="text-orgb4dc531" class="outline-text-3">
 
 One class of module is the device driver, which provides functionality
 for hardware like a serial port. On unix, each piece of hardware is
@@ -1917,7 +1899,7 @@ Ensoniq IS1370 sound card. A userspace program like mp3blaster can use
    </div>
 
 -  | Major and Minor Numbers
-   | ::: {#text-orga17bef9 .outline-text-5} Let's look at some device
+   | ::: {#text-org5036a9c .outline-text-5} Let's look at some device
      files. Here are device files which represent the first three
      partitions on the primary master IDE hard drive:
 
@@ -1925,7 +1907,7 @@ Ensoniq IS1370 sound card. A userspace program like mp3blaster can use
 
       <div class="org-src-container">
 
-   ::
+   .. code:: src
 
        # ls -l /dev/hda[1-3]
        brw-rw----  1 root  disk  3, 1 Jul  5  2000 /dev/hda1
@@ -1971,7 +1953,7 @@ Ensoniq IS1370 sound card. A userspace program like mp3blaster can use
 
       <div class="org-src-container">
 
-   ::
+   .. code:: src
 
        crw-rw----  1 root  dial 4, 64 Feb 18 23:34 /dev/ttyS0
        crw-r-----  1 root  dial 4, 65 Nov 17 10:26 /dev/ttyS1
@@ -2012,7 +1994,7 @@ Ensoniq IS1370 sound card. A userspace program like mp3blaster can use
 
       <div class="org-src-container">
 
-   ::
+   .. code:: src
 
        % ls -l /dev/fd0 /dev/fd0u1680
        brwxrwxrwx   1 root  floppy   2,  0 Jul  5  2000 /dev/fd0
@@ -2046,14 +2028,14 @@ Ensoniq IS1370 sound card. A userspace program like mp3blaster can use
 
 .. raw:: html
 
-   <div id="outline-container-org016c39a" class="outline-2">
+   <div id="outline-container-org952d427" class="outline-2">
 
 .. rubric:: Character Device drivers
-   :name: org016c39a
+   :name: org952d427
 
 .. raw:: html
 
-   <div id="text-org016c39a" class="outline-text-2">
+   <div id="text-org952d427" class="outline-text-2">
 
 .. raw:: html
 
@@ -2061,14 +2043,14 @@ Ensoniq IS1370 sound card. A userspace program like mp3blaster can use
 
 .. raw:: html
 
-   <div id="outline-container-org31d952e" class="outline-3">
+   <div id="outline-container-org1f70982" class="outline-3">
 
 .. rubric:: The file_operations Structure
-   :name: org31d952e
+   :name: org1f70982
 
 .. raw:: html
 
-   <div id="text-org31d952e" class="outline-text-3">
+   <div id="text-org1f70982" class="outline-text-3">
 
 The file_operations structure is defined in **/usr/include/linux/fs.h**,
 and holds pointers to functions defined by the driver that perform
@@ -2085,7 +2067,7 @@ definition looks like for kernel 3.0:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     struct file_operations {
         struct module *owner;
@@ -2136,7 +2118,7 @@ like:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     struct file_operations fops = {
             read: device_read,
@@ -2159,7 +2141,7 @@ your driver. It will help with compatibility:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     struct file_operations fops = {
             .read = device_read,
@@ -2190,14 +2172,14 @@ named fops.
 
 .. raw:: html
 
-   <div id="outline-container-org607b208" class="outline-3">
+   <div id="outline-container-org7c65651" class="outline-3">
 
 .. rubric:: The file structure
-   :name: org607b208
+   :name: org7c65651
 
 .. raw:: html
 
-   <div id="text-org607b208" class="outline-text-3">
+   <div id="text-org7c65651" class="outline-text-3">
 
 Each device is represented in the kernel by a file structure, which is
 defined in **linux/fs.h**. Be aware that a file is a kernel level
@@ -2225,14 +2207,14 @@ use structures contained in file which are created elsewhere.
 
 .. raw:: html
 
-   <div id="outline-container-orgf96ab85" class="outline-3">
+   <div id="outline-container-org88f75aa" class="outline-3">
 
 .. rubric:: Registering A Device
-   :name: orgf96ab85
+   :name: org88f75aa
 
 .. raw:: html
 
-   <div id="text-orgf96ab85" class="outline-text-3">
+   <div id="text-org88f75aa" class="outline-text-3">
 
 As discussed earlier, char devices are accessed through device files,
 usually located in /dev. This is by convention. When writing a driver,
@@ -2251,7 +2233,7 @@ defined by linux/fs.h.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     int register_chrdev(unsigned int major, const char *name, struct file_operations *fops);
 
@@ -2296,14 +2278,14 @@ call to cleanup_module.
 
 .. raw:: html
 
-   <div id="outline-container-org452ea75" class="outline-3">
+   <div id="outline-container-org33e8c4e" class="outline-3">
 
 .. rubric:: Unregistering A Device
-   :name: org452ea75
+   :name: org33e8c4e
 
 .. raw:: html
 
-   <div id="text-org452ea75" class="outline-text-3">
+   <div id="text-org33e8c4e" class="outline-text-3">
 
 We can't allow the kernel module to be rmmod'ed whenever root feels like
 it. If the device file is opened by a process and then we remove the
@@ -2345,14 +2327,14 @@ sooner or later during a module's development.
 
 .. raw:: html
 
-   <div id="outline-container-orgdd49880" class="outline-3">
+   <div id="outline-container-org4a28a33" class="outline-3">
 
 .. rubric:: chardev.c
-   :name: orgdd49880
+   :name: org4a28a33
 
 .. raw:: html
 
-   <div id="text-orgdd49880" class="outline-text-3">
+   <div id="text-org4a28a33" class="outline-text-3">
 
 The next code sample creates a char driver named chardev. You can cat
 its device file.
@@ -2361,7 +2343,7 @@ its device file.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     cat /proc/devices
 
@@ -2381,7 +2363,7 @@ acknowledging that we received it.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  chardev.c: Creates a read-only char device that says how many times
@@ -2432,16 +2414,16 @@ acknowledging that we received it.
             Major = register_chrdev(0, DEVICE_NAME, &fops);
 
             if (Major < 0) {
-              printk(KERN_ALERT "Registering char device failed with %d\n", Major);
+              pr_alert("Registering char device failed with %d\n", Major);
               return Major;
             }
 
-            printk(KERN_INFO "I was assigned major number %d. To talk to\n", Major);
-            printk(KERN_INFO "the driver, create a dev file with\n");
-            printk(KERN_INFO "'mknod /dev/%s c %d 0'.\n", DEVICE_NAME, Major);
-            printk(KERN_INFO "Try various minor numbers. Try to cat and echo to\n");
-            printk(KERN_INFO "the device file.\n");
-            printk(KERN_INFO "Remove the device file and module when done.\n");
+            pr_info("I was assigned major number %d. To talk to\n", Major);
+            pr_info("the driver, create a dev file with\n");
+            pr_info("'mknod /dev/%s c %d 0'.\n", DEVICE_NAME, Major);
+            pr_info("Try various minor numbers. Try to cat and echo to\n");
+            pr_info("the device file.\n");
+            pr_info("Remove the device file and module when done.\n");
 
             return SUCCESS;
     }
@@ -2548,7 +2530,7 @@ acknowledging that we received it.
                     size_t len,
                     loff_t * off)
     {
-            printk(KERN_ALERT "Sorry, this operation isn't supported.\n");
+            pr_alert("Sorry, this operation isn't supported.\n");
             return -EINVAL;
     }
 
@@ -2566,14 +2548,14 @@ acknowledging that we received it.
 
 .. raw:: html
 
-   <div id="outline-container-org903f5d5" class="outline-3">
+   <div id="outline-container-orgbcf1c83" class="outline-3">
 
 .. rubric:: Writing Modules for Multiple Kernel Versions
-   :name: org903f5d5
+   :name: orgbcf1c83
 
 .. raw:: html
 
-   <div id="text-org903f5d5" class="outline-text-3">
+   <div id="text-orgbcf1c83" class="outline-text-3">
 
 The system calls, which are the major interface the kernel shows to the
 processes, generally stay the same across versions. A new system call
@@ -2631,14 +2613,14 @@ archives if you're interested in the full story.
 
 .. raw:: html
 
-   <div id="outline-container-org6400501" class="outline-2">
+   <div id="outline-container-orgf6ba9df" class="outline-2">
 
 .. rubric:: The /proc File System
-   :name: org6400501
+   :name: orgf6ba9df
 
 .. raw:: html
 
-   <div id="text-org6400501" class="outline-text-2">
+   <div id="text-orgf6ba9df" class="outline-text-2">
 
 In Linux, there is an additional mechanism for the kernel and kernel
 modules to send information to processes — the **/proc** file system.
@@ -2693,7 +2675,7 @@ it never returns zero, the read function is called endlessly.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     # cat /proc/helloworld
     HelloWorld!
@@ -2706,7 +2688,7 @@ it never returns zero, the read function is called endlessly.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      procfs1.c
@@ -2727,7 +2709,7 @@ it never returns zero, the read function is called endlessly.
     {
         int ret=0;
         if(strlen(buffer) ==0) {
-            printk(KERN_INFO "procfile read %s\n",filePointer->f_path.dentry->d_name.name);
+            pr_info("procfile read %s\n",filePointer->f_path.dentry->d_name.name);
             ret=copy_to_user(buffer,"HelloWorld!\n",sizeof("HelloWorld!\n"));
             ret=sizeof("HelloWorld!\n");
         }
@@ -2745,18 +2727,18 @@ it never returns zero, the read function is called endlessly.
         Our_Proc_File = proc_create(procfs_name,0644,NULL,&proc_file_fops);
         if(NULL==Our_Proc_File) {
             proc_remove(Our_Proc_File);
-            printk(KERN_ALERT "Error:Could not initialize /proc/%s\n",procfs_name);
+            pr_alert("Error:Could not initialize /proc/%s\n",procfs_name);
             return -ENOMEM;
         }
 
-        printk(KERN_INFO "/proc/%s created\n", procfs_name);
+        pr_info("/proc/%s created\n", procfs_name);
         return 0;
     }
 
     void cleanup_module()
     {
         proc_remove(Our_Proc_File);
-        printk(KERN_INFO "/proc/%s removed\n", procfs_name);
+        pr_info("/proc/%s removed\n", procfs_name);
     }
 
 .. raw:: html
@@ -2769,14 +2751,14 @@ it never returns zero, the read function is called endlessly.
 
 .. raw:: html
 
-   <div id="outline-container-orga906618" class="outline-3">
+   <div id="outline-container-org43d4889" class="outline-3">
 
 .. rubric:: Read and Write a /proc File
-   :name: orga906618
+   :name: org43d4889
 
 .. raw:: html
 
-   <div id="text-orga906618" class="outline-text-3">
+   <div id="text-org43d4889" class="outline-text-3">
 
 We have seen a very simple example for a /proc file where we only read
 the file /proc/helloworld. It's also possible to write in a /proc file.
@@ -2810,7 +2792,7 @@ function because data is already in kernel space.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /**
      *  procfs2.c -  create a "file" in /proc
@@ -2852,7 +2834,7 @@ function because data is already in kernel space.
     {
         int ret=0;
         if(strlen(buffer) ==0) {
-            printk(KERN_INFO "procfile read %s\n",filePointer->f_path.dentry->d_name.name);
+            pr_info("procfile read %s\n",filePointer->f_path.dentry->d_name.name);
             ret=copy_to_user(buffer,"HelloWorld!\n",sizeof("HelloWorld!\n"));
             ret=sizeof("HelloWorld!\n");
         }
@@ -2893,11 +2875,11 @@ function because data is already in kernel space.
         Our_Proc_File = proc_create(PROCFS_NAME,0644,NULL,&proc_file_fops);
         if(NULL==Our_Proc_File) {
             proc_remove(Our_Proc_File);
-            printk(KERN_ALERT "Error:Could not initialize /proc/%s\n",PROCFS_NAME);
+            pr_alert("Error:Could not initialize /proc/%s\n",PROCFS_NAME);
             return -ENOMEM;
         }
 
-        printk(KERN_INFO "/proc/%s created\n", PROCFS_NAME);
+        pr_info("/proc/%s created\n", PROCFS_NAME);
         return 0;
     }
 
@@ -2908,7 +2890,7 @@ function because data is already in kernel space.
     void cleanup_module()
     {
         proc_remove(Our_Proc_File);
-        printk(KERN_INFO "/proc/%s removed\n", PROCFS_NAME);
+        pr_info("/proc/%s removed\n", PROCFS_NAME);
     }
 
 .. raw:: html
@@ -2925,14 +2907,14 @@ function because data is already in kernel space.
 
 .. raw:: html
 
-   <div id="outline-container-org561d817" class="outline-3">
+   <div id="outline-container-org1607657" class="outline-3">
 
 .. rubric:: Manage /proc file with standard filesystem
-   :name: org561d817
+   :name: org1607657
 
 .. raw:: html
 
-   <div id="text-org561d817" class="outline-text-3">
+   <div id="text-org1607657" class="outline-text-3">
 
 We have seen how to read and write a /proc file with the /proc
 interface. But it's also possible to manage /proc file with inodes. The
@@ -2974,7 +2956,7 @@ writes something to the kernel, then the kernel receives it as input.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
         procfs3.c
@@ -2999,14 +2981,14 @@ writes something to the kernel, then the kernel receives it as input.
         static int finished = 0;
         if(finished)
         {
-            printk(KERN_DEBUG "procfs_read: END\n");
+            pr_debug("procfs_read: END\n");
             finished = 0;
             return 0;
         }
         finished = 1;
         if(copy_to_user(buffer, procfs_buffer, procfs_buffer_size))
             return -EFAULT;
-        printk(KERN_DEBUG "procfs_read: read %lu bytes\n", procfs_buffer_size);
+        pr_debug("procfs_read: read %lu bytes\n", procfs_buffer_size);
         return procfs_buffer_size;
     }
     static ssize_t procfs_write(struct file *file,  const char *buffer,
@@ -3018,7 +3000,7 @@ writes something to the kernel, then the kernel receives it as input.
             procfs_buffer_size = len;
         if(copy_from_user(procfs_buffer, buffer, procfs_buffer_size))
             return -EFAULT;
-        printk(KERN_DEBUG "procfs_write: write %lu bytes\n", procfs_buffer_size);
+        pr_debug("procfs_write: write %lu bytes\n", procfs_buffer_size);
         return procfs_buffer_size;
     }
     int procfs_open(struct inode *inode, struct file *file)
@@ -3045,19 +3027,19 @@ writes something to the kernel, then the kernel receives it as input.
         if(Our_Proc_File == NULL)
         {
             remove_proc_entry(PROCFS_ENTRY_FILENAME, NULL);
-            printk(KERN_DEBUG "Error: Could not initialize /proc/%s\n", PROCFS_ENTRY_FILENAME);
+            pr_debug("Error: Could not initialize /proc/%s\n", PROCFS_ENTRY_FILENAME);
             return -ENOMEM;
         }
         proc_set_size(Our_Proc_File, 80);
         proc_set_user(Our_Proc_File,  GLOBAL_ROOT_UID, GLOBAL_ROOT_GID);
 
-        printk(KERN_DEBUG "/proc/%s created\n", PROCFS_ENTRY_FILENAME);
+        pr_debug("/proc/%s created\n", PROCFS_ENTRY_FILENAME);
         return 0;
     }
     void cleanup_module()
     {
         remove_proc_entry(PROCFS_ENTRY_FILENAME, NULL);
-        printk(KERN_DEBUG "/proc/%s removed\n", PROCFS_ENTRY_FILENAME);
+        pr_debug("/proc/%s removed\n", PROCFS_ENTRY_FILENAME);
     }
 
 .. raw:: html
@@ -3083,14 +3065,14 @@ you want to document something kernel related yourself.
 
 .. raw:: html
 
-   <div id="outline-container-org38ea52f" class="outline-3">
+   <div id="outline-container-org1f457d2" class="outline-3">
 
 .. rubric:: Manage /proc file with seq_file
-   :name: org38ea52f
+   :name: org1f457d2
 
 .. raw:: html
 
-   <div id="text-org38ea52f" class="outline-text-3">
+   <div id="text-org1f457d2" class="outline-text-3">
 
 As we have seen, writing a /proc file may be quite "complex". So to help
 people writting /proc file, there is an API named seq_file that helps
@@ -3132,7 +3114,7 @@ course, you can still use the same way as in the previous example.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /**
      *  procfs4.c -  create a "file" in /proc
@@ -3252,7 +3234,7 @@ course, you can still use the same way as in the previous example.
         if(entry == NULL)
         {
             remove_proc_entry(PROC_NAME, NULL);
-            printk(KERN_DEBUG "Error: Could not initialize /proc/%s\n", PROC_NAME);
+            pr_debug("Error: Could not initialize /proc/%s\n", PROC_NAME);
             return -ENOMEM;
         }
 
@@ -3266,7 +3248,7 @@ course, you can still use the same way as in the previous example.
     void cleanup_module(void)
     {
         remove_proc_entry(PROC_NAME, NULL);
-        printk(KERN_DEBUG "/proc/%s removed\n", PROC_NAME);
+        pr_debug("/proc/%s removed\n", PROC_NAME);
     }
 
 .. raw:: html
@@ -3294,14 +3276,14 @@ You can also read the code of fs/seq_file.c in the linux kernel.
 
 .. raw:: html
 
-   <div id="outline-container-org954957f" class="outline-2">
+   <div id="outline-container-orgf71ef7e" class="outline-2">
 
 .. rubric:: sysfs: Interacting with your module
-   :name: org954957f
+   :name: orgf71ef7e
 
 .. raw:: html
 
-   <div id="text-org954957f" class="outline-text-2">
+   <div id="text-orgf71ef7e" class="outline-text-2">
 
 *sysfs* allows you to interact with the running kernel from userspace by
 reading or setting variables inside of modules. This can be useful for
@@ -3313,7 +3295,7 @@ your system.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     ls -l /sys
 
@@ -3328,14 +3310,13 @@ variable accessible via sysfs is given below.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      * hello-sysfs.c sysfs example
      */
 
     #include <linux/module.h>
-    #include <linux/printk.h>
     #include <linux/kobject.h>
     #include <linux/sysfs.h>
     #include <linux/init.h>
@@ -3374,7 +3355,7 @@ variable accessible via sysfs is given below.
     {
         int error = 0;
 
-        printk(KERN_INFO "mymodule: initialised\n");
+        pr_info("mymodule: initialised\n");
 
         mymodule =
             kobject_create_and_add("mymodule", kernel_kobj);
@@ -3383,7 +3364,7 @@ variable accessible via sysfs is given below.
 
         error = sysfs_create_file(mymodule, &myvariable_attribute.attr);
         if (error) {
-            printk(KERN_INFO "failed to create the myvariable file " \
+            pr_info("failed to create the myvariable file " \
                    "in /sys/kernel/mymodule\n");
         }
 
@@ -3392,7 +3373,7 @@ variable accessible via sysfs is given below.
 
     static void __exit mymodule_exit (void)
     {
-        printk(KERN_INFO "mymodule: Exit success\n");
+        pr_info("mymodule: Exit success\n");
         kobject_put(mymodule);
     }
 
@@ -3409,7 +3390,7 @@ Make and install the module:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     make
     sudo insmod hello-sysfs.ko
@@ -3424,7 +3405,7 @@ Check that it exists:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo lsmod | grep hello_sysfs
 
@@ -3438,7 +3419,7 @@ What is the current value of *myvariable* ?
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     cat /sys/kernel/mymodule/myvariable
 
@@ -3452,7 +3433,7 @@ Set the value of *myvariable* and check that it changed.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     echo "32" > /sys/kernel/mymodule/myvariable
     cat /sys/kernel/mymodule/myvariable
@@ -3467,7 +3448,7 @@ Finally, remove the test module:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo rmmod hello_sysfs
 
@@ -3485,14 +3466,14 @@ Finally, remove the test module:
 
 .. raw:: html
 
-   <div id="outline-container-org438f37b" class="outline-2">
+   <div id="outline-container-org18e4279" class="outline-2">
 
 .. rubric:: Talking To Device Files
-   :name: org438f37b
+   :name: org18e4279
 
 .. raw:: html
 
-   <div id="text-org438f37b" class="outline-text-2">
+   <div id="text-org18e4279" class="outline-text-2">
 
 Device files are supposed to represent physical devices. Most physical
 devices are used for output as well as input, so there has to be some
@@ -3545,7 +3526,7 @@ Documentation/ioctl-number.txt.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  chardev2.c - Create an input/output character device
@@ -3585,7 +3566,7 @@ Documentation/ioctl-number.txt.
     static int device_open(struct inode *inode, struct file *file)
     {
     #ifdef DEBUG
-            printk(KERN_INFO "device_open(%p)\n", file);
+            pr_info("device_open(%p)\n", file);
     #endif
 
         /*
@@ -3606,7 +3587,7 @@ Documentation/ioctl-number.txt.
     static int device_release(struct inode *inode, struct file *file)
     {
     #ifdef DEBUG
-        printk(KERN_INFO "device_release(%p,%p)\n", inode, file);
+        pr_info("device_release(%p,%p)\n", inode, file);
     #endif
 
         /*
@@ -3634,7 +3615,7 @@ Documentation/ioctl-number.txt.
         int bytes_read = 0;
 
     #ifdef DEBUG
-        printk(KERN_INFO "device_read(%p,%p,%d)\n", file, buffer, length);
+        pr_info("device_read(%p,%p,%d)\n", file, buffer, length);
     #endif
 
         /*
@@ -3662,7 +3643,7 @@ Documentation/ioctl-number.txt.
     }
 
     #ifdef DEBUG
-        printk(KERN_INFO "Read %d bytes, %d left\n", bytes_read, length);
+        pr_info("Read %d bytes, %d left\n", bytes_read, length);
     #endif
 
         /*
@@ -3683,7 +3664,7 @@ Documentation/ioctl-number.txt.
         int i;
 
     #ifdef DEBUG
-        printk(KERN_INFO "device_write(%p,%s,%d)", file, buffer, length);
+        pr_info("device_write(%p,%s,%d)", file, buffer, length);
     #endif
 
         for (i = 0; i < length && i < BUF_LEN; i++)
@@ -3795,20 +3776,20 @@ Documentation/ioctl-number.txt.
          * Negative values signify an error
          */
         if (ret_val < 0) {
-            printk(KERN_ALERT "%s failed with %d\n",
+            pr_alert("%s failed with %d\n",
                    "Sorry, registering the character device ", ret_val);
             return ret_val;
         }
 
-        printk(KERN_INFO "%s The major device number is %d.\n",
+        pr_info("%s The major device number is %d.\n",
                "Registeration is a success", MAJOR_NUM);
-        printk(KERN_INFO "If you want to talk to the device driver,\n");
-        printk(KERN_INFO "you'll have to create a device file. \n");
-        printk(KERN_INFO "We suggest you use:\n");
-        printk(KERN_INFO "mknod %s c %d 0\n", DEVICE_FILE_NAME, MAJOR_NUM);
-        printk(KERN_INFO "The device file name is important, because\n");
-        printk(KERN_INFO "the ioctl program assumes that's the\n");
-        printk(KERN_INFO "file you'll use.\n");
+        pr_info("If you want to talk to the device driver,\n");
+        pr_info("you'll have to create a device file. \n");
+        pr_info("We suggest you use:\n");
+        pr_info("mknod %s c %d 0\n", DEVICE_FILE_NAME, MAJOR_NUM);
+        pr_info("The device file name is important, because\n");
+        pr_info("the ioctl program assumes that's the\n");
+        pr_info("file you'll use.\n");
 
         return 0;
     }
@@ -3832,7 +3813,7 @@ Documentation/ioctl-number.txt.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  chardev.h - the header file with the ioctl definitions.
@@ -3909,7 +3890,7 @@ Documentation/ioctl-number.txt.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  ioctl.c - the process to use ioctl's to control the kernel module
@@ -4030,14 +4011,14 @@ Documentation/ioctl-number.txt.
 
 .. raw:: html
 
-   <div id="outline-container-org8de5924" class="outline-2">
+   <div id="outline-container-org57619bf" class="outline-2">
 
 .. rubric:: System Calls
-   :name: org8de5924
+   :name: org57619bf
 
 .. raw:: html
 
-   <div id="text-org8de5924" class="outline-text-2">
+   <div id="text-org57619bf" class="outline-text-2">
 
 So far, the only thing we've done was to use well defined kernel
 mechanisms to register **/proc** files and device handlers. This is fine
@@ -4100,11 +4081,11 @@ in an unstable state, it's important for cleanup_module to restore the
 table to its original state.
 
 The source code here is an example of such a kernel module. We want to
-"spy" on a certain user, and to printk() a message whenever that user
-opens a file. Towards this end, we replace the system call to open a
-file with our own function, called **our_sys_open**. This function
+"spy" on a certain user, and to **pr_info()** a message whenever that
+user opens a file. Towards this end, we replace the system call to open
+a file with our own function, called **our_sys_open**. This function
 checks the uid (user's id) of the current process, and if it's equal to
-the uid we spy on, it calls printk() to display the name of the file to
+the uid we spy on, it calls pr_info() to display the name of the file to
 be opened. Then, either way, it calls the original open() function with
 the same parameters, to actually open the file.
 
@@ -4154,7 +4135,7 @@ hacker, this would be the first thing he'd try. ;)
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  syscall.c
@@ -4230,13 +4211,13 @@ hacker, this would be the first thing he'd try. ;)
         /*
          * Report the file, if relevant
          */
-        printk("Opened file by %d: ", uid);
+        pr_info("Opened file by %d: ", uid);
         do {
             get_user(ch, filename + i);
             i++;
-            printk("%c", ch);
+            pr_info("%c", ch);
         } while (ch != 0);
-        printk("\n");
+        pr_info("\n");
 
         /*
          * Call the original sys_open - otherwise, we lose
@@ -4279,7 +4260,7 @@ hacker, this would be the first thing he'd try. ;)
 
         write_cr0(original_cr0);
 
-        printk(KERN_INFO "Spying on UID:%d\n", uid);
+        pr_info("Spying on UID:%d\n", uid);
 
         return 0;
     }
@@ -4294,10 +4275,10 @@ hacker, this would be the first thing he'd try. ;)
          * Return the system call back to normal
          */
         if (sys_call_table[__NR_open] != (unsigned long *)our_sys_open) {
-            printk(KERN_ALERT "Somebody else also played with the ");
-            printk(KERN_ALERT "open system call\n");
-            printk(KERN_ALERT "The system may be left in ");
-            printk(KERN_ALERT "an unstable state.\n");
+            pr_alert("Somebody else also played with the ");
+            pr_alert("open system call\n");
+            pr_alert("The system may be left in ");
+            pr_alert("an unstable state.\n");
         }
 
         write_cr0(original_cr0 & ~0x00010000);
@@ -4326,14 +4307,14 @@ hacker, this would be the first thing he'd try. ;)
 
 .. raw:: html
 
-   <div id="outline-container-org13e2c0e" class="outline-2">
+   <div id="outline-container-org2c54a9a" class="outline-2">
 
 .. rubric:: Blocking Processes and threads
-   :name: org13e2c0e
+   :name: org2c54a9a
 
 .. raw:: html
 
-   <div id="text-org13e2c0e" class="outline-text-2">
+   <div id="text-org2c54a9a" class="outline-text-2">
 
 .. raw:: html
 
@@ -4341,14 +4322,14 @@ hacker, this would be the first thing he'd try. ;)
 
 .. raw:: html
 
-   <div id="outline-container-org9cbc7d3" class="outline-3">
+   <div id="outline-container-org8e98b07" class="outline-3">
 
 .. rubric:: Sleep
-   :name: org9cbc7d3
+   :name: org8e98b07
 
 .. raw:: html
 
-   <div id="text-org9cbc7d3" class="outline-text-3">
+   <div id="text-org8e98b07" class="outline-text-3">
 
 What do you do when somebody asks you for something you can't do right
 away? If you're a human being and you're bothered by a human being, the
@@ -4369,7 +4350,7 @@ it with:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     tail -f
 
@@ -4436,7 +4417,7 @@ a file with **O_NONBLOCK**.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     hostname:~/lkmpg-examples/09-BlockingProcesses# insmod sleep.ko
     hostname:~/lkmpg-examples/09-BlockingProcesses# cat_noblock /proc/sleep
@@ -4467,7 +4448,7 @@ a file with **O_NONBLOCK**.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  sleep.c - create a /proc file, and if several processes try to open it at
@@ -4712,13 +4693,13 @@ a file with **O_NONBLOCK**.
         if(Our_Proc_File == NULL)
         {
             remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-            printk(KERN_DEBUG "Error: Could not initialize /proc/%s\n", PROC_ENTRY_FILENAME);
+            pr_debug("Error: Could not initialize /proc/%s\n", PROC_ENTRY_FILENAME);
             return -ENOMEM;
         }
         proc_set_size(Our_Proc_File, 80);
         proc_set_user(Our_Proc_File,  GLOBAL_ROOT_UID, GLOBAL_ROOT_GID);
 
-        printk(KERN_INFO "/proc/test created\n");
+        pr_info("/proc/test created\n");
 
         return 0;
     }
@@ -4732,7 +4713,7 @@ a file with **O_NONBLOCK**.
     void cleanup_module()
     {
         remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-        printk(KERN_DEBUG "/proc/%s removed\n", PROC_ENTRY_FILENAME);
+        pr_debug("/proc/%s removed\n", PROC_ENTRY_FILENAME);
     }
 
 .. raw:: html
@@ -4743,7 +4724,7 @@ a file with **O_NONBLOCK**.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /* cat_noblock.c - open a file and display its contents, but exit rather than
      * wait for input */
@@ -4825,14 +4806,14 @@ a file with **O_NONBLOCK**.
 
 .. raw:: html
 
-   <div id="outline-container-org89cb410" class="outline-3">
+   <div id="outline-container-orgc9f3884" class="outline-3">
 
 .. rubric:: Completions
-   :name: org89cb410
+   :name: orgc9f3884
 
 .. raw:: html
 
-   <div id="text-org89cb410" class="outline-text-3">
+   <div id="text-orgc9f3884" class="outline-text-3">
 
 Sometimes one thing should happen before another within a module having
 multiple threads. Rather than using **/proc/sleep** commands the kernel
@@ -4846,7 +4827,7 @@ before another.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     #include <linux/init.h>
     #include <linux/module.h>
@@ -4861,7 +4842,7 @@ before another.
 
     static int machine_crank_thread(void* arg)
     {
-        printk("Turn the crank\n");
+        pr_info("Turn the crank\n");
 
         complete_all(&machine.crank_comp);
         complete_and_exit(&machine.crank_comp, 0);
@@ -4871,7 +4852,7 @@ before another.
     {
         wait_for_completion(&machine.crank_comp);
 
-        printk("Flywheel spins up\n");
+        pr_info("Flywheel spins up\n");
 
         complete_all(&machine.flywheel_comp);
         complete_and_exit(&machine.flywheel_comp, 0);
@@ -4882,7 +4863,7 @@ before another.
         struct task_struct* crank_thread;
         struct task_struct* flywheel_thread;
 
-        printk("completions example\n");
+        pr_info("completions example\n");
 
         init_completion(&machine.crank_comp);
         init_completion(&machine.flywheel_comp);
@@ -4916,7 +4897,7 @@ before another.
         wait_for_completion(&machine.crank_comp);
         wait_for_completion(&machine.flywheel_comp);
 
-        printk("completions exit\n");
+        pr_info("completions exit\n");
     }
 
     module_init(completions_init);
@@ -4957,14 +4938,14 @@ enough for many common situations without adding a lot of complexity.
 
 .. raw:: html
 
-   <div id="outline-container-org949949f" class="outline-2">
+   <div id="outline-container-orgbc36b97" class="outline-2">
 
 .. rubric:: Avoiding Collisions and Deadlocks
-   :name: org949949f
+   :name: orgbc36b97
 
 .. raw:: html
 
-   <div id="text-org949949f" class="outline-text-2">
+   <div id="text-orgbc36b97" class="outline-text-2">
 
 If processes running on different CPUs or in different threads try to
 access the same memory then it's possible that strange things can happen
@@ -4979,14 +4960,14 @@ can't happen.
 
 .. raw:: html
 
-   <div id="outline-container-org10f05c2" class="outline-3">
+   <div id="outline-container-org08abf74" class="outline-3">
 
 .. rubric:: Mutex
-   :name: org10f05c2
+   :name: org08abf74
 
 .. raw:: html
 
-   <div id="text-org10f05c2" class="outline-text-3">
+   <div id="text-org08abf74" class="outline-text-3">
 
 You can use kernel mutexes (mutual exclusions) in much the same manner
 that you might deploy them in userland. This may be all that's needed to
@@ -4996,7 +4977,7 @@ avoid collisions in most cases.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     #include <linux/kernel.h>
     #include <linux/module.h>
@@ -5009,27 +4990,27 @@ avoid collisions in most cases.
     {
         int ret;
 
-        printk("example_mutex init\n");
+        pr_info("example_mutex init\n");
 
         ret = mutex_trylock(&mymutex);
         if (ret != 0) {
-            printk("mutex is locked\n");
+            pr_info("mutex is locked\n");
 
             if (mutex_is_locked(&mymutex) == 0)
-                printk("The mutex failed to lock!\n");
+                pr_info("The mutex failed to lock!\n");
 
             mutex_unlock(&mymutex);
-            printk("mutex is unlocked\n");
+            pr_info("mutex is unlocked\n");
         }
         else
-            printk("Failed to lock\n");
+            pr_info("Failed to lock\n");
 
         return 0;
     }
 
     static void example_mutex_exit(void)
     {
-        printk("example_mutex exit\n");
+        pr_info("example_mutex exit\n");
     }
 
     module_init(example_mutex_init);
@@ -5053,14 +5034,14 @@ avoid collisions in most cases.
 
 .. raw:: html
 
-   <div id="outline-container-org5d633fc" class="outline-3">
+   <div id="outline-container-org8abef7b" class="outline-3">
 
 .. rubric:: Spinlocks
-   :name: org5d633fc
+   :name: org8abef7b
 
 .. raw:: html
 
-   <div id="text-org5d633fc" class="outline-text-3">
+   <div id="text-org8abef7b" class="outline-text-3">
 
 As the name suggests, spinlocks lock up the CPU that the code is running
 on, taking 100% of its resources. Because of this you should only use
@@ -5076,7 +5057,7 @@ happens, using the *flags* variable to retain their state.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     #include <linux/kernel.h>
     #include <linux/module.h>
@@ -5092,7 +5073,7 @@ happens, using the *flags* variable to retain their state.
         unsigned long flags;
 
         spin_lock_irqsave(&sl_static, flags);
-        printk("Locked static spinlock\n");
+        pr_info("Locked static spinlock\n");
 
         /* Do something or other safely.
            Because this uses 100% CPU time this
@@ -5100,7 +5081,7 @@ happens, using the *flags* variable to retain their state.
            milliseconds to run */
 
         spin_unlock_irqrestore(&sl_static, flags);
-        printk("Unlocked static spinlock\n");
+        pr_info("Unlocked static spinlock\n");
     }
 
     static void example_spinlock_dynamic(void)
@@ -5109,7 +5090,7 @@ happens, using the *flags* variable to retain their state.
 
         spin_lock_init(&sl_dynamic);
         spin_lock_irqsave(&sl_dynamic, flags);
-        printk("Locked dynamic spinlock\n");
+        pr_info("Locked dynamic spinlock\n");
 
         /* Do something or other safely.
            Because this uses 100% CPU time this
@@ -5117,12 +5098,12 @@ happens, using the *flags* variable to retain their state.
            milliseconds to run */
 
         spin_unlock_irqrestore(&sl_dynamic, flags);
-        printk("Unlocked dynamic spinlock\n");
+        pr_info("Unlocked dynamic spinlock\n");
     }
 
     static int example_spinlock_init(void)
     {
-        printk("example spinlock started\n");
+        pr_info("example spinlock started\n");
 
         example_spinlock_static();
         example_spinlock_dynamic();
@@ -5132,7 +5113,7 @@ happens, using the *flags* variable to retain their state.
 
     static void example_spinlock_exit(void)
     {
-        printk("example spinlock exit\n");
+        pr_info("example spinlock exit\n");
     }
 
     module_init(example_spinlock_init);
@@ -5156,14 +5137,14 @@ happens, using the *flags* variable to retain their state.
 
 .. raw:: html
 
-   <div id="outline-container-orgaa517c3" class="outline-3">
+   <div id="outline-container-org0a55320" class="outline-3">
 
 .. rubric:: Read and write locks
-   :name: orgaa517c3
+   :name: org0a55320
 
 .. raw:: html
 
-   <div id="text-orgaa517c3" class="outline-text-3">
+   <div id="text-org0a55320" class="outline-text-3">
 
 Read and write locks are specialised kinds of spinlocks so that you can
 exclusively read from something or write to something. Like the earlier
@@ -5178,7 +5159,7 @@ users to start revolting against the tyranny of your module.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     #include <linux/kernel.h>
     #include <linux/module.h>
@@ -5191,12 +5172,12 @@ users to start revolting against the tyranny of your module.
         unsigned long flags;
 
         read_lock_irqsave(&myrwlock, flags);
-        printk("Read Locked\n");
+        pr_info("Read Locked\n");
 
         /* Read from something */
 
         read_unlock_irqrestore(&myrwlock, flags);
-        printk("Read Unlocked\n");
+        pr_info("Read Unlocked\n");
     }
 
     static void example_write_lock(void)
@@ -5204,17 +5185,17 @@ users to start revolting against the tyranny of your module.
         unsigned long flags;
 
         write_lock_irqsave(&myrwlock, flags);
-        printk("Write Locked\n");
+        pr_info("Write Locked\n");
 
         /* Write to something */
 
         write_unlock_irqrestore(&myrwlock, flags);
-        printk("Write Unlocked\n");
+        pr_info("Write Unlocked\n");
     }
 
     static int example_rwlock_init(void)
     {
-        printk("example_rwlock started\n");
+        pr_info("example_rwlock started\n");
 
         example_read_lock();
         example_write_lock();
@@ -5224,7 +5205,7 @@ users to start revolting against the tyranny of your module.
 
     static void example_rwlock_exit(void)
     {
-        printk("example_rwlock exit\n");
+        pr_info("example_rwlock exit\n");
     }
 
     module_init(example_rwlock_init);
@@ -5253,14 +5234,14 @@ corresponding write functions.
 
 .. raw:: html
 
-   <div id="outline-container-orgadbf448" class="outline-3">
+   <div id="outline-container-org2652f4e" class="outline-3">
 
 .. rubric:: Atomic operations
-   :name: orgadbf448
+   :name: org2652f4e
 
 .. raw:: html
 
-   <div id="text-orgadbf448" class="outline-text-3">
+   <div id="text-org2652f4e" class="outline-text-3">
 
 If you're doing simple arithmetic: adding, subtracting or bitwise
 operations then there's another way in the multi-CPU and
@@ -5273,7 +5254,7 @@ overwritten by some other shenanigans. An example is shown below.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     #include <linux/kernel.h>
     #include <linux/module.h>
@@ -5305,7 +5286,7 @@ overwritten by some other shenanigans. An example is shown below.
         /* add one */
         atomic_inc(&debbie);
 
-        printk("chris: %d, debbie: %d\n",
+        pr_info("chris: %d, debbie: %d\n",
                atomic_read(&chris), atomic_read(&debbie));
     }
 
@@ -5313,26 +5294,26 @@ overwritten by some other shenanigans. An example is shown below.
     {
         unsigned long word = 0;
 
-        printk("Bits 0: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+        pr_info("Bits 0: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
         set_bit(3, &word);
         set_bit(5, &word);
-        printk("Bits 1: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+        pr_info("Bits 1: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
         clear_bit(5, &word);
-        printk("Bits 2: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+        pr_info("Bits 2: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
         change_bit(3, &word);
 
-        printk("Bits 3: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+        pr_info("Bits 3: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
         if (test_and_set_bit(3, &word))
-            printk("wrong\n");
-        printk("Bits 4: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+            pr_info("wrong\n");
+        pr_info("Bits 4: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
 
         word = 255;
-        printk("Bits 5: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+        pr_info("Bits 5: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     }
 
     static int example_atomic_init(void)
     {
-        printk("example_atomic started\n");
+        pr_info("example_atomic started\n");
 
         atomic_add_subtract();
         atomic_bitwise();
@@ -5342,7 +5323,7 @@ overwritten by some other shenanigans. An example is shown below.
 
     static void example_atomic_exit(void)
     {
-        printk("example_atomic exit\n");
+        pr_info("example_atomic exit\n");
     }
 
     module_init(example_atomic_init);
@@ -5370,14 +5351,14 @@ overwritten by some other shenanigans. An example is shown below.
 
 .. raw:: html
 
-   <div id="outline-container-org7974c60" class="outline-2">
+   <div id="outline-container-orgf928ddc" class="outline-2">
 
-.. rubric:: Replacing Printks
-   :name: org7974c60
+.. rubric:: Replacing Print Macros
+   :name: orgf928ddc
 
 .. raw:: html
 
-   <div id="text-org7974c60" class="outline-text-2">
+   <div id="text-orgf928ddc" class="outline-text-2">
 
 .. raw:: html
 
@@ -5385,14 +5366,14 @@ overwritten by some other shenanigans. An example is shown below.
 
 .. raw:: html
 
-   <div id="outline-container-org1c8b17b" class="outline-3">
+   <div id="outline-container-org79d2e43" class="outline-3">
 
-.. rubric:: Replacing printk
-   :name: org1c8b17b
+.. rubric:: Replacement
+   :name: org79d2e43
 
 .. raw:: html
 
-   <div id="text-org1c8b17b" class="outline-text-3">
+   <div id="text-org79d2e43" class="outline-text-3">
 
 In Section 1.2.1.2, I said that X and kernel module programming don't
 mix. That's true for developing kernel modules, but in actual use, you
@@ -5414,7 +5395,7 @@ which we use to write a string to the tty.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  print_string.c - Send output to the tty we're running on, regardless if it's
@@ -5539,14 +5520,14 @@ which we use to write a string to the tty.
 
 .. raw:: html
 
-   <div id="outline-container-org418d823" class="outline-3">
+   <div id="outline-container-org006f60c" class="outline-3">
 
 .. rubric:: Flashing keyboard LEDs
-   :name: org418d823
+   :name: org006f60c
 
 .. raw:: html
 
-   <div id="text-org418d823" class="outline-text-3">
+   <div id="text-org006f60c" class="outline-text-3">
 
 In certain conditions, you may desire a simpler and more direct way to
 communicate to the external world. Flashing keyboard LEDs can be such a
@@ -5562,7 +5543,7 @@ when loaded, starts blinking the keyboard LEDs until it is unloaded.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  kbleds.c - Blink keyboard leds until the module is unloaded.
@@ -5623,19 +5604,19 @@ when loaded, starts blinking the keyboard LEDs until it is unloaded.
     {
         int i;
 
-        printk(KERN_INFO "kbleds: loading\n");
-        printk(KERN_INFO "kbleds: fgconsole is %x\n", fg_console);
+        pr_info("kbleds: loading\n");
+        pr_info("kbleds: fgconsole is %x\n", fg_console);
         for (i = 0; i < MAX_NR_CONSOLES; i++) {
             if (!vc_cons[i].d)
                 break;
-            printk(KERN_INFO "poet_atkm: console[%i/%i] #%i, tty %lx\n", i,
+            pr_info("poet_atkm: console[%i/%i] #%i, tty %lx\n", i,
                    MAX_NR_CONSOLES, vc_cons[i].d->vc_num,
                    (unsigned long)vc_cons[i].d->port.tty);
         }
-        printk(KERN_INFO "kbleds: finished scanning consoles\n");
+        pr_info("kbleds: finished scanning consoles\n");
 
         my_driver = vc_cons[fg_console].d->port.tty->driver;
-        printk(KERN_INFO "kbleds: tty driver magic %x\n", my_driver->magic);
+        pr_info("kbleds: tty driver magic %x\n", my_driver->magic);
 
         /*
          * Set up the LED blink timer the first time
@@ -5651,7 +5632,7 @@ when loaded, starts blinking the keyboard LEDs until it is unloaded.
 
     static void __exit kbleds_cleanup(void)
     {
-        printk(KERN_INFO "kbleds: unloading...\n");
+        pr_info("kbleds: unloading...\n");
         del_timer(&my_timer);
         (my_driver->ops->ioctl) (vc_cons[fg_console].d->port.tty,
                                  KDSETLED, RESTORE_LEDS);
@@ -5668,12 +5649,12 @@ If none of the examples in this chapter fit your debugging needs there
 might yet be some other tricks to try. Ever wondered what
 CONFIG_LL_DEBUG in make menuconfig is good for? If you activate that you
 get low level access to the serial port. While this might not sound very
-powerful by itself, you can patch kernel/printk.c or any other essential
-syscall to use printascii, thus makeing it possible to trace virtually
-everything what your code does over a serial line. If you find yourself
-porting the kernel to some new and former unsupported architecture this
-is usually amongst the first things that should be implemented. Logging
-over a netconsole might also be worth a try.
+powerful by itself, you can patch **kernel/printk.c** or any other
+essential syscall to use printascii, thus makeing it possible to trace
+virtually everything what your code does over a serial line. If you find
+yourself porting the kernel to some new and former unsupported
+architecture this is usually amongst the first things that should be
+implemented. Logging over a netconsole might also be worth a try.
 
 While you have seen lots of stuff that can be used to aid debugging
 here, there are some things to be aware of. Debugging is almost always
@@ -5695,14 +5676,14 @@ minimum and make sure it does not show up in production code.
 
 .. raw:: html
 
-   <div id="outline-container-orgf37d73f" class="outline-2">
+   <div id="outline-container-orgcab6a64" class="outline-2">
 
 .. rubric:: Scheduling Tasks
-   :name: orgf37d73f
+   :name: orgcab6a64
 
 .. raw:: html
 
-   <div id="text-orgf37d73f" class="outline-text-2">
+   <div id="text-orgcab6a64" class="outline-text-2">
 
 There are two main ways of running tasks: tasklets and work queues.
 Tasklets are a quick and easy way of scheduling a single function to be
@@ -5716,14 +5697,14 @@ in a sequence.
 
 .. raw:: html
 
-   <div id="outline-container-org32525a8" class="outline-3">
+   <div id="outline-container-orga758af1" class="outline-3">
 
 .. rubric:: Tasklets
-   :name: org32525a8
+   :name: orga758af1
 
 .. raw:: html
 
-   <div id="text-org32525a8" class="outline-text-3">
+   <div id="text-orga758af1" class="outline-text-3">
 
 Here's an example tasklet module. The *tasklet_fn* function runs for a
 few seconds and in the mean time execution of the *example_tasklet_init*
@@ -5733,7 +5714,7 @@ function continues to the exit point.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     #include <linux/kernel.h>
     #include <linux/module.h>
@@ -5742,25 +5723,25 @@ function continues to the exit point.
 
     static void tasklet_fn(unsigned long data)
     {
-        printk("Example tasklet starts\n");
+        pr_info("Example tasklet starts\n");
         mdelay(5000);
-        printk("Example tasklet ends\n");
+        pr_info("Example tasklet ends\n");
     }
 
     DECLARE_TASKLET(mytask, tasklet_fn, 0L);
 
     static int example_tasklet_init(void)
     {
-        printk("tasklet example init\n");
+        pr_info("tasklet example init\n");
         tasklet_schedule(&mytask);
         mdelay(200);
-        printk("Example tasklet init continues...\n");
+        pr_info("Example tasklet init continues...\n");
         return 0;
     }
 
     static void example_tasklet_exit(void)
     {
-        printk("tasklet example exit\n");
+        pr_info("tasklet example exit\n");
         tasklet_kill(&mytask);
     }
 
@@ -5781,7 +5762,7 @@ So with this example loaded *dmesg* should show:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     tasklet example init
     Example tasklet starts
@@ -5802,14 +5783,14 @@ So with this example loaded *dmesg* should show:
 
 .. raw:: html
 
-   <div id="outline-container-orge8a2d87" class="outline-3">
+   <div id="outline-container-org5e7cad8" class="outline-3">
 
 .. rubric:: Work queues
-   :name: orge8a2d87
+   :name: org5e7cad8
 
 .. raw:: html
 
-   <div id="text-orge8a2d87" class="outline-text-3">
+   <div id="text-org5e7cad8" class="outline-text-3">
 
 Very often, we have "housekeeping" tasks which have to be done at a
 certain time, or every so often. If the task is to be done by a process,
@@ -5840,7 +5821,7 @@ will happen. See the code below how this can be done in a safe way.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  sched.c - schedule a function to be called on every timer interrupt.
@@ -5961,8 +5942,8 @@ will happen. See the code below how this can be done in a safe way.
 
         if (Our_Proc_File == NULL) {
             remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-            printk(KERN_ALERT "Error: Could not initialize /proc/%s\n",
-                   PROC_ENTRY_FILENAME);
+            pr_alert("Error: Could not initialize /proc/%s\n",
+                     PROC_ENTRY_FILENAME);
             return -ENOMEM;
         }
         proc_set_size(Our_Proc_File, 80);
@@ -5975,7 +5956,7 @@ will happen. See the code below how this can be done in a safe way.
         my_workqueue = create_workqueue(MY_WORK_QUEUE_NAME);
         queue_delayed_work(my_workqueue, &Task, 100);
 
-        printk(KERN_INFO "/proc/%s created\n", PROC_ENTRY_FILENAME);
+        pr_info("/proc/%s created\n", PROC_ENTRY_FILENAME);
 
         return 0;
     }
@@ -5989,7 +5970,7 @@ will happen. See the code below how this can be done in a safe way.
          * Unregister our /proc file
          */
         remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-        printk(KERN_INFO "/proc/%s removed\n", PROC_ENTRY_FILENAME);
+        pr_info("/proc/%s removed\n", PROC_ENTRY_FILENAME);
 
         die = 1;                /* keep intrp_routine from queueing itself */
         cancel_delayed_work(&Task);     /* no "new ones" */
@@ -6025,14 +6006,14 @@ will happen. See the code below how this can be done in a safe way.
 
 .. raw:: html
 
-   <div id="outline-container-orgbc0cdf8" class="outline-2">
+   <div id="outline-container-org991944f" class="outline-2">
 
 .. rubric:: Interrupt Handlers
-   :name: orgbc0cdf8
+   :name: org991944f
 
 .. raw:: html
 
-   <div id="text-orgbc0cdf8" class="outline-text-2">
+   <div id="text-org991944f" class="outline-text-2">
 
 .. raw:: html
 
@@ -6040,14 +6021,14 @@ will happen. See the code below how this can be done in a safe way.
 
 .. raw:: html
 
-   <div id="outline-container-org93511bb" class="outline-3">
+   <div id="outline-container-orgdc4fa66" class="outline-3">
 
 .. rubric:: Interrupt Handlers
-   :name: org93511bb
+   :name: orgdc4fa66
 
 .. raw:: html
 
-   <div id="text-org93511bb" class="outline-text-3">
+   <div id="text-orgdc4fa66" class="outline-text-3">
 
 Except for the last chapter, everything we did in the kernel so far
 we've done as a response to a process asking for it, either by dealing
@@ -6123,14 +6104,14 @@ both willing to share.
 
 .. raw:: html
 
-   <div id="outline-container-org77533ca" class="outline-3">
+   <div id="outline-container-org170473f" class="outline-3">
 
 .. rubric:: Detecting button presses
-   :name: org77533ca
+   :name: org170473f
 
 .. raw:: html
 
-   <div id="text-org77533ca" class="outline-text-3">
+   <div id="text-org170473f" class="outline-text-3">
 
 Many popular single board computers, such as Raspberry Pis or
 Beagleboards, have a bunch of GPIO pins. Attaching buttons to those and
@@ -6148,7 +6129,7 @@ whatever is appropriate for your board.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      *  intrpt.c - Handling GPIO with interrupts
@@ -6200,13 +6181,13 @@ whatever is appropriate for your board.
     {
         int ret = 0;
 
-        printk(KERN_INFO "%s\n", __func__);
+        pr_info("%s\n", __func__);
 
         /* register LED gpios */
         ret = gpio_request_array(leds, ARRAY_SIZE(leds));
 
         if (ret) {
-            printk(KERN_ERR "Unable to request GPIOs for LEDs: %d\n", ret);
+            pr_err("Unable to request GPIOs for LEDs: %d\n", ret);
             return ret;
         }
 
@@ -6214,23 +6195,23 @@ whatever is appropriate for your board.
         ret = gpio_request_array(buttons, ARRAY_SIZE(buttons));
 
         if (ret) {
-            printk(KERN_ERR "Unable to request GPIOs for BUTTONs: %d\n", ret);
+            pr_err("Unable to request GPIOs for BUTTONs: %d\n", ret);
             goto fail1;
         }
 
-        printk(KERN_INFO "Current button1 value: %d\n",
+        pr_info("Current button1 value: %d\n",
                gpio_get_value(buttons[0].gpio));
 
         ret = gpio_to_irq(buttons[0].gpio);
 
         if (ret < 0) {
-            printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+            pr_err("Unable to request IRQ: %d\n", ret);
             goto fail2;
         }
 
         button_irqs[0] = ret;
 
-        printk(KERN_INFO "Successfully requested BUTTON1 IRQ # %d\n",
+        pr_info("Successfully requested BUTTON1 IRQ # %d\n",
                button_irqs[0]);
 
         ret = request_irq(button_irqs[0], button_isr,
@@ -6238,7 +6219,7 @@ whatever is appropriate for your board.
                           "gpiomod#button1", NULL);
 
         if (ret) {
-            printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+            pr_err("Unable to request IRQ: %d\n", ret);
             goto fail2;
         }
 
@@ -6246,13 +6227,13 @@ whatever is appropriate for your board.
         ret = gpio_to_irq(buttons[1].gpio);
 
         if (ret < 0) {
-            printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+            pr_err("Unable to request IRQ: %d\n", ret);
             goto fail2;
         }
 
         button_irqs[1] = ret;
 
-        printk(KERN_INFO "Successfully requested BUTTON2 IRQ # %d\n",
+        pr_info("Successfully requested BUTTON2 IRQ # %d\n",
                button_irqs[1]);
 
         ret = request_irq(button_irqs[1], button_isr,
@@ -6260,7 +6241,7 @@ whatever is appropriate for your board.
                           "gpiomod#button2", NULL);
 
         if (ret) {
-            printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+            pr_err("Unable to request IRQ: %d\n", ret);
             goto fail3;
         }
 
@@ -6283,7 +6264,7 @@ whatever is appropriate for your board.
     {
         int i;
 
-        printk(KERN_INFO "%s\n", __func__);
+        pr_info("%s\n", __func__);
 
         /* free irqs */
         free_irq(button_irqs[0], NULL);
@@ -6316,14 +6297,14 @@ whatever is appropriate for your board.
 
 .. raw:: html
 
-   <div id="outline-container-orgdb452ba" class="outline-3">
+   <div id="outline-container-org58210bf" class="outline-3">
 
 .. rubric:: Bottom Half
-   :name: orgdb452ba
+   :name: org58210bf
 
 .. raw:: html
 
-   <div id="text-orgdb452ba" class="outline-text-3">
+   <div id="text-org58210bf" class="outline-text-3">
 
 Suppose you want to do a bunch of stuff inside of an interrupt routine.
 A common way to do that without rendering the interrupt unavailable for
@@ -6337,7 +6318,7 @@ additional task when an interrupt is triggered.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     /*
      * bottomhalf.c - Top and bottom half interrupt handling
@@ -6374,10 +6355,10 @@ additional task when an interrupt is triggered.
     /* Tasklet containing some non-trivial amount of processing */
     static void bottomhalf_tasklet_fn(unsigned long data)
     {
-        printk("Bottom half tasklet starts\n");
+        pr_info("Bottom half tasklet starts\n");
         /* do something which takes a while */
         mdelay(500);
-        printk("Bottom half tasklet ends\n");
+        pr_info("Bottom half tasklet ends\n");
     }
 
     DECLARE_TASKLET(buttontask, bottomhalf_tasklet_fn, 0L);
@@ -6403,13 +6384,13 @@ additional task when an interrupt is triggered.
     {
         int ret = 0;
 
-        printk(KERN_INFO "%s\n", __func__);
+        pr_info("%s\n", __func__);
 
         /* register LED gpios */
         ret = gpio_request_array(leds, ARRAY_SIZE(leds));
 
         if (ret) {
-            printk(KERN_ERR "Unable to request GPIOs for LEDs: %d\n", ret);
+            pr_err("Unable to request GPIOs for LEDs: %d\n", ret);
             return ret;
         }
 
@@ -6417,23 +6398,23 @@ additional task when an interrupt is triggered.
         ret = gpio_request_array(buttons, ARRAY_SIZE(buttons));
 
         if (ret) {
-            printk(KERN_ERR "Unable to request GPIOs for BUTTONs: %d\n", ret);
+            pr_err("Unable to request GPIOs for BUTTONs: %d\n", ret);
             goto fail1;
         }
 
-        printk(KERN_INFO "Current button1 value: %d\n",
+        pr_info("Current button1 value: %d\n",
                gpio_get_value(buttons[0].gpio));
 
         ret = gpio_to_irq(buttons[0].gpio);
 
         if (ret < 0) {
-            printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+            pr_err("Unable to request IRQ: %d\n", ret);
             goto fail2;
         }
 
         button_irqs[0] = ret;
 
-        printk(KERN_INFO "Successfully requested BUTTON1 IRQ # %d\n",
+        pr_info("Successfully requested BUTTON1 IRQ # %d\n",
                button_irqs[0]);
 
         ret = request_irq(button_irqs[0], button_isr,
@@ -6441,7 +6422,7 @@ additional task when an interrupt is triggered.
                           "gpiomod#button1", NULL);
 
         if (ret) {
-            printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+            pr_err("Unable to request IRQ: %d\n", ret);
             goto fail2;
         }
 
@@ -6449,13 +6430,13 @@ additional task when an interrupt is triggered.
         ret = gpio_to_irq(buttons[1].gpio);
 
         if (ret < 0) {
-            printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+            pr_err("Unable to request IRQ: %d\n", ret);
             goto fail2;
         }
 
         button_irqs[1] = ret;
 
-        printk(KERN_INFO "Successfully requested BUTTON2 IRQ # %d\n",
+        pr_info("Successfully requested BUTTON2 IRQ # %d\n",
                button_irqs[1]);
 
         ret = request_irq(button_irqs[1], button_isr,
@@ -6463,7 +6444,7 @@ additional task when an interrupt is triggered.
                           "gpiomod#button2", NULL);
 
         if (ret) {
-            printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+            pr_err("Unable to request IRQ: %d\n", ret);
             goto fail3;
         }
 
@@ -6486,7 +6467,7 @@ additional task when an interrupt is triggered.
     {
         int i;
 
-        printk(KERN_INFO "%s\n", __func__);
+        pr_info("%s\n", __func__);
 
         /* free irqs */
         free_irq(button_irqs[0], NULL);
@@ -6523,14 +6504,14 @@ additional task when an interrupt is triggered.
 
 .. raw:: html
 
-   <div id="outline-container-org627e987" class="outline-2">
+   <div id="outline-container-org95671c1" class="outline-2">
 
 .. rubric:: Crypto
-   :name: org627e987
+   :name: org95671c1
 
 .. raw:: html
 
-   <div id="text-org627e987" class="outline-text-2">
+   <div id="text-org95671c1" class="outline-text-2">
 
 At the dawn of the internet everybody trusted everybody completely…but
 that didn't work out so well. When this guide was originally written it
@@ -6546,14 +6527,14 @@ hash functions.
 
 .. raw:: html
 
-   <div id="outline-container-org0d560c3" class="outline-3">
+   <div id="outline-container-org5702461" class="outline-3">
 
 .. rubric:: Hash functions
-   :name: org0d560c3
+   :name: org5702461
 
 .. raw:: html
 
-   <div id="text-org0d560c3" class="outline-text-3">
+   <div id="text-org5702461" class="outline-text-3">
 
 Calculating and checking the hashes of things is a common operation.
 Here is a demonstration of how to calculate a sha256 hash within a
@@ -6563,7 +6544,7 @@ kernel module.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     #include <linux/module.h>
     #include <crypto/internal/hash.h>
@@ -6575,11 +6556,11 @@ kernel module.
         int i;
         char str[SHA256_LENGTH*2 + 1];
 
-        printk("sha256 test for string: \"%s\"\n", plaintext);
+        pr_info("sha256 test for string: \"%s\"\n", plaintext);
         for (i = 0; i < SHA256_LENGTH ; i++)
             sprintf(&str[i*2],"%02x", (unsigned char)hash_sha256[i]);
         str[i*2] = 0;
-        printk("%s\n", str);
+        pr_info("%s\n", str);
     }
 
     int cryptosha256_init(void)
@@ -6640,7 +6621,7 @@ Make and install the module:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     make
     sudo insmod cryptosha256.ko
@@ -6658,7 +6639,7 @@ Finally, remove the test module:
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     sudo rmmod cryptosha256
 
@@ -6676,14 +6657,14 @@ Finally, remove the test module:
 
 .. raw:: html
 
-   <div id="outline-container-org4e331ef" class="outline-3">
+   <div id="outline-container-orgdca7f0b" class="outline-3">
 
 .. rubric:: Symmetric key encryption
-   :name: org4e331ef
+   :name: orgdca7f0b
 
 .. raw:: html
 
-   <div id="text-org4e331ef" class="outline-text-3">
+   <div id="text-orgdca7f0b" class="outline-text-3">
 
 Here is an example of symmetrically encrypting a string using the AES
 algorithm and a password.
@@ -6692,7 +6673,7 @@ algorithm and a password.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     #include <crypto/internal/skcipher.h>
     #include <linux/module.h>
@@ -6746,7 +6727,7 @@ algorithm and a password.
                 break;
             }
         default:
-            printk("skcipher encrypt returned with %d result %d\n",
+            pr_info("skcipher encrypt returned with %d result %d\n",
                 rc, sk->result.err);
             break;
         }
@@ -6766,7 +6747,7 @@ algorithm and a password.
 
         result->err = error;
         complete(&result->completion);
-        printk("Encryption finished successfully\n");
+        pr_info("Encryption finished successfully\n");
     }
 
     static int test_skcipher_encrypt(char * plaintext, char * password,
@@ -6778,7 +6759,7 @@ algorithm and a password.
         if (!sk->tfm) {
             sk->tfm = crypto_alloc_skcipher("cbc-aes-aesni", 0, 0);
             if (IS_ERR(sk->tfm)) {
-                printk("could not allocate skcipher handle\n");
+                pr_info("could not allocate skcipher handle\n");
                 return PTR_ERR(sk->tfm);
             }
         }
@@ -6786,7 +6767,7 @@ algorithm and a password.
         if (!sk->req) {
             sk->req = skcipher_request_alloc(sk->tfm, GFP_KERNEL);
             if (!sk->req) {
-                printk("could not allocate skcipher request\n");
+                pr_info("could not allocate skcipher request\n");
                 ret = -ENOMEM;
                 goto out;
             }
@@ -6804,18 +6785,18 @@ algorithm and a password.
 
         /* AES 256 with given symmetric key */
         if (crypto_skcipher_setkey(sk->tfm, key, SYMMETRIC_KEY_LENGTH)) {
-            printk("key could not be set\n");
+            pr_info("key could not be set\n");
             ret = -EAGAIN;
             goto out;
         }
-        printk("Symmetric key: %s\n", key);
-        printk("Plaintext: %s\n", plaintext);
+        pr_info("Symmetric key: %s\n", key);
+        pr_info("Plaintext: %s\n", plaintext);
 
         if (!sk->ivdata) {
             /* see https://en.wikipedia.org/wiki/Initialization_vector */
             sk->ivdata = kmalloc(CIPHER_BLOCK_SIZE, GFP_KERNEL);
             if (!sk->ivdata) {
-                printk("could not allocate ivdata\n");
+                pr_info("could not allocate ivdata\n");
                 goto out;
             }
             get_random_bytes(sk->ivdata, CIPHER_BLOCK_SIZE);
@@ -6825,7 +6806,7 @@ algorithm and a password.
             /* The text to be encrypted */
             sk->scratchpad = kmalloc(CIPHER_BLOCK_SIZE, GFP_KERNEL);
             if (!sk->scratchpad) {
-                printk("could not allocate scratchpad\n");
+                pr_info("could not allocate scratchpad\n");
                 goto out;
             }
         }
@@ -6842,7 +6823,7 @@ algorithm and a password.
         if (ret)
             goto out;
 
-        printk("Encryption request successful\n");
+        pr_info("Encryption request successful\n");
 
     out:
         return ret;
@@ -6893,14 +6874,14 @@ algorithm and a password.
 
 .. raw:: html
 
-   <div id="outline-container-org01d6493" class="outline-2">
+   <div id="outline-container-org7ee71e2" class="outline-2">
 
 .. rubric:: Standardising the interfaces: The Device Model
-   :name: org01d6493
+   :name: org7ee71e2
 
 .. raw:: html
 
-   <div id="text-org01d6493" class="outline-text-2">
+   <div id="text-org7ee71e2" class="outline-text-2">
 
 Up to this point we've seen all kinds of modules doing all kinds of
 things, but there was no consistency in their interfaces with the rest
@@ -6913,7 +6894,7 @@ to add your own suspend, resume or other interface functions.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     #include <linux/kernel.h>
     #include <linux/module.h>
@@ -6928,8 +6909,8 @@ to add your own suspend, resume or other interface functions.
     {
         struct devicemodel_data *pd = (struct devicemodel_data *)(dev->dev.platform_data);
 
-        printk("devicemodel probe\n");
-        printk("devicemodel greeting: %s; %d\n", pd->greeting, pd->number);
+        pr_info("devicemodel probe\n");
+        pr_info("devicemodel greeting: %s; %d\n", pd->greeting, pd->number);
 
         /* Your device initialisation code */
 
@@ -6938,7 +6919,7 @@ to add your own suspend, resume or other interface functions.
 
     static int devicemodel_remove(struct platform_device *dev)
     {
-        printk("devicemodel example removed\n");
+        pr_info("devicemodel example removed\n");
 
         /* Your device removal code */
 
@@ -6947,7 +6928,7 @@ to add your own suspend, resume or other interface functions.
 
     static int devicemodel_suspend(struct device *dev)
     {
-        printk("devicemodel example suspend\n");
+        pr_info("devicemodel example suspend\n");
 
         /* Your device suspend code */
 
@@ -6956,7 +6937,7 @@ to add your own suspend, resume or other interface functions.
 
     static int devicemodel_resume(struct device *dev)
     {
-        printk("devicemodel example resume\n");
+        pr_info("devicemodel example resume\n");
 
         /* Your device resume code */
 
@@ -6987,12 +6968,12 @@ to add your own suspend, resume or other interface functions.
     {
         int ret;
 
-        printk("devicemodel init\n");
+        pr_info("devicemodel init\n");
 
         ret = platform_driver_register(&devicemodel_driver);
 
         if (ret) {
-            printk(KERN_ERR "Unable to register driver\n");
+            pr_err("Unable to register driver\n");
             return ret;
         }
 
@@ -7001,7 +6982,7 @@ to add your own suspend, resume or other interface functions.
 
     static void devicemodel_exit(void)
     {
-        printk("devicemodel exit\n");
+        pr_info("devicemodel exit\n");
         platform_driver_unregister(&devicemodel_driver);
     }
 
@@ -7026,14 +7007,14 @@ to add your own suspend, resume or other interface functions.
 
 .. raw:: html
 
-   <div id="outline-container-org87293ce" class="outline-2">
+   <div id="outline-container-org6dcd6c8" class="outline-2">
 
 .. rubric:: Optimisations
-   :name: org87293ce
+   :name: org6dcd6c8
 
 .. raw:: html
 
-   <div id="text-org87293ce" class="outline-text-2">
+   <div id="text-org6dcd6c8" class="outline-text-2">
 
 .. raw:: html
 
@@ -7041,14 +7022,14 @@ to add your own suspend, resume or other interface functions.
 
 .. raw:: html
 
-   <div id="outline-container-org87e8223" class="outline-3">
+   <div id="outline-container-org9398c78" class="outline-3">
 
 .. rubric:: Likely and Unlikely conditions
-   :name: org87e8223
+   :name: org9398c78
 
 .. raw:: html
 
-   <div id="text-org87e8223" class="outline-text-3">
+   <div id="text-org9398c78" class="outline-text-3">
 
 Sometimes you might want your code to run as quickly as possible,
 especially if it's handling an interrupt or doing something which might
@@ -7064,7 +7045,7 @@ to succeed.
 
    <div class="org-src-container">
 
-::
+.. code:: src
 
     bvl = bvec_alloc(gfp_mask, nr_iovecs, &idx);
     if (unlikely(!bvl)) {
@@ -7096,14 +7077,14 @@ pipeline. The opposite happens if you use the *likely* macro.
 
 .. raw:: html
 
-   <div id="outline-container-org79dea20" class="outline-2">
+   <div id="outline-container-org7813eb9" class="outline-2">
 
 .. rubric:: Common Pitfalls
-   :name: org79dea20
+   :name: org7813eb9
 
 .. raw:: html
 
-   <div id="text-org79dea20" class="outline-text-2">
+   <div id="text-org7813eb9" class="outline-text-2">
 
 Before I send you on your way to go out into the world and write kernel
 modules, there are a few things I need to warn you about. If I fail to
@@ -7116,14 +7097,14 @@ a full refund of the amount I was paid for your copy of the book.
 
 .. raw:: html
 
-   <div id="outline-container-org86275d7" class="outline-3">
+   <div id="outline-container-orgcbd6cad" class="outline-3">
 
 .. rubric:: Using standard libraries
-   :name: org86275d7
+   :name: orgcbd6cad
 
 .. raw:: html
 
-   <div id="text-org86275d7" class="outline-text-3">
+   <div id="text-orgcbd6cad" class="outline-text-3">
 
 You can't do that. In a kernel module you can only use kernel functions,
 which are the functions you can see in /proc/kallsyms.
@@ -7138,14 +7119,14 @@ which are the functions you can see in /proc/kallsyms.
 
 .. raw:: html
 
-   <div id="outline-container-org8646229" class="outline-3">
+   <div id="outline-container-orgf96d0f1" class="outline-3">
 
 .. rubric:: Disabling interrupts
-   :name: org8646229
+   :name: orgf96d0f1
 
 .. raw:: html
 
-   <div id="text-org8646229" class="outline-text-3">
+   <div id="text-orgf96d0f1" class="outline-text-3">
 
 You might need to do this for a short time and that is OK, but if you
 don't enable them afterwards, your system will be stuck and you'll have
@@ -7161,14 +7142,14 @@ to power it off.
 
 .. raw:: html
 
-   <div id="outline-container-org58c8bc4" class="outline-3">
+   <div id="outline-container-orga703bab" class="outline-3">
 
 .. rubric:: Sticking your head inside a large carnivore
-   :name: org58c8bc4
+   :name: orga703bab
 
 .. raw:: html
 
-   <div id="text-org58c8bc4" class="outline-text-3">
+   <div id="text-orga703bab" class="outline-text-3">
 
 I probably don't have to warn you about this, but I figured I will
 anyway, just in case.
@@ -7187,14 +7168,14 @@ anyway, just in case.
 
 .. raw:: html
 
-   <div id="outline-container-org2307e11" class="outline-2">
+   <div id="outline-container-orge615b39" class="outline-2">
 
 .. rubric:: Where To Go From Here?
-   :name: org2307e11
+   :name: orge615b39
 
 .. raw:: html
 
-   <div id="text-org2307e11" class="outline-text-2">
+   <div id="text-orge615b39" class="outline-text-2">
 
 I could easily have squeezed a few more chapters into this book. I could
 have added a chapter about creating new file systems, or about adding

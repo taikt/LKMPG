@@ -9,12 +9,12 @@ static void example_read_lock(void)
     unsigned long flags;
 
     read_lock_irqsave(&myrwlock, flags);
-    printk("Read Locked\n");
+    pr_info("Read Locked\n");
 
     /* Read from something */
 
     read_unlock_irqrestore(&myrwlock, flags);
-    printk("Read Unlocked\n");
+    pr_info("Read Unlocked\n");
 }
 
 static void example_write_lock(void)
@@ -22,17 +22,17 @@ static void example_write_lock(void)
     unsigned long flags;
 
     write_lock_irqsave(&myrwlock, flags);
-    printk("Write Locked\n");
+    pr_info("Write Locked\n");
 
     /* Write to something */
 
     write_unlock_irqrestore(&myrwlock, flags);
-    printk("Write Unlocked\n");
+    pr_info("Write Unlocked\n");
 }
 
 static int example_rwlock_init(void)
 {
-    printk("example_rwlock started\n");
+    pr_info("example_rwlock started\n");
 
     example_read_lock();
     example_write_lock();
@@ -42,7 +42,7 @@ static int example_rwlock_init(void)
 
 static void example_rwlock_exit(void)
 {
-    printk("example_rwlock exit\n");
+    pr_info("example_rwlock exit\n");
 }
 
 module_init(example_rwlock_init);

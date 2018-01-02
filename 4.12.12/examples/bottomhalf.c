@@ -33,10 +33,10 @@ static struct gpio buttons[] = {
 /* Tasklet containing some non-trivial amount of processing */
 static void bottomhalf_tasklet_fn(unsigned long data)
 {
-    printk("Bottom half tasklet starts\n");
+    pr_info("Bottom half tasklet starts\n");
     /* do something which takes a while */
     mdelay(500);
-    printk("Bottom half tasklet ends\n");
+    pr_info("Bottom half tasklet ends\n");
 }
 
 DECLARE_TASKLET(buttontask, bottomhalf_tasklet_fn, 0L);
@@ -62,13 +62,13 @@ int init_module()
 {
     int ret = 0;
 
-    printk(KERN_INFO "%s\n", __func__);
+    pr_info("%s\n", __func__);
 
     /* register LED gpios */
     ret = gpio_request_array(leds, ARRAY_SIZE(leds));
 
     if (ret) {
-        printk(KERN_ERR "Unable to request GPIOs for LEDs: %d\n", ret);
+        pr_err("Unable to request GPIOs for LEDs: %d\n", ret);
         return ret;
     }
 
@@ -76,23 +76,23 @@ int init_module()
     ret = gpio_request_array(buttons, ARRAY_SIZE(buttons));
 
     if (ret) {
-        printk(KERN_ERR "Unable to request GPIOs for BUTTONs: %d\n", ret);
+        pr_err("Unable to request GPIOs for BUTTONs: %d\n", ret);
         goto fail1;
     }
 
-    printk(KERN_INFO "Current button1 value: %d\n",
+    pr_info("Current button1 value: %d\n",
            gpio_get_value(buttons[0].gpio));
 
     ret = gpio_to_irq(buttons[0].gpio);
 
     if (ret < 0) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail2;
     }
 
     button_irqs[0] = ret;
 
-    printk(KERN_INFO "Successfully requested BUTTON1 IRQ # %d\n",
+    pr_info("Successfully requested BUTTON1 IRQ # %d\n",
            button_irqs[0]);
 
     ret = request_irq(button_irqs[0], button_isr,
@@ -100,7 +100,7 @@ int init_module()
                       "gpiomod#button1", NULL);
 
     if (ret) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail2;
     }
 
@@ -108,13 +108,13 @@ int init_module()
     ret = gpio_to_irq(buttons[1].gpio);
 
     if (ret < 0) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail2;
     }
 
     button_irqs[1] = ret;
 
-    printk(KERN_INFO "Successfully requested BUTTON2 IRQ # %d\n",
+    pr_info("Successfully requested BUTTON2 IRQ # %d\n",
            button_irqs[1]);
 
     ret = request_irq(button_irqs[1], button_isr,
@@ -122,7 +122,7 @@ int init_module()
                       "gpiomod#button2", NULL);
 
     if (ret) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail3;
     }
 
@@ -145,7 +145,7 @@ void cleanup_module()
 {
     int i;
 
-    printk(KERN_INFO "%s\n", __func__);
+    pr_info("%s\n", __func__);
 
     /* free irqs */
     free_irq(button_irqs[0], NULL);

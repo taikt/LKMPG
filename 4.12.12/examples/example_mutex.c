@@ -9,27 +9,27 @@ static int example_mutex_init(void)
 {
     int ret;
 
-    printk("example_mutex init\n");
+    pr_info("example_mutex init\n");
 
     ret = mutex_trylock(&mymutex);
     if (ret != 0) {
-        printk("mutex is locked\n");
+        pr_info("mutex is locked\n");
 
         if (mutex_is_locked(&mymutex) == 0)
-            printk("The mutex failed to lock!\n");
+            pr_info("The mutex failed to lock!\n");
 
         mutex_unlock(&mymutex);
-        printk("mutex is unlocked\n");
+        pr_info("mutex is unlocked\n");
     }
     else
-        printk("Failed to lock\n");
+        pr_info("Failed to lock\n");
 
     return 0;
 }
 
 static void example_mutex_exit(void)
 {
-    printk("example_mutex exit\n");
+    pr_info("example_mutex exit\n");
 }
 
 module_init(example_mutex_init);

@@ -28,34 +28,34 @@ static void atomic_add_subtract(void)
     /* add one */
     atomic_inc(&debbie);
 
-    printk("chris: %d, debbie: %d\n",
-           atomic_read(&chris), atomic_read(&debbie));
+    pr_info("chris: %d, debbie: %d\n",
+            atomic_read(&chris), atomic_read(&debbie));
 }
 
 static void atomic_bitwise(void)
 {
     unsigned long word = 0;
 
-    printk("Bits 0: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info("Bits 0: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     set_bit(3, &word);
     set_bit(5, &word);
-    printk("Bits 1: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info("Bits 1: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     clear_bit(5, &word);
-    printk("Bits 2: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info("Bits 2: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     change_bit(3, &word);
 
-    printk("Bits 3: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info("Bits 3: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     if (test_and_set_bit(3, &word))
-        printk("wrong\n");
-    printk("Bits 4: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+        pr_info("wrong\n");
+    pr_info("Bits 4: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
 
     word = 255;
-    printk("Bits 5: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info("Bits 5: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
 }
 
 static int example_atomic_init(void)
 {
-    printk("example_atomic started\n");
+    pr_info("example_atomic started\n");
 
     atomic_add_subtract();
     atomic_bitwise();
@@ -65,7 +65,7 @@ static int example_atomic_init(void)
 
 static void example_atomic_exit(void)
 {
-    printk("example_atomic exit\n");
+    pr_info("example_atomic exit\n");
 }
 
 module_init(example_atomic_init);

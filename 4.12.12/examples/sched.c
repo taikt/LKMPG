@@ -117,8 +117,8 @@ int __init init_module()
 
     if (Our_Proc_File == NULL) {
         remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-        printk(KERN_ALERT "Error: Could not initialize /proc/%s\n",
-               PROC_ENTRY_FILENAME);
+        pr_alert("Error: Could not initialize /proc/%s\n",
+                 PROC_ENTRY_FILENAME);
         return -ENOMEM;
     }
     proc_set_size(Our_Proc_File, 80);
@@ -131,7 +131,7 @@ int __init init_module()
     my_workqueue = create_workqueue(MY_WORK_QUEUE_NAME);
     queue_delayed_work(my_workqueue, &Task, 100);
 
-    printk(KERN_INFO "/proc/%s created\n", PROC_ENTRY_FILENAME);
+    pr_info("/proc/%s created\n", PROC_ENTRY_FILENAME);
 
     return 0;
 }
@@ -145,7 +145,7 @@ void __exit cleanup_module()
      * Unregister our /proc file
      */
     remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-    printk(KERN_INFO "/proc/%s removed\n", PROC_ENTRY_FILENAME);
+    pr_info("/proc/%s removed\n", PROC_ENTRY_FILENAME);
 
     die = 1;                /* keep intrp_routine from queueing itself */
     cancel_delayed_work(&Task);     /* no "new ones" */

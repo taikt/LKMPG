@@ -50,7 +50,7 @@ static int test_skcipher_result(struct skcipher_def * sk, int rc)
             break;
         }
     default:
-        printk("skcipher encrypt returned with %d result %d\n",
+        pr_info("skcipher encrypt returned with %d result %d\n",
             rc, sk->result.err);
         break;
     }
@@ -70,7 +70,7 @@ static void test_skcipher_callback(struct crypto_async_request *req, int error)
 
     result->err = error;
     complete(&result->completion);
-    printk("Encryption finished successfully\n");
+    pr_info("Encryption finished successfully\n");
 
     /* decrypt data */
     /*
@@ -83,8 +83,8 @@ static void test_skcipher_callback(struct crypto_async_request *req, int error)
     sg_copy_from_buffer(&sk.sg, 1, sk.scratchpad, CIPHER_BLOCK_SIZE);
     sk.scratchpad[CIPHER_BLOCK_SIZE-1] = 0;
 
-    printk("Decryption request successful\n");
-    printk("Decrypted: %s\n", sk.scratchpad);
+    pr_info("Decryption request successful\n");
+    pr_info("Decrypted: %s\n", sk.scratchpad);
     */
 }
 
@@ -97,7 +97,7 @@ static int test_skcipher_encrypt(char * plaintext, char * password,
     if (!sk->tfm) {
         sk->tfm = crypto_alloc_skcipher("cbc-aes-aesni", 0, 0);
         if (IS_ERR(sk->tfm)) {
-            printk("could not allocate skcipher handle\n");
+            pr_info("could not allocate skcipher handle\n");
             return PTR_ERR(sk->tfm);
         }
     }
@@ -105,7 +105,7 @@ static int test_skcipher_encrypt(char * plaintext, char * password,
     if (!sk->req) {
         sk->req = skcipher_request_alloc(sk->tfm, GFP_KERNEL);
         if (!sk->req) {
-            printk("could not allocate skcipher request\n");
+            pr_info("could not allocate skcipher request\n");
             ret = -ENOMEM;
             goto out;
         }
@@ -123,18 +123,18 @@ static int test_skcipher_encrypt(char * plaintext, char * password,
 
     /* AES 256 with given symmetric key */
     if (crypto_skcipher_setkey(sk->tfm, key, SYMMETRIC_KEY_LENGTH)) {
-        printk("key could not be set\n");
+        pr_info("key could not be set\n");
         ret = -EAGAIN;
         goto out;
     }
-    printk("Symmetric key: %s\n", key);
-    printk("Plaintext: %s\n", plaintext);
+    pr_info("Symmetric key: %s\n", key);
+    pr_info("Plaintext: %s\n", plaintext);
 
     if (!sk->ivdata) {
         /* see https://en.wikipedia.org/wiki/Initialization_vector */
         sk->ivdata = kmalloc(CIPHER_BLOCK_SIZE, GFP_KERNEL);
         if (!sk->ivdata) {
-            printk("could not allocate ivdata\n");
+            pr_info("could not allocate ivdata\n");
             goto out;
         }
         get_random_bytes(sk->ivdata, CIPHER_BLOCK_SIZE);
@@ -144,7 +144,7 @@ static int test_skcipher_encrypt(char * plaintext, char * password,
         /* The text to be encrypted */
         sk->scratchpad = kmalloc(CIPHER_BLOCK_SIZE, GFP_KERNEL);
         if (!sk->scratchpad) {
-            printk("could not allocate scratchpad\n");
+            pr_info("could not allocate scratchpad\n");
             goto out;
         }
     }
@@ -161,7 +161,7 @@ static int test_skcipher_encrypt(char * plaintext, char * password,
     if (ret)
         goto out;
 
-    printk("Encryption request successful\n");
+    pr_info("Encryption request successful\n");
 
 out:
     return ret;

@@ -7,6 +7,6 @@
 
 int init_module(void)
 {
-    printk(KERN_INFO "Hello, world - this is the kernel speaking\n");
+    pr_info("Hello, world - this is the kernel speaking\n");
     return 0;
 }

@@ -1,4 +1,4 @@
-% Created 2017-09-14 Thu 10:09
+% Created 2018-01-02 Tue 21:37
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -22,7 +22,7 @@
  pdftitle={The Linux Kernel Module Programming Guide},
  pdfkeywords={linux, kernel, kernel module, kernel programming},
  pdfsubject={How to make kernel modules for Linux},
- pdfcreator={Emacs 25.2.1 (Org mode 9.0.9)},
+ pdfcreator={Emacs 25.3.1 (Org mode 9.1.5)},
  pdflang={English}}
 \begin{document}
 
@@ -31,7 +31,7 @@
 
 
 \section*{Introduction}
-\label{sec:orgbc18f56}
+\label{sec:org728a662}
 The Linux Kernel Module Programming Guide is a free book; you may reproduce and/or modify it under the terms of the Open Software License, version 3.0.
 
 This book is distributed in the hope it will be useful, but without any warranty, without even the implied warranty of merchantability or fitness for a particular purpose.
@@ -43,31 +43,31 @@ Derivative works and translations of this document must be placed under the Open
 If you publish or distribute this book commercially, donations, royalties, and/or printed copies are greatly appreciated by the author and the \href{http://www.tldp.org}{Linux Documentation Project} (LDP). Contributing in this way shows your support for free software and the LDP. If you have questions or comments, please contact the address above.
 
 \subsection*{Authorship}
-\label{sec:org89a1f0e}
+\label{sec:org2e8bd2d}
 
 The Linux Kernel Module Programming Guide was originally written for the 2.2 kernels by Ori Pomerantz. Eventually, Ori no longer had time to maintain the document. After all, the Linux kernel is a fast moving target. Peter Jay Salzman took over maintenance and updated it for the 2.4 kernels. Eventually, Peter no longer had time to follow developments with the 2.6 kernel, so Michael Burian became a co-maintainer to update the document for the 2.6 kernels.  Bob Mottram updated the examples for 3.8 and later kernels, added the sysfs chapter and modified or updated other chapters.
 
 \subsection*{Versioning and Notes}
-\label{sec:orgd5bdc51}
+\label{sec:org0c6a3b0}
 
 The Linux kernel is a moving target. There has always been a question whether the LKMPG should remove deprecated information or keep it around for historical sake. Michael Burian and I decided to create a new branch of the LKMPG for each new stable kernel version. So version LKMPG 4.12.x will address Linux kernel 4.12.x and LKMPG 2.6.x will address Linux kernel 2.6. No attempt will be made to archive historical information; a person wishing this information should read the appropriately versioned LKMPG.
 
 The source code and discussions should apply to most architectures, but I can't promise anything.
 
 \subsection*{Acknowledgements}
-\label{sec:orgc915b95}
+\label{sec:orgf50b0bd}
 
 The following people have contributed corrections or good suggestions: Ignacio Martin, David Porter, Daniele Paolo Scarpazza, Dimo Velev, Francois Audeon, Horst Schirmeier, Bob Mottram and Roman Lakeev.
 
 \subsection*{What Is A Kernel Module?}
-\label{sec:orgb26eced}
+\label{sec:orgd5f53ae}
 
 So, you want to write a kernel module. You know C, you've written a few normal programs to run as processes, and now you want to get to where the real action is, to where a single wild pointer can wipe out your file system and a core dump means a reboot.
 
 What exactly is a kernel module? Modules are pieces of code that can be loaded and unloaded into the kernel upon demand. They extend the functionality of the kernel without the need to reboot the system. For example, one type of module is the device driver, which allows the kernel to access hardware connected to the system. Without modules, we would have to build monolithic kernels and add new functionality directly into the kernel image. Besides having larger kernels, this has the disadvantage of requiring us to rebuild and reboot the kernel every time we want new functionality.
 
 \subsection*{Kernel module package}
-\label{sec:org6ee2267}
+\label{sec:org142ca4e}
 
 Linux distros provide the commands \emph{modprobe}, \emph{insmod} and \emph{depmod} within a package.
 
@@ -84,7 +84,7 @@ sudo pacman -S gcc kmod
 \end{verbatim}
 
 \subsection*{What Modules are in my Kernel?}
-\label{sec:orgb9e0a33}
+\label{sec:org4d468ca}
 
 To discover what modules are already loaded within your current kernel use the command \textbf{lsmod}.
 
@@ -105,20 +105,20 @@ sudo lsmod | grep fat
 \end{verbatim}
 
 \subsection*{Do I need to download and compile the kernel?}
-\label{sec:org23530fd}
+\label{sec:org9613504}
 For the purposes of following this guide you don't necessarily need to do that. However, it would be wise to run the examples within a test distro running on a virtual machine in order to avoid any possibility of messing up your system.
 \subsection*{Before We Begin}
-\label{sec:org398a271}
+\label{sec:org2974bb5}
 Before we delve into code, there are a few issues we need to cover. Everyone's system is different and everyone has their own groove. Getting your first "hello world" program to compile and load correctly can sometimes be a trick. Rest assured, after you get over the initial hurdle of doing it for the first time, it will be smooth sailing thereafter.
 
 \begin{itemize}
 \item Modversioning
-\label{sec:orga4f7ff6}
+\label{sec:org8b8ad4e}
 
 A module compiled for one kernel won't load if you boot a different kernel unless you enable CONFIG\_MODVERSIONS in the kernel. We won't go into module versioning until later in this guide. Until we cover modversions, the examples in the guide may not work if you're running a kernel with modversioning turned on. However, most stock Linux distro kernels come with it turned on. If you're having trouble loading the modules because of versioning errors, compile a kernel with modversioning turned off.
 
 \item Using X
-\label{sec:org23041b8}
+\label{sec:org6ec0035}
 
 It is highly recommended that you type in, compile and load all the examples this guide discusses. It's also highly recommended you do this from a console. You should not be working on this stuff in X.
 
@@ -126,7 +126,7 @@ Modules can't print to the screen like printf() can, but they can log informatio
 \end{itemize}
 
 \section*{Headers}
-\label{sec:org6cbbd59}
+\label{sec:org5ace9f7}
 Before you can build anything you'll need to install the header files for your kernel. On Parabola GNU/Linux:
 
 \begin{verbatim}
@@ -146,7 +146,7 @@ This will tell you what kernel header files are available. Then for example:
 sudo apt-get install kmod linux-headers-4.12.12-1-amd64
 \end{verbatim}
 \section*{Examples}
-\label{sec:org04c21f8}
+\label{sec:org232ac6c}
 All the examples from this document are available within the \emph{examples} subdirectory. To test that they compile:
 
 \begin{verbatim}
@@ -156,9 +156,9 @@ make
 
 If there are any compile errors then you might have a more recent kernel version or need to install the corresponding kernel header files.
 \section*{Hello World}
-\label{sec:org2131b25}
+\label{sec:org545f9cf}
 \subsection*{The Simplest Module}
-\label{sec:orge30d9f0}
+\label{sec:org7a6199f}
 Most people learning programming start out with some sort of "\emph{hello world}" example. I don't know what happens to people who break with this tradition, but I think it's safer not to find out. We'll start with a series of hello world programs that demonstrate the different aspects of the basics of writing a kernel module.
 
 Here's the simplest module possible.
@@ -181,7 +181,7 @@ Paste this into you favourite editor and save it as \textbf{hello-1.c}:
 
 int init_module(void)
 {
-    printk(KERN_INFO "Hello world 1.\n");
+    pr_info("Hello world 1.\n");
 
     /*
      * A non 0 return means init_module failed; module can't be loaded.
@@ -191,7 +191,7 @@ int init_module(void)
 
 void cleanup_module(void)
 {
-    printk(KERN_INFO "Goodbye world 1.\n");
+    pr_info("Goodbye world 1.\n");
 }
 \end{verbatim}
 
@@ -256,23 +256,19 @@ start and end functions of a module, and you'll learn how to do this in Section 
 
 Typically, init\_module() either registers a handler for something with the kernel, or it replaces one of the kernel functions with its own code (usually code to do something and then call the original function). The cleanup\_module() function is supposed to undo whatever init\_module() did, so the module can be unloaded safely.
 
-Lastly, every kernel module needs to include linux/module.h. We needed to include \textbf{linux/kernel.h} only for the macro expansion for the printk() log level, KERN\_ALERT, which you'll learn about in Section 2.1.1.
+Lastly, every kernel module needs to include linux/module.h. We needed to include \textbf{linux/kernel.h} only for the macro expansion for the pr\_alert() log level, which you'll learn about in Section 2.1.1.
 
 \begin{itemize}
 \item A point about coding style
-\label{sec:org4c7150b}
+\label{sec:org7a5f2a4}
 Another thing which may not be immediately obvious to anyone getting started with kernel programming is that indentation within your code should be using \textbf{tabs} and \textbf{not spaces}. It's one of the coding conventions of the kernel. You may not like it, but you'll need to get used to it if you ever submit a patch upstream.
-\item Introducing printk()
-\label{sec:org3149a8d}
+\item Introducing print functions
+\label{sec:orgdb7fdf0}
 
-Despite what you might think, \textbf{printk()} was not meant to communicate information to the user, even though we used it for exactly this purpose in hello-1! It happens to be a logging mechanism for the kernel, and is used to log information or give warnings. Therefore, each printk() statement comes with a priority, which is the <1> and KERN\_ALERT you see. There are 8 priorities and the kernel has macros for them, so you don't have to use cryptic numbers, and you can view them (and their meanings) in \textbf{linux/kernel.h}. If you don't specify a priority level, the default priority, DEFAULT\_MESSAGE\_LOGLEVEL, will be used.
-
-Take time to read through the priority macros. The header file also describes what each priority means. In practise, don't use number, like <4>. Always use the macro, like KERN\_WARNING.
-
-If the priority is less than int console\_loglevel, the message is printed on your current terminal. If both syslogd and klogd are running, then the message will also get appended to the systemd journal, whether it got printed to the console or not. We use a high priority, like KERN\_ALERT, to make sure the printk() messages get printed to your console rather than just logged to the journal. When you write real modules, you'll want to use priorities that are meaningful for the situation at hand.
+In the beginning there was \textbf{printk}, usually followed by a priority such as KERN\_INFO or KERN\_DEBUG. More recently this can also be expressed in abbreviated form using a set of print macros, such as \textbf{pr\_info} and \textbf{pr\_debug}. This just saves some mindless keyboard bashing and looks a bit neater. They can be found within \textbf{linux/printk.h}. Take time to read through the available priority macros.
 
 \item About Compiling
-\label{sec:orgda8afad}
+\label{sec:orgd2240f7}
 
 Kernel modules need to be compiled a bit differently from regular userspace apps. Former kernel versions required us to care much about these settings, which are usually stored in Makefiles. Although hierarchically organized, many redundant settings accumulated in sublevel Makefiles and made them large and rather difficult to maintain. Fortunately, there is a new way of doing these things, called kbuild, and the build process for external loadable modules is now fully integrated into the standard kernel build mechanism. To learn more on how to compile modules which are not part of the official kernel (such as all the examples you'll find in this guide), see file \textbf{linux/Documentation/kbuild/modules.txt}.
 
@@ -284,7 +280,7 @@ Here's another exercise for the reader. See that comment above the return statem
 \end{itemize}
 
 \subsection*{Hello and Goodbye}
-\label{sec:org3b1e4c2}
+\label{sec:org6293f83}
 In early kernel versions you had to use the \textbf{init\_module} and \textbf{cleanup\_module} functions, as in the first hello world example, but these days you can name those anything you want by using the \textbf{module\_init} and \textbf{module\_exit} macros. These macros are defined in \textbf{linux/init.h}. The only requirement is that your init and cleanup functions must be defined before calling the those macros, otherwise you'll get compilation errors. Here's an example of this technique:
 
 \begin{verbatim}
@@ -298,13 +294,13 @@ In early kernel versions you had to use the \textbf{init\_module} and \textbf{cl
 
 static int __init hello_2_init(void)
 {
-    printk(KERN_INFO "Hello, world 2\n");
+    pr_info("Hello, world 2\n");
     return 0;
 }
 
 static void __exit hello_2_exit(void)
 {
-    printk(KERN_INFO "Goodbye, world 2\n");
+    pr_info("Goodbye, world 2\n");
 }
 
 module_init(hello_2_init);
@@ -327,7 +323,7 @@ clean:
 Now have a look at linux/drivers/char/Makefile for a real world example. As you can see, some things get hardwired into the kernel (obj-y) but where are all those obj-m gone? Those familiar with shell scripts will easily be able to spot them. For those not, the obj-\$(CONFIG\_FOO) entries you see everywhere expand into obj-y or obj-m, depending on whether the CONFIG\_FOO variable has been set to y or m. While we are at it, those were exactly the kind of variables that you have set in the linux/.config file, the last time when you said make menuconfig or something like that.
 
 \subsection*{The \_\_init and \_\_exit Macros}
-\label{sec:org58f4b45}
+\label{sec:org8292f2e}
 This demonstrates a feature of kernel 2.2 and later. Notice the change in the definitions of the init and cleanup functions. The \textbf{\_\_init} macro causes the init function to be discarded and its memory freed once the init function finishes for built-in drivers, but not loadable modules. If you think about when the init function is invoked, this makes perfect sense.
 
 There is also an \textbf{\_\_initdata} which works similarly to \textbf{\_\_init} but for init variables rather than functions.
@@ -348,13 +344,13 @@ static int hello3_data __initdata = 3;
 
 static int __init hello_3_init(void)
 {
-    printk(KERN_INFO "Hello, world %d\n", hello3_data);
+    pr_info("Hello, world %d\n", hello3_data);
     return 0;
 }
 
 static void __exit hello_3_exit(void)
 {
-    printk(KERN_INFO "Goodbye, world 3\n");
+    pr_info("Goodbye, world 3\n");
 }
 
 module_init(hello_3_init);
@@ -362,7 +358,7 @@ module_exit(hello_3_exit);
 \end{verbatim}
 
 \subsection*{Licensing and Module Documentation}
-\label{sec:org93a13b0}
+\label{sec:orge263a49}
 Honestly, who loads or even cares about proprietary modules? If you do then you might have seen something like this:
 
 \begin{verbatim}
@@ -391,13 +387,13 @@ MODULE_SUPPORTED_DEVICE("testdevice");
 
 static int __init init_hello_4(void)
 {
-        printk(KERN_INFO "Hello, world 4\n");
+        pr_info("Hello, world 4\n");
         return 0;
 }
 
 static void __exit cleanup_hello_4(void)
 {
-        printk(KERN_INFO "Goodbye, world 4\n");
+        pr_info("Goodbye, world 4\n");
 }
 
 module_init(init_hello_4);
@@ -405,7 +401,7 @@ module_exit(cleanup_hello_4);
 \end{verbatim}
 
 \subsection*{Passing Command Line Arguments to a Module}
-\label{sec:orge487c23}
+\label{sec:orgcdde7d4}
 Modules can take command line arguments, but not with the argc/argv you might be used to.
 
 To allow arguments to be passed to your module, declare the variables that will take the values of the command line arguments as global and then use the module\_param() macro, (defined in linux/moduleparam.h) to set the mechanism up. At runtime, insmod will fill the variables with any command line arguments that are given, like ./insmod mymodule.ko myvariable=5. The variable declarations and macros should be placed at the beginning of the module for clarity. The example code should clear up my admittedly lousy explanation.
@@ -483,22 +479,22 @@ MODULE_PARM_DESC(myintArray, "An array of integers");
 static int __init hello_5_init(void)
 {
     int i;
-    printk(KERN_INFO "Hello, world 5\n=============\n");
-    printk(KERN_INFO "myshort is a short integer: %hd\n", myshort);
-    printk(KERN_INFO "myint is an integer: %d\n", myint);
-    printk(KERN_INFO "mylong is a long integer: %ld\n", mylong);
-    printk(KERN_INFO "mystring is a string: %s\n", mystring);
+    pr_info("Hello, world 5\n=============\n");
+    pr_info("myshort is a short integer: %hd\n", myshort);
+    pr_info("myint is an integer: %d\n", myint);
+    pr_info("mylong is a long integer: %ld\n", mylong);
+    pr_info("mystring is a string: %s\n", mystring);
     for (i = 0; i < (sizeof myintArray / sizeof (int)); i++)
     {
-        printk(KERN_INFO "myintArray[%d] = %d\n", i, myintArray[i]);
+        pr_info("myintArray[%d] = %d\n", i, myintArray[i]);
     }
-    printk(KERN_INFO "got %d arguments for myintArray.\n", arr_argc);
+    pr_info("got %d arguments for myintArray.\n", arr_argc);
     return 0;
 }
 
 static void __exit hello_5_exit(void)
 {
-    printk(KERN_INFO "Goodbye, world 5\n");
+    pr_info("Goodbye, world 5\n");
 }
 
 module_init(hello_5_init);
@@ -536,7 +532,7 @@ hello-5.o: invalid argument syntax for mylong: 'h'
 \end{verbatim}
 
 \subsection*{Modules Spanning Multiple Files}
-\label{sec:org26b5aaf}
+\label{sec:orgc05a131}
 Sometimes it makes sense to divide a kernel module between several source files.
 
 Here's an example of such a kernel module.
@@ -551,7 +547,7 @@ Here's an example of such a kernel module.
 
 int init_module(void)
 {
-    printk(KERN_INFO "Hello, world - this is the kernel speaking\n");
+    pr_info("Hello, world - this is the kernel speaking\n");
     return 0;
 }
 \end{verbatim}
@@ -568,7 +564,7 @@ The next file:
 
 void cleanup_module()
 {
-    printk(KERN_INFO "Short is the life of a kernel module\n");
+    pr_info("Short is the life of a kernel module\n");
 }
 \end{verbatim}
 
@@ -593,7 +589,7 @@ clean:
 This is the complete makefile for all the examples we've seen so far. The first five lines are nothing special, but for the last example we'll need two lines. First we invent an object name for our combined module, second we tell make what object files are part of that module.
 
 \subsection*{Building modules for a precompiled kernel}
-\label{sec:org6e1c344}
+\label{sec:orgc6ff93b}
 Obviously, we strongly suggest you to recompile your kernel, so that you can enable a number of useful debugging features, such as forced module unloading (\textbf{MODULE\_FORCE\_UNLOAD}): when this option is enabled, you can force the kernel to unload a module even when it believes it is unsafe, via a \textbf{sudo rmmod -f module} command. This option can save you a lot of time and a number of reboots during the development of a module. If you don't want to recompile your kernel then you should consider running the examples within a test distro on a virtual machine. If you mess anything up then you can easily reboot or restore the VM.
 
 There are a number of cases in which you may want to load your module into a precompiled running kernel, such as the ones shipped with common Linux distributions, or a kernel you have compiled in the past. In certain circumstances you could require to compile and insert a module into a running kernel which you are not allowed to recompile, or on a machine that you prefer not to reboot. If you can't think of a case that will force you to use modules for a precompiled kernel you might want to skip this and treat the rest of this chapter as a big footnote.
@@ -656,9 +652,9 @@ CC      scripts/empty.o
 If you do not desire to actually compile the kernel, you can interrupt the build process (CTRL-C) just after the SPLIT line, because at that time, the files you need will be are ready. Now you can turn back to the directory of your module and compile it: It will be built exactly according your current kernel settings, and it will load into it without any errors.
 
 \section*{Preliminaries}
-\label{sec:orga801139}
+\label{sec:orgd332694}
 \subsection*{How modules begin and end}
-\label{sec:org2a242e1}
+\label{sec:org24d11c6}
 A program usually begins with a \textbf{main()} function, executes a bunch of instructions and terminates upon completion of those instructions. Kernel modules work a bit differently. A module always begin with either the init\_module or the function you specify with module\_init call. This is the entry function for modules; it tells the kernel what functionality the module provides and sets up the kernel to run the module's functions when they're needed. Once it does this, entry function returns and the module does nothing until the kernel wants to do something with the code that the module provides.
 
 All modules end by calling either \textbf{cleanup\_module} or the function you specify with the \textbf{module\_exit} call. This is the exit function for modules; it undoes whatever entry function did. It unregisters the functionality that the entry function registered.
@@ -666,10 +662,10 @@ All modules end by calling either \textbf{cleanup\_module} or the function you s
 Every module must have an entry function and an exit function. Since there's more than one way to specify entry and exit functions, I'll try my best to use the terms `entry function' and `exit function', but if I slip and simply refer to them as init\_module and cleanup\_module, I think you'll know what I mean.
 
 \subsection*{Functions available to modules}
-\label{sec:orgff15335}
+\label{sec:org9698798}
 Programmers use functions they don't define all the time. A prime example of this is \textbf{printf()}. You use these library functions which are provided by the standard C library, libc. The definitions for these functions don't actually enter your program until the linking stage, which insures that the code (for printf() for example) is available, and fixes the call instruction to point to that code.
 
-Kernel modules are different here, too. In the hello world example, you might have noticed that we used a function, \textbf{printk()} but didn't include a standard I/O library. That's because modules are object files whose symbols get resolved upon insmod'ing. The definition for the symbols comes from the kernel itself; the only external functions you can use are the ones provided by the kernel. If you're curious about what symbols have been exported by your kernel, take a look at \textbf{/proc/kallsyms}.
+Kernel modules are different here, too. In the hello world example, you might have noticed that we used a function, \textbf{pr\_info()} but didn't include a standard I/O library. That's because modules are object files whose symbols get resolved upon insmod'ing. The definition for the symbols comes from the kernel itself; the only external functions you can use are the ones provided by the kernel. If you're curious about what symbols have been exported by your kernel, take a look at \textbf{/proc/kallsyms}.
 
 One point to keep in mind is the difference between library functions and system calls. Library functions are higher level, run completely in user space and provide a more convenient interface for the programmer to the functions that do the real work --- system calls. System calls run in kernel mode on the user's behalf and are provided by the kernel itself. The library function printf() may look like a very general printing function, but all it really does is format the data into strings and write the string data using the low-level system call write(), which then sends the data to standard output.
 
@@ -690,13 +686,13 @@ with \textbf{gcc -Wall -o hello hello.c}. Run the exectable with \textbf{strace 
 You can even write modules to replace the kernel's system calls, which we'll do shortly. Crackers often make use of this sort of thing for backdoors or trojans, but you can write your own modules to do more benign things, like have the kernel write Tee hee, that tickles! everytime someone tries to delete a file on your system.
 
 \subsection*{User Space vs Kernel Space}
-\label{sec:orgb8f82e2}
+\label{sec:org2f4a045}
 A kernel is all about access to resources, whether the resource in question happens to be a video card, a hard drive or even memory. Programs often compete for the same resource. As I just saved this document, updatedb started updating the locate database. My vim session and updatedb are both using the hard drive concurrently. The kernel needs to keep things orderly, and not give users access to resources whenever they feel like it. To this end, a CPU can run in different modes. Each mode gives a different level of freedom to do what you want on the system. The Intel 80386 architecture had 4 of these modes, which were called rings. Unix uses only two rings; the highest ring (ring 0, also known as `supervisor mode' where everything is allowed to happen) and the lowest ring, which is called `user mode'.
 
 Recall the discussion about library functions vs system calls. Typically, you use a library function in user mode. The library function calls one or more system calls, and these system calls execute on the library function's behalf, but do so in supervisor mode since they are part of the kernel itself. Once the system call completes its task, it returns and execution gets transfered back to user mode.
 
 \subsection*{Name Space}
-\label{sec:org7c32442}
+\label{sec:org0bb71ac}
 When you write a small C program, you use variables which are convenient and make sense to the reader. If, on the other hand, you're writing routines which will be part of a bigger problem, any global variables you have are part of a community of other peoples' global variables; some of the variable names can clash. When a program has lots of global variables which aren't meaningful enough to be distinguished, you get namespace pollution. In large projects, effort must be made to remember reserved names, and to find ways to develop a scheme for naming unique variable names and symbols.
 
 When writing kernel code, even the smallest module will be linked against the entire kernel, so this is definitely an issue. The best way to deal with this is to declare all your variables as static and to use a well-defined prefix for your symbols. By convention, all kernel prefixes are lowercase. If you don't want to declare everything as static, another option is to declare a symbol table and register it with a kernel. We'll get to this later.
@@ -704,7 +700,7 @@ When writing kernel code, even the smallest module will be linked against the en
 The file \textbf{/proc/kallsyms} holds all the symbols that the kernel knows about and which are therefore accessible to your modules since they share the kernel's codespace.
 
 \subsection*{Code space}
-\label{sec:org4053b68}
+\label{sec:org446e2ba}
 Memory management is a very complicated subject and the majority of O'Reilly's "\emph{Understanding The Linux Kernel}" exclusively covers memory management! We're not setting out to be experts on memory managements, but we do need to know a couple of facts to even begin worrying about writing real modules.
 
 If you haven't thought about what a segfault really means, you may be surprised to hear that pointers don't actually point to memory locations. Not real ones, anyway. When a process is created, the kernel sets aside a portion of real physical memory and hands it to the process to use for its executing code, variables, stack, heap and other things which a computer scientist would know about. This memory begins with 0x00000000 and extends up to whatever it needs to be. Since the memory space for any two processes don't overlap, every process that can access a memory address, say 0xbffff978, would be accessing a different location in real physical memory! The processes would be accessing an index named 0xbffff978 which points to some kind of offset into the region of memory set aside for that particular process. For the most part, a process like our Hello, World program can't access the space of another process, although there are ways which we'll talk about later.
@@ -714,12 +710,12 @@ The kernel has its own space of memory as well. Since a module is code which can
 By the way, I would like to point out that the above discussion is true for any operating system which uses a monolithic kernel. This isn't quite the same thing as \emph{"building all your modules into the kernel"}, although the idea is the same. There are things called microkernels which have modules which get their own codespace. The GNU Hurd and the Magenta kernel of Google Fuchsia are two examples of a microkernel.
 
 \subsection*{Device Drivers}
-\label{sec:orgf04d84e}
+\label{sec:orgcd6eb1c}
 One class of module is the device driver, which provides functionality for hardware like a serial port. On unix, each piece of hardware is represented by a file located in /dev named a device file which provides the means to communicate with the hardware. The device driver provides the communication on behalf of a user program. So the es1370.o sound card device driver might connect the /dev/sound device file to the Ensoniq IS1370 sound card. A userspace program like mp3blaster can use /dev/sound without ever knowing what kind of sound card is installed.
 
 \begin{itemize}
 \item Major and Minor Numbers
-\label{sec:orgde6da93}
+\label{sec:orgc207282}
 
 Let's look at some device files. Here are device files which represent the first three partitions on the primary master IDE hard drive:
 
@@ -761,9 +757,9 @@ By now you can look at these two device files and know instantly that they are b
 \end{itemize}
 
 \section*{Character Device drivers}
-\label{sec:org6ab444f}
+\label{sec:org4b66d9f}
 \subsection*{The file\_operations Structure}
-\label{sec:org6bc5416}
+\label{sec:orge3fb708}
 The file\_operations structure is defined in \textbf{/usr/include/linux/fs.h}, and holds pointers to functions defined by the driver that perform various operations on the device. Each field of the structure corresponds to the address of some function defined by the driver to handle a requested operation.
 
 For example, every character driver needs to define a function that reads from the device. The file\_operations structure holds the address of the module's function that performs that operation. Here is what the definition looks like for kernel 3.0:
@@ -830,7 +826,7 @@ The meaning is clear, and you should be aware that any member of the structure w
 An instance of struct file\_operations containing pointers to functions that are used to implement read, write, open, \ldots{} syscalls is commonly named fops.
 
 \subsection*{The file structure}
-\label{sec:org4546790}
+\label{sec:orgd19cd85}
 
 Each device is represented in the kernel by a file structure, which is defined in \textbf{linux/fs.h}. Be aware that a file is a kernel level structure and never appears in a user space program. It's not the same thing as a \textbf{FILE}, which is defined by glibc and would never appear in a kernel space function. Also, its name is a bit misleading; it represents an abstract open `file', not a file on a disk, which is represented by a structure named inode.
 
@@ -839,7 +835,7 @@ An instance of struct file is commonly named filp. You'll also see it refered to
 Go ahead and look at the definition of file. Most of the entries you see, like struct dentry aren't used by device drivers, and you can ignore them. This is because drivers don't fill file directly; they only use structures contained in file which are created elsewhere.
 
 \subsection*{Registering A Device}
-\label{sec:org5dc8503}
+\label{sec:orgbecf310}
 As discussed earlier, char devices are accessed through device files, usually located in /dev. This is by convention. When writing a driver, it's OK to put the device file in your current directory. Just make sure you place it in /dev for a production driver. The major number tells you which driver handles which device file. The minor number is used only by the driver itself to differentiate which device it's operating on, just in case the driver handles more than one device.
 
 Adding a driver to your system means registering it with the kernel. This is synonymous with assigning it a major number during the module's initialization. You do this by using the register\_chrdev function, defined by linux/fs.h.
@@ -855,7 +851,7 @@ Now the question is, how do you get a major number without hijacking one that's 
 If you pass a major number of 0 to register\_chrdev, the return value will be the dynamically allocated major number. The downside is that you can't make a device file in advance, since you don't know what the major number will be. There are a couple of ways to do this. First, the driver itself can print the newly assigned number and we can make the device file by hand. Second, the newly registered device will have an entry in \textbf{/proc/devices}, and we can either make the device file by hand or write a shell script to read the file in and make the device file. The third method is we can have our driver make the the device file using the mknod system call after a successful registration and rm during the call to cleanup\_module.
 
 \subsection*{Unregistering A Device}
-\label{sec:orgd23e5d0}
+\label{sec:org5759cfd}
 We can't allow the kernel module to be rmmod'ed whenever root feels like it. If the device file is opened by a process and then we remove the kernel module, using the file would cause a call to the memory location where the appropriate function (read/write) used to be. If we're lucky, no other code was loaded there, and we'll get an ugly error message. If we're unlucky, another kernel module was loaded into the same location, which means a jump into the middle of another function within the kernel. The results of this would be impossible to predict, but they can't be very positive.
 
 Normally, when you don't want to allow something, you return an error code (a negative number) from the function which is supposed to do it. With cleanup\_module that's impossible because it's a void function. However, there's a counter which keeps track of how many processes are using your module. You can see what it's value is by looking at the 3rd field of \textbf{/proc/modules}. If this number isn't zero, rmmod will fail. Note that you don't have to check the counter from within cleanup\_module because the check will be performed for you by the system call sys\_delete\_module, defined in \textbf{linux/module.c}. You shouldn't use this counter directly, but there are functions defined in \textbf{linux/module.h} which let you increase, decrease and display this counter:
@@ -868,7 +864,7 @@ Normally, when you don't want to allow something, you return an error code (a ne
 It's important to keep the counter accurate; if you ever do lose track of the correct usage count, you'll never be able to unload the module; it's now reboot time, boys and girls. This is bound to happen to you sooner or later during a module's development.
 
 \subsection*{chardev.c}
-\label{sec:org9ea1b0f}
+\label{sec:orgc9a2bf1}
 The next code sample creates a char driver named chardev. You can cat its device file.
 
 \begin{verbatim}
@@ -927,16 +923,16 @@ int init_module(void)
         Major = register_chrdev(0, DEVICE_NAME, &fops);
 
         if (Major < 0) {
-          printk(KERN_ALERT "Registering char device failed with %d\n", Major);
+          pr_alert("Registering char device failed with %d\n", Major);
           return Major;
         }
 
-        printk(KERN_INFO "I was assigned major number %d. To talk to\n", Major);
-        printk(KERN_INFO "the driver, create a dev file with\n");
-        printk(KERN_INFO "'mknod /dev/%s c %d 0'.\n", DEVICE_NAME, Major);
-        printk(KERN_INFO "Try various minor numbers. Try to cat and echo to\n");
-        printk(KERN_INFO "the device file.\n");
-        printk(KERN_INFO "Remove the device file and module when done.\n");
+        pr_info("I was assigned major number %d. To talk to\n", Major);
+        pr_info("the driver, create a dev file with\n");
+        pr_info("'mknod /dev/%s c %d 0'.\n", DEVICE_NAME, Major);
+        pr_info("Try various minor numbers. Try to cat and echo to\n");
+        pr_info("the device file.\n");
+        pr_info("Remove the device file and module when done.\n");
 
         return SUCCESS;
 }
@@ -1043,13 +1039,13 @@ static ssize_t device_write(struct file *filp,
                 size_t len,
                 loff_t * off)
 {
-        printk(KERN_ALERT "Sorry, this operation isn't supported.\n");
+        pr_alert("Sorry, this operation isn't supported.\n");
         return -EINVAL;
 }
 \end{verbatim}
 
 \subsection*{Writing Modules for Multiple Kernel Versions}
-\label{sec:org9f80cf1}
+\label{sec:org4889585}
 The system calls, which are the major interface the kernel shows to the processes, generally stay the same across versions. A new system call may be added, but usually the old ones will behave exactly like they used to. This is necessary for backward compatibility -- a new kernel version is not supposed to break regular processes. In most cases, the device files will also remain the same. On the other hand, the internal interfaces within the kernel can and do change between versions.
 
 The Linux kernel versions are divided between the stable versions (n.\$<\$even number\(>\).m) and the development versions (n.\$<\$odd number\(>\).m). The development versions include all the cool new ideas, including those which will be considered a mistake, or reimplemented, in the next version. As a result, you can't trust the interface to remain the same in those versions (which is why I don't bother to support them in this book, it's too much work and it would become dated too quickly). In the stable versions, on the other hand, we can expect the interface to remain the same regardless of the bug fix version (the m number).
@@ -1061,7 +1057,7 @@ While previous versions of this guide showed how you can write backward compatib
 You might already have noticed that recent kernels look different. In case you haven't they look like 2.6.x.y now. The meaning of the first three items basically stays the same, but a subpatchlevel has been added and will indicate security fixes till the next stable patchlevel is out. So people can choose between a stable tree with security updates and use the latest kernel as developer tree. Search the kernel mailing list archives if you're interested in the full story.
 
 \section*{The /proc File System}
-\label{sec:org2715872}
+\label{sec:org1ae5ad9}
 In Linux, there is an additional mechanism for the kernel and kernel modules to send information to processes --- the \textbf{/proc} file system. Originally designed to allow easy access to information about processes (hence the name), it is now used by every bit of the kernel which has something interesting to report, such as \textbf{/proc/modules} which provides the list of modules and \textbf{/proc/meminfo} which stats memory usage statistics.
 
 The method to use the proc file system is very similar to the one used with device drivers --- a structure is created with all the information needed for the \textbf{/proc} file, including pointers to any handler functions (in our case there is only one, the one called when somebody attempts to read from the \textbf{/proc} file). Then, init\_module registers the structure with the kernel and cleanup\_module unregisters it.
@@ -1101,7 +1097,7 @@ ssize_t procfile_read(struct file *filePointer,char *buffer,
 {
     int ret=0;
     if(strlen(buffer) ==0) {
-        printk(KERN_INFO "procfile read %s\n",filePointer->f_path.dentry->d_name.name);
+        pr_info("procfile read %s\n",filePointer->f_path.dentry->d_name.name);
         ret=copy_to_user(buffer,"HelloWorld!\n",sizeof("HelloWorld!\n"));
         ret=sizeof("HelloWorld!\n");
     }
@@ -1119,23 +1115,23 @@ int init_module()
     Our_Proc_File = proc_create(procfs_name,0644,NULL,&proc_file_fops);
     if(NULL==Our_Proc_File) {
         proc_remove(Our_Proc_File);
-        printk(KERN_ALERT "Error:Could not initialize /proc/%s\n",procfs_name);
+        pr_alert("Error:Could not initialize /proc/%s\n",procfs_name);
         return -ENOMEM;
     }
 
-    printk(KERN_INFO "/proc/%s created\n", procfs_name);
+    pr_info("/proc/%s created\n", procfs_name);
     return 0;
 }
 
 void cleanup_module()
 {
     proc_remove(Our_Proc_File);
-    printk(KERN_INFO "/proc/%s removed\n", procfs_name);
+    pr_info("/proc/%s removed\n", procfs_name);
 }
 \end{verbatim}
 
 \subsection*{Read and Write a /proc File}
-\label{sec:org6285774}
+\label{sec:orga8189bb}
 We have seen a very simple example for a /proc file where we only read the file /proc/helloworld. It's also possible to write in a /proc file. It works the same way as read, a function is called when the /proc file is written. But there is a little difference with read, data comes from user, so you have to import data from user space to kernel space (with copy\_from\_user or get\_user)
 
 The reason for copy\_from\_user or get\_user is that Linux memory (on Intel architecture, it may be different under some other processors) is segmented. This means that a pointer, by itself, does not reference a unique location in memory, only a location in a memory segment, and you need to know which memory segment it is to be able to use it. There is one memory segment for the kernel, and one for each of the processes.
@@ -1183,7 +1179,7 @@ ssize_t procfile_read(struct file *filePointer,char *buffer,
 {
     int ret=0;
     if(strlen(buffer) ==0) {
-        printk(KERN_INFO "procfile read %s\n",filePointer->f_path.dentry->d_name.name);
+        pr_info("procfile read %s\n",filePointer->f_path.dentry->d_name.name);
         ret=copy_to_user(buffer,"HelloWorld!\n",sizeof("HelloWorld!\n"));
         ret=sizeof("HelloWorld!\n");
     }
@@ -1224,11 +1220,11 @@ int init_module()
     Our_Proc_File = proc_create(PROCFS_NAME,0644,NULL,&proc_file_fops);
     if(NULL==Our_Proc_File) {
         proc_remove(Our_Proc_File);
-        printk(KERN_ALERT "Error:Could not initialize /proc/%s\n",PROCFS_NAME);
+        pr_alert("Error:Could not initialize /proc/%s\n",PROCFS_NAME);
         return -ENOMEM;
     }
 
-    printk(KERN_INFO "/proc/%s created\n", PROCFS_NAME);
+    pr_info("/proc/%s created\n", PROCFS_NAME);
     return 0;
 }
 
@@ -1239,12 +1235,12 @@ int init_module()
 void cleanup_module()
 {
     proc_remove(Our_Proc_File);
-    printk(KERN_INFO "/proc/%s removed\n", PROCFS_NAME);
+    pr_info("/proc/%s removed\n", PROCFS_NAME);
 }
 \end{verbatim}
 
 \subsection*{Manage /proc file with standard filesystem}
-\label{sec:org8ad98e4}
+\label{sec:orga86b965}
 We have seen how to read and write a /proc file with the /proc interface. But it's also possible to manage /proc file with inodes. The main concern is to use advanced functions, like permissions.
 
 In Linux, there is a standard mechanism for file system registration. Since every file system has to have its own functions to handle inode and file operations, there is a special structure to hold pointers to all those functions, struct \textbf{inode\_operations}, which includes a pointer to struct file\_operations.
@@ -1281,14 +1277,14 @@ static ssize_t procfs_read(struct file *filp, char *buffer,
     static int finished = 0;
     if(finished)
     {
-        printk(KERN_DEBUG "procfs_read: END\n");
+        pr_debug("procfs_read: END\n");
         finished = 0;
         return 0;
     }
     finished = 1;
     if(copy_to_user(buffer, procfs_buffer, procfs_buffer_size))
         return -EFAULT;
-    printk(KERN_DEBUG "procfs_read: read %lu bytes\n", procfs_buffer_size);
+    pr_debug("procfs_read: read %lu bytes\n", procfs_buffer_size);
     return procfs_buffer_size;
 }
 static ssize_t procfs_write(struct file *file,  const char *buffer,
@@ -1300,7 +1296,7 @@ static ssize_t procfs_write(struct file *file,  const char *buffer,
         procfs_buffer_size = len;
     if(copy_from_user(procfs_buffer, buffer, procfs_buffer_size))
         return -EFAULT;
-    printk(KERN_DEBUG "procfs_write: write %lu bytes\n", procfs_buffer_size);
+    pr_debug("procfs_write: write %lu bytes\n", procfs_buffer_size);
     return procfs_buffer_size;
 }
 int procfs_open(struct inode *inode, struct file *file)
@@ -1327,26 +1323,26 @@ int init_module()
     if(Our_Proc_File == NULL)
     {
         remove_proc_entry(PROCFS_ENTRY_FILENAME, NULL);
-        printk(KERN_DEBUG "Error: Could not initialize /proc/%s\n", PROCFS_ENTRY_FILENAME);
+        pr_debug("Error: Could not initialize /proc/%s\n", PROCFS_ENTRY_FILENAME);
         return -ENOMEM;
     }
     proc_set_size(Our_Proc_File, 80);
     proc_set_user(Our_Proc_File,  GLOBAL_ROOT_UID, GLOBAL_ROOT_GID);
 
-    printk(KERN_DEBUG "/proc/%s created\n", PROCFS_ENTRY_FILENAME);
+    pr_debug("/proc/%s created\n", PROCFS_ENTRY_FILENAME);
     return 0;
 }
 void cleanup_module()
 {
     remove_proc_entry(PROCFS_ENTRY_FILENAME, NULL);
-    printk(KERN_DEBUG "/proc/%s removed\n", PROCFS_ENTRY_FILENAME);
+    pr_debug("/proc/%s removed\n", PROCFS_ENTRY_FILENAME);
 }
 \end{verbatim}
 
 Still hungry for procfs examples? Well, first of all keep in mind, there are rumors around, claiming that procfs is on it's way out, consider using sysfs instead. Second, if you really can't get enough, there's a highly recommendable bonus level for procfs below linux/Documentation/DocBook/ . Use make help in your toplevel kernel directory for instructions about how to convert it into your favourite format. Example: make htmldocs . Consider using this mechanism, in case you want to document something kernel related yourself.
 
 \subsection*{Manage /proc file with seq\_file}
-\label{sec:org72bc5da}
+\label{sec:orgbc0693c}
 As we have seen, writing a /proc file may be quite "complex". So to help
 people writting /proc file, there is an API named seq\_file that helps
 formating a /proc file for output. It's based on sequence, which is composed of 3 functions: start(), next(), and stop(). The seq\_file API starts a sequence when a user read the /proc file.
@@ -1486,7 +1482,7 @@ int init_module(void)
     if(entry == NULL)
     {
         remove_proc_entry(PROC_NAME, NULL);
-        printk(KERN_DEBUG "Error: Could not initialize /proc/%s\n", PROC_NAME);
+        pr_debug("Error: Could not initialize /proc/%s\n", PROC_NAME);
         return -ENOMEM;
     }
 
@@ -1500,7 +1496,7 @@ int init_module(void)
 void cleanup_module(void)
 {
     remove_proc_entry(PROC_NAME, NULL);
-    printk(KERN_DEBUG "/proc/%s removed\n", PROC_NAME);
+    pr_debug("/proc/%s removed\n", PROC_NAME);
 }
 \end{verbatim}
 
@@ -1516,7 +1512,7 @@ If you want more information, you can read this web page:
 You can also read the code of fs/seq\_file.c in the linux kernel.
 
 \section*{sysfs: Interacting with your module}
-\label{sec:org9da94c2}
+\label{sec:org7ffb3bf}
 \emph{sysfs} allows you to interact with the running kernel from userspace by reading or setting variables inside of modules. This can be useful for debugging purposes, or just as an interface for applications or scripts. You can find sysfs directories and files under the \emph{sys} directory on your system.
 
 \begin{verbatim}
@@ -1531,7 +1527,6 @@ An example of a hello world module which includes the creation of a variable acc
  */
 
 #include <linux/module.h>
-#include <linux/printk.h>
 #include <linux/kobject.h>
 #include <linux/sysfs.h>
 #include <linux/init.h>
@@ -1570,7 +1565,7 @@ static int __init mymodule_init (void)
 {
     int error = 0;
 
-    printk(KERN_INFO "mymodule: initialised\n");
+    pr_info("mymodule: initialised\n");
 
     mymodule =
         kobject_create_and_add("mymodule", kernel_kobj);
@@ -1579,7 +1574,7 @@ static int __init mymodule_init (void)
 
     error = sysfs_create_file(mymodule, &myvariable_attribute.attr);
     if (error) {
-        printk(KERN_INFO "failed to create the myvariable file " \
+        pr_info("failed to create the myvariable file " \
                "in /sys/kernel/mymodule\n");
     }
 
@@ -1588,7 +1583,7 @@ static int __init mymodule_init (void)
 
 static void __exit mymodule_exit (void)
 {
-    printk(KERN_INFO "mymodule: Exit success\n");
+    pr_info("mymodule: Exit success\n");
     kobject_put(mymodule);
 }
 
@@ -1629,7 +1624,7 @@ sudo rmmod hello_sysfs
 \end{verbatim}
 
 \section*{Talking To Device Files}
-\label{sec:orgd2585cb}
+\label{sec:orga7da60b}
 Device files are supposed to represent physical devices. Most physical devices are used for output as well as input, so there has to be some mechanism for device drivers in the kernel to get the output to send to the device from processes. This is done by opening the device file for output and writing to it, just like writing to a file. In the following example, this is implemented by device\_write.
 
 This is not always enough. Imagine you had a serial port connected to a modem (even if you have an internal modem, it is still implemented from the CPU's perspective as a serial port connected to a modem, so you don't have to tax your imagination too hard). The natural thing to do would be to use the device file to write things to the modem (either modem commands or data to be sent through the phone line) and read things from the modem (either responses for commands or the data received through the phone line). However, this leaves open the question of what to do when you need to talk to the serial port itself, for example to send the rate at which data is sent and received.
@@ -1681,7 +1676,7 @@ static char *Message_Ptr;
 static int device_open(struct inode *inode, struct file *file)
 {
 #ifdef DEBUG
-        printk(KERN_INFO "device_open(%p)\n", file);
+        pr_info("device_open(%p)\n", file);
 #endif
 
     /*
@@ -1702,7 +1697,7 @@ static int device_open(struct inode *inode, struct file *file)
 static int device_release(struct inode *inode, struct file *file)
 {
 #ifdef DEBUG
-    printk(KERN_INFO "device_release(%p,%p)\n", inode, file);
+    pr_info("device_release(%p,%p)\n", inode, file);
 #endif
 
     /*
@@ -1730,7 +1725,7 @@ static ssize_t device_read(struct file *file,   /* see include/linux/fs.h   */
     int bytes_read = 0;
 
 #ifdef DEBUG
-    printk(KERN_INFO "device_read(%p,%p,%d)\n", file, buffer, length);
+    pr_info("device_read(%p,%p,%d)\n", file, buffer, length);
 #endif
 
     /*
@@ -1758,7 +1753,7 @@ static ssize_t device_read(struct file *file,   /* see include/linux/fs.h   */
 }
 
 #ifdef DEBUG
-    printk(KERN_INFO "Read %d bytes, %d left\n", bytes_read, length);
+    pr_info("Read %d bytes, %d left\n", bytes_read, length);
 #endif
 
     /*
@@ -1779,7 +1774,7 @@ device_write(struct file *file,
     int i;
 
 #ifdef DEBUG
-    printk(KERN_INFO "device_write(%p,%s,%d)", file, buffer, length);
+    pr_info("device_write(%p,%s,%d)", file, buffer, length);
 #endif
 
     for (i = 0; i < length && i < BUF_LEN; i++)
@@ -1891,20 +1886,20 @@ int init_module()
      * Negative values signify an error
      */
     if (ret_val < 0) {
-        printk(KERN_ALERT "%s failed with %d\n",
+        pr_alert("%s failed with %d\n",
                "Sorry, registering the character device ", ret_val);
         return ret_val;
     }
 
-    printk(KERN_INFO "%s The major device number is %d.\n",
+    pr_info("%s The major device number is %d.\n",
            "Registeration is a success", MAJOR_NUM);
-    printk(KERN_INFO "If you want to talk to the device driver,\n");
-    printk(KERN_INFO "you'll have to create a device file. \n");
-    printk(KERN_INFO "We suggest you use:\n");
-    printk(KERN_INFO "mknod %s c %d 0\n", DEVICE_FILE_NAME, MAJOR_NUM);
-    printk(KERN_INFO "The device file name is important, because\n");
-    printk(KERN_INFO "the ioctl program assumes that's the\n");
-    printk(KERN_INFO "file you'll use.\n");
+    pr_info("If you want to talk to the device driver,\n");
+    pr_info("you'll have to create a device file. \n");
+    pr_info("We suggest you use:\n");
+    pr_info("mknod %s c %d 0\n", DEVICE_FILE_NAME, MAJOR_NUM);
+    pr_info("The device file name is important, because\n");
+    pr_info("the ioctl program assumes that's the\n");
+    pr_info("file you'll use.\n");
 
     return 0;
 }
@@ -2098,7 +2093,7 @@ int main()
 \end{verbatim}
 
 \section*{System Calls}
-\label{sec:orgf7bb178}
+\label{sec:org4b7d2b4}
 So far, the only thing we've done was to use well defined kernel mechanisms to register \textbf{/proc} files and device handlers. This is fine if you want to do something the kernel programmers thought you'd want, such as write a device driver. But what if you want to do something unusual, to change the behavior of the system in some way? Then, you're mostly on your own.
 
 If you're not being sensible and using a virtual machine then this is where kernel programming can become hazardous. While writing the example below, I killed the \textbf{open()} system call. This meant I couldn't open any files, I couldn't run any programs, and I couldn't shutdown the system. I had to restart the virtual machine. No important files got anihilated, but if I was doing this on some live mission critical system then that could have been a possible outcome. To ensure you don't lose any files, even within a test environment, please run \textbf{sync} right before you do the \textbf{insmod} and the \textbf{rmmod}.
@@ -2113,7 +2108,7 @@ The location in the kernel a process can jump to is called system\_call. The pro
 
 So, if we want to change the way a certain system call works, what we need to do is to write our own function to implement it (usually by adding a bit of our own code, and then calling the original function) and then change the pointer at sys\_call\_table to point to our function. Because we might be removed later and we don't want to leave the system in an unstable state, it's important for cleanup\_module to restore the table to its original state.
 
-The source code here is an example of such a kernel module. We want to "spy" on a certain user, and to printk() a message whenever that user opens a file. Towards this end, we replace the system call to open a file with our own function, called \textbf{our\_sys\_open}. This function checks the uid (user's id) of the current process, and if it's equal to the uid we spy on, it calls printk() to display the name of the file to be opened. Then, either way, it calls the original open() function with the same parameters, to actually open the file.
+The source code here is an example of such a kernel module. We want to "spy" on a certain user, and to \textbf{pr\_info()} a message whenever that user opens a file. Towards this end, we replace the system call to open a file with our own function, called \textbf{our\_sys\_open}. This function checks the uid (user's id) of the current process, and if it's equal to the uid we spy on, it calls pr\_info() to display the name of the file to be opened. Then, either way, it calls the original open() function with the same parameters, to actually open the file.
 
 The \textbf{init\_module} function replaces the appropriate location in \textbf{sys\_call\_table} and keeps the original pointer in a variable. The cleanup\_module function uses that variable to restore everything back to normal. This approach is dangerous, because of the possibility of two kernel modules changing the same system call. Imagine we have two kernel modules, A and B. A's open system call will be A\_open and B's will be B\_open. Now, when A is inserted into the kernel, the system call is replaced with A\_open, which will call the original sys\_open when it's done. Next, B is inserted into the kernel, which replaces the system call with B\_open, which will call what it thinks is the original system call, A\_open, when it's done.
 
@@ -2196,13 +2191,13 @@ asmlinkage int our_sys_open(const char *filename, int flags, int mode)
     /*
      * Report the file, if relevant
      */
-    printk("Opened file by %d: ", uid);
+    pr_info("Opened file by %d: ", uid);
     do {
         get_user(ch, filename + i);
         i++;
-        printk("%c", ch);
+        pr_info("%c", ch);
     } while (ch != 0);
-    printk("\n");
+    pr_info("\n");
 
     /*
      * Call the original sys_open - otherwise, we lose
@@ -2245,7 +2240,7 @@ static int __init syscall_start(void)
 
     write_cr0(original_cr0);
 
-    printk(KERN_INFO "Spying on UID:%d\n", uid);
+    pr_info("Spying on UID:%d\n", uid);
 
     return 0;
 }
@@ -2260,10 +2255,10 @@ static void __exit syscall_end(void)
      * Return the system call back to normal
      */
     if (sys_call_table[__NR_open] != (unsigned long *)our_sys_open) {
-        printk(KERN_ALERT "Somebody else also played with the ");
-        printk(KERN_ALERT "open system call\n");
-        printk(KERN_ALERT "The system may be left in ");
-        printk(KERN_ALERT "an unstable state.\n");
+        pr_alert("Somebody else also played with the ");
+        pr_alert("open system call\n");
+        pr_alert("The system may be left in ");
+        pr_alert("an unstable state.\n");
     }
 
     write_cr0(original_cr0 & ~0x00010000);
@@ -2280,9 +2275,9 @@ MODULE_LICENSE("GPL");
 \end{verbatim}
 
 \section*{Blocking Processes and threads}
-\label{sec:org4ac5fdd}
+\label{sec:org5958a58}
 \subsection*{Sleep}
-\label{sec:orgc1c8214}
+\label{sec:org8127022}
 What do you do when somebody asks you for something you can't do right away? If you're a human being and you're bothered by a human being, the only thing you can say is: "\emph{Not right now, I'm busy. Go away!}". But if you're a kernel module and you're bothered by a process, you have another possibility. You can put the process to sleep until you can service it. After all, processes are being put to sleep by the kernel and woken up all the time (that's the way multiple processes appear to run on the same time on a single CPU).
 
 This kernel module is an example of this. The file (called \textbf{/proc/sleep}) can only be opened by a single process at a time. If the file is already open, the kernel module calls wait\_event\_interruptible. The easiest way to keep a file open is to open it with:
@@ -2574,13 +2569,13 @@ int init_module()
     if(Our_Proc_File == NULL)
     {
         remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-        printk(KERN_DEBUG "Error: Could not initialize /proc/%s\n", PROC_ENTRY_FILENAME);
+        pr_debug("Error: Could not initialize /proc/%s\n", PROC_ENTRY_FILENAME);
         return -ENOMEM;
     }
     proc_set_size(Our_Proc_File, 80);
     proc_set_user(Our_Proc_File,  GLOBAL_ROOT_UID, GLOBAL_ROOT_GID);
 
-    printk(KERN_INFO "/proc/test created\n");
+    pr_info("/proc/test created\n");
 
     return 0;
 }
@@ -2594,7 +2589,7 @@ int init_module()
 void cleanup_module()
 {
     remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-    printk(KERN_DEBUG "/proc/%s removed\n", PROC_ENTRY_FILENAME);
+    pr_debug("/proc/%s removed\n", PROC_ENTRY_FILENAME);
 }
 \end{verbatim}
 
@@ -2667,7 +2662,7 @@ int main(int argc, char *argv[])
 \end{verbatim}
 
 \subsection*{Completions}
-\label{sec:orgf3cee27}
+\label{sec:org2da569c}
 Sometimes one thing should happen before another within a module having multiple threads. Rather than using \textbf{/proc/sleep} commands the kernel has another way to do this which allows timeouts or interrupts to also happen.
 
 In the following example two threads are started, but one needs to start before another.
@@ -2686,7 +2681,7 @@ static struct {
 
 static int machine_crank_thread(void* arg)
 {
-    printk("Turn the crank\n");
+    pr_info("Turn the crank\n");
 
     complete_all(&machine.crank_comp);
     complete_and_exit(&machine.crank_comp, 0);
@@ -2696,7 +2691,7 @@ static int machine_flywheel_spinup_thread(void* arg)
 {
     wait_for_completion(&machine.crank_comp);
 
-    printk("Flywheel spins up\n");
+    pr_info("Flywheel spins up\n");
 
     complete_all(&machine.flywheel_comp);
     complete_and_exit(&machine.flywheel_comp, 0);
@@ -2707,7 +2702,7 @@ static int completions_init(void)
     struct task_struct* crank_thread;
     struct task_struct* flywheel_thread;
 
-    printk("completions example\n");
+    pr_info("completions example\n");
 
     init_completion(&machine.crank_comp);
     init_completion(&machine.flywheel_comp);
@@ -2741,7 +2736,7 @@ void completions_exit(void)
     wait_for_completion(&machine.crank_comp);
     wait_for_completion(&machine.flywheel_comp);
 
-    printk("completions exit\n");
+    pr_info("completions exit\n");
 }
 
 module_init(completions_init);
@@ -2759,10 +2754,10 @@ So even though \emph{flywheel\_thread} is started first you should notice if you
 There are other variations upon the \emph{wait\_for\_completion} function, which include timeouts or being interrupted, but this basic mechanism is enough for many common situations without adding a lot of complexity.
 
 \section*{Avoiding Collisions and Deadlocks}
-\label{sec:org55c8f2b}
+\label{sec:org674f3ef}
 If processes running on different CPUs or in different threads try to access the same memory then it's possible that strange things can happen or your system can lock up. To avoid this various types of mutual exclusion kernel functions are available. These indicate if a section of code is "locked" or "unlocked" so that simultaneous attempts to run it can't happen.
 \subsection*{Mutex}
-\label{sec:orgac65d2d}
+\label{sec:org4b3b36f}
 You can use kernel mutexes (mutual exclusions) in much the same manner that you might deploy them in userland. This may be all that's needed to avoid collisions in most cases.
 
 \begin{verbatim}
@@ -2777,27 +2772,27 @@ static int example_mutex_init(void)
 {
     int ret;
 
-    printk("example_mutex init\n");
+    pr_info("example_mutex init\n");
 
     ret = mutex_trylock(&mymutex);
     if (ret != 0) {
-        printk("mutex is locked\n");
+        pr_info("mutex is locked\n");
 
         if (mutex_is_locked(&mymutex) == 0)
-            printk("The mutex failed to lock!\n");
+            pr_info("The mutex failed to lock!\n");
 
         mutex_unlock(&mymutex);
-        printk("mutex is unlocked\n");
+        pr_info("mutex is unlocked\n");
     }
     else
-        printk("Failed to lock\n");
+        pr_info("Failed to lock\n");
 
     return 0;
 }
 
 static void example_mutex_exit(void)
 {
-    printk("example_mutex exit\n");
+    pr_info("example_mutex exit\n");
 }
 
 module_init(example_mutex_init);
@@ -2808,7 +2803,7 @@ MODULE_DESCRIPTION("Mutex example");
 MODULE_LICENSE("GPL");
 \end{verbatim}
 \subsection*{Spinlocks}
-\label{sec:org657dad3}
+\label{sec:org6633a5d}
 As the name suggests, spinlocks lock up the CPU that the code is running on, taking 100\% of its resources. Because of this you should only use the spinlock mechanism around code which is likely to take no more than a few milliseconds to run and so won't noticably slow anything down from the user's point of view.
 
 The example here is \emph{"irq safe"} in that if interrupts happen during the lock then they won't be forgotten and will activate when the unlock happens, using the \emph{flags} variable to retain their state.
@@ -2828,7 +2823,7 @@ static void example_spinlock_static(void)
     unsigned long flags;
 
     spin_lock_irqsave(&sl_static, flags);
-    printk("Locked static spinlock\n");
+    pr_info("Locked static spinlock\n");
 
     /* Do something or other safely.
        Because this uses 100% CPU time this
@@ -2836,7 +2831,7 @@ static void example_spinlock_static(void)
        milliseconds to run */
 
     spin_unlock_irqrestore(&sl_static, flags);
-    printk("Unlocked static spinlock\n");
+    pr_info("Unlocked static spinlock\n");
 }
 
 static void example_spinlock_dynamic(void)
@@ -2845,7 +2840,7 @@ static void example_spinlock_dynamic(void)
 
     spin_lock_init(&sl_dynamic);
     spin_lock_irqsave(&sl_dynamic, flags);
-    printk("Locked dynamic spinlock\n");
+    pr_info("Locked dynamic spinlock\n");
 
     /* Do something or other safely.
        Because this uses 100% CPU time this
@@ -2853,12 +2848,12 @@ static void example_spinlock_dynamic(void)
        milliseconds to run */
 
     spin_unlock_irqrestore(&sl_dynamic, flags);
-    printk("Unlocked dynamic spinlock\n");
+    pr_info("Unlocked dynamic spinlock\n");
 }
 
 static int example_spinlock_init(void)
 {
-    printk("example spinlock started\n");
+    pr_info("example spinlock started\n");
 
     example_spinlock_static();
     example_spinlock_dynamic();
@@ -2868,7 +2863,7 @@ static int example_spinlock_init(void)
 
 static void example_spinlock_exit(void)
 {
-    printk("example spinlock exit\n");
+    pr_info("example spinlock exit\n");
 }
 
 module_init(example_spinlock_init);
@@ -2880,7 +2875,7 @@ MODULE_LICENSE("GPL");
 \end{verbatim}
 
 \subsection*{Read and write locks}
-\label{sec:org46f6ba0}
+\label{sec:orgc9614dc}
 Read and write locks are specialised kinds of spinlocks so that you can exclusively read from something or write to something. Like the earlier spinlocks example the one below shows an "irq safe" situation in which if other functions were triggered from irqs which might also read and write to whatever you are concerned with then they wouldn't disrupt the logic. As before it's a good idea to keep anything done within the lock as short as possible so that it doesn't hang up the system and cause users to start revolting against the tyranny of your module.
 
 \begin{verbatim}
@@ -2895,12 +2890,12 @@ static void example_read_lock(void)
     unsigned long flags;
 
     read_lock_irqsave(&myrwlock, flags);
-    printk("Read Locked\n");
+    pr_info("Read Locked\n");
 
     /* Read from something */
 
     read_unlock_irqrestore(&myrwlock, flags);
-    printk("Read Unlocked\n");
+    pr_info("Read Unlocked\n");
 }
 
 static void example_write_lock(void)
@@ -2908,17 +2903,17 @@ static void example_write_lock(void)
     unsigned long flags;
 
     write_lock_irqsave(&myrwlock, flags);
-    printk("Write Locked\n");
+    pr_info("Write Locked\n");
 
     /* Write to something */
 
     write_unlock_irqrestore(&myrwlock, flags);
-    printk("Write Unlocked\n");
+    pr_info("Write Unlocked\n");
 }
 
 static int example_rwlock_init(void)
 {
-    printk("example_rwlock started\n");
+    pr_info("example_rwlock started\n");
 
     example_read_lock();
     example_write_lock();
@@ -2928,7 +2923,7 @@ static int example_rwlock_init(void)
 
 static void example_rwlock_exit(void)
 {
-    printk("example_rwlock exit\n");
+    pr_info("example_rwlock exit\n");
 }
 
 module_init(example_rwlock_init);
@@ -2941,7 +2936,7 @@ MODULE_LICENSE("GPL");
 
 Of course if you know for sure that there are no functions triggered by irqs which could possibly interfere with your logic then you can use the simpler  \emph{read\_lock(\&myrwlock)} and \emph{read\_unlock(\&myrwlock)} or the corresponding write functions.
 \subsection*{Atomic operations}
-\label{sec:orgdeac62e}
+\label{sec:org7851f3c}
 If you're doing simple arithmetic: adding, subtracting or bitwise operations then there's another way in the multi-CPU and multi-hyperthreaded world to stop other parts of the system from messing with your mojo. By using atomic operations you can be confident that your addition, subtraction or bit flip did actually happen and wasn't overwritten by some other shenanigans. An example is shown below.
 
 \begin{verbatim}
@@ -2975,7 +2970,7 @@ static void atomic_add_subtract(void)
     /* add one */
     atomic_inc(&debbie);
 
-    printk("chris: %d, debbie: %d\n",
+    pr_info("chris: %d, debbie: %d\n",
            atomic_read(&chris), atomic_read(&debbie));
 }
 
@@ -2983,26 +2978,26 @@ static void atomic_bitwise(void)
 {
     unsigned long word = 0;
 
-    printk("Bits 0: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info("Bits 0: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     set_bit(3, &word);
     set_bit(5, &word);
-    printk("Bits 1: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info("Bits 1: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     clear_bit(5, &word);
-    printk("Bits 2: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info("Bits 2: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     change_bit(3, &word);
 
-    printk("Bits 3: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info("Bits 3: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
     if (test_and_set_bit(3, &word))
-        printk("wrong\n");
-    printk("Bits 4: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+        pr_info("wrong\n");
+    pr_info("Bits 4: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
 
     word = 255;
-    printk("Bits 5: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
+    pr_info("Bits 5: "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(word));
 }
 
 static int example_atomic_init(void)
 {
-    printk("example_atomic started\n");
+    pr_info("example_atomic started\n");
 
     atomic_add_subtract();
     atomic_bitwise();
@@ -3012,7 +3007,7 @@ static int example_atomic_init(void)
 
 static void example_atomic_exit(void)
 {
-    printk("example_atomic exit\n");
+    pr_info("example_atomic exit\n");
 }
 
 module_init(example_atomic_init);
@@ -3022,10 +3017,10 @@ MODULE_AUTHOR("Bob Mottram");
 MODULE_DESCRIPTION("Atomic operations example");
 MODULE_LICENSE("GPL");
 \end{verbatim}
-\section*{Replacing Printks}
-\label{sec:orge3d646d}
-\subsection*{Replacing printk}
-\label{sec:org58bd2e1}
+\section*{Replacing Print Macros}
+\label{sec:orga34e4de}
+\subsection*{Replacement}
+\label{sec:org8643323}
 In Section 1.2.1.2, I said that X and kernel module programming don't mix. That's true for developing kernel modules, but in actual use, you want to be able to send messages to whichever tty the command to load the module came from.
 
 "tty" is an abbreviation of \emph{teletype}: originally a combination keyboard-printer used to communicate with a Unix system, and today an abstraction for the text stream used for a Unix program, whether it's a physical terminal, an xterm on an X display, a network connection used with ssh, etc.
@@ -3144,7 +3139,7 @@ module_exit(print_string_exit);
 \end{verbatim}
 
 \subsection*{Flashing keyboard LEDs}
-\label{sec:org9df11c5}
+\label{sec:org4f4c710}
 In certain conditions, you may desire a simpler and more direct way to communicate to the external world. Flashing keyboard LEDs can be such a solution: It is an immediate way to attract attention or to display a status condition. Keyboard LEDs are present on every hardware, they are always visible, they do not need any setup, and their use is rather simple and non-intrusive, compared to writing to a tty or a file.
 
 The following source code illustrates a minimal kernel module which, when loaded, starts blinking the keyboard LEDs until it is unloaded.
@@ -3209,19 +3204,19 @@ static int __init kbleds_init(void)
 {
     int i;
 
-    printk(KERN_INFO "kbleds: loading\n");
-    printk(KERN_INFO "kbleds: fgconsole is %x\n", fg_console);
+    pr_info("kbleds: loading\n");
+    pr_info("kbleds: fgconsole is %x\n", fg_console);
     for (i = 0; i < MAX_NR_CONSOLES; i++) {
         if (!vc_cons[i].d)
             break;
-        printk(KERN_INFO "poet_atkm: console[%i/%i] #%i, tty %lx\n", i,
+        pr_info("poet_atkm: console[%i/%i] #%i, tty %lx\n", i,
                MAX_NR_CONSOLES, vc_cons[i].d->vc_num,
                (unsigned long)vc_cons[i].d->port.tty);
     }
-    printk(KERN_INFO "kbleds: finished scanning consoles\n");
+    pr_info("kbleds: finished scanning consoles\n");
 
     my_driver = vc_cons[fg_console].d->port.tty->driver;
-    printk(KERN_INFO "kbleds: tty driver magic %x\n", my_driver->magic);
+    pr_info("kbleds: tty driver magic %x\n", my_driver->magic);
 
     /*
      * Set up the LED blink timer the first time
@@ -3237,7 +3232,7 @@ static int __init kbleds_init(void)
 
 static void __exit kbleds_cleanup(void)
 {
-    printk(KERN_INFO "kbleds: unloading...\n");
+    pr_info("kbleds: unloading...\n");
     del_timer(&my_timer);
     (my_driver->ops->ioctl) (vc_cons[fg_console].d->port.tty,
                              KDSETLED, RESTORE_LEDS);
@@ -3247,16 +3242,16 @@ module_init(kbleds_init);
 module_exit(kbleds_cleanup);
 \end{verbatim}
 
-If none of the examples in this chapter fit your debugging needs there might yet be some other tricks to try. Ever wondered what CONFIG\_LL\_DEBUG in make menuconfig is good for? If you activate that you get low level access to the serial port. While this might not sound very powerful by itself, you can patch kernel/printk.c or any other essential syscall to use printascii, thus makeing it possible to trace virtually everything what your code does over a serial line. If you find yourself porting the kernel to some new and former unsupported architecture this is usually amongst the first things that should be implemented. Logging over a netconsole might also be worth a try.
+If none of the examples in this chapter fit your debugging needs there might yet be some other tricks to try. Ever wondered what CONFIG\_LL\_DEBUG in make menuconfig is good for? If you activate that you get low level access to the serial port. While this might not sound very powerful by itself, you can patch \textbf{kernel/printk.c} or any other essential syscall to use printascii, thus makeing it possible to trace virtually everything what your code does over a serial line. If you find yourself porting the kernel to some new and former unsupported architecture this is usually amongst the first things that should be implemented. Logging over a netconsole might also be worth a try.
 
 While you have seen lots of stuff that can be used to aid debugging here, there are some things to be aware of. Debugging is almost always intrusive. Adding debug code can change the situation enough to make the bug seem to dissappear. Thus you should try to keep debug code to a minimum and make sure it does not show up in production code.
 
 \section*{Scheduling Tasks}
-\label{sec:org74fe4d2}
+\label{sec:org1eb7fc5}
 There are two main ways of running tasks: tasklets and work queues. Tasklets are a quick and easy way of scheduling a single function to be run, for example when triggered from an interrupt, whereas work queues are more complicated but also better suited to running multiple things in a sequence.
 
 \subsection*{Tasklets}
-\label{sec:org53901f9}
+\label{sec:org4bf06a9}
 Here's an example tasklet module. The \emph{tasklet\_fn} function runs for a few seconds and in the mean time execution of the \emph{example\_tasklet\_init} function continues to the exit point.
 
 \begin{verbatim}
@@ -3267,25 +3262,25 @@ Here's an example tasklet module. The \emph{tasklet\_fn} function runs for a few
 
 static void tasklet_fn(unsigned long data)
 {
-    printk("Example tasklet starts\n");
+    pr_info("Example tasklet starts\n");
     mdelay(5000);
-    printk("Example tasklet ends\n");
+    pr_info("Example tasklet ends\n");
 }
 
 DECLARE_TASKLET(mytask, tasklet_fn, 0L);
 
 static int example_tasklet_init(void)
 {
-    printk("tasklet example init\n");
+    pr_info("tasklet example init\n");
     tasklet_schedule(&mytask);
     mdelay(200);
-    printk("Example tasklet init continues...\n");
+    pr_info("Example tasklet init continues...\n");
     return 0;
 }
 
 static void example_tasklet_exit(void)
 {
-    printk("tasklet example exit\n");
+    pr_info("tasklet example exit\n");
     tasklet_kill(&mytask);
 }
 
@@ -3306,7 +3301,7 @@ Example tasklet init continues...
 Example tasklet ends
 \end{verbatim}
 \subsection*{Work queues}
-\label{sec:org462fe92}
+\label{sec:org9c564ed}
 Very often, we have "housekeeping" tasks which have to be done at a certain time, or every so often. If the task is to be done by a process, we do it by putting it in the crontab file. If the task is to be done by a kernel module, we have two possibilities. The first is to put a process in the crontab file which will wake up the module by a system call when necessary, for example by opening a file. This is terribly inefficient, however -- we run a new process off of crontab, read a new executable to memory, and all this just to wake up a kernel module which is in memory anyway.
 
 Instead of doing that, we can create a function that will be called once for every timer interrupt. The way we do this is we create a task, held in a workqueue\_struct structure, which will hold a pointer to the function. Then, we use queue\_delayed\_work to put that task on a task list called my\_workqueue , which is the list of tasks to be executed on the next timer interrupt. Because we want the function to keep on being executed, we need to put it back on my\_workqueue whenever it is called, for the next timer interrupt.
@@ -3433,8 +3428,8 @@ int __init init_module()
 
     if (Our_Proc_File == NULL) {
         remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-        printk(KERN_ALERT "Error: Could not initialize /proc/%s\n",
-               PROC_ENTRY_FILENAME);
+        pr_alert("Error: Could not initialize /proc/%s\n",
+                 PROC_ENTRY_FILENAME);
         return -ENOMEM;
     }
     proc_set_size(Our_Proc_File, 80);
@@ -3447,7 +3442,7 @@ int __init init_module()
     my_workqueue = create_workqueue(MY_WORK_QUEUE_NAME);
     queue_delayed_work(my_workqueue, &Task, 100);
 
-    printk(KERN_INFO "/proc/%s created\n", PROC_ENTRY_FILENAME);
+    pr_info("/proc/%s created\n", PROC_ENTRY_FILENAME);
 
     return 0;
 }
@@ -3461,7 +3456,7 @@ void __exit cleanup_module()
      * Unregister our /proc file
      */
     remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-    printk(KERN_INFO "/proc/%s removed\n", PROC_ENTRY_FILENAME);
+    pr_info("/proc/%s removed\n", PROC_ENTRY_FILENAME);
 
     die = 1;                /* keep intrp_routine from queueing itself */
     cancel_delayed_work(&Task);     /* no "new ones" */
@@ -3481,9 +3476,9 @@ void __exit cleanup_module()
 \end{verbatim}
 
 \section*{Interrupt Handlers}
-\label{sec:org38b56b0}
+\label{sec:org7db40a4}
 \subsection*{Interrupt Handlers}
-\label{sec:orgd0fe6f6}
+\label{sec:org9de11f3}
 Except for the last chapter, everything we did in the kernel so far we've done as a response to a process asking for it, either by dealing with a special file, sending an ioctl(), or issuing a system call. But the job of the kernel isn't just to respond to process requests. Another job, which is every bit as important, is to speak to the hardware connected to the machine.
 
 There are two types of interaction between the CPU and the rest of the computer's hardware. The first type is when the CPU gives orders to the hardware, the other is when the hardware needs to tell the CPU something. The second, called interrupts, is much harder to implement because it has to be dealt with when convenient for the hardware, not the CPU. Hardware devices typically have a very small amount of RAM, and if you don't read their information when available, it is lost.
@@ -3499,7 +3494,7 @@ In practice IRQ handling can be a bit more complex. Hardware is often designed i
 This function receives the IRQ number, the name of the function, flags, a name for /proc/interrupts and a parameter to pass to the interrupt handler. Usually there is a certain number of IRQs available. How many IRQs there are is hardware-dependent. The flags can include SA\_SHIRQ to indicate you're willing to share the IRQ with other interrupt handlers (usually because a number of hardware devices sit on the same IRQ) and SA\_INTERRUPT to indicate this is a fast interrupt. This function will only succeed if there isn't already a handler on this IRQ, or if you're both willing to share.
 
 \subsection*{Detecting button presses}
-\label{sec:orgd7d34e0}
+\label{sec:orgf95d744}
 Many popular single board computers, such as Raspberry Pis or Beagleboards, have a bunch of GPIO pins. Attaching buttons to those and then having a button press do something is a classic case in which you might need to use interrupts so that instead of having the CPU waste time and battery power polling for a change in input state it's better for the input to trigger the CPU to then run a particular handling function.
 
 Here's an example where buttons are connected to GPIO numbers 17 and 18 and an LED is connected to GPIO 4. You can change those numbers to whatever is appropriate for your board.
@@ -3555,13 +3550,13 @@ int init_module()
 {
     int ret = 0;
 
-    printk(KERN_INFO "%s\n", __func__);
+    pr_info("%s\n", __func__);
 
     /* register LED gpios */
     ret = gpio_request_array(leds, ARRAY_SIZE(leds));
 
     if (ret) {
-        printk(KERN_ERR "Unable to request GPIOs for LEDs: %d\n", ret);
+        pr_err("Unable to request GPIOs for LEDs: %d\n", ret);
         return ret;
     }
 
@@ -3569,23 +3564,23 @@ int init_module()
     ret = gpio_request_array(buttons, ARRAY_SIZE(buttons));
 
     if (ret) {
-        printk(KERN_ERR "Unable to request GPIOs for BUTTONs: %d\n", ret);
+        pr_err("Unable to request GPIOs for BUTTONs: %d\n", ret);
         goto fail1;
     }
 
-    printk(KERN_INFO "Current button1 value: %d\n",
+    pr_info("Current button1 value: %d\n",
            gpio_get_value(buttons[0].gpio));
 
     ret = gpio_to_irq(buttons[0].gpio);
 
     if (ret < 0) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail2;
     }
 
     button_irqs[0] = ret;
 
-    printk(KERN_INFO "Successfully requested BUTTON1 IRQ # %d\n",
+    pr_info("Successfully requested BUTTON1 IRQ # %d\n",
            button_irqs[0]);
 
     ret = request_irq(button_irqs[0], button_isr,
@@ -3593,7 +3588,7 @@ int init_module()
                       "gpiomod#button1", NULL);
 
     if (ret) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail2;
     }
 
@@ -3601,13 +3596,13 @@ int init_module()
     ret = gpio_to_irq(buttons[1].gpio);
 
     if (ret < 0) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail2;
     }
 
     button_irqs[1] = ret;
 
-    printk(KERN_INFO "Successfully requested BUTTON2 IRQ # %d\n",
+    pr_info("Successfully requested BUTTON2 IRQ # %d\n",
            button_irqs[1]);
 
     ret = request_irq(button_irqs[1], button_isr,
@@ -3615,7 +3610,7 @@ int init_module()
                       "gpiomod#button2", NULL);
 
     if (ret) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail3;
     }
 
@@ -3638,7 +3633,7 @@ void cleanup_module()
 {
     int i;
 
-    printk(KERN_INFO "%s\n", __func__);
+    pr_info("%s\n", __func__);
 
     /* free irqs */
     free_irq(button_irqs[0], NULL);
@@ -3659,7 +3654,7 @@ MODULE_DESCRIPTION("Handle some GPIO interrupts");
 \end{verbatim}
 
 \subsection*{Bottom Half}
-\label{sec:orgf27534b}
+\label{sec:orgeb70e91}
 Suppose you want to do a bunch of stuff inside of an interrupt routine. A common way to do that without rendering the interrupt unavailable for a significant duration is to combine it with a tasklet. This pushes the bulk of the work off into the scheduler.
 
 The example below modifies the previous example to also run an additional task when an interrupt is triggered.
@@ -3700,10 +3695,10 @@ static struct gpio buttons[] = {
 /* Tasklet containing some non-trivial amount of processing */
 static void bottomhalf_tasklet_fn(unsigned long data)
 {
-    printk("Bottom half tasklet starts\n");
+    pr_info("Bottom half tasklet starts\n");
     /* do something which takes a while */
     mdelay(500);
-    printk("Bottom half tasklet ends\n");
+    pr_info("Bottom half tasklet ends\n");
 }
 
 DECLARE_TASKLET(buttontask, bottomhalf_tasklet_fn, 0L);
@@ -3729,13 +3724,13 @@ int init_module()
 {
     int ret = 0;
 
-    printk(KERN_INFO "%s\n", __func__);
+    pr_info("%s\n", __func__);
 
     /* register LED gpios */
     ret = gpio_request_array(leds, ARRAY_SIZE(leds));
 
     if (ret) {
-        printk(KERN_ERR "Unable to request GPIOs for LEDs: %d\n", ret);
+        pr_err("Unable to request GPIOs for LEDs: %d\n", ret);
         return ret;
     }
 
@@ -3743,23 +3738,23 @@ int init_module()
     ret = gpio_request_array(buttons, ARRAY_SIZE(buttons));
 
     if (ret) {
-        printk(KERN_ERR "Unable to request GPIOs for BUTTONs: %d\n", ret);
+        pr_err("Unable to request GPIOs for BUTTONs: %d\n", ret);
         goto fail1;
     }
 
-    printk(KERN_INFO "Current button1 value: %d\n",
+    pr_info("Current button1 value: %d\n",
            gpio_get_value(buttons[0].gpio));
 
     ret = gpio_to_irq(buttons[0].gpio);
 
     if (ret < 0) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail2;
     }
 
     button_irqs[0] = ret;
 
-    printk(KERN_INFO "Successfully requested BUTTON1 IRQ # %d\n",
+    pr_info("Successfully requested BUTTON1 IRQ # %d\n",
            button_irqs[0]);
 
     ret = request_irq(button_irqs[0], button_isr,
@@ -3767,7 +3762,7 @@ int init_module()
                       "gpiomod#button1", NULL);
 
     if (ret) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail2;
     }
 
@@ -3775,13 +3770,13 @@ int init_module()
     ret = gpio_to_irq(buttons[1].gpio);
 
     if (ret < 0) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail2;
     }
 
     button_irqs[1] = ret;
 
-    printk(KERN_INFO "Successfully requested BUTTON2 IRQ # %d\n",
+    pr_info("Successfully requested BUTTON2 IRQ # %d\n",
            button_irqs[1]);
 
     ret = request_irq(button_irqs[1], button_isr,
@@ -3789,7 +3784,7 @@ int init_module()
                       "gpiomod#button2", NULL);
 
     if (ret) {
-        printk(KERN_ERR "Unable to request IRQ: %d\n", ret);
+        pr_err("Unable to request IRQ: %d\n", ret);
         goto fail3;
     }
 
@@ -3812,7 +3807,7 @@ void cleanup_module()
 {
     int i;
 
-    printk(KERN_INFO "%s\n", __func__);
+    pr_info("%s\n", __func__);
 
     /* free irqs */
     free_irq(button_irqs[0], NULL);
@@ -3832,11 +3827,11 @@ MODULE_AUTHOR("Bob Mottram");
 MODULE_DESCRIPTION("Interrupt with top and bottom half");
 \end{verbatim}
 \section*{Crypto}
-\label{sec:orgb2400fa}
+\label{sec:org9022232}
 At the dawn of the internet everybody trusted everybody completely\ldots{}but that didn't work out so well. When this guide was originally written it was a more innocent era in which almost nobody actually gave a damn about crypto - least of all kernel developers. That's certainly no longer the case now. To handle crypto stuff the kernel has its own API enabling common methods of encryption, decryption and your favourite hash functions.
 
 \subsection*{Hash functions}
-\label{sec:org75a8a08}
+\label{sec:org75ad87a}
 
 Calculating and checking the hashes of things is a common operation. Here is a demonstration of how to calculate a sha256 hash within a kernel module.
 
@@ -3851,11 +3846,11 @@ static void show_hash_result(char * plaintext, char * hash_sha256)
     int i;
     char str[SHA256_LENGTH*2 + 1];
 
-    printk("sha256 test for string: \"%s\"\n", plaintext);
+    pr_info("sha256 test for string: \"%s\"\n", plaintext);
     for (i = 0; i < SHA256_LENGTH ; i++)
         sprintf(&str[i*2],"%02x", (unsigned char)hash_sha256[i]);
     str[i*2] = 0;
-    printk("%s\n", str);
+    pr_info("%s\n", str);
 }
 
 int cryptosha256_init(void)
@@ -3923,7 +3918,7 @@ Finally, remove the test module:
 sudo rmmod cryptosha256
 \end{verbatim}
 \subsection*{Symmetric key encryption}
-\label{sec:org7bd39fe}
+\label{sec:org47c53d7}
 Here is an example of symmetrically encrypting a string using the AES algorithm and a password.
 
 \begin{verbatim}
@@ -3979,7 +3974,7 @@ static int test_skcipher_result(struct skcipher_def * sk, int rc)
             break;
         }
     default:
-        printk("skcipher encrypt returned with %d result %d\n",
+        pr_info("skcipher encrypt returned with %d result %d\n",
             rc, sk->result.err);
         break;
     }
@@ -3999,7 +3994,7 @@ static void test_skcipher_callback(struct crypto_async_request *req, int error)
 
     result->err = error;
     complete(&result->completion);
-    printk("Encryption finished successfully\n");
+    pr_info("Encryption finished successfully\n");
 }
 
 static int test_skcipher_encrypt(char * plaintext, char * password,
@@ -4011,7 +4006,7 @@ static int test_skcipher_encrypt(char * plaintext, char * password,
     if (!sk->tfm) {
         sk->tfm = crypto_alloc_skcipher("cbc-aes-aesni", 0, 0);
         if (IS_ERR(sk->tfm)) {
-            printk("could not allocate skcipher handle\n");
+            pr_info("could not allocate skcipher handle\n");
             return PTR_ERR(sk->tfm);
         }
     }
@@ -4019,7 +4014,7 @@ static int test_skcipher_encrypt(char * plaintext, char * password,
     if (!sk->req) {
         sk->req = skcipher_request_alloc(sk->tfm, GFP_KERNEL);
         if (!sk->req) {
-            printk("could not allocate skcipher request\n");
+            pr_info("could not allocate skcipher request\n");
             ret = -ENOMEM;
             goto out;
         }
@@ -4037,18 +4032,18 @@ static int test_skcipher_encrypt(char * plaintext, char * password,
 
     /* AES 256 with given symmetric key */
     if (crypto_skcipher_setkey(sk->tfm, key, SYMMETRIC_KEY_LENGTH)) {
-        printk("key could not be set\n");
+        pr_info("key could not be set\n");
         ret = -EAGAIN;
         goto out;
     }
-    printk("Symmetric key: %s\n", key);
-    printk("Plaintext: %s\n", plaintext);
+    pr_info("Symmetric key: %s\n", key);
+    pr_info("Plaintext: %s\n", plaintext);
 
     if (!sk->ivdata) {
         /* see https://en.wikipedia.org/wiki/Initialization_vector */
         sk->ivdata = kmalloc(CIPHER_BLOCK_SIZE, GFP_KERNEL);
         if (!sk->ivdata) {
-            printk("could not allocate ivdata\n");
+            pr_info("could not allocate ivdata\n");
             goto out;
         }
         get_random_bytes(sk->ivdata, CIPHER_BLOCK_SIZE);
@@ -4058,7 +4053,7 @@ static int test_skcipher_encrypt(char * plaintext, char * password,
         /* The text to be encrypted */
         sk->scratchpad = kmalloc(CIPHER_BLOCK_SIZE, GFP_KERNEL);
         if (!sk->scratchpad) {
-            printk("could not allocate scratchpad\n");
+            pr_info("could not allocate scratchpad\n");
             goto out;
         }
     }
@@ -4075,7 +4070,7 @@ static int test_skcipher_encrypt(char * plaintext, char * password,
     if (ret)
         goto out;
 
-    printk("Encryption request successful\n");
+    pr_info("Encryption request successful\n");
 
 out:
     return ret;
@@ -4109,7 +4104,7 @@ MODULE_DESCRIPTION("Symmetric key encryption example");
 MODULE_LICENSE("GPL");
 \end{verbatim}
 \section*{Standardising the interfaces: The Device Model}
-\label{sec:orga145abf}
+\label{sec:orga8977be}
 Up to this point we've seen all kinds of modules doing all kinds of things, but there was no consistency in their interfaces with the rest of the kernel. To impose some consistency such that there is at minimum a standardised way to start, suspend and resume a device a device model was added. An example is show below, and you can use this as a template to add your own suspend, resume or other interface functions.
 
 \begin{verbatim}
@@ -4126,8 +4121,8 @@ static int devicemodel_probe(struct platform_device *dev)
 {
     struct devicemodel_data *pd = (struct devicemodel_data *)(dev->dev.platform_data);
 
-    printk("devicemodel probe\n");
-    printk("devicemodel greeting: %s; %d\n", pd->greeting, pd->number);
+    pr_info("devicemodel probe\n");
+    pr_info("devicemodel greeting: %s; %d\n", pd->greeting, pd->number);
 
     /* Your device initialisation code */
 
@@ -4136,7 +4131,7 @@ static int devicemodel_probe(struct platform_device *dev)
 
 static int devicemodel_remove(struct platform_device *dev)
 {
-    printk("devicemodel example removed\n");
+    pr_info("devicemodel example removed\n");
 
     /* Your device removal code */
 
@@ -4145,7 +4140,7 @@ static int devicemodel_remove(struct platform_device *dev)
 
 static int devicemodel_suspend(struct device *dev)
 {
-    printk("devicemodel example suspend\n");
+    pr_info("devicemodel example suspend\n");
 
     /* Your device suspend code */
 
@@ -4154,7 +4149,7 @@ static int devicemodel_suspend(struct device *dev)
 
 static int devicemodel_resume(struct device *dev)
 {
-    printk("devicemodel example resume\n");
+    pr_info("devicemodel example resume\n");
 
     /* Your device resume code */
 
@@ -4185,12 +4180,12 @@ static int devicemodel_init(void)
 {
     int ret;
 
-    printk("devicemodel init\n");
+    pr_info("devicemodel init\n");
 
     ret = platform_driver_register(&devicemodel_driver);
 
     if (ret) {
-        printk(KERN_ERR "Unable to register driver\n");
+        pr_err("Unable to register driver\n");
         return ret;
     }
 
@@ -4199,7 +4194,7 @@ static int devicemodel_init(void)
 
 static void devicemodel_exit(void)
 {
-    printk("devicemodel exit\n");
+    pr_info("devicemodel exit\n");
     platform_driver_unregister(&devicemodel_driver);
 }
 
@@ -4211,9 +4206,9 @@ module_init(devicemodel_init);
 module_exit(devicemodel_exit);
 \end{verbatim}
 \section*{Optimisations}
-\label{sec:org6af73d7}
+\label{sec:org896b047}
 \subsection*{Likely and Unlikely conditions}
-\label{sec:orgae37f0f}
+\label{sec:org880eb6c}
 Sometimes you might want your code to run as quickly as possible, especially if it's handling an interrupt or doing something which might cause noticible latency. If your code contains boolean conditions and if you know that the conditions are almost always likely to evaluate as either \emph{true} or \emph{false}, then you can allow the compiler to optimise for this using the \emph{likely} and \emph{unlikely} macros.
 
 For example, when allocating memory you're almost always expecting this to succeed.
@@ -4229,23 +4224,23 @@ if (unlikely(!bvl)) {
 
 When the \emph{unlikely} macro is used the compiler alters its machine instruction output so that it continues along the false branch and only jumps if the condition is true. That avoids flushing the processor pipeline. The opposite happens if you use the \emph{likely} macro.
 \section*{Common Pitfalls}
-\label{sec:org801366f}
+\label{sec:org0ad4142}
 Before I send you on your way to go out into the world and write kernel modules, there are a few things I need to warn you about. If I fail to warn you and something bad happens, please report the problem to me for a full refund of the amount I was paid for your copy of the book.
 
 \subsection*{Using standard libraries}
-\label{sec:orgba7ad1f}
+\label{sec:orgce14018}
 You can't do that. In a kernel module you can only use kernel functions, which are the functions you can see in /proc/kallsyms.
 
 \subsection*{Disabling interrupts}
-\label{sec:orgf449927}
+\label{sec:org0de34be}
 You might need to do this for a short time and that is OK, but if you don't enable them afterwards, your system will be stuck and you'll have to power it off.
 
 \subsection*{Sticking your head inside a large carnivore}
-\label{sec:orgd243611}
+\label{sec:org9668d5f}
 I probably don't have to warn you about this, but I figured I will anyway, just in case.
 
 \section*{Where To Go From Here?}
-\label{sec:orgcf80b33}
+\label{sec:orgc614651}
 I could easily have squeezed a few more chapters into this book. I could have added a chapter about creating new file systems, or about adding new protocol stacks (as if there's a need for that -- you'd have to dig underground to find a protocol stack not supported by Linux). I could have added explanations of the kernel mechanisms we haven't touched upon, such as bootstrapping or the disk interface.
 
 However, I chose not to. My purpose in writing this book was to provide initiation into the mysteries of kernel module programming and to teach the common techniques for that purpose. For people seriously interested in kernel programming, I recommend \href{https://kernelnewbies.org}{kernelnewbies.org} and the \emph{Documentation} subdirectory within the kernel source code which isn't always easy to understand but can be a starting point for further investigation. Also, as Linus said, the best way to learn the kernel is to read the source code yourself.

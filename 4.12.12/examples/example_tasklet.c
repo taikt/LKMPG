@@ -5,25 +5,25 @@
 
 static void tasklet_fn(unsigned long data)
 {
-    printk("Example tasklet starts\n");
+    pr_info("Example tasklet starts\n");
     mdelay(5000);
-    printk("Example tasklet ends\n");
+    pr_info("Example tasklet ends\n");
 }
 
 DECLARE_TASKLET(mytask, tasklet_fn, 0L);
 
 static int example_tasklet_init(void)
 {
-    printk("tasklet example init\n");
+    pr_info("tasklet example init\n");
     tasklet_schedule(&mytask);
     mdelay(200);
-    printk("Example tasklet init continues...\n");
+    pr_info("Example tasklet init continues...\n");
     return 0;
 }
 
 static void example_tasklet_exit(void)
 {
-    printk("tasklet example exit\n");
+    pr_info("tasklet example exit\n");
     tasklet_kill(&mytask);
 }
 

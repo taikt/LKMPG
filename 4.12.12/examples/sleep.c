@@ -241,13 +241,13 @@ int init_module()
     if(Our_Proc_File == NULL)
     {
         remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-        printk(KERN_DEBUG "Error: Could not initialize /proc/%s\n", PROC_ENTRY_FILENAME);
+        pr_debug("Error: Could not initialize /proc/%s\n", PROC_ENTRY_FILENAME);
         return -ENOMEM;
     }
     proc_set_size(Our_Proc_File, 80);
     proc_set_user(Our_Proc_File,  GLOBAL_ROOT_UID, GLOBAL_ROOT_GID);
 
-    printk(KERN_INFO "/proc/test created\n");
+    pr_info("/proc/test created\n");
 
     return 0;
 }
@@ -261,5 +261,5 @@ int init_module()
 void cleanup_module()
 {
     remove_proc_entry(PROC_ENTRY_FILENAME, NULL);
-    printk(KERN_DEBUG "/proc/%s removed\n", PROC_ENTRY_FILENAME);
+    pr_debug("/proc/%s removed\n", PROC_ENTRY_FILENAME);
 }

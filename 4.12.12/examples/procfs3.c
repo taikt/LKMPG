@@ -21,14 +21,14 @@ static ssize_t procfs_read(struct file *filp, char *buffer,
     static int finished = 0;
     if(finished)
     {
-        printk(KERN_DEBUG "procfs_read: END\n");
+        pr_debug("procfs_read: END\n");
         finished = 0;
         return 0;
     }
     finished = 1;
     if(copy_to_user(buffer, procfs_buffer, procfs_buffer_size))
         return -EFAULT;
-    printk(KERN_DEBUG "procfs_read: read %lu bytes\n", procfs_buffer_size);
+    pr_debug("procfs_read: read %lu bytes\n", procfs_buffer_size);
     return procfs_buffer_size;
 }
 static ssize_t procfs_write(struct file *file,  const char *buffer,
@@ -40,7 +40,7 @@ static ssize_t procfs_write(struct file *file,  const char *buffer,
         procfs_buffer_size = len;
     if(copy_from_user(procfs_buffer, buffer, procfs_buffer_size))
         return -EFAULT;
-    printk(KERN_DEBUG "procfs_write: write %lu bytes\n", procfs_buffer_size);
+    pr_debug("procfs_write: write %lu bytes\n", procfs_buffer_size);
     return procfs_buffer_size;
 }
 int procfs_open(struct inode *inode, struct file *file)
@@ -67,17 +67,17 @@ int init_module()
     if(Our_Proc_File == NULL)
     {
         remove_proc_entry(PROCFS_ENTRY_FILENAME, NULL);
-        printk(KERN_DEBUG "Error: Could not initialize /proc/%s\n", PROCFS_ENTRY_FILENAME);
+        pr_debug("Error: Could not initialize /proc/%s\n", PROCFS_ENTRY_FILENAME);
         return -ENOMEM;
     }
     proc_set_size(Our_Proc_File, 80);
     proc_set_user(Our_Proc_File,  GLOBAL_ROOT_UID, GLOBAL_ROOT_GID);
 
-    printk(KERN_DEBUG "/proc/%s created\n", PROCFS_ENTRY_FILENAME);
+    pr_debug("/proc/%s created\n", PROCFS_ENTRY_FILENAME);
     return 0;
 }
 void cleanup_module()
 {
     remove_proc_entry(PROCFS_ENTRY_FILENAME, NULL);
-    printk(KERN_DEBUG "/proc/%s removed\n", PROCFS_ENTRY_FILENAME);
+    pr_debug("/proc/%s removed\n", PROCFS_ENTRY_FILENAME);
 }

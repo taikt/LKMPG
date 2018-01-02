@@ -3,7 +3,6 @@
  */
 
 #include <linux/module.h>
-#include <linux/printk.h>
 #include <linux/kobject.h>
 #include <linux/sysfs.h>
 #include <linux/init.h>
@@ -42,7 +41,7 @@ static int __init mymodule_init (void)
 {
     int error = 0;
 
-    printk(KERN_INFO "mymodule: initialised\n");
+    pr_info("mymodule: initialised\n");
 
     mymodule =
         kobject_create_and_add("mymodule", kernel_kobj);
@@ -51,8 +50,8 @@ static int __init mymodule_init (void)
 
     error = sysfs_create_file(mymodule, &myvariable_attribute.attr);
     if (error) {
-        printk(KERN_INFO "failed to create the myvariable file " \
-               "in /sys/kernel/mymodule\n");
+        pr_info("failed to create the myvariable file " \
+                "in /sys/kernel/mymodule\n");
     }
 
     return error;
@@ -60,7 +59,7 @@ static int __init mymodule_init (void)
 
 static void __exit mymodule_exit (void)
 {
-    printk(KERN_INFO "mymodule: Exit success\n");
+    pr_info("mymodule: Exit success\n");
     kobject_put(mymodule);
 }
 

@@ -7,5 +7,5 @@
 
 void cleanup_module()
 {
-    printk(KERN_INFO "Short is the life of a kernel module\n");
+    pr_info("Short is the life of a kernel module\n");
 }

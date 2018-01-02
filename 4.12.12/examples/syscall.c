@@ -72,13 +72,13 @@ asmlinkage int our_sys_open(const char *filename, int flags, int mode)
     /*
      * Report the file, if relevant
      */
-    printk("Opened file by %d: ", uid);
+    pr_info("Opened file by %d: ", uid);
     do {
         get_user(ch, filename + i);
         i++;
-        printk("%c", ch);
+        pr_info("%c", ch);
     } while (ch != 0);
-    printk("\n");
+    pr_info("\n");
 
     /*
      * Call the original sys_open - otherwise, we lose
@@ -121,7 +121,7 @@ static int __init syscall_start(void)
 
     write_cr0(original_cr0);
 
-    printk(KERN_INFO "Spying on UID:%d\n", uid);
+    pr_info("Spying on UID:%d\n", uid);
 
     return 0;
 }
@@ -136,10 +136,10 @@ static void __exit syscall_end(void)
      * Return the system call back to normal
      */
     if (sys_call_table[__NR_open] != (unsigned long *)our_sys_open) {
-        printk(KERN_ALERT "Somebody else also played with the ");
-        printk(KERN_ALERT "open system call\n");
-        printk(KERN_ALERT "The system may be left in ");
-        printk(KERN_ALERT "an unstable state.\n");
+        pr_alert("Somebody else also played with the ");
+        pr_alert("open system call\n");
+        pr_alert("The system may be left in ");
+        pr_alert("an unstable state.\n");
     }
 
     write_cr0(original_cr0 & ~0x00010000);

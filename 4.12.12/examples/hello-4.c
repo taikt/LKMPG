@@ -12,13 +12,13 @@ MODULE_SUPPORTED_DEVICE("testdevice");
 
 static int __init init_hello_4(void)
 {
-        printk(KERN_INFO "Hello, world 4\n");
-        return 0;
+    pr_info("Hello, world 4\n");
+    return 0;
 }
 
 static void __exit cleanup_hello_4(void)
 {
-        printk(KERN_INFO "Goodbye, world 4\n");
+    pr_info("Goodbye, world 4\n");
 }
 
 module_init(init_hello_4);
