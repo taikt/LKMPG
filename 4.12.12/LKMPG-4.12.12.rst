@@ -21,105 +21,101 @@
 
    <div id="text-table-of-contents">
 
--  `Introduction <#orgcfc88e3>`__
+-  `Introduction <#org32fcb39>`__
 
-   -  `Authorship <#orgb35992a>`__
-   -  `Versioning and Notes <#org1e701d7>`__
-   -  `Acknowledgements <#orgff412d1>`__
-   -  `What Is A Kernel Module? <#org85e5d05>`__
-   -  `Kernel module package <#org8138753>`__
-   -  `What Modules are in my Kernel? <#org5f1fe9f>`__
-   -  `Do I need to download and compile the kernel? <#orge267f2b>`__
-   -  `Before We Begin <#orge21c8f9>`__
+   -  `Authorship <#org70042fe>`__
+   -  `Versioning and Notes <#org6bc9d50>`__
+   -  `Acknowledgements <#orgaf14f92>`__
+   -  `What Is A Kernel Module? <#orge8302b7>`__
+   -  `Kernel module package <#org018252e>`__
+   -  `What Modules are in my Kernel? <#org86a2fb0>`__
+   -  `Do I need to download and compile the kernel? <#orgab5e696>`__
+   -  `Before We Begin <#org6362ee1>`__
 
--  `Headers <#org020fd9b>`__
--  `Examples <#org3fb7793>`__
--  `Hello World <#org8065caf>`__
+-  `Headers <#orga551762>`__
+-  `Examples <#org9ab6de9>`__
+-  `Hello World <#org2bf67ab>`__
 
-   -  `The Simplest Module <#orgbda9acd>`__
-   -  `Hello and Goodbye <#org761c702>`__
-   -  `The \__init and \__exit Macros <#orgf583ec5>`__
-   -  `Licensing and Module Documentation <#orgcf0f915>`__
-   -  `Passing Command Line Arguments to a Module <#orgc88a626>`__
-   -  `Modules Spanning Multiple Files <#orgcac6115>`__
-   -  `Building modules for a precompiled kernel <#orgd8499f9>`__
+   -  `The Simplest Module <#orgaf987a8>`__
+   -  `Hello and Goodbye <#org8ffa823>`__
+   -  `The \__init and \__exit Macros <#org11cceb2>`__
+   -  `Licensing and Module Documentation <#org34d76ad>`__
+   -  `Passing Command Line Arguments to a Module <#org3605080>`__
+   -  `Modules Spanning Multiple Files <#orga436d2b>`__
+   -  `Building modules for a precompiled kernel <#org1f65f5b>`__
 
--  `Preliminaries <#orgb6633e2>`__
+-  `Preliminaries <#org6957bc4>`__
 
-   -  `How modules begin and end <#org7f4891d>`__
-   -  `Functions available to modules <#org8021b97>`__
-   -  `User Space vs Kernel Space <#org2487a6b>`__
-   -  `Name Space <#orgd5dd329>`__
-   -  `Code space <#org3cb9562>`__
-   -  `Device Drivers <#orgb4dc531>`__
+   -  `How modules begin and end <#org0ed644c>`__
+   -  `Functions available to modules <#org760b84a>`__
+   -  `User Space vs Kernel Space <#orgd704758>`__
+   -  `Name Space <#org361db02>`__
+   -  `Code space <#org3ce918a>`__
+   -  `Device Drivers <#org1b87707>`__
 
--  `Character Device drivers <#org952d427>`__
+-  `Character Device drivers <#org052dca4>`__
 
-   -  `The file_operations Structure <#org1f70982>`__
-   -  `The file structure <#org7c65651>`__
-   -  `Registering A Device <#org88f75aa>`__
-   -  `Unregistering A Device <#org33e8c4e>`__
-   -  `chardev.c <#org4a28a33>`__
-   -  `Writing Modules for Multiple Kernel Versions <#orgbcf1c83>`__
+   -  `The file_operations Structure <#org0989cfb>`__
+   -  `The file structure <#org9d35c9c>`__
+   -  `Registering A Device <#orgc230f23>`__
+   -  `Unregistering A Device <#org45f597a>`__
+   -  `chardev.c <#org729a75c>`__
+   -  `Writing Modules for Multiple Kernel Versions <#org44075a2>`__
 
--  `The /proc File System <#orgf6ba9df>`__
+-  `The /proc File System <#org53ca54d>`__
 
-   -  `Read and Write a /proc File <#org43d4889>`__
-   -  `Manage /proc file with standard filesystem <#org1607657>`__
-   -  `Manage /proc file with seq_file <#org1f457d2>`__
+   -  `Read and Write a /proc File <#orgc55fc6d>`__
+   -  `Manage /proc file with standard filesystem <#orga012908>`__
+   -  `Manage /proc file with seq_file <#org69ee08a>`__
 
--  `sysfs: Interacting with your module <#orgf71ef7e>`__
--  `Talking To Device Files <#org18e4279>`__
--  `System Calls <#org57619bf>`__
--  `Blocking Processes and threads <#org2c54a9a>`__
+-  `sysfs: Interacting with your module <#orgae3eef1>`__
+-  `Talking To Device Files <#orgfeee7e2>`__
+-  `System Calls <#orgc32321d>`__
+-  `Blocking Processes and threads <#org07d7e8d>`__
 
-   -  `Sleep <#org8e98b07>`__
-   -  `Completions <#orgc9f3884>`__
+   -  `Sleep <#org300bd6d>`__
+   -  `Completions <#org35f83b6>`__
 
--  `Avoiding Collisions and Deadlocks <#orgbc36b97>`__
+-  `Avoiding Collisions and Deadlocks <#orgb21233a>`__
 
-   -  `Mutex <#org08abf74>`__
-   -  `Spinlocks <#org8abef7b>`__
-   -  `Read and write locks <#org0a55320>`__
-   -  `Atomic operations <#org2652f4e>`__
+   -  `Mutex <#org17205de>`__
+   -  `Spinlocks <#orgba24119>`__
+   -  `Read and write locks <#org64419a2>`__
+   -  `Atomic operations <#org733e7c8>`__
 
--  `Replacing Print Macros <#orgf928ddc>`__
+-  `Replacing Print Macros <#orgf9cdbb8>`__
 
-   -  `Replacement <#org79d2e43>`__
-   -  `Flashing keyboard LEDs <#org006f60c>`__
+   -  `Replacement <#org5532536>`__
+   -  `Flashing keyboard LEDs <#org7fd3ed8>`__
 
--  `Scheduling Tasks <#orgcab6a64>`__
+-  `Scheduling Tasks <#org69766c1>`__
 
-   -  `Tasklets <#orga758af1>`__
-   -  `Work queues <#org5e7cad8>`__
+   -  `Tasklets <#orgac851dc>`__
+   -  `Work queues <#org726ddfc>`__
 
--  `Interrupt Handlers <#org991944f>`__
+-  `Interrupt Handlers <#orgee935a8>`__
 
-   -  `Interrupt Handlers <#orgdc4fa66>`__
-   -  `Detecting button presses <#org170473f>`__
-   -  `Bottom Half <#org58210bf>`__
+   -  `Interrupt Handlers <#org7540085>`__
+   -  `Detecting button presses <#org0b9ea11>`__
+   -  `Bottom Half <#org9238405>`__
 
--  `Crypto <#org95671c1>`__
+-  `Crypto <#org4bb15e9>`__
 
-   -  `Hash functions <#org5702461>`__
-   -  `Symmetric key encryption <#orgdca7f0b>`__
+   -  `Hash functions <#org493047f>`__
+   -  `Symmetric key encryption <#orgfeffc67>`__
 
--  `Standardising the interfaces: The Device Model <#org7ee71e2>`__
--  `Optimisations <#org6dcd6c8>`__
+-  `Standardising the interfaces: The Device Model <#org928676a>`__
+-  `Optimisations <#org794b483>`__
 
-   -  `Likely and Unlikely conditions <#org9398c78>`__
+   -  `Likely and Unlikely conditions <#org3cf58b1>`__
 
--  `Common Pitfalls <#org7813eb9>`__
+-  `Common Pitfalls <#org054ce97>`__
 
-   -  `Using standard libraries <#orgcbd6cad>`__
-   -  `Disabling interrupts <#orgf96d0f1>`__
-   -  `Sticking your head inside a large carnivore <#orga703bab>`__
+   -  `Using standard libraries <#org2e88bab>`__
+   -  `Disabling interrupts <#org5dbf3ea>`__
+   -  `Sticking your head inside a large carnivore <#org7469865>`__
 
--  `Where To Go From Here? <#orge615b39>`__
-
-.. raw:: html
-
-   </div>
+-  `Where To Go From Here? <#org13b2a09>`__
 
 .. raw:: html
 
@@ -127,14 +123,18 @@
 
 .. raw:: html
 
-   <div id="outline-container-orgcfc88e3" class="outline-2">
+   </div>
+
+.. raw:: html
+
+   <div id="outline-container-org32fcb39" class="outline-2">
 
 .. rubric:: Introduction
-   :name: orgcfc88e3
+   :name: org32fcb39
 
 .. raw:: html
 
-   <div id="text-orgcfc88e3" class="outline-text-2">
+   <div id="text-org32fcb39" class="outline-text-2">
 
 The Linux Kernel Module Programming Guide is a free book; you may
 reproduce and/or modify it under the terms of the Open Software License,
@@ -172,14 +172,14 @@ above.
 
 .. raw:: html
 
-   <div id="outline-container-orgb35992a" class="outline-3">
+   <div id="outline-container-org70042fe" class="outline-3">
 
 .. rubric:: Authorship
-   :name: orgb35992a
+   :name: org70042fe
 
 .. raw:: html
 
-   <div id="text-orgb35992a" class="outline-text-3">
+   <div id="text-org70042fe" class="outline-text-3">
 
 The Linux Kernel Module Programming Guide was originally written for the
 2.2 kernels by Ori Pomerantz. Eventually, Ori no longer had time to
@@ -201,14 +201,14 @@ other chapters.
 
 .. raw:: html
 
-   <div id="outline-container-org1e701d7" class="outline-3">
+   <div id="outline-container-org6bc9d50" class="outline-3">
 
 .. rubric:: Versioning and Notes
-   :name: org1e701d7
+   :name: org6bc9d50
 
 .. raw:: html
 
-   <div id="text-org1e701d7" class="outline-text-3">
+   <div id="text-org6bc9d50" class="outline-text-3">
 
 The Linux kernel is a moving target. There has always been a question
 whether the LKMPG should remove deprecated information or keep it around
@@ -232,14 +232,14 @@ I can't promise anything.
 
 .. raw:: html
 
-   <div id="outline-container-orgff412d1" class="outline-3">
+   <div id="outline-container-orgaf14f92" class="outline-3">
 
 .. rubric:: Acknowledgements
-   :name: orgff412d1
+   :name: orgaf14f92
 
 .. raw:: html
 
-   <div id="text-orgff412d1" class="outline-text-3">
+   <div id="text-orgaf14f92" class="outline-text-3">
 
 The following people have contributed corrections or good suggestions:
 Ignacio Martin, David Porter, Daniele Paolo Scarpazza, Dimo Velev,
@@ -255,14 +255,14 @@ Francois Audeon, Horst Schirmeier, Bob Mottram and Roman Lakeev.
 
 .. raw:: html
 
-   <div id="outline-container-org85e5d05" class="outline-3">
+   <div id="outline-container-orge8302b7" class="outline-3">
 
 .. rubric:: What Is A Kernel Module?
-   :name: org85e5d05
+   :name: orge8302b7
 
 .. raw:: html
 
-   <div id="text-org85e5d05" class="outline-text-3">
+   <div id="text-orge8302b7" class="outline-text-3">
 
 So, you want to write a kernel module. You know C, you've written a few
 normal programs to run as processes, and now you want to get to where
@@ -289,14 +289,14 @@ time we want new functionality.
 
 .. raw:: html
 
-   <div id="outline-container-org8138753" class="outline-3">
+   <div id="outline-container-org018252e" class="outline-3">
 
 .. rubric:: Kernel module package
-   :name: org8138753
+   :name: org018252e
 
 .. raw:: html
 
-   <div id="text-org8138753" class="outline-text-3">
+   <div id="text-org018252e" class="outline-text-3">
 
 Linux distros provide the commands *modprobe*, *insmod* and *depmod*
 within a package.
@@ -339,14 +339,14 @@ On Parabola:
 
 .. raw:: html
 
-   <div id="outline-container-org5f1fe9f" class="outline-3">
+   <div id="outline-container-org86a2fb0" class="outline-3">
 
 .. rubric:: What Modules are in my Kernel?
-   :name: org5f1fe9f
+   :name: org86a2fb0
 
 .. raw:: html
 
-   <div id="text-org5f1fe9f" class="outline-text-3">
+   <div id="text-org86a2fb0" class="outline-text-3">
 
 To discover what modules are already loaded within your current kernel
 use the command **lsmod**.
@@ -403,14 +403,14 @@ particular. To search for the *fat* module:
 
 .. raw:: html
 
-   <div id="outline-container-orge267f2b" class="outline-3">
+   <div id="outline-container-orgab5e696" class="outline-3">
 
 .. rubric:: Do I need to download and compile the kernel?
-   :name: orge267f2b
+   :name: orgab5e696
 
 .. raw:: html
 
-   <div id="text-orge267f2b" class="outline-text-3">
+   <div id="text-orgab5e696" class="outline-text-3">
 
 For the purposes of following this guide you don't necessarily need to
 do that. However, it would be wise to run the examples within a test
@@ -427,14 +427,14 @@ messing up your system.
 
 .. raw:: html
 
-   <div id="outline-container-orge21c8f9" class="outline-3">
+   <div id="outline-container-org6362ee1" class="outline-3">
 
 .. rubric:: Before We Begin
-   :name: orge21c8f9
+   :name: org6362ee1
 
 .. raw:: html
 
-   <div id="text-orge21c8f9" class="outline-text-3">
+   <div id="text-org6362ee1" class="outline-text-3">
 
 Before we delve into code, there are a few issues we need to cover.
 Everyone's system is different and everyone has their own groove.
@@ -448,7 +448,7 @@ thereafter.
    </div>
 
 -  | Modversioning
-   | ::: {#text-org8987615 .outline-text-5} A module compiled for one
+   | ::: {#text-org40a7d83 .outline-text-5} A module compiled for one
      kernel won't load if you boot a different kernel unless you enable
      CONFIG_MODVERSIONS in the kernel. We won't go into module
      versioning until later in this guide. Until we cover modversions,
@@ -461,7 +461,7 @@ thereafter.
    :::
 
 -  | Using X
-   | ::: {#text-org2132e29 .outline-text-5} It is highly recommended
+   | ::: {#text-org25fc457 .outline-text-5} It is highly recommended
      that you type in, compile and load all the examples this guide
      discusses. It's also highly recommended you do this from a console.
      You should not be working on this stuff in X.
@@ -486,14 +486,14 @@ thereafter.
 
 .. raw:: html
 
-   <div id="outline-container-org020fd9b" class="outline-2">
+   <div id="outline-container-orga551762" class="outline-2">
 
 .. rubric:: Headers
-   :name: org020fd9b
+   :name: orga551762
 
 .. raw:: html
 
-   <div id="text-org020fd9b" class="outline-text-2">
+   <div id="text-orga551762" class="outline-text-2">
 
 Before you can build anything you'll need to install the header files
 for your kernel. On Parabola GNU/Linux:
@@ -550,14 +550,14 @@ example:
 
 .. raw:: html
 
-   <div id="outline-container-org3fb7793" class="outline-2">
+   <div id="outline-container-org9ab6de9" class="outline-2">
 
 .. rubric:: Examples
-   :name: org3fb7793
+   :name: org9ab6de9
 
 .. raw:: html
 
-   <div id="text-org3fb7793" class="outline-text-2">
+   <div id="text-org9ab6de9" class="outline-text-2">
 
 All the examples from this document are available within the *examples*
 subdirectory. To test that they compile:
@@ -588,14 +588,14 @@ version or need to install the corresponding kernel header files.
 
 .. raw:: html
 
-   <div id="outline-container-org8065caf" class="outline-2">
+   <div id="outline-container-org2bf67ab" class="outline-2">
 
 .. rubric:: Hello World
-   :name: org8065caf
+   :name: org2bf67ab
 
 .. raw:: html
 
-   <div id="text-org8065caf" class="outline-text-2">
+   <div id="text-org2bf67ab" class="outline-text-2">
 
 .. raw:: html
 
@@ -603,14 +603,14 @@ version or need to install the corresponding kernel header files.
 
 .. raw:: html
 
-   <div id="outline-container-orgbda9acd" class="outline-3">
+   <div id="outline-container-orgaf987a8" class="outline-3">
 
 .. rubric:: The Simplest Module
-   :name: orgbda9acd
+   :name: orgaf987a8
 
 .. raw:: html
 
-   <div id="text-orgbda9acd" class="outline-text-3">
+   <div id="text-orgaf987a8" class="outline-text-3">
 
 Most people learning programming start out with some sort of "*hello
 world*" example. I don't know what happens to people who break with this
@@ -818,7 +818,7 @@ pr_alert() log level, which you'll learn about in Section 2.1.1.
    </div>
 
 -  | A point about coding style
-   | ::: {#text-orga9c315b .outline-text-5} Another thing which may not
+   | ::: {#text-org7647c25 .outline-text-5} Another thing which may not
      be immediately obvious to anyone getting started with kernel
      programming is that indentation within your code should be using
      **tabs** and **not spaces**. It's one of the coding conventions of
@@ -827,8 +827,8 @@ pr_alert() log level, which you'll learn about in Section 2.1.1.
 
    :::
 
--  | Introducing print functions
-   | ::: {#text-org5fc9d61 .outline-text-5} In the beginning there was
+-  | Introducing print macros
+   | ::: {#text-org81205a7 .outline-text-5} In the beginning there was
      **printk**, usually followed by a priority such as KERN_INFO or
      KERN_DEBUG. More recently this can also be expressed in abbreviated
      form using a set of print macros, such as **pr_info** and
@@ -839,7 +839,7 @@ pr_alert() log level, which you'll learn about in Section 2.1.1.
    :::
 
 -  | About Compiling
-   | ::: {#text-org8c070df .outline-text-5} Kernel modules need to be
+   | ::: {#text-orgcf4532f .outline-text-5} Kernel modules need to be
      compiled a bit differently from regular userspace apps. Former
      kernel versions required us to care much about these settings,
      which are usually stored in Makefiles. Although hierarchically
@@ -870,14 +870,14 @@ pr_alert() log level, which you'll learn about in Section 2.1.1.
 
 .. raw:: html
 
-   <div id="outline-container-org761c702" class="outline-3">
+   <div id="outline-container-org8ffa823" class="outline-3">
 
 .. rubric:: Hello and Goodbye
-   :name: org761c702
+   :name: org8ffa823
 
 .. raw:: html
 
-   <div id="text-org761c702" class="outline-text-3">
+   <div id="text-org8ffa823" class="outline-text-3">
 
 In early kernel versions you had to use the **init_module** and
 **cleanup_module** functions, as in the first hello world example, but
@@ -961,14 +961,14 @@ something like that.
 
 .. raw:: html
 
-   <div id="outline-container-orgf583ec5" class="outline-3">
+   <div id="outline-container-org11cceb2" class="outline-3">
 
 .. rubric:: The \__init and \__exit Macros
-   :name: orgf583ec5
+   :name: org11cceb2
 
 .. raw:: html
 
-   <div id="text-orgf583ec5" class="outline-text-3">
+   <div id="text-org11cceb2" class="outline-text-3">
 
 This demonstrates a feature of kernel 2.2 and later. Notice the change
 in the definitions of the init and cleanup functions. The **\__init**
@@ -1033,14 +1033,14 @@ kernel memory: 236k freed, this is precisely what the kernel is freeing.
 
 .. raw:: html
 
-   <div id="outline-container-orgcf0f915" class="outline-3">
+   <div id="outline-container-org34d76ad" class="outline-3">
 
 .. rubric:: Licensing and Module Documentation
-   :name: orgcf0f915
+   :name: org34d76ad
 
 .. raw:: html
 
-   <div id="text-orgcf0f915" class="outline-text-3">
+   <div id="text-org34d76ad" class="outline-text-3">
 
 Honestly, who loads or even cares about proprietary modules? If you do
 then you might have seen something like this:
@@ -1115,14 +1115,14 @@ are illustrated in the below example.
 
 .. raw:: html
 
-   <div id="outline-container-orgc88a626" class="outline-3">
+   <div id="outline-container-org3605080" class="outline-3">
 
 .. rubric:: Passing Command Line Arguments to a Module
-   :name: orgc88a626
+   :name: org3605080
 
 .. raw:: html
 
-   <div id="text-orgc88a626" class="outline-text-3">
+   <div id="text-org3605080" class="outline-text-3">
 
 Modules can take command line arguments, but not with the argc/argv you
 might be used to.
@@ -1315,14 +1315,14 @@ I would recommend playing around with this code:
 
 .. raw:: html
 
-   <div id="outline-container-orgcac6115" class="outline-3">
+   <div id="outline-container-orga436d2b" class="outline-3">
 
 .. rubric:: Modules Spanning Multiple Files
-   :name: orgcac6115
+   :name: orga436d2b
 
 .. raw:: html
 
-   <div id="text-orgcac6115" class="outline-text-3">
+   <div id="text-orga436d2b" class="outline-text-3">
 
 Sometimes it makes sense to divide a kernel module between several
 source files.
@@ -1417,14 +1417,14 @@ second we tell make what object files are part of that module.
 
 .. raw:: html
 
-   <div id="outline-container-orgd8499f9" class="outline-3">
+   <div id="outline-container-org1f65f5b" class="outline-3">
 
 .. rubric:: Building modules for a precompiled kernel
-   :name: orgd8499f9
+   :name: org1f65f5b
 
 .. raw:: html
 
-   <div id="text-orgd8499f9" class="outline-text-3">
+   <div id="text-org1f65f5b" class="outline-text-3">
 
 Obviously, we strongly suggest you to recompile your kernel, so that you
 can enable a number of useful debugging features, such as forced module
@@ -1599,14 +1599,14 @@ any errors.
 
 .. raw:: html
 
-   <div id="outline-container-orgb6633e2" class="outline-2">
+   <div id="outline-container-org6957bc4" class="outline-2">
 
 .. rubric:: Preliminaries
-   :name: orgb6633e2
+   :name: org6957bc4
 
 .. raw:: html
 
-   <div id="text-orgb6633e2" class="outline-text-2">
+   <div id="text-org6957bc4" class="outline-text-2">
 
 .. raw:: html
 
@@ -1614,14 +1614,14 @@ any errors.
 
 .. raw:: html
 
-   <div id="outline-container-org7f4891d" class="outline-3">
+   <div id="outline-container-org0ed644c" class="outline-3">
 
 .. rubric:: How modules begin and end
-   :name: org7f4891d
+   :name: org0ed644c
 
 .. raw:: html
 
-   <div id="text-org7f4891d" class="outline-text-3">
+   <div id="text-org0ed644c" class="outline-text-3">
 
 A program usually begins with a **main()** function, executes a bunch of
 instructions and terminates upon completion of those instructions.
@@ -1654,14 +1654,14 @@ think you'll know what I mean.
 
 .. raw:: html
 
-   <div id="outline-container-org8021b97" class="outline-3">
+   <div id="outline-container-org760b84a" class="outline-3">
 
 .. rubric:: Functions available to modules
-   :name: org8021b97
+   :name: org760b84a
 
 .. raw:: html
 
-   <div id="text-org8021b97" class="outline-text-3">
+   <div id="text-org760b84a" class="outline-text-3">
 
 Programmers use functions they don't define all the time. A prime
 example of this is **printf()**. You use these library functions which
@@ -1741,14 +1741,14 @@ everytime someone tries to delete a file on your system.
 
 .. raw:: html
 
-   <div id="outline-container-org2487a6b" class="outline-3">
+   <div id="outline-container-orgd704758" class="outline-3">
 
 .. rubric:: User Space vs Kernel Space
-   :name: org2487a6b
+   :name: orgd704758
 
 .. raw:: html
 
-   <div id="text-org2487a6b" class="outline-text-3">
+   <div id="text-orgd704758" class="outline-text-3">
 
 A kernel is all about access to resources, whether the resource in
 question happens to be a video card, a hard drive or even memory.
@@ -1780,14 +1780,14 @@ returns and execution gets transfered back to user mode.
 
 .. raw:: html
 
-   <div id="outline-container-orgd5dd329" class="outline-3">
+   <div id="outline-container-org361db02" class="outline-3">
 
 .. rubric:: Name Space
-   :name: orgd5dd329
+   :name: org361db02
 
 .. raw:: html
 
-   <div id="text-orgd5dd329" class="outline-text-3">
+   <div id="text-org361db02" class="outline-text-3">
 
 When you write a small C program, you use variables which are convenient
 and make sense to the reader. If, on the other hand, you're writing
@@ -1821,14 +1821,14 @@ share the kernel's codespace.
 
 .. raw:: html
 
-   <div id="outline-container-org3cb9562" class="outline-3">
+   <div id="outline-container-org3ce918a" class="outline-3">
 
 .. rubric:: Code space
-   :name: org3cb9562
+   :name: org3ce918a
 
 .. raw:: html
 
-   <div id="text-org3cb9562" class="outline-text-3">
+   <div id="text-org3ce918a" class="outline-text-3">
 
 Memory management is a very complicated subject and the majority of
 O'Reilly's "*Understanding The Linux Kernel*" exclusively covers memory
@@ -1876,14 +1876,14 @@ Magenta kernel of Google Fuchsia are two examples of a microkernel.
 
 .. raw:: html
 
-   <div id="outline-container-orgb4dc531" class="outline-3">
+   <div id="outline-container-org1b87707" class="outline-3">
 
 .. rubric:: Device Drivers
-   :name: orgb4dc531
+   :name: org1b87707
 
 .. raw:: html
 
-   <div id="text-orgb4dc531" class="outline-text-3">
+   <div id="text-org1b87707" class="outline-text-3">
 
 One class of module is the device driver, which provides functionality
 for hardware like a serial port. On unix, each piece of hardware is
@@ -1899,7 +1899,7 @@ Ensoniq IS1370 sound card. A userspace program like mp3blaster can use
    </div>
 
 -  | Major and Minor Numbers
-   | ::: {#text-org5036a9c .outline-text-5} Let's look at some device
+   | ::: {#text-orge0103b3 .outline-text-5} Let's look at some device
      files. Here are device files which represent the first three
      partitions on the primary master IDE hard drive:
 
@@ -2028,14 +2028,14 @@ Ensoniq IS1370 sound card. A userspace program like mp3blaster can use
 
 .. raw:: html
 
-   <div id="outline-container-org952d427" class="outline-2">
+   <div id="outline-container-org052dca4" class="outline-2">
 
 .. rubric:: Character Device drivers
-   :name: org952d427
+   :name: org052dca4
 
 .. raw:: html
 
-   <div id="text-org952d427" class="outline-text-2">
+   <div id="text-org052dca4" class="outline-text-2">
 
 .. raw:: html
 
@@ -2043,14 +2043,14 @@ Ensoniq IS1370 sound card. A userspace program like mp3blaster can use
 
 .. raw:: html
 
-   <div id="outline-container-org1f70982" class="outline-3">
+   <div id="outline-container-org0989cfb" class="outline-3">
 
 .. rubric:: The file_operations Structure
-   :name: org1f70982
+   :name: org0989cfb
 
 .. raw:: html
 
-   <div id="text-org1f70982" class="outline-text-3">
+   <div id="text-org0989cfb" class="outline-text-3">
 
 The file_operations structure is defined in **/usr/include/linux/fs.h**,
 and holds pointers to functions defined by the driver that perform
@@ -2172,14 +2172,14 @@ named fops.
 
 .. raw:: html
 
-   <div id="outline-container-org7c65651" class="outline-3">
+   <div id="outline-container-org9d35c9c" class="outline-3">
 
 .. rubric:: The file structure
-   :name: org7c65651
+   :name: org9d35c9c
 
 .. raw:: html
 
-   <div id="text-org7c65651" class="outline-text-3">
+   <div id="text-org9d35c9c" class="outline-text-3">
 
 Each device is represented in the kernel by a file structure, which is
 defined in **linux/fs.h**. Be aware that a file is a kernel level
@@ -2207,14 +2207,14 @@ use structures contained in file which are created elsewhere.
 
 .. raw:: html
 
-   <div id="outline-container-org88f75aa" class="outline-3">
+   <div id="outline-container-orgc230f23" class="outline-3">
 
 .. rubric:: Registering A Device
-   :name: org88f75aa
+   :name: orgc230f23
 
 .. raw:: html
 
-   <div id="text-org88f75aa" class="outline-text-3">
+   <div id="text-orgc230f23" class="outline-text-3">
 
 As discussed earlier, char devices are accessed through device files,
 usually located in /dev. This is by convention. When writing a driver,
@@ -2278,14 +2278,14 @@ call to cleanup_module.
 
 .. raw:: html
 
-   <div id="outline-container-org33e8c4e" class="outline-3">
+   <div id="outline-container-org45f597a" class="outline-3">
 
 .. rubric:: Unregistering A Device
-   :name: org33e8c4e
+   :name: org45f597a
 
 .. raw:: html
 
-   <div id="text-org33e8c4e" class="outline-text-3">
+   <div id="text-org45f597a" class="outline-text-3">
 
 We can't allow the kernel module to be rmmod'ed whenever root feels like
 it. If the device file is opened by a process and then we remove the
@@ -2327,14 +2327,14 @@ sooner or later during a module's development.
 
 .. raw:: html
 
-   <div id="outline-container-org4a28a33" class="outline-3">
+   <div id="outline-container-org729a75c" class="outline-3">
 
 .. rubric:: chardev.c
-   :name: org4a28a33
+   :name: org729a75c
 
 .. raw:: html
 
-   <div id="text-org4a28a33" class="outline-text-3">
+   <div id="text-org729a75c" class="outline-text-3">
 
 The next code sample creates a char driver named chardev. You can cat
 its device file.
@@ -2548,14 +2548,14 @@ acknowledging that we received it.
 
 .. raw:: html
 
-   <div id="outline-container-orgbcf1c83" class="outline-3">
+   <div id="outline-container-org44075a2" class="outline-3">
 
 .. rubric:: Writing Modules for Multiple Kernel Versions
-   :name: orgbcf1c83
+   :name: org44075a2
 
 .. raw:: html
 
-   <div id="text-orgbcf1c83" class="outline-text-3">
+   <div id="text-org44075a2" class="outline-text-3">
 
 The system calls, which are the major interface the kernel shows to the
 processes, generally stay the same across versions. A new system call
@@ -2613,14 +2613,14 @@ archives if you're interested in the full story.
 
 .. raw:: html
 
-   <div id="outline-container-orgf6ba9df" class="outline-2">
+   <div id="outline-container-org53ca54d" class="outline-2">
 
 .. rubric:: The /proc File System
-   :name: orgf6ba9df
+   :name: org53ca54d
 
 .. raw:: html
 
-   <div id="text-orgf6ba9df" class="outline-text-2">
+   <div id="text-org53ca54d" class="outline-text-2">
 
 In Linux, there is an additional mechanism for the kernel and kernel
 modules to send information to processes — the **/proc** file system.
@@ -2751,14 +2751,14 @@ it never returns zero, the read function is called endlessly.
 
 .. raw:: html
 
-   <div id="outline-container-org43d4889" class="outline-3">
+   <div id="outline-container-orgc55fc6d" class="outline-3">
 
 .. rubric:: Read and Write a /proc File
-   :name: org43d4889
+   :name: orgc55fc6d
 
 .. raw:: html
 
-   <div id="text-org43d4889" class="outline-text-3">
+   <div id="text-orgc55fc6d" class="outline-text-3">
 
 We have seen a very simple example for a /proc file where we only read
 the file /proc/helloworld. It's also possible to write in a /proc file.
@@ -2907,14 +2907,14 @@ function because data is already in kernel space.
 
 .. raw:: html
 
-   <div id="outline-container-org1607657" class="outline-3">
+   <div id="outline-container-orga012908" class="outline-3">
 
 .. rubric:: Manage /proc file with standard filesystem
-   :name: org1607657
+   :name: orga012908
 
 .. raw:: html
 
-   <div id="text-org1607657" class="outline-text-3">
+   <div id="text-orga012908" class="outline-text-3">
 
 We have seen how to read and write a /proc file with the /proc
 interface. But it's also possible to manage /proc file with inodes. The
@@ -3065,14 +3065,14 @@ you want to document something kernel related yourself.
 
 .. raw:: html
 
-   <div id="outline-container-org1f457d2" class="outline-3">
+   <div id="outline-container-org69ee08a" class="outline-3">
 
 .. rubric:: Manage /proc file with seq_file
-   :name: org1f457d2
+   :name: org69ee08a
 
 .. raw:: html
 
-   <div id="text-org1f457d2" class="outline-text-3">
+   <div id="text-org69ee08a" class="outline-text-3">
 
 As we have seen, writing a /proc file may be quite "complex". So to help
 people writting /proc file, there is an API named seq_file that helps
@@ -3276,14 +3276,14 @@ You can also read the code of fs/seq_file.c in the linux kernel.
 
 .. raw:: html
 
-   <div id="outline-container-orgf71ef7e" class="outline-2">
+   <div id="outline-container-orgae3eef1" class="outline-2">
 
 .. rubric:: sysfs: Interacting with your module
-   :name: orgf71ef7e
+   :name: orgae3eef1
 
 .. raw:: html
 
-   <div id="text-orgf71ef7e" class="outline-text-2">
+   <div id="text-orgae3eef1" class="outline-text-2">
 
 *sysfs* allows you to interact with the running kernel from userspace by
 reading or setting variables inside of modules. This can be useful for
@@ -3466,14 +3466,14 @@ Finally, remove the test module:
 
 .. raw:: html
 
-   <div id="outline-container-org18e4279" class="outline-2">
+   <div id="outline-container-orgfeee7e2" class="outline-2">
 
 .. rubric:: Talking To Device Files
-   :name: org18e4279
+   :name: orgfeee7e2
 
 .. raw:: html
 
-   <div id="text-org18e4279" class="outline-text-2">
+   <div id="text-orgfeee7e2" class="outline-text-2">
 
 Device files are supposed to represent physical devices. Most physical
 devices are used for output as well as input, so there has to be some
@@ -4011,14 +4011,14 @@ Documentation/ioctl-number.txt.
 
 .. raw:: html
 
-   <div id="outline-container-org57619bf" class="outline-2">
+   <div id="outline-container-orgc32321d" class="outline-2">
 
 .. rubric:: System Calls
-   :name: org57619bf
+   :name: orgc32321d
 
 .. raw:: html
 
-   <div id="text-org57619bf" class="outline-text-2">
+   <div id="text-orgc32321d" class="outline-text-2">
 
 So far, the only thing we've done was to use well defined kernel
 mechanisms to register **/proc** files and device handlers. This is fine
@@ -4307,14 +4307,14 @@ hacker, this would be the first thing he'd try. ;)
 
 .. raw:: html
 
-   <div id="outline-container-org2c54a9a" class="outline-2">
+   <div id="outline-container-org07d7e8d" class="outline-2">
 
 .. rubric:: Blocking Processes and threads
-   :name: org2c54a9a
+   :name: org07d7e8d
 
 .. raw:: html
 
-   <div id="text-org2c54a9a" class="outline-text-2">
+   <div id="text-org07d7e8d" class="outline-text-2">
 
 .. raw:: html
 
@@ -4322,14 +4322,14 @@ hacker, this would be the first thing he'd try. ;)
 
 .. raw:: html
 
-   <div id="outline-container-org8e98b07" class="outline-3">
+   <div id="outline-container-org300bd6d" class="outline-3">
 
 .. rubric:: Sleep
-   :name: org8e98b07
+   :name: org300bd6d
 
 .. raw:: html
 
-   <div id="text-org8e98b07" class="outline-text-3">
+   <div id="text-org300bd6d" class="outline-text-3">
 
 What do you do when somebody asks you for something you can't do right
 away? If you're a human being and you're bothered by a human being, the
@@ -4806,14 +4806,14 @@ a file with **O_NONBLOCK**.
 
 .. raw:: html
 
-   <div id="outline-container-orgc9f3884" class="outline-3">
+   <div id="outline-container-org35f83b6" class="outline-3">
 
 .. rubric:: Completions
-   :name: orgc9f3884
+   :name: org35f83b6
 
 .. raw:: html
 
-   <div id="text-orgc9f3884" class="outline-text-3">
+   <div id="text-org35f83b6" class="outline-text-3">
 
 Sometimes one thing should happen before another within a module having
 multiple threads. Rather than using **/proc/sleep** commands the kernel
@@ -4938,14 +4938,14 @@ enough for many common situations without adding a lot of complexity.
 
 .. raw:: html
 
-   <div id="outline-container-orgbc36b97" class="outline-2">
+   <div id="outline-container-orgb21233a" class="outline-2">
 
 .. rubric:: Avoiding Collisions and Deadlocks
-   :name: orgbc36b97
+   :name: orgb21233a
 
 .. raw:: html
 
-   <div id="text-orgbc36b97" class="outline-text-2">
+   <div id="text-orgb21233a" class="outline-text-2">
 
 If processes running on different CPUs or in different threads try to
 access the same memory then it's possible that strange things can happen
@@ -4960,14 +4960,14 @@ can't happen.
 
 .. raw:: html
 
-   <div id="outline-container-org08abf74" class="outline-3">
+   <div id="outline-container-org17205de" class="outline-3">
 
 .. rubric:: Mutex
-   :name: org08abf74
+   :name: org17205de
 
 .. raw:: html
 
-   <div id="text-org08abf74" class="outline-text-3">
+   <div id="text-org17205de" class="outline-text-3">
 
 You can use kernel mutexes (mutual exclusions) in much the same manner
 that you might deploy them in userland. This may be all that's needed to
@@ -5034,14 +5034,14 @@ avoid collisions in most cases.
 
 .. raw:: html
 
-   <div id="outline-container-org8abef7b" class="outline-3">
+   <div id="outline-container-orgba24119" class="outline-3">
 
 .. rubric:: Spinlocks
-   :name: org8abef7b
+   :name: orgba24119
 
 .. raw:: html
 
-   <div id="text-org8abef7b" class="outline-text-3">
+   <div id="text-orgba24119" class="outline-text-3">
 
 As the name suggests, spinlocks lock up the CPU that the code is running
 on, taking 100% of its resources. Because of this you should only use
@@ -5137,14 +5137,14 @@ happens, using the *flags* variable to retain their state.
 
 .. raw:: html
 
-   <div id="outline-container-org0a55320" class="outline-3">
+   <div id="outline-container-org64419a2" class="outline-3">
 
 .. rubric:: Read and write locks
-   :name: org0a55320
+   :name: org64419a2
 
 .. raw:: html
 
-   <div id="text-org0a55320" class="outline-text-3">
+   <div id="text-org64419a2" class="outline-text-3">
 
 Read and write locks are specialised kinds of spinlocks so that you can
 exclusively read from something or write to something. Like the earlier
@@ -5234,14 +5234,14 @@ corresponding write functions.
 
 .. raw:: html
 
-   <div id="outline-container-org2652f4e" class="outline-3">
+   <div id="outline-container-org733e7c8" class="outline-3">
 
 .. rubric:: Atomic operations
-   :name: org2652f4e
+   :name: org733e7c8
 
 .. raw:: html
 
-   <div id="text-org2652f4e" class="outline-text-3">
+   <div id="text-org733e7c8" class="outline-text-3">
 
 If you're doing simple arithmetic: adding, subtracting or bitwise
 operations then there's another way in the multi-CPU and
@@ -5351,14 +5351,14 @@ overwritten by some other shenanigans. An example is shown below.
 
 .. raw:: html
 
-   <div id="outline-container-orgf928ddc" class="outline-2">
+   <div id="outline-container-orgf9cdbb8" class="outline-2">
 
 .. rubric:: Replacing Print Macros
-   :name: orgf928ddc
+   :name: orgf9cdbb8
 
 .. raw:: html
 
-   <div id="text-orgf928ddc" class="outline-text-2">
+   <div id="text-orgf9cdbb8" class="outline-text-2">
 
 .. raw:: html
 
@@ -5366,14 +5366,14 @@ overwritten by some other shenanigans. An example is shown below.
 
 .. raw:: html
 
-   <div id="outline-container-org79d2e43" class="outline-3">
+   <div id="outline-container-org5532536" class="outline-3">
 
 .. rubric:: Replacement
-   :name: org79d2e43
+   :name: org5532536
 
 .. raw:: html
 
-   <div id="text-org79d2e43" class="outline-text-3">
+   <div id="text-org5532536" class="outline-text-3">
 
 In Section 1.2.1.2, I said that X and kernel module programming don't
 mix. That's true for developing kernel modules, but in actual use, you
@@ -5520,14 +5520,14 @@ which we use to write a string to the tty.
 
 .. raw:: html
 
-   <div id="outline-container-org006f60c" class="outline-3">
+   <div id="outline-container-org7fd3ed8" class="outline-3">
 
 .. rubric:: Flashing keyboard LEDs
-   :name: org006f60c
+   :name: org7fd3ed8
 
 .. raw:: html
 
-   <div id="text-org006f60c" class="outline-text-3">
+   <div id="text-org7fd3ed8" class="outline-text-3">
 
 In certain conditions, you may desire a simpler and more direct way to
 communicate to the external world. Flashing keyboard LEDs can be such a
@@ -5676,14 +5676,14 @@ minimum and make sure it does not show up in production code.
 
 .. raw:: html
 
-   <div id="outline-container-orgcab6a64" class="outline-2">
+   <div id="outline-container-org69766c1" class="outline-2">
 
 .. rubric:: Scheduling Tasks
-   :name: orgcab6a64
+   :name: org69766c1
 
 .. raw:: html
 
-   <div id="text-orgcab6a64" class="outline-text-2">
+   <div id="text-org69766c1" class="outline-text-2">
 
 There are two main ways of running tasks: tasklets and work queues.
 Tasklets are a quick and easy way of scheduling a single function to be
@@ -5697,14 +5697,14 @@ in a sequence.
 
 .. raw:: html
 
-   <div id="outline-container-orga758af1" class="outline-3">
+   <div id="outline-container-orgac851dc" class="outline-3">
 
 .. rubric:: Tasklets
-   :name: orga758af1
+   :name: orgac851dc
 
 .. raw:: html
 
-   <div id="text-orga758af1" class="outline-text-3">
+   <div id="text-orgac851dc" class="outline-text-3">
 
 Here's an example tasklet module. The *tasklet_fn* function runs for a
 few seconds and in the mean time execution of the *example_tasklet_init*
@@ -5783,14 +5783,14 @@ So with this example loaded *dmesg* should show:
 
 .. raw:: html
 
-   <div id="outline-container-org5e7cad8" class="outline-3">
+   <div id="outline-container-org726ddfc" class="outline-3">
 
 .. rubric:: Work queues
-   :name: org5e7cad8
+   :name: org726ddfc
 
 .. raw:: html
 
-   <div id="text-org5e7cad8" class="outline-text-3">
+   <div id="text-org726ddfc" class="outline-text-3">
 
 Very often, we have "housekeeping" tasks which have to be done at a
 certain time, or every so often. If the task is to be done by a process,
@@ -6006,14 +6006,14 @@ will happen. See the code below how this can be done in a safe way.
 
 .. raw:: html
 
-   <div id="outline-container-org991944f" class="outline-2">
+   <div id="outline-container-orgee935a8" class="outline-2">
 
 .. rubric:: Interrupt Handlers
-   :name: org991944f
+   :name: orgee935a8
 
 .. raw:: html
 
-   <div id="text-org991944f" class="outline-text-2">
+   <div id="text-orgee935a8" class="outline-text-2">
 
 .. raw:: html
 
@@ -6021,14 +6021,14 @@ will happen. See the code below how this can be done in a safe way.
 
 .. raw:: html
 
-   <div id="outline-container-orgdc4fa66" class="outline-3">
+   <div id="outline-container-org7540085" class="outline-3">
 
 .. rubric:: Interrupt Handlers
-   :name: orgdc4fa66
+   :name: org7540085
 
 .. raw:: html
 
-   <div id="text-orgdc4fa66" class="outline-text-3">
+   <div id="text-org7540085" class="outline-text-3">
 
 Except for the last chapter, everything we did in the kernel so far
 we've done as a response to a process asking for it, either by dealing
@@ -6104,14 +6104,14 @@ both willing to share.
 
 .. raw:: html
 
-   <div id="outline-container-org170473f" class="outline-3">
+   <div id="outline-container-org0b9ea11" class="outline-3">
 
 .. rubric:: Detecting button presses
-   :name: org170473f
+   :name: org0b9ea11
 
 .. raw:: html
 
-   <div id="text-org170473f" class="outline-text-3">
+   <div id="text-org0b9ea11" class="outline-text-3">
 
 Many popular single board computers, such as Raspberry Pis or
 Beagleboards, have a bunch of GPIO pins. Attaching buttons to those and
@@ -6297,14 +6297,14 @@ whatever is appropriate for your board.
 
 .. raw:: html
 
-   <div id="outline-container-org58210bf" class="outline-3">
+   <div id="outline-container-org9238405" class="outline-3">
 
 .. rubric:: Bottom Half
-   :name: org58210bf
+   :name: org9238405
 
 .. raw:: html
 
-   <div id="text-org58210bf" class="outline-text-3">
+   <div id="text-org9238405" class="outline-text-3">
 
 Suppose you want to do a bunch of stuff inside of an interrupt routine.
 A common way to do that without rendering the interrupt unavailable for
@@ -6504,14 +6504,14 @@ additional task when an interrupt is triggered.
 
 .. raw:: html
 
-   <div id="outline-container-org95671c1" class="outline-2">
+   <div id="outline-container-org4bb15e9" class="outline-2">
 
 .. rubric:: Crypto
-   :name: org95671c1
+   :name: org4bb15e9
 
 .. raw:: html
 
-   <div id="text-org95671c1" class="outline-text-2">
+   <div id="text-org4bb15e9" class="outline-text-2">
 
 At the dawn of the internet everybody trusted everybody completely…but
 that didn't work out so well. When this guide was originally written it
@@ -6527,14 +6527,14 @@ hash functions.
 
 .. raw:: html
 
-   <div id="outline-container-org5702461" class="outline-3">
+   <div id="outline-container-org493047f" class="outline-3">
 
 .. rubric:: Hash functions
-   :name: org5702461
+   :name: org493047f
 
 .. raw:: html
 
-   <div id="text-org5702461" class="outline-text-3">
+   <div id="text-org493047f" class="outline-text-3">
 
 Calculating and checking the hashes of things is a common operation.
 Here is a demonstration of how to calculate a sha256 hash within a
@@ -6657,14 +6657,14 @@ Finally, remove the test module:
 
 .. raw:: html
 
-   <div id="outline-container-orgdca7f0b" class="outline-3">
+   <div id="outline-container-orgfeffc67" class="outline-3">
 
 .. rubric:: Symmetric key encryption
-   :name: orgdca7f0b
+   :name: orgfeffc67
 
 .. raw:: html
 
-   <div id="text-orgdca7f0b" class="outline-text-3">
+   <div id="text-orgfeffc67" class="outline-text-3">
 
 Here is an example of symmetrically encrypting a string using the AES
 algorithm and a password.
@@ -6874,14 +6874,14 @@ algorithm and a password.
 
 .. raw:: html
 
-   <div id="outline-container-org7ee71e2" class="outline-2">
+   <div id="outline-container-org928676a" class="outline-2">
 
 .. rubric:: Standardising the interfaces: The Device Model
-   :name: org7ee71e2
+   :name: org928676a
 
 .. raw:: html
 
-   <div id="text-org7ee71e2" class="outline-text-2">
+   <div id="text-org928676a" class="outline-text-2">
 
 Up to this point we've seen all kinds of modules doing all kinds of
 things, but there was no consistency in their interfaces with the rest
@@ -7007,14 +7007,14 @@ to add your own suspend, resume or other interface functions.
 
 .. raw:: html
 
-   <div id="outline-container-org6dcd6c8" class="outline-2">
+   <div id="outline-container-org794b483" class="outline-2">
 
 .. rubric:: Optimisations
-   :name: org6dcd6c8
+   :name: org794b483
 
 .. raw:: html
 
-   <div id="text-org6dcd6c8" class="outline-text-2">
+   <div id="text-org794b483" class="outline-text-2">
 
 .. raw:: html
 
@@ -7022,14 +7022,14 @@ to add your own suspend, resume or other interface functions.
 
 .. raw:: html
 
-   <div id="outline-container-org9398c78" class="outline-3">
+   <div id="outline-container-org3cf58b1" class="outline-3">
 
 .. rubric:: Likely and Unlikely conditions
-   :name: org9398c78
+   :name: org3cf58b1
 
 .. raw:: html
 
-   <div id="text-org9398c78" class="outline-text-3">
+   <div id="text-org3cf58b1" class="outline-text-3">
 
 Sometimes you might want your code to run as quickly as possible,
 especially if it's handling an interrupt or doing something which might
@@ -7077,14 +7077,14 @@ pipeline. The opposite happens if you use the *likely* macro.
 
 .. raw:: html
 
-   <div id="outline-container-org7813eb9" class="outline-2">
+   <div id="outline-container-org054ce97" class="outline-2">
 
 .. rubric:: Common Pitfalls
-   :name: org7813eb9
+   :name: org054ce97
 
 .. raw:: html
 
-   <div id="text-org7813eb9" class="outline-text-2">
+   <div id="text-org054ce97" class="outline-text-2">
 
 Before I send you on your way to go out into the world and write kernel
 modules, there are a few things I need to warn you about. If I fail to
@@ -7097,14 +7097,14 @@ a full refund of the amount I was paid for your copy of the book.
 
 .. raw:: html
 
-   <div id="outline-container-orgcbd6cad" class="outline-3">
+   <div id="outline-container-org2e88bab" class="outline-3">
 
 .. rubric:: Using standard libraries
-   :name: orgcbd6cad
+   :name: org2e88bab
 
 .. raw:: html
 
-   <div id="text-orgcbd6cad" class="outline-text-3">
+   <div id="text-org2e88bab" class="outline-text-3">
 
 You can't do that. In a kernel module you can only use kernel functions,
 which are the functions you can see in /proc/kallsyms.
@@ -7119,14 +7119,14 @@ which are the functions you can see in /proc/kallsyms.
 
 .. raw:: html
 
-   <div id="outline-container-orgf96d0f1" class="outline-3">
+   <div id="outline-container-org5dbf3ea" class="outline-3">
 
 .. rubric:: Disabling interrupts
-   :name: orgf96d0f1
+   :name: org5dbf3ea
 
 .. raw:: html
 
-   <div id="text-orgf96d0f1" class="outline-text-3">
+   <div id="text-org5dbf3ea" class="outline-text-3">
 
 You might need to do this for a short time and that is OK, but if you
 don't enable them afterwards, your system will be stuck and you'll have
@@ -7142,14 +7142,14 @@ to power it off.
 
 .. raw:: html
 
-   <div id="outline-container-orga703bab" class="outline-3">
+   <div id="outline-container-org7469865" class="outline-3">
 
 .. rubric:: Sticking your head inside a large carnivore
-   :name: orga703bab
+   :name: org7469865
 
 .. raw:: html
 
-   <div id="text-orga703bab" class="outline-text-3">
+   <div id="text-org7469865" class="outline-text-3">
 
 I probably don't have to warn you about this, but I figured I will
 anyway, just in case.
@@ -7168,14 +7168,14 @@ anyway, just in case.
 
 .. raw:: html
 
-   <div id="outline-container-orge615b39" class="outline-2">
+   <div id="outline-container-org13b2a09" class="outline-2">
 
 .. rubric:: Where To Go From Here?
-   :name: orge615b39
+   :name: org13b2a09
 
 .. raw:: html
 
-   <div id="text-orge615b39" class="outline-text-2">
+   <div id="text-org13b2a09" class="outline-text-2">
 
 I could easily have squeezed a few more chapters into this book. I could
 have added a chapter about creating new file systems, or about adding

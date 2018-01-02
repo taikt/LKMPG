@@ -217,7 +217,7 @@ Lastly, every kernel module needs to include linux/module.h. We needed to includ
 
 **** A point about coding style
 Another thing which may not be immediately obvious to anyone getting started with kernel programming is that indentation within your code should be using *tabs* and *not spaces*. It's one of the coding conventions of the kernel. You may not like it, but you'll need to get used to it if you ever submit a patch upstream.
-**** Introducing print functions
+**** Introducing print macros
 
 In the beginning there was *printk*, usually followed by a priority such as KERN_INFO or KERN_DEBUG. More recently this can also be expressed in abbreviated form using a set of print macros, such as *pr_info* and *pr_debug*. This just saves some mindless keyboard bashing and looks a bit neater. They can be found within *linux/printk.h*. Take time to read through the available priority macros.
 
