@@ -5,3 +5,5 @@ This is a project to keep the kernel module programmer's guide reasonably up to 
 The text is in Emacs org-mode format with embedded C code examples, also exported in html format for convenient viewing.
 
 The original guide may be found at http://www.tldp.org/LDP/lkmpg/
+
+Taikt..testing
