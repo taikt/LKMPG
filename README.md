@@ -6,4 +6,5 @@ The text is in Emacs org-mode format with embedded C code examples, also exporte
 
 The original guide may be found at http://www.tldp.org/LDP/lkmpg/
 
-Taikt..testing
+v1.0_test
+v2.0_test
